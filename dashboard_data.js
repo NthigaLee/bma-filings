@@ -1,0 +1,520 @@
+window.BMA_DASHBOARD_DATA = {
+  "companies": [
+    "Arch Reinsurance",
+    "Ascot Bermuda",
+    "Aspen Bermuda",
+    "AXIS Specialty",
+    "Chubb Tempest Reinsurance",
+    "Everest Reinsurance Bermuda",
+    "Hannover Re Bermuda",
+    "Markel Bermuda",
+    "Partner Reinsurance Company",
+    "Renaissance Reinsurance"
+  ],
+  "years": [
+    2023,
+    2024
+  ],
+  "data": {
+    "2024": {
+      "balance_sheet": {
+        "Total Investments": {
+          "Arch Reinsurance": 40476.0,
+          "Ascot Bermuda": 6631.2,
+          "Aspen Bermuda": 1929.0,
+          "AXIS Specialty": 3987.5,
+          "Chubb Tempest Reinsurance": 20982.1,
+          "Everest Reinsurance Bermuda": 9271.8,
+          "Hannover Re Bermuda": -1.5,
+          "Markel Bermuda": 4876.2,
+          "Partner Reinsurance Company": 8703.3,
+          "Renaissance Reinsurance": 7296.8
+        },
+        "Cash and Cash Equivalents": {
+          "Arch Reinsurance": 936.0,
+          "Ascot Bermuda": 533.3,
+          "Aspen Bermuda": 186.9,
+          "AXIS Specialty": 389.5,
+          "Chubb Tempest Reinsurance": 0,
+          "Everest Reinsurance Bermuda": 413.9,
+          "Hannover Re Bermuda": 70.1,
+          "Markel Bermuda": 229.6,
+          "Partner Reinsurance Company": 333.6,
+          "Renaissance Reinsurance": 512.2
+        },
+        "Total Assets": {
+          "Arch Reinsurance": 70734.0,
+          "Ascot Bermuda": 11825.1,
+          "Aspen Bermuda": 5052.9,
+          "AXIS Specialty": 8835.8,
+          "Chubb Tempest Reinsurance": 28607.3,
+          "Everest Reinsurance Bermuda": 17315.0,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 8705.0,
+          "Partner Reinsurance Company": 14090.6,
+          "Renaissance Reinsurance": 17352.8
+        },
+        "Loss Reserves": {
+          "Arch Reinsurance": 29369.0,
+          "Ascot Bermuda": 5906.3,
+          "Aspen Bermuda": 2862.4,
+          "AXIS Specialty": 4356.1,
+          "Chubb Tempest Reinsurance": 0,
+          "Everest Reinsurance Bermuda": 9371.1,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 5275.4,
+          "Renaissance Reinsurance": 8181.8
+        },
+        "Unearned Premiums": {
+          "Arch Reinsurance": 10218.0,
+          "Ascot Bermuda": 2426.3,
+          "Aspen Bermuda": 582.7,
+          "AXIS Specialty": 979.0,
+          "Chubb Tempest Reinsurance": 1481.8,
+          "Everest Reinsurance Bermuda": 2431.2,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 999.1,
+          "Renaissance Reinsurance": 2836.8
+        },
+        "Total Liabilities": {
+          "Arch Reinsurance": 48735.0,
+          "Ascot Bermuda": 9153.5,
+          "Aspen Bermuda": 3930.1,
+          "AXIS Specialty": 5668.1,
+          "Chubb Tempest Reinsurance": 15333.5,
+          "Everest Reinsurance Bermuda": 12991.8,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 6290.7,
+          "Partner Reinsurance Company": 8490.4,
+          "Renaissance Reinsurance": 13227.9
+        },
+        "Total Equity": {
+          "Arch Reinsurance": 21888.0,
+          "Ascot Bermuda": 2671.7,
+          "Aspen Bermuda": 1122.9,
+          "AXIS Specialty": 3167.7,
+          "Chubb Tempest Reinsurance": 13273.7,
+          "Everest Reinsurance Bermuda": 4323.2,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 2414.4,
+          "Partner Reinsurance Company": 5594.3,
+          "Renaissance Reinsurance": 4124.9
+        }
+      },
+      "income_statement": {
+        "Gross Premiums Written": {
+          "Arch Reinsurance": 0,
+          "Ascot Bermuda": 4678.5,
+          "Aspen Bermuda": 1490.9,
+          "AXIS Specialty": 1684.5,
+          "Chubb Tempest Reinsurance": 6639.4,
+          "Everest Reinsurance Bermuda": 0,
+          "Hannover Re Bermuda": 2000.9,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 4697.7,
+          "Renaissance Reinsurance": 4530.0
+        },
+        "Net Premiums Earned": {
+          "Arch Reinsurance": 15100.0,
+          "Ascot Bermuda": 3215.5,
+          "Aspen Bermuda": 990.3,
+          "AXIS Specialty": 1277.8,
+          "Chubb Tempest Reinsurance": 5776.6,
+          "Everest Reinsurance Bermuda": 4079.1,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 4109.1,
+          "Renaissance Reinsurance": 2941.3
+        },
+        "Total Revenues": {
+          "Arch Reinsurance": 17438.0,
+          "Ascot Bermuda": 3632.5,
+          "Aspen Bermuda": 1121.4,
+          "AXIS Specialty": 1477.4,
+          "Chubb Tempest Reinsurance": 7177.7,
+          "Everest Reinsurance Bermuda": 4428.6,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 33.8,
+          "Partner Reinsurance Company": 4577.2,
+          "Renaissance Reinsurance": 3250.0
+        },
+        "Total Expenses": {
+          "Arch Reinsurance": 12793.0,
+          "Ascot Bermuda": 3095.0,
+          "Aspen Bermuda": 898.2,
+          "AXIS Specialty": 1134.8,
+          "Chubb Tempest Reinsurance": 8518.6,
+          "Everest Reinsurance Bermuda": 3520.5,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 1180.8,
+          "Partner Reinsurance Company": 3154.5,
+          "Renaissance Reinsurance": 2302.9
+        },
+        "Net Income": {
+          "Arch Reinsurance": 580.0,
+          "Ascot Bermuda": 463.8,
+          "Aspen Bermuda": 233.5,
+          "AXIS Specialty": 509.7,
+          "Chubb Tempest Reinsurance": 3342.3,
+          "Everest Reinsurance Bermuda": 889.8,
+          "Hannover Re Bermuda": 676.2,
+          "Markel Bermuda": 614.1,
+          "Partner Reinsurance Company": 1395.2,
+          "Renaissance Reinsurance": 948.8
+        }
+      },
+      "cash_flows": {
+        "Investing Cash Flow": {
+          "Arch Reinsurance": 0,
+          "Ascot Bermuda": 0,
+          "Aspen Bermuda": 0,
+          "AXIS Specialty": 0,
+          "Chubb Tempest Reinsurance": 0,
+          "Everest Reinsurance Bermuda": 0,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 0,
+          "Renaissance Reinsurance": 0
+        },
+        "Financing Cash Flow": {
+          "Arch Reinsurance": 0,
+          "Ascot Bermuda": 0,
+          "Aspen Bermuda": 0,
+          "AXIS Specialty": 0,
+          "Chubb Tempest Reinsurance": 0,
+          "Everest Reinsurance Bermuda": 0,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 0,
+          "Renaissance Reinsurance": 0
+        }
+      },
+      "ratios": {
+        "Loss Ratio (%)": {
+          "Arch Reinsurance": 55.2,
+          "Ascot Bermuda": 183.7,
+          "Aspen Bermuda": 289.0,
+          "AXIS Specialty": 340.9,
+          "Chubb Tempest Reinsurance": 147.5,
+          "Everest Reinsurance Bermuda": 229.7,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 128.4,
+          "Renaissance Reinsurance": 278.2
+        },
+        "Expense Ratio (%)": {
+          "Arch Reinsurance": 84.7,
+          "Ascot Bermuda": 96.3,
+          "Aspen Bermuda": 90.7,
+          "AXIS Specialty": 88.8,
+          "Chubb Tempest Reinsurance": 147.5,
+          "Everest Reinsurance Bermuda": 86.3,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 76.8,
+          "Renaissance Reinsurance": 78.3
+        },
+        "Combined Ratio (%)": {
+          "Arch Reinsurance": 140.0,
+          "Ascot Bermuda": 279.9,
+          "Aspen Bermuda": 379.7,
+          "AXIS Specialty": 429.7,
+          "Chubb Tempest Reinsurance": 294.9,
+          "Everest Reinsurance Bermuda": 316.0,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 205.2,
+          "Renaissance Reinsurance": 356.5
+        },
+        "ROE (%)": {
+          "Arch Reinsurance": 2.6,
+          "Ascot Bermuda": 17.4,
+          "Aspen Bermuda": 20.8,
+          "AXIS Specialty": 16.1,
+          "Chubb Tempest Reinsurance": 25.2,
+          "Everest Reinsurance Bermuda": 20.6,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 25.4,
+          "Partner Reinsurance Company": 24.9,
+          "Renaissance Reinsurance": 23.0
+        },
+        "ROA (%)": {
+          "Arch Reinsurance": 0.8,
+          "Ascot Bermuda": 3.9,
+          "Aspen Bermuda": 4.6,
+          "AXIS Specialty": 5.8,
+          "Chubb Tempest Reinsurance": 11.7,
+          "Everest Reinsurance Bermuda": 5.1,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 7.1,
+          "Partner Reinsurance Company": 9.9,
+          "Renaissance Reinsurance": 5.5
+        },
+        "Equity Ratio (%)": {
+          "Arch Reinsurance": 30.9,
+          "Ascot Bermuda": 22.6,
+          "Aspen Bermuda": 22.2,
+          "AXIS Specialty": 35.9,
+          "Chubb Tempest Reinsurance": 46.4,
+          "Everest Reinsurance Bermuda": 25.0,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 27.7,
+          "Partner Reinsurance Company": 39.7,
+          "Renaissance Reinsurance": 23.8
+        }
+      }
+    },
+    "2023": {
+      "balance_sheet": {
+        "Total Investments": {
+          "Arch Reinsurance": 33820.0,
+          "Ascot Bermuda": 5097.7,
+          "Aspen Bermuda": 2106.7,
+          "AXIS Specialty": 4755.4,
+          "Chubb Tempest Reinsurance": 17285.2,
+          "Everest Reinsurance Bermuda": 8962.5,
+          "Hannover Re Bermuda": 0.4,
+          "Markel Bermuda": 4723.8,
+          "Partner Reinsurance Company": 7660.6,
+          "Renaissance Reinsurance": 8375.6
+        },
+        "Cash and Cash Equivalents": {
+          "Arch Reinsurance": 883.0,
+          "Ascot Bermuda": 442.0,
+          "Aspen Bermuda": 301.6,
+          "AXIS Specialty": 152.0,
+          "Chubb Tempest Reinsurance": 0,
+          "Everest Reinsurance Bermuda": 379.7,
+          "Hannover Re Bermuda": 140.1,
+          "Markel Bermuda": 297.7,
+          "Partner Reinsurance Company": 335.4,
+          "Renaissance Reinsurance": 704.4
+        },
+        "Total Assets": {
+          "Arch Reinsurance": 58762.0,
+          "Ascot Bermuda": 9557.2,
+          "Aspen Bermuda": 5552.3,
+          "AXIS Specialty": 8570.5,
+          "Chubb Tempest Reinsurance": 25586.1,
+          "Everest Reinsurance Bermuda": 15524.1,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 8165.6,
+          "Partner Reinsurance Company": 13527.7,
+          "Renaissance Reinsurance": 19412.1
+        },
+        "Loss Reserves": {
+          "Arch Reinsurance": 22752.0,
+          "Ascot Bermuda": 4665.7,
+          "Aspen Bermuda": 2922.4,
+          "AXIS Specialty": 4383.8,
+          "Chubb Tempest Reinsurance": 0,
+          "Everest Reinsurance Bermuda": 8199.3,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 5242.9,
+          "Renaissance Reinsurance": 8680.5
+        },
+        "Unearned Premiums": {
+          "Arch Reinsurance": 8808.0,
+          "Ascot Bermuda": 1988.6,
+          "Aspen Bermuda": 553.9,
+          "AXIS Specialty": 887.7,
+          "Chubb Tempest Reinsurance": 1429.5,
+          "Everest Reinsurance Bermuda": 2142.0,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 1017.5,
+          "Renaissance Reinsurance": 2885.9
+        },
+        "Total Liabilities": {
+          "Arch Reinsurance": 39201.0,
+          "Ascot Bermuda": 7328.9,
+          "Aspen Bermuda": 4370.2,
+          "AXIS Specialty": 5627.8,
+          "Chubb Tempest Reinsurance": 13910.3,
+          "Everest Reinsurance Bermuda": 11328.8,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 5867.5,
+          "Partner Reinsurance Company": 8454.2,
+          "Renaissance Reinsurance": 13732.6
+        },
+        "Total Equity": {
+          "Arch Reinsurance": 19448.0,
+          "Ascot Bermuda": 2228.3,
+          "Aspen Bermuda": 1182.1,
+          "AXIS Specialty": 2942.7,
+          "Chubb Tempest Reinsurance": 11675.8,
+          "Everest Reinsurance Bermuda": 4195.3,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 2298.2,
+          "Partner Reinsurance Company": 5073.6,
+          "Renaissance Reinsurance": 5679.5
+        }
+      },
+      "income_statement": {
+        "Gross Premiums Written": {
+          "Arch Reinsurance": 0,
+          "Ascot Bermuda": 3843.9,
+          "Aspen Bermuda": 1328.9,
+          "AXIS Specialty": 1588.2,
+          "Chubb Tempest Reinsurance": 5381.8,
+          "Everest Reinsurance Bermuda": 0,
+          "Hannover Re Bermuda": 1905.0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 4379.2,
+          "Renaissance Reinsurance": 3393.8
+        },
+        "Net Premiums Earned": {
+          "Arch Reinsurance": 12440.0,
+          "Ascot Bermuda": 2713.3,
+          "Aspen Bermuda": 883.1,
+          "AXIS Specialty": 1358.4,
+          "Chubb Tempest Reinsurance": 4619.6,
+          "Everest Reinsurance Bermuda": 3084.6,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 3818.1,
+          "Renaissance Reinsurance": 2257.5
+        },
+        "Total Revenues": {
+          "Arch Reinsurance": 13638.0,
+          "Ascot Bermuda": 3035.2,
+          "Aspen Bermuda": 1054.8,
+          "AXIS Specialty": 1558.8,
+          "Chubb Tempest Reinsurance": 5823.2,
+          "Everest Reinsurance Bermuda": 3409.1,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 21.3,
+          "Partner Reinsurance Company": 4374.0,
+          "Renaissance Reinsurance": 2695.3
+        },
+        "Total Expenses": {
+          "Arch Reinsurance": 10100.0,
+          "Ascot Bermuda": 2558.2,
+          "Aspen Bermuda": 792.2,
+          "AXIS Specialty": 1285.1,
+          "Chubb Tempest Reinsurance": 7741.9,
+          "Everest Reinsurance Bermuda": 2396.1,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 1300.4,
+          "Partner Reinsurance Company": 3181.2,
+          "Renaissance Reinsurance": 1468.1
+        },
+        "Net Income": {
+          "Arch Reinsurance": 278.0,
+          "Ascot Bermuda": 497.5,
+          "Aspen Bermuda": 410.8,
+          "AXIS Specialty": 287.0,
+          "Chubb Tempest Reinsurance": 3207.9,
+          "Everest Reinsurance Bermuda": 1481.1,
+          "Hannover Re Bermuda": 845.9,
+          "Markel Bermuda": 429.5,
+          "Partner Reinsurance Company": 1619.8,
+          "Renaissance Reinsurance": 1756.9
+        }
+      },
+      "cash_flows": {
+        "Investing Cash Flow": {
+          "Arch Reinsurance": 0,
+          "Ascot Bermuda": 0,
+          "Aspen Bermuda": 0,
+          "AXIS Specialty": 0,
+          "Chubb Tempest Reinsurance": 0,
+          "Everest Reinsurance Bermuda": 0,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 0,
+          "Renaissance Reinsurance": 0
+        },
+        "Financing Cash Flow": {
+          "Arch Reinsurance": 0,
+          "Ascot Bermuda": 0,
+          "Aspen Bermuda": 0,
+          "AXIS Specialty": 0,
+          "Chubb Tempest Reinsurance": 0,
+          "Everest Reinsurance Bermuda": 0,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 0,
+          "Renaissance Reinsurance": 0
+        }
+      },
+      "ratios": {
+        "Loss Ratio (%)": {
+          "Arch Reinsurance": 50.2,
+          "Ascot Bermuda": 172.0,
+          "Aspen Bermuda": 330.9,
+          "AXIS Specialty": 322.7,
+          "Chubb Tempest Reinsurance": 167.6,
+          "Everest Reinsurance Bermuda": 265.8,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 137.3,
+          "Renaissance Reinsurance": 384.5
+        },
+        "Expense Ratio (%)": {
+          "Arch Reinsurance": 81.2,
+          "Ascot Bermuda": 94.3,
+          "Aspen Bermuda": 89.7,
+          "AXIS Specialty": 94.6,
+          "Chubb Tempest Reinsurance": 167.6,
+          "Everest Reinsurance Bermuda": 77.7,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 83.3,
+          "Renaissance Reinsurance": 65.0
+        },
+        "Combined Ratio (%)": {
+          "Arch Reinsurance": 131.4,
+          "Ascot Bermuda": 266.2,
+          "Aspen Bermuda": 420.6,
+          "AXIS Specialty": 417.3,
+          "Chubb Tempest Reinsurance": 335.2,
+          "Everest Reinsurance Bermuda": 343.5,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 0,
+          "Partner Reinsurance Company": 220.6,
+          "Renaissance Reinsurance": 449.6
+        },
+        "ROE (%)": {
+          "Arch Reinsurance": 1.4,
+          "Ascot Bermuda": 22.3,
+          "Aspen Bermuda": 34.8,
+          "AXIS Specialty": 9.8,
+          "Chubb Tempest Reinsurance": 27.5,
+          "Everest Reinsurance Bermuda": 35.3,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 18.7,
+          "Partner Reinsurance Company": 31.9,
+          "Renaissance Reinsurance": 30.9
+        },
+        "ROA (%)": {
+          "Arch Reinsurance": 0.5,
+          "Ascot Bermuda": 5.2,
+          "Aspen Bermuda": 7.4,
+          "AXIS Specialty": 3.3,
+          "Chubb Tempest Reinsurance": 12.5,
+          "Everest Reinsurance Bermuda": 9.5,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 5.3,
+          "Partner Reinsurance Company": 12.0,
+          "Renaissance Reinsurance": 9.1
+        },
+        "Equity Ratio (%)": {
+          "Arch Reinsurance": 33.1,
+          "Ascot Bermuda": 23.3,
+          "Aspen Bermuda": 21.3,
+          "AXIS Specialty": 34.3,
+          "Chubb Tempest Reinsurance": 45.6,
+          "Everest Reinsurance Bermuda": 27.0,
+          "Hannover Re Bermuda": 0,
+          "Markel Bermuda": 28.1,
+          "Partner Reinsurance Company": 37.5,
+          "Renaissance Reinsurance": 29.3
+        }
+      }
+    }
+  }
+};
