@@ -1,0 +1,78 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+.claude/
+*.log
+nul
+
+# Development/testing scripts (keep only essential files)
+01_scrape_links.py
+02_download_pdfs.py
+02b_download_all_years.py
+03_extract_financials.py
+04_compile_excel.py
+05_compile_by_year.py
+analyze_financial_data.py
+apply_template_with_validation.py
+build_*.py
+create_complete_*.py
+create_corrected_*.py
+create_final_*.py
+create_millions_*.py
+debug_run.py
+detailed_statement_analysis.py
+financial_statement_template*.py
+inspect_pdf.py
+parser/
+run_10.py
+run_with_timeout.py
+smart_parser.py
+test_*.py
+validate_*.py
+ascot/
+
+# Old documentation
+TEMPLATE_*.md
+MAPPING_IMPROVEMENTS_GUIDE.md
+COMPLETE_DATA_VALIDATION_REPORT.md
+DATA_UNITS_AND_VALIDATION_FINDINGS.md
+DELIVERABLES_SUMMARY.md
+FINAL_WORKBOOKS_SUMMARY.md
+README_FINAL.md
+WORKBOOK_VALIDATION_SUMMARY.md

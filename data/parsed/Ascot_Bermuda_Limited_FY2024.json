@@ -1,0 +1,1537 @@
+{
+  "company": "Ascot Bermuda Limited",
+  "year": 2024,
+  "statements": {
+    "balance_sheet": [
+      {
+        "label": "ASCOT BERMUDA LIMITED",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "CONSOLIDATED BALANCE SHEETS",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "AS OF DECEMBER   AND",
+        "canonical_key": null,
+        "value_current": 2024.0,
+        "value_prior": 2023.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Expressed in thousands of US dollars",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "ASSETS",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Fixed maturities trading at fair value amortized cost:   ;",
+        "canonical_key": null,
+        "value_current": 2944188.0,
+        "value_prior": 4722142.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Fixed maturities available for sale at fair value amortized cost:   ;    \u2014",
+        "canonical_key": null,
+        "value_current": 2023.0,
+        "value_prior": 3134099.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "nil net of allowance for expected credit losses:   nil;   nil",
+        "canonical_key": null,
+        "value_current": 2024.0,
+        "value_prior": 2023.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Other investments at fair value",
+        "canonical_key": null,
+        "value_current": 402551.0,
+        "value_prior": 260479.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Short term investments trading at fair value",
+        "canonical_key": null,
+        "value_current": 150359.0,
+        "value_prior": 115053.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Total investments",
+        "canonical_key": "total_investments",
+        "value_current": 6631197.0,
+        "value_prior": 5097674.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Cash and cash equivalents",
+        "canonical_key": "cash_and_equivalents",
+        "value_current": 533331.0,
+        "value_prior": 441996.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Restricted cash and cash equivalents",
+        "canonical_key": "cash_and_equivalents",
+        "value_current": 22340.0,
+        "value_prior": 107318.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Accrued investment income",
+        "canonical_key": null,
+        "value_current": 52978.0,
+        "value_prior": 37156.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Premiums receivable net of allowance for expected credit losses:   ;",
+        "canonical_key": "premiums_receivable",
+        "value_current": 1457180.0,
+        "value_prior": 1209199.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Deferred tax assets net of valuation allowance",
+        "canonical_key": null,
+        "value_current": 122262.0,
+        "value_prior": 116612.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Prepaid reinsurance premiums",
+        "canonical_key": null,
+        "value_current": 549857.0,
+        "value_prior": 427471.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Reinsurance recoverable on paid losses",
+        "canonical_key": "reinsurance_recoverable",
+        "value_current": 71324.0,
+        "value_prior": 88566.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Reinsurance recoverable on unpaid losses net of allowance for expected credit losses:",
+        "canonical_key": "reinsurance_recoverable",
+        "value_current": 1588921.0,
+        "value_prior": 1337575.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Deferred policy acquisition costs",
+        "canonical_key": "policy_acquisition_costs",
+        "value_current": 444157.0,
+        "value_prior": 344641.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Goodwill",
+        "canonical_key": null,
+        "value_current": 69551.0,
+        "value_prior": 69551.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Intangible assets",
+        "canonical_key": null,
+        "value_current": 151624.0,
+        "value_prior": 158245.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Other assets",
+        "canonical_key": null,
+        "value_current": 130418.0,
+        "value_prior": 121167.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "TOTAL ASSETS",
+        "canonical_key": "total_assets",
+        "value_current": 11825140.0,
+        "value_prior": 9557171.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "LIABILITIES",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Reserve for loss and loss adjustment expenses",
+        "canonical_key": "loss_reserves",
+        "value_current": 5906322.0,
+        "value_prior": 4665686.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Unearned premiums",
+        "canonical_key": "unearned_premiums",
+        "value_current": 2426251.0,
+        "value_prior": 1988629.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Insurance and reinsurance balances payable",
+        "canonical_key": null,
+        "value_current": 486393.0,
+        "value_prior": 300804.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Deferred tax liabilities",
+        "canonical_key": null,
+        "value_current": 114107.0,
+        "value_prior": 98653.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Amounts payable to affiliates",
+        "canonical_key": null,
+        "value_current": 25012.0,
+        "value_prior": 33912.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Other liabilities",
+        "canonical_key": null,
+        "value_current": 195390.0,
+        "value_prior": 241209.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "TOTAL LIABILITIES",
+        "canonical_key": "total_liabilities",
+        "value_current": 9153475.0,
+        "value_prior": 7328893.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "COMMITMENTS AND CONTINGENCIES Note",
+        "canonical_key": null,
+        "value_current": 10.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "SHAREHOLDER'S EQUITY",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Ordinary shares",
+        "canonical_key": null,
+        "value_current": 1000.0,
+        "value_prior": 120.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Additional paidin capital",
+        "canonical_key": null,
+        "value_current": 1940759.0,
+        "value_prior": 1940759.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Accumulated other comprehensive loss income",
+        "canonical_key": "accumulated_oci",
+        "value_current": -18988.0,
+        "value_prior": 2322.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Retained earnings",
+        "canonical_key": "retained_earnings",
+        "value_current": 748894.0,
+        "value_prior": 285077.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "TOTAL SHAREHOLDER'S EQUITY",
+        "canonical_key": null,
+        "value_current": 2671665.0,
+        "value_prior": 2228278.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "TOTAL LIABILITIES AND SHAREHOLDER'S EQUITY",
+        "canonical_key": "total_liabilities",
+        "value_current": 11825140.0,
+        "value_prior": 9557171.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "See accompanying notes to the consolidated financial statements",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      }
+    ],
+    "income_statement": [
+      {
+        "label": "ASCOT BERMUDA LIMITED",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "CONSOLIDATED STATEMENTS OF INCOME",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "FOR THE YEARS ENDED DECEMBER   AND",
+        "canonical_key": null,
+        "value_current": 2024.0,
+        "value_prior": 2023.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Expressed in thousands of US dollars",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "REVENUES",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Gross premiums written",
+        "canonical_key": "gross_premiums_written",
+        "value_current": 4678460.0,
+        "value_prior": 3843943.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Reinsurance premiums ceded",
+        "canonical_key": null,
+        "value_current": -1147676.0,
+        "value_prior": -964935.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net premiums written",
+        "canonical_key": "net_premiums_written",
+        "value_current": 3530784.0,
+        "value_prior": 2879008.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Earned premiums",
+        "canonical_key": null,
+        "value_current": 4240715.0,
+        "value_prior": 3640883.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Earned premiums ceded",
+        "canonical_key": null,
+        "value_current": -1025167.0,
+        "value_prior": -927561.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net premiums earned",
+        "canonical_key": "net_premiums_earned",
+        "value_current": 3215548.0,
+        "value_prior": 2713322.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net investment income",
+        "canonical_key": "net_investment_income",
+        "value_current": 292514.0,
+        "value_prior": 176794.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net realized losses gains on investments",
+        "canonical_key": "net_realized_gains",
+        "value_current": -33234.0,
+        "value_prior": -24205.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net unrealized gains losses on investments",
+        "canonical_key": null,
+        "value_current": 37531.0,
+        "value_prior": 145757.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net gain on divestitures  \u2014",
+        "canonical_key": null,
+        "value_current": 96608.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Other income",
+        "canonical_key": null,
+        "value_current": 23552.0,
+        "value_prior": 23523.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "TOTAL REVENUES",
+        "canonical_key": "total_revenues",
+        "value_current": 3632519.0,
+        "value_prior": 3035191.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "LOSSES AND EXPENSES",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net incurred losses and loss adjustment expenses",
+        "canonical_key": "losses_and_lae",
+        "value_current": 1929315.0,
+        "value_prior": 1551913.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Acquisition costs",
+        "canonical_key": null,
+        "value_current": 775642.0,
+        "value_prior": 646826.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "General and administrative expenses",
+        "canonical_key": "general_and_admin_expenses",
+        "value_current": 379911.0,
+        "value_prior": 356904.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Amortization of intangible assets",
+        "canonical_key": null,
+        "value_current": 6621.0,
+        "value_prior": 7050.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net foreign exchange losses gains",
+        "canonical_key": null,
+        "value_current": 3508.0,
+        "value_prior": -4487.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "TOTAL LOSSES AND EXPENSES",
+        "canonical_key": null,
+        "value_current": 3094997.0,
+        "value_prior": 2558206.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "INCOME BEFORE TAXES",
+        "canonical_key": "income_before_tax",
+        "value_current": 537522.0,
+        "value_prior": 476985.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Income tax expense benefit",
+        "canonical_key": "income_tax_expense",
+        "value_current": -73705.0,
+        "value_prior": 20474.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "NET INCOME",
+        "canonical_key": "net_income",
+        "value_current": 463817.0,
+        "value_prior": 497459.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "See accompanying notes to the consolidated financial statements",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      }
+    ],
+    "soci": [
+      {
+        "label": "ASCOT BERMUDA LIMITED",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "FOR THE YEARS ENDED DECEMBER   AND",
+        "canonical_key": null,
+        "value_current": 2024.0,
+        "value_prior": 2023.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Expressed in thousands of US dollars",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "NET INCOME",
+        "canonical_key": "net_income",
+        "value_current": 463817.0,
+        "value_prior": 497459.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "OTHER COMPREHENSIVE INCOME LOSS NET OF TAX:",
+        "canonical_key": "other_comprehensive_income",
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Available for sale investments:",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Unrealized losses on fixed maturity available for sale investments arising",
+        "canonical_key": "fixed_maturity_investments",
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "during the year  \u2014",
+        "canonical_key": null,
+        "value_current": -24919.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Reclassification adjustment of net realized gains recognized in net income",
+        "canonical_key": "net_realized_gains",
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "loss  \u2014",
+        "canonical_key": null,
+        "value_current": -443.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Tax benefit on unrealized losses on available for sale investments  \u2014",
+        "canonical_key": null,
+        "value_current": 4405.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Unrealized losses arising during the year net of reclassification adjustments  \u2014",
+        "canonical_key": null,
+        "value_current": -20957.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Foreign currency translation adjustment",
+        "canonical_key": null,
+        "value_current": -353.0,
+        "value_prior": 870.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Total other comprehensive loss income net of tax",
+        "canonical_key": "other_comprehensive_income",
+        "value_current": -21310.0,
+        "value_prior": 870.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "TOTAL COMPREHENSIVE INCOME",
+        "canonical_key": "total_comprehensive_income",
+        "value_current": 442507.0,
+        "value_prior": 498329.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "See accompanying notes to the consolidated financial statements",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      }
+    ],
+    "cash_flow": [
+      {
+        "label": "ASCOT BERMUDA LIMITED",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "CONSOLIDATED STATEMENTS OF CASHFLOWS",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "FOR THE YEARS ENDED DECEMBER   AND",
+        "canonical_key": null,
+        "value_current": 2024.0,
+        "value_prior": 2023.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Expressed in thousands of US dollars",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "CASHFLOWS FROM OPERATING ACTIVITIES",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net income loss",
+        "canonical_key": "net_income",
+        "value_current": 463817.0,
+        "value_prior": 497459.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Adjustments to reconcile net income to net cash provided by operating activities",
+        "canonical_key": "net_income",
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net realized losses on investments",
+        "canonical_key": "net_realized_gains",
+        "value_current": 33234.0,
+        "value_prior": 24205.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net unrealized gains on investments",
+        "canonical_key": null,
+        "value_current": -37531.0,
+        "value_prior": -145757.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Change in fair value of other investments",
+        "canonical_key": null,
+        "value_current": -29553.0,
+        "value_prior": -12092.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Amortization of fixed maturities and shortterm investments",
+        "canonical_key": null,
+        "value_current": -19702.0,
+        "value_prior": -4462.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Amortization of intangible assets",
+        "canonical_key": null,
+        "value_current": 6621.0,
+        "value_prior": 7050.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net gain on divestitures  \u2014",
+        "canonical_key": null,
+        "value_current": -96608.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Other adjustments",
+        "canonical_key": null,
+        "value_current": 5486.0,
+        "value_prior": 5732.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Changes in:",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Accrued investment income",
+        "canonical_key": null,
+        "value_current": -15822.0,
+        "value_prior": -16483.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Premiums receivable",
+        "canonical_key": "premiums_receivable",
+        "value_current": -286224.0,
+        "value_prior": -90501.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Reinsurance recoverables",
+        "canonical_key": "reinsurance_recoverable",
+        "value_current": -234104.0,
+        "value_prior": -182095.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Deferred policy acquisition costs",
+        "canonical_key": "policy_acquisition_costs",
+        "value_current": -99516.0,
+        "value_prior": -24691.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Prepaid reinsurance premiums",
+        "canonical_key": null,
+        "value_current": -122386.0,
+        "value_prior": -37526.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Reserve for loss and loss adjustment expenses",
+        "canonical_key": "loss_reserves",
+        "value_current": 1240636.0,
+        "value_prior": 1052211.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Unearned premiums",
+        "canonical_key": "unearned_premiums",
+        "value_current": 437622.0,
+        "value_prior": 203212.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Insurance and reinsurance balances payable",
+        "canonical_key": null,
+        "value_current": 185589.0,
+        "value_prior": -7775.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Other items net",
+        "canonical_key": null,
+        "value_current": 9576.0,
+        "value_prior": -36168.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net cash provided by operating activities",
+        "canonical_key": "cfo",
+        "value_current": 1441135.0,
+        "value_prior": 1232319.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "CASHFLOWS FROM INVESTING ACTIVITIES",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Purchases of fixed maturities trading",
+        "canonical_key": null,
+        "value_current": -276.0,
+        "value_prior": -2065034.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Purchases of fixed maturities available for sale   \u2014",
+        "canonical_key": null,
+        "value_current": -3305710.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Proceeds from sale of fixed maturities trading",
+        "canonical_key": null,
+        "value_current": 1261035.0,
+        "value_prior": 580368.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Proceeds from sale of fixed maturities available for sale  \u2014",
+        "canonical_key": null,
+        "value_current": 100116.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Proceeds from maturities and redemptions of fixed maturities trading",
+        "canonical_key": null,
+        "value_current": 518768.0,
+        "value_prior": 314412.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Proceeds from maturities and redemptions of fixed maturities available for sale  \u2014",
+        "canonical_key": null,
+        "value_current": 67700.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Purchases of shortterm investments",
+        "canonical_key": null,
+        "value_current": -222790.0,
+        "value_prior": -83654.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Proceeds from sale and maturities of shortterm investments",
+        "canonical_key": null,
+        "value_current": 191570.0,
+        "value_prior": 265807.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Purchases of other investments",
+        "canonical_key": null,
+        "value_current": -119755.0,
+        "value_prior": -104260.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Proceeds from sale of other investments  \u2014",
+        "canonical_key": null,
+        "value_current": 7236.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Proceeds from divestitures net of cash disposed   \u2014",
+        "canonical_key": null,
+        "value_current": 71530.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net cash used in investing activities",
+        "canonical_key": "cfi",
+        "value_current": -1430576.0,
+        "value_prior": -1092361.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "CASHFLOWS FROM FINANCING ACTIVITIES",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Distribution of capital to parent \u2014",
+        "canonical_key": null,
+        "value_current": -50000.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Issuance of ordinary shares   \u2014",
+        "canonical_key": null,
+        "value_current": 880.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net cash provided by used in financing activities",
+        "canonical_key": null,
+        "value_current": 880.0,
+        "value_prior": -50000.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Effect of exchange rate changes on foreign currency cash cash equivalents and restricted cash",
+        "canonical_key": "restricted_cash",
+        "value_current": -5082.0,
+        "value_prior": 3623.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Increase in cash cash equivalents and restricted cash",
+        "canonical_key": "restricted_cash",
+        "value_current": 6357.0,
+        "value_prior": 93581.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Cash cash equivalents and restricted cash  beginning of year",
+        "canonical_key": "restricted_cash",
+        "value_current": 549314.0,
+        "value_prior": 455733.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Cash cash equivalents and restricted cash  end of year",
+        "canonical_key": "restricted_cash",
+        "value_current": 555671.0,
+        "value_prior": 549314.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Supplemental disclosures of cash flow information:",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Income taxes paid",
+        "canonical_key": "income_tax_expense",
+        "value_current": 64661.0,
+        "value_prior": 12125.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Interest paid  \u2014 \u2014",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Reconciliation to Consolidated Balance Sheets:",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Cash and cash equivalents",
+        "canonical_key": "cash_and_equivalents",
+        "value_current": 533331.0,
+        "value_prior": 441996.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Restricted cash and cash equivalents",
+        "canonical_key": "cash_and_equivalents",
+        "value_current": 22340.0,
+        "value_prior": 107318.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Cash cash equivalents and restricted cash",
+        "canonical_key": "restricted_cash",
+        "value_current": 555671.0,
+        "value_prior": 549314.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "See accompanying notes to the consolidated financial statements",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      }
+    ],
+    "shareholders_equity": [
+      {
+        "label": "ASCOT BERMUDA LIMITED",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "CONSOLIDATED STATEMENTS OF CHANGES IN SHAREHOLDER'S EQUITY",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "FOR THE YEARS ENDED DECEMBER   AND",
+        "canonical_key": null,
+        "value_current": 2024.0,
+        "value_prior": 2023.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Expressed in thousands of US dollars",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "ORDINARY SHARES",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at beginning of year",
+        "canonical_key": "equity_beginning_balance",
+        "value_current": 120.0,
+        "value_prior": 120.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Ordinary shares issued  \u2014",
+        "canonical_key": null,
+        "value_current": 880.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at end of year",
+        "canonical_key": "equity_ending_balance",
+        "value_current": 1000.0,
+        "value_prior": 120.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "ADDITIONAL PAID IN CAPITAL",
+        "canonical_key": "additional_paid_in_capital",
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at beginning of year",
+        "canonical_key": "equity_beginning_balance",
+        "value_current": 1940759.0,
+        "value_prior": 1990759.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Capital distribution to parent \u2014",
+        "canonical_key": null,
+        "value_current": -50000.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at end of year",
+        "canonical_key": "equity_ending_balance",
+        "value_current": 1940759.0,
+        "value_prior": 1940759.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "ACCUMULATED OTHER COMPREHENSIVE INCOME",
+        "canonical_key": "accumulated_oci",
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at beginning of year",
+        "canonical_key": "equity_beginning_balance",
+        "value_current": 2322.0,
+        "value_prior": 1452.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Unrealized gains losses on available for sale investments net of tax:",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at beginning of year \u2014 \u2014",
+        "canonical_key": "equity_beginning_balance",
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Unrealized losses arising during the year net of reclassification adjustment",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at end of year  \u2014",
+        "canonical_key": "equity_ending_balance",
+        "value_current": -20957.0,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Cumulative foreign currency translation adjustment net of tax:",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at beginning of year",
+        "canonical_key": "equity_beginning_balance",
+        "value_current": 2322.0,
+        "value_prior": 1452.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Foreign currency translation adjustment",
+        "canonical_key": null,
+        "value_current": -353.0,
+        "value_prior": 870.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at end of year",
+        "canonical_key": "equity_ending_balance",
+        "value_current": 1969.0,
+        "value_prior": 2322.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at end of year",
+        "canonical_key": "equity_ending_balance",
+        "value_current": -18988.0,
+        "value_prior": 2322.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "RETAINED EARNINGS DEFICIT",
+        "canonical_key": "retained_earnings",
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at beginning of year",
+        "canonical_key": "equity_beginning_balance",
+        "value_current": 285077.0,
+        "value_prior": -212382.0,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      },
+      {
+        "label": "Net income",
+        "canonical_key": "net_income",
+        "value_current": 463817.0,
+        "value_prior": 497459.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "Balance at end of year",
+        "canonical_key": "equity_ending_balance",
+        "value_current": 748894.0,
+        "value_prior": 285077.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "TOTAL SHAREHOLDER'S EQUITY",
+        "canonical_key": null,
+        "value_current": 2671665.0,
+        "value_prior": 2228278.0,
+        "indent_level": 0,
+        "is_total": true,
+        "is_subtotal": false
+      },
+      {
+        "label": "See accompanying notes to the consolidated financial statements",
+        "canonical_key": null,
+        "value_current": null,
+        "value_prior": null,
+        "indent_level": 0,
+        "is_total": false,
+        "is_subtotal": false
+      }
+    ]
+  }
+}

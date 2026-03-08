@@ -1,0 +1,256 @@
+BMA Class 4 Extraction Report
+======================================================================
+Total PDFs: 251  |  Success: 251  |  Failed: 0
+======================================================================
+
+DaVinci Reinsurance Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Enhanzed Reinsurance Ltd. - 2019: OK | Year: 2019 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Endurance Specialty Insurance Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Everest International Reinsurance Ltd. - 2019: OK | Year: 2019 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Everest Reinsurance Bermuda Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+ABR Reinsurance Ltd. - 2019: OK | Year: 2019 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Arch Reinsurance Ltd. - 2019: OK | Year: 2019 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+American International Reinsurance Company Ltd. - 2019: OK | Year: 2019 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Aspen Bermuda Limited - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+AXIS Specialty Limited - 2019: OK | Year: 2019 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Argo Re Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Chubb Bermuda Insurance Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Catlin Re Switerland Ltd. - 2019: OK | Year: 2019 | Found: income_statement | Missing: balance_sheet, soci, cash_flows, shareholders_equity
+Chubb Tempest Reinsurance Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Convex Re Limited - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Markel Bermuda Limited - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+MS Amlin AG - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, cash_flows | Missing: soci, shareholders_equity
+Liberty Specialty Markets Bermuda Limited - 2019: OK | Year: 2019 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Partner Reinsurance Company Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Premia Reinsurance Ltd - 2019: OK | Year: 2019 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Sirius Bermuda Insurance Company Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Sirius International Insurance Corporation - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Starr Insurance Reinsurance Limited - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Fidelis Insurance Bermuda Limited - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Hamilton Re Ltd. - 2019: OK | Year: 2019 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Hannover Re Bermuda Ltd. - 2019: OK | Year: 2019 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Harrington Re Ltd. - 2019: OK | Year: 2019 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Hiscox Insurance Company Bermuda Limited - 2019: OK | Year: 2019 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Lancashire Insurance Company Limited - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Watford Re Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Validus Reinsurance Ltd. - 2019: OK | Year: 2019 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+XL Bermuda Ltd - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Third Point Reinsurance USA Ltd. - 2019: OK | Year: 2019 | Found: soci, cash_flows, shareholders_equity | Missing: balance_sheet, income_statement
+StarStone Insurance Bermuda Limited - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Third Point Reinsurance Company Ltd. - 2019: OK | Year: 2019 | Found: soci, cash_flows, shareholders_equity | Missing: balance_sheet, income_statement
+Fortitude Reinsurance Company Ltd - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Renaissance Reinsurance Ltd. - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Allied World Assurance Company Ltd - 2019: OK | Year: 2019 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Qatar Reinsurance Company Limited - 2019: OK | Year: 2019 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+QBE Europe SA NV - 2019: OK | Year: 2019 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Convex Re Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Davinci Reinsurance Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, cash_flows, shareholders_equity | Missing: soci
+Endurance Specialty Insurance Ltd. - 2020: OK | Year: 2020 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Everest International Reinsurance Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+ABR Reinsurance Ltd. - 2020: OK | Year: 2020 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Allied World Assurance Company Ltd. - 2020: OK | Year: 2020 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Everest Reinsurance Bermuda Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+AXIS Specialty Limited - 2020: OK | Year: 2020 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Canopius Reinsurance Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Chaucer Insurance Company DAC Bermuda Branch - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, shareholders_equity | Missing: soci, cash_flows
+Aspen Bermuda Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Chubb Bermuda Insurance Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Chubb Tempest Reinsurance Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Conduit Reinsurance Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Harrington Re Ltd. - 2020: OK | Year: 2020 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Hiscox Insurance Company Bermuda Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Lancashire Insurance Company Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Liberty Specialty Markets Bermuda Limited - 2020: OK | Year: 2020 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Markel Bermuda Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+MS Amlin AG - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, cash_flows, shareholders_equity | Missing: soci
+Partner Reinsurance Company Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Premia Reinsurance Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Qatar Reinsurance Company Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Renaissance Reinsurance Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Fortitude Reinsurance Company Ltd. - 2020: OK | Year: 2020 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Hamilton Re Ltd. - 2020: OK | Year: 2020 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Hannover Re Bermuda Ltd. - 2020: OK | Year: 2020 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Third Point Reinsurance Company Ltd. - 2020: OK | Year: 2020 | Found: soci, cash_flows, shareholders_equity | Missing: balance_sheet, income_statement
+Watford Re Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+XL Bermuda Ltd - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Sirius Bermuda Insurance Company Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, soci, cash_flows | Missing: income_statement, shareholders_equity
+Sirius International Insurance Corporation - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Starr Insurance Reinsurance Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Third Point Reinsurance USA Ltd. - 2020: OK | Year: 2020 | Found: soci, cash_flows, shareholders_equity | Missing: balance_sheet, income_statement
+Argo Re Ltd. - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Fidelis Insurance Bermuda Limited - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Validus Reinsurance Switzerland Ltd - 2020: OK | Year: 2020 | Found: balance_sheet, income_statement, soci, shareholders_equity | Missing: cash_flows
+Validus Reinsurance Ltd. - 2020: OK | Year: 2020 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+American International Reinsurance Company Ltd. - 2020: OK | Year: 2020 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Premia Reinsurance Ltd. - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+MS Amlin AG - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, cash_flows | Missing: soci, shareholders_equity
+SiriusPoint Bermuda Insurance Company Ltd. - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Starr Insurance Reinsurance Limited - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Qatar Reinsurance Company Limited - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Vantage Risk Ltd. - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Validus Reinsurance Ltd. - 2021: OK | Year: 2021 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+XL Bermuda Ltd - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Allied World Assurance Company Ltd. - 2021: OK | Year: 2021 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Arch Reinsurance Ltd. - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+American International Reinsurance Company Ltd. - 2021: OK | Year: 2021 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+AXIS Specialty Limited - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+AXA XL Reinsurance Ltd - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Conduit Reinsurance Limited - 2021: OK | Year: 2021 | Found: balance_sheet, soci, cash_flows, shareholders_equity | Missing: income_statement
+Everest International Reinsurance Ltd. - 2021: OK | Year: 2021 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+DaVinci Reinsurance Ltd. - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Fidelis Insurance Bermuda Limited - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Fortitude Reinsurance Company Ltd. - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Group Ark Insurance Limited - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Hannover Re Bermuda Ltd. - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Liberty Specialty Markets Bermuda Limited - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+ABR Reinsurance Ltd. - 2021: OK | Year: 2021 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Aspen Bermuda Limited - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Catlin Re Switzerland Ltd. - 2021: OK | Year: 2021 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Chubb Tempest Reinsurance Ltd. - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Chubb Bermuda Insurance Ltd. - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Convex Re Limited - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Endurance Specialty Insurance Ltd. - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Everest Reinsurance Bermuda Ltd. - 2021: OK | Year: 2021 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Hamilton Re Ltd. - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Harrington Re Ltd. - 2021: OK | Year: 2021 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Hiscox Insurance Company Bermuda Limited - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Markel Bermuda Limited - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Partner Reinsurance Company Ltd. - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Renaissance Reinsurance Ltd. - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Somers Re Ltd. - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Validus Reinsurance Switzerland Ltd - 2021: OK | Year: 2021 | Found: income_statement | Missing: balance_sheet, soci, cash_flows, shareholders_equity
+Argo Re Ltd. - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Canopius Reinsurance Limited - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, cash_flows, shareholders_equity | Missing: soci
+Lancashire Insurance Company Limited - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Chaucer Insurance Company Designated Activity Company Bermuda Branch - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement, shareholders_equity | Missing: soci, cash_flows
+QBE Europe SANV - 2021: OK | Year: 2021 | Found: balance_sheet, income_statement | Missing: soci, cash_flows, shareholders_equity
+Allied World Assurance Company Ltd. - 2022: OK | Year: 2022 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+American International Reinsurance Company Ltd. - 2022: OK | Year: 2022 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Antares Reinsurance Company Limited - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Arch Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Argo Re Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Aspen Bermuda Limited - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Axa XL Reinsurance Ltd - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+AXIS Specialty Limited - 2022: OK | Year: 2022 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Canopius Reinsurance Limited - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, cash_flows, shareholders_equity | Missing: soci
+Catlin Re Switzerland Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, cash_flows | Missing: soci, shareholders_equity
+Chaucer Insurance Company Designated Activity Company Bermuda Branch - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, shareholders_equity | Missing: soci, cash_flows
+Chubb Bermuda Insurance Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Chubb Tempest Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Conduit Reinsurance Limited - 2022: OK | Year: 2022 | Found: balance_sheet, soci, cash_flows, shareholders_equity | Missing: income_statement
+Convex Re Limited - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+DaVinci Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Endurance Specialty Insurance Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, soci, cash_flows, shareholders_equity | Missing: income_statement
+Everest International Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Everest Reinsurance Bermuda Ltd. - 2022: OK | Year: 2022 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Fidelis Insurance Bermuda Limited - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Fortitude International Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Fortitude Reinsurance Company Ltd. - 2022: OK | Year: 2022 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Group Ark Insurance Limited - 2022: OK | Year: 2022 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Hamilton Re Ltd. - 2022: OK | Year: 2022 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Hannover Re Bermuda Ltd. - 2022: OK | Year: 2022 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Harrington Re Ltd. - 2022: OK | Year: 2022 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Lancashire Insurance Company Limited - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Markel Bermuda Limitedformerlyalterra Bermuda Limited - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+MS Amlin AG - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, cash_flows | Missing: soci, shareholders_equity
+Partner Reinsurance Company Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, cash_flows | Missing: soci, shareholders_equity
+Premia Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, cash_flows, shareholders_equity | Missing: soci
+Siriuspoint Bermuda Insurance Company Ltd. - 2022: OK | Year: 2022 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Validus Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: soci, cash_flows | Missing: balance_sheet, income_statement, shareholders_equity
+Validus Reinsurance Switzerland Ltd - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, shareholders_equity | Missing: cash_flows
+Vantage Risk Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+XL Bermuda Ltd - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Somers Re Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+ABR Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Hiscox Insurance Company Bermuda Limited - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Liberty Specialty Markets Bermuda Limited - 2022: OK | Year: 2022 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Renaissance Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Starr Insurance Reinsurance Limited - 2022: OK | Year: 2022 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Enhanzed Reinsurance Ltd. - 2022: OK | Year: 2022 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+AXIS Specialty Limited - 2023: OK | Year: 2023 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Canopius Reinsurance Limited - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, cash_flows, shareholders_equity | Missing: soci
+Chaucer Insurance Company Designated Activity Company Bermuda Branch - 2023: OK | Year: 2023 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Chubb Bermuda Insurance Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Chubb Tempest Reinsurance Ltd. - 2023: OK | Year: 2023 | Found: soci, cash_flows | Missing: balance_sheet, income_statement, shareholders_equity
+Conduit Reinsurance Limited - 2023: OK | Year: 2023 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Convex Re Limited - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+DaVinci Reinsurance Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Endurance Specialty Insurance Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Fidelis Insurance Bermuda Limited - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Fortitude International Reinsurance Ltd. - 2023: OK | Year: 2023 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Fortitude Reinsurance Company Ltd. - 2023: OK | Year: 2023 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Group Ark Insurance Limited - 2023: OK | Year: 2023 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Hamilton Re Ltd. - 2023: OK | Year: 2023 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Hannover Re Bermuda Ltd. - 2023: OK | Year: 2023 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Harrington Re Ltd. - 2023: OK | Year: 2023 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Hiscox Insurance Company Bermuda Limited - 2023: OK | Year: 2023 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Lancashire Insurance Company Limited - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Liberty Specialty Markets Bermuda Limited - 2023: OK | Year: 2023 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Markel Bermuda Limited - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+MS Amlin AG - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, cash_flows, shareholders_equity | Missing: soci
+Partner Reinsurance Company Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Premia Reinsurance Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Renaissance Reinsurance Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+SiriusPoint Bermuda Insurance Company Ltd. - 2023: OK | Year: 2023 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Somers Re Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Starr Insurance Reinsurance Limited - 2023: OK | Year: 2023 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Validus Reinsurance Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Validus Reinsurance Switzerland Ltd - 2023: OK | Year: 2023 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Vantage Risk Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+ABR Reinsurance Ltd. - 2023: OK | Year: 2023 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Allied World Assurance Company Ltd. - 2023: OK | Year: 2023 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+XL Bermuda Ltd - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Antares Reinsurance Company Limited - 2023: OK | Year: 2023 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Arch Reinsurance Ltd. - 2023: OK | Year: 2023 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Argo Re Ltd. - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Aspen Bermuda Limited - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+AXA XL Reinsurance Ltd - 2023: OK | Year: 2023 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+American International Reinsurance Company Ltd. - 2023: OK | Year: 2023 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Everest International Reinsurance Ltd. - 2023: OK | Year: 2023 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Everest Reinsurance Bermuda Ltd. - 2023: OK | Year: 2023 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+QBE Europe SANV - 2023: OK | Year: 2023 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+ABR Reinsurance Ltd. - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Allied World Assurance Company Ltd - 2024: OK | Year: 2024 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Antares Reinsurance Company Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Arch Reinsurance Ltd. - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Argo Re Ltd. - 2024: OK | Year: 2024 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Ascot Bermuda Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Aspen Bermuda Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+AXA XL Reinsurance Ltd - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Axis Specialty Insurance Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Axis Specialty Limited - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Canopius Reinsurance Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, cash_flows, shareholders_equity | Missing: soci
+Chubb Bermuda Insurance Ltd. - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Chubb Tempest Reinsurance Ltd. - 2024: OK | Year: 2024 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Brit Reinsurance Bermuda Limited - 2024: OK | Year: 2024 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Conduit Reinsurance Limited - 2024: OK | Year: 2024 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+DaVinci Reinsurance Ltd. - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Endurance Specialty Insurance Ltd. - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Everest International Reinsurance Ltd. - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Everest Reinsurance Bermuda Ltd. - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Fidelis Insurance Bermuda Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Fortitude International Reinsurance Ltd. - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Fortitude Reinsurance Company Ltd. - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Group Ark Insurance Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, shareholders_equity | Missing: cash_flows
+Hamilton Re Ltd. - 2024: OK | Year: 2024 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Hannover Re Bermuda Ltd. - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Harrington Re Ltd. - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+Hiscox Insurance Company Bermuda Limited - 2024: OK | Year: 2024 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Lancashire Insurance Company Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Liberty Specialty Markets Bermuda Limited - 2024: OK | Year: 2024 | Found: shareholders_equity | Missing: balance_sheet, income_statement, soci, cash_flows
+MS Amlin AG - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, cash_flows, shareholders_equity | Missing: soci
+Partner Reinsurance Company Ltd. - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Renaissance Reinsurance Ltd. - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Siriuspoint Bermuda Insurance Company Ltd. - 2024: OK | Year: 2024 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Somers Re Ltd. - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Starr Insurance Reinsurance Limited - 2024: OK | Year: 2024 | Found: cash_flows, shareholders_equity | Missing: balance_sheet, income_statement, soci
+Vantage Risk Ltd. - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+XL Bermuda Ltd - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+American International Reinsurance Company Ltd. - 2024: OK | Year: 2024 | Found: cash_flows | Missing: balance_sheet, income_statement, soci, shareholders_equity
+Convex Re Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows | Missing: shareholders_equity
+Premia Reinsurance Ltd. - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+QBE Capital Global Ltd. - 2024: OK | Year: 2024 | Found: income_statement, soci, shareholders_equity | Missing: balance_sheet, cash_flows
+QBE Capital Ltd - 2024: OK | Year: 2024 | Found: income_statement, soci, shareholders_equity | Missing: balance_sheet, cash_flows
+Markel Bermuda Limited - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, soci, cash_flows, shareholders_equity
+Chaucer Insurance Company DAC Bermuda Branch - 2024: OK | Year: 2024 | Found: balance_sheet, income_statement, shareholders_equity | Missing: soci, cash_flows
+QBE Europe SANV - 2024: OK | Year: 2024 | Found:  | Missing: balance_sheet, income_statement, soci, cash_flows, shareholders_equity

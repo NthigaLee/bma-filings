@@ -1,0 +1,1032 @@
+{
+  "metadata": {
+    "source_pdf": "2025-07-02-11-39-07-Renaissance-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+    "company_name": "Renaissance Reinsurance Ltd",
+    "parsed_company": "RENAISSANCE REINSURANCE LTD. AND SUBSIDIARIES",
+    "currency": "USD thousands",
+    "years": [
+      2024,
+      2023
+    ],
+    "warnings": []
+  },
+  "validation": {
+    "company": "RENAISSANCE REINSURANCE LTD. AND SUBSIDIARIES",
+    "year": 2024,
+    "checks": [
+      {
+        "name": "balance_sheet_balances",
+        "passed": true,
+        "detail": "17,352,778 == 13,227,857 + 4,124,921 (diff=0)"
+      },
+      {
+        "name": "net_income_is_vs_soci",
+        "passed": true,
+        "detail": "IS=948,826 SOCI=948,826 (diff=0)"
+      },
+      {
+        "name": "net_income_is_vs_cf",
+        "passed": null,
+        "detail": "Cannot check — IS NI=948,826, CF NI=N/A"
+      },
+      {
+        "name": "net_income_is_vs_se",
+        "passed": true,
+        "detail": "IS=948,826 SE=948,826 (diff=0)"
+      },
+      {
+        "name": "cash_reconciliation",
+        "passed": true,
+        "detail": "CF end=512,200 vs BS cash=512,200 + restricted=N/A = 512,200 (diff=0)"
+      },
+      {
+        "name": "tci_equals_ni_plus_oci",
+        "passed": null,
+        "detail": "Cannot check — TCI=N/A, NI=948,826, OCI=N/A"
+      },
+      {
+        "name": "equity_se_vs_bs",
+        "passed": true,
+        "detail": "SE end equity=4,124,921, BS equity=4,124,921 (diff=0)"
+      }
+    ],
+    "all_passed": true,
+    "warnings": [],
+    "checks_run": 5,
+    "checks_passed": 5
+  },
+  "statements": {
+    "balance_sheet": {
+      "sections": {
+        "ASSETS": [
+          {
+            "label": "Fixed maturity investments trading, at fair value - amortized cost",
+            "is_total": false,
+            "values": {
+              "2024": 5265255.0
+            },
+            "canonical_key": "fixed_maturities"
+          },
+          {
+            "label": "December 31, 2024 (2023 - $5,754,140) (Notes 5 and 6)",
+            "is_total": false,
+            "values": {
+              "2024": 5237383.0,
+              "2023": 5815133.0
+            },
+            "canonical_key": ""
+          },
+          {
+            "label": "Short term investments, at fair value - amortized cost",
+            "is_total": false,
+            "values": {
+              "2024": 330542.0,
+              "2023": 31.0
+            },
+            "canonical_key": "short_term_investments"
+          },
+          {
+            "label": "2024 (2023 - $439,178) (Notes 5 and 6)",
+            "is_total": false,
+            "values": {
+              "2024": 330493.0,
+              "2023": 439618.0
+            },
+            "canonical_key": "company_specific_2024"
+          },
+          {
+            "label": "Other investments, at fair value (Notes 5 and 6)",
+            "is_total": false,
+            "values": {
+              "2024": 8814.0,
+              "2023": 26491.0
+            },
+            "canonical_key": "other_investments"
+          },
+          {
+            "label": "Equity method investments (Note 5)",
+            "is_total": false,
+            "values": {
+              "2024": 1720099.0,
+              "2023": 2094342.0
+            },
+            "canonical_key": "equity_method_investments"
+          },
+          {
+            "label": "Total investments",
+            "is_total": true,
+            "values": {
+              "2024": 7296789.0,
+              "2023": 8375584.0
+            },
+            "canonical_key": "total_investments"
+          },
+          {
+            "label": "Cash and cash equivalents",
+            "is_total": false,
+            "values": {
+              "2024": 512200.0,
+              "2023": 704419.0
+            },
+            "canonical_key": "cash_and_cash_equivalents"
+          },
+          {
+            "label": "Premiums receivable (Notes 7 and 10)",
+            "is_total": false,
+            "values": {
+              "2024": 3771083.0,
+              "2023": 3602745.0
+            },
+            "canonical_key": "premiums_receivable"
+          },
+          {
+            "label": "Prepaid reinsurance premiums (Notes 7 and 10)",
+            "is_total": false,
+            "values": {
+              "2024": 945331.0,
+              "2023": 832893.0
+            },
+            "canonical_key": "prepaid_reinsurance_premiums"
+          },
+          {
+            "label": "Reinsurance recoverable (Notes 7, 8 and 10)",
+            "is_total": false,
+            "values": {
+              "2024": 2936551.0,
+              "2023": 3534821.0
+            },
+            "canonical_key": "reinsurance_recoverables"
+          },
+          {
+            "label": "Due from affiliates, net (Note 10)",
+            "is_total": false,
+            "values": {
+              "2024": 422244.0,
+              "2023": 459559.0
+            },
+            "canonical_key": "due_from_affiliates"
+          },
+          {
+            "label": "Accrued investment income",
+            "is_total": false,
+            "values": {
+              "2024": 43561.0,
+              "2023": 46829.0
+            },
+            "canonical_key": "accrued_investment_income"
+          },
+          {
+            "label": "Deferred acquisition costs and value of business acquired (Note 3)",
+            "is_total": false,
+            "values": {
+              "2024": 678058.0,
+              "2023": 734850.0
+            },
+            "canonical_key": "deferred_acquisition_costs"
+          },
+          {
+            "label": "Deferred tax asset (Note 11)",
+            "is_total": false,
+            "values": {
+              "2024": 444763.0,
+              "2023": 438602.0
+            },
+            "canonical_key": "deferred_tax_assets"
+          },
+          {
+            "label": "Receivable for investments sold",
+            "is_total": false,
+            "values": {
+              "2024": 1617.0,
+              "2023": 339421.0
+            },
+            "canonical_key": "receivable_for_investments_sold"
+          },
+          {
+            "label": "Other assets",
+            "is_total": false,
+            "values": {
+              "2024": 27235.0,
+              "2023": 31753.0
+            },
+            "canonical_key": "other_assets"
+          },
+          {
+            "label": "Goodwill and other intangible assets (Notes 3 and 4)",
+            "is_total": false,
+            "values": {
+              "2024": 273346.0,
+              "2023": 310649.0
+            },
+            "canonical_key": "intangible_assets"
+          },
+          {
+            "label": "Total assets",
+            "is_total": true,
+            "values": {
+              "2024": 17352778.0,
+              "2023": 19412125.0
+            },
+            "canonical_key": "total_assets"
+          }
+        ],
+        "LIABILITIES AND SHAREHOLDER’S EQUITY": [],
+        "LIABILITIES": [
+          {
+            "label": "Reserve for claims and claim expenses (Notes 8 and 10)",
+            "is_total": false,
+            "values": {
+              "2024": 8181824.0,
+              "2023": 8680536.0
+            },
+            "canonical_key": "loss_reserves"
+          },
+          {
+            "label": "Unearned premiums (Note 10)",
+            "is_total": false,
+            "values": {
+              "2024": 2836850.0,
+              "2023": 2885915.0
+            },
+            "canonical_key": "unearned_premiums"
+          },
+          {
+            "label": "Reinsurance balances payable (Note 10)",
+            "is_total": false,
+            "values": {
+              "2024": 2084373.0,
+              "2023": 1744790.0
+            },
+            "canonical_key": "insurance_reinsurance_payables"
+          },
+          {
+            "label": "Due to affiliates, net (Note 10)",
+            "is_total": false,
+            "values": {
+              "2024": 39918.0,
+              "2023": 37856.0
+            },
+            "canonical_key": "due_to_affiliates"
+          },
+          {
+            "label": "Payable for investments purchased",
+            "is_total": false,
+            "values": {
+              "2024": 5991.0,
+              "2023": 353295.0
+            },
+            "canonical_key": "payable_for_investments_purchased"
+          },
+          {
+            "label": "Accounts payable and accrued liabilities",
+            "is_total": false,
+            "values": {
+              "2024": 67740.0,
+              "2023": 20093.0
+            },
+            "canonical_key": "other_liabilities"
+          },
+          {
+            "label": "Other liabilities",
+            "is_total": false,
+            "values": {
+              "2024": 11161.0,
+              "2023": 10109.0
+            },
+            "canonical_key": "other_liabilities"
+          },
+          {
+            "label": "Total liabilities",
+            "is_total": true,
+            "values": {
+              "2024": 13227857.0,
+              "2023": 13732594.0
+            },
+            "canonical_key": "total_liabilities"
+          }
+        ],
+        "SHAREHOLDER’S EQUITY": [
+          {
+            "label": "Common shares: $1.00 par value",
+            "is_total": false,
+            "values": {
+              "2024": 0.0,
+              "2023": 141301000.0
+            },
+            "canonical_key": "share_capital"
+          },
+          {
+            "label": "December 31, 2024 and 2023 (Note 9)",
+            "is_total": false,
+            "values": {
+              "2024": 141301.0,
+              "2023": 141301.0
+            },
+            "canonical_key": ""
+          },
+          {
+            "label": "Additional paid-in capital (Note 9)",
+            "is_total": false,
+            "values": {
+              "2024": 3067188.0,
+              "2023": 4567361.0
+            },
+            "canonical_key": "additional_paid_in_capital"
+          },
+          {
+            "label": "Accumulated other comprehensive income (loss)",
+            "is_total": true,
+            "values": {
+              "2024": -3193.0,
+              "2023": -3241.0
+            },
+            "canonical_key": "aoci"
+          },
+          {
+            "label": "Retained earnings",
+            "is_total": false,
+            "values": {
+              "2024": 919625.0,
+              "2023": 974110.0
+            },
+            "canonical_key": "retained_earnings"
+          },
+          {
+            "label": "Total shareholder’s equity",
+            "is_total": true,
+            "values": {
+              "2024": 4124921.0,
+              "2023": 5679531.0
+            },
+            "canonical_key": "total_equity"
+          },
+          {
+            "label": "Total liabilities and shareholder’s equity",
+            "is_total": true,
+            "values": {
+              "2024": 17352778.0,
+              "2023": 19412125.0
+            },
+            "canonical_key": "total_liabilities"
+          }
+        ]
+      }
+    },
+    "income_statement": {
+      "sections": {
+        "REVENUES": [
+          {
+            "label": "Gross premiums written (Notes 7 and 10)",
+            "is_total": false,
+            "values": {
+              "2024": 4530032.0,
+              "2023": 3393831.0
+            },
+            "canonical_key": "gross_premiums_written"
+          },
+          {
+            "label": "Net premiums written (Notes 7 and 10)",
+            "is_total": false,
+            "values": {
+              "2024": 2780756.0,
+              "2023": 2115974.0
+            },
+            "canonical_key": "net_premiums_written"
+          },
+          {
+            "label": "Decrease (increase) in net unearned premiums",
+            "is_total": false,
+            "values": {
+              "2024": 160553.0,
+              "2023": 141523.0
+            },
+            "canonical_key": "unearned_premiums"
+          },
+          {
+            "label": "Net premiums earned (Notes 7 and 10)",
+            "is_total": false,
+            "values": {
+              "2024": 2941309.0,
+              "2023": 2257497.0
+            },
+            "canonical_key": "net_premiums_earned"
+          },
+          {
+            "label": "Net investment income (Note 5)",
+            "is_total": false,
+            "values": {
+              "2024": 305883.0,
+              "2023": 197921.0
+            },
+            "canonical_key": "net_investment_income"
+          },
+          {
+            "label": "Net foreign exchange gains (losses)",
+            "is_total": false,
+            "values": {
+              "2024": -5714.0,
+              "2023": -6386.0
+            },
+            "canonical_key": "net_foreign_exchange"
+          },
+          {
+            "label": "Net income (losses) from equity method investments (Note 5)",
+            "is_total": true,
+            "values": {
+              "2024": 164512.0,
+              "2023": 196017.0
+            },
+            "canonical_key": "equity_method_investments"
+          },
+          {
+            "label": "Other income (loss) (Notes 8 and 10)",
+            "is_total": false,
+            "values": {
+              "2024": 1310.0,
+              "2023": -1648.0
+            },
+            "canonical_key": "other_income"
+          },
+          {
+            "label": "Net realized and unrealized gains (losses) on investments (Note 5)",
+            "is_total": false,
+            "values": {
+              "2024": -157267.0,
+              "2023": 51872.0
+            },
+            "canonical_key": "net_realized_gains_losses"
+          },
+          {
+            "label": "Total revenues",
+            "is_total": true,
+            "values": {
+              "2024": 3250033.0,
+              "2023": 2695273.0
+            },
+            "canonical_key": "total_revenues"
+          }
+        ],
+        "EXPENSES": [
+          {
+            "label": "Net claims and claim expenses incurred (Notes 7, 8 and 10)",
+            "is_total": false,
+            "values": {
+              "2024": 1297515.0,
+              "2023": 912960.0
+            },
+            "canonical_key": "net_losses_lae"
+          },
+          {
+            "label": "Acquisition expenses",
+            "is_total": false,
+            "values": {
+              "2024": 864303.0,
+              "2023": 579864.0
+            },
+            "canonical_key": "acquisition_costs"
+          },
+          {
+            "label": "Operational expenses (Notes 10 and 14)",
+            "is_total": false,
+            "values": {
+              "2024": 130437.0,
+              "2023": -28851.0
+            },
+            "canonical_key": "general_admin_expenses"
+          },
+          {
+            "label": "Corporate expenses",
+            "is_total": false,
+            "values": {
+              "2024": 10653.0,
+              "2023": 4085.0
+            },
+            "canonical_key": "general_admin_expenses"
+          },
+          {
+            "label": "Total expenses",
+            "is_total": true,
+            "values": {
+              "2024": 2302908.0,
+              "2023": 1468058.0
+            },
+            "canonical_key": "total_expenses"
+          },
+          {
+            "label": "Income (loss) from continuing operations before taxes",
+            "is_total": false,
+            "values": {
+              "2024": 947125.0,
+              "2023": 1227215.0
+            },
+            "canonical_key": "income_before_taxes"
+          },
+          {
+            "label": "Income tax benefit (expense) (Note 11)",
+            "is_total": false,
+            "values": {
+              "2024": 1701.0,
+              "2023": 436027.0
+            },
+            "canonical_key": "income_tax_expense"
+          },
+          {
+            "label": "Income (loss) from continuing operations",
+            "is_total": false,
+            "values": {
+              "2024": 948826.0,
+              "2023": 1663242.0
+            },
+            "canonical_key": "income_from_continuing_ops"
+          },
+          {
+            "label": "Income (loss) from discontinued operations (Note 3)",
+            "is_total": false,
+            "values": {
+              "2024": 0.0,
+              "2023": 93620.0
+            },
+            "canonical_key": "income_from_discontinued_ops"
+          },
+          {
+            "label": "Net income (loss)",
+            "is_total": true,
+            "values": {
+              "2024": 948826.0,
+              "2023": 1756862.0
+            },
+            "canonical_key": "net_income"
+          }
+        ]
+      }
+    },
+    "soci": {
+      "sections": {
+        "GENERAL": [
+          {
+            "label": "Net income (loss)",
+            "is_total": true,
+            "values": {
+              "2024": 948826.0,
+              "2023": 1756862.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Change in net unrealized gains (losses) on investments, net of tax",
+            "is_total": false,
+            "values": {
+              "2024": 48.0,
+              "2023": 137.0
+            },
+            "canonical_key": "unrealized_gains_on_investments"
+          }
+        ]
+      }
+    },
+    "cash_flows": {
+      "sections": {
+        "GENERAL": [
+          {
+            "label": "Income (loss) from continuing operations",
+            "is_total": false,
+            "values": {
+              "2024": 948826.0,
+              "2023": 1663242.0
+            },
+            "canonical_key": "income_from_continuing_ops"
+          }
+        ],
+        "ADJUSTMENTS TO RECONCILE NET INCOME (LOSS) TO NET CASH PROVIDED BY": [],
+        "OPERATING ACTIVITIES": [
+          {
+            "label": "Amortization, accretion and depreciation",
+            "is_total": false,
+            "values": {
+              "2024": 195428.0,
+              "2023": 32450.0
+            },
+            "canonical_key": "depreciation_amortization"
+          },
+          {
+            "label": "Equity in undistributed (earnings) losses of equity method investments",
+            "is_total": false,
+            "values": {
+              "2024": -146275.0,
+              "2023": -190127.0
+            },
+            "canonical_key": "equity_method_investments"
+          },
+          {
+            "label": "Net realized and unrealized (gains) losses on investments",
+            "is_total": false,
+            "values": {
+              "2024": 102199.0,
+              "2023": -110238.0
+            },
+            "canonical_key": "net_realized_gains_losses"
+          },
+          {
+            "label": "Premiums receivable",
+            "is_total": false,
+            "values": {
+              "2024": -168338.0,
+              "2023": 61065.0
+            },
+            "canonical_key": "premiums_receivable"
+          },
+          {
+            "label": "Prepaid reinsurance premiums",
+            "is_total": false,
+            "values": {
+              "2024": -112438.0,
+              "2023": 52293.0
+            },
+            "canonical_key": "prepaid_reinsurance_premiums"
+          },
+          {
+            "label": "Reinsurance recoverable",
+            "is_total": false,
+            "values": {
+              "2024": 598270.0,
+              "2023": 505407.0
+            },
+            "canonical_key": "reinsurance_recoverables"
+          },
+          {
+            "label": "Deferred acquisition costs and value of business acquired",
+            "is_total": false,
+            "values": {
+              "2024": 56792.0,
+              "2023": 30223.0
+            },
+            "canonical_key": "deferred_acquisition_costs"
+          },
+          {
+            "label": "Reserve for claims and claim expenses",
+            "is_total": false,
+            "values": {
+              "2024": -498712.0,
+              "2023": -613067.0
+            },
+            "canonical_key": "loss_reserves"
+          },
+          {
+            "label": "Unearned premiums",
+            "is_total": false,
+            "values": {
+              "2024": -49065.0,
+              "2023": -193813.0
+            },
+            "canonical_key": "unearned_premiums"
+          },
+          {
+            "label": "Reinsurance balances payable",
+            "is_total": false,
+            "values": {
+              "2024": 339583.0,
+              "2023": 47644.0
+            },
+            "canonical_key": "insurance_reinsurance_payables"
+          },
+          {
+            "label": "Due to / from affiliates, net",
+            "is_total": false,
+            "values": {
+              "2024": 19410.0,
+              "2023": -57699.0
+            },
+            "canonical_key": "due_from_to_affiliates_change"
+          },
+          {
+            "label": "Other",
+            "is_total": false,
+            "values": {
+              "2024": -131111.0,
+              "2023": -547817.0
+            },
+            "canonical_key": "other_investments"
+          },
+          {
+            "label": "Net cash provided by (used in) operating activities",
+            "is_total": true,
+            "values": {
+              "2024": 1154569.0,
+              "2023": 679563.0
+            },
+            "canonical_key": "net_cash_operating"
+          },
+          {
+            "label": "Proceeds from sales and maturities of fixed maturity investments trading",
+            "is_total": false,
+            "values": {
+              "2024": 7462424.0,
+              "2023": 6927212.0
+            },
+            "canonical_key": "proceeds_fixed_maturities"
+          },
+          {
+            "label": "Purchases of fixed maturity investments trading",
+            "is_total": false,
+            "values": {
+              "2024": -8175441.0,
+              "2023": -7368268.0
+            },
+            "canonical_key": "purchases_fixed_maturities"
+          },
+          {
+            "label": "Proceeds from sales of short term investments",
+            "is_total": false,
+            "values": {
+              "2024": 4694883.0,
+              "2023": 4575990.0
+            },
+            "canonical_key": "proceeds_short_term_investments"
+          },
+          {
+            "label": "Purchases of short term investments",
+            "is_total": false,
+            "values": {
+              "2024": -4588195.0,
+              "2023": -3759536.0
+            },
+            "canonical_key": "purchases_short_term_investments"
+          },
+          {
+            "label": "Proceeds from sales of other investments",
+            "is_total": false,
+            "values": {
+              "2024": 19196.0,
+              "2023": 17537.0
+            },
+            "canonical_key": "proceeds_other_investments"
+          },
+          {
+            "label": "Purchases of other investments",
+            "is_total": false,
+            "values": {
+              "2024": 0.0,
+              "2023": -8700.0
+            },
+            "canonical_key": "purchases_other_investments"
+          },
+          {
+            "label": "Proceeds from redemptions of equity method investments",
+            "is_total": false,
+            "values": {
+              "2024": 152254.0,
+              "2023": 0.0
+            },
+            "canonical_key": "proceeds_equity_method_investments"
+          },
+          {
+            "label": "Purchases of equity method investments",
+            "is_total": false,
+            "values": {
+              "2024": -653685.0,
+              "2023": -466002.0
+            },
+            "canonical_key": "purchases_equity_method_investments"
+          },
+          {
+            "label": "Return of capital from equity method investments",
+            "is_total": false,
+            "values": {
+              "2024": 0.0,
+              "2023": 1881.0
+            },
+            "canonical_key": "proceeds_equity_method_investments"
+          },
+          {
+            "label": "Net cash provided by (used in) investing activities",
+            "is_total": true,
+            "values": {
+              "2024": -1088564.0,
+              "2023": -79886.0
+            },
+            "canonical_key": "net_cash_investing"
+          },
+          {
+            "label": "Return of capital",
+            "is_total": false,
+            "values": {
+              "2024": -246114.0,
+              "2023": -128148.0
+            },
+            "canonical_key": "return_of_capital"
+          },
+          {
+            "label": "Cash received in net asset transfer of entity under common control",
+            "is_total": false,
+            "values": {
+              "2024": 0.0,
+              "2023": 141964.0
+            },
+            "canonical_key": "cash_received_entity_transfer"
+          },
+          {
+            "label": "Dividends paid",
+            "is_total": false,
+            "values": {
+              "2024": 0.0,
+              "2023": -182728.0
+            },
+            "canonical_key": "dividends_paid"
+          },
+          {
+            "label": "Net cash provided by (used in) financing activities",
+            "is_total": true,
+            "values": {
+              "2024": -246114.0,
+              "2023": -168912.0
+            },
+            "canonical_key": "net_cash_financing"
+          },
+          {
+            "label": "Effect of exchange rate changes on foreign currency cash",
+            "is_total": false,
+            "values": {
+              "2024": -12110.0,
+              "2023": 6237.0
+            },
+            "canonical_key": "effect_of_exchange_rate_on_cash"
+          },
+          {
+            "label": "Net (decrease) increase in cash and cash equivalents",
+            "is_total": false,
+            "values": {
+              "2024": -192219.0,
+              "2023": 437002.0
+            },
+            "canonical_key": "cash_and_cash_equivalents"
+          },
+          {
+            "label": "Cash and cash equivalents, beginning of period",
+            "is_total": false,
+            "values": {
+              "2024": 704419.0,
+              "2023": 267417.0
+            },
+            "canonical_key": "cash_and_cash_equivalents"
+          },
+          {
+            "label": "Cash and cash equivalents, end of period",
+            "is_total": false,
+            "values": {
+              "2024": 512200.0,
+              "2023": 704419.0
+            },
+            "canonical_key": "cash_and_cash_equivalents"
+          }
+        ]
+      }
+    },
+    "shareholders_equity": {
+      "sections": {
+        "CONSOLIDATED STATEMENTS OF CHANGES IN SHAREHOLDER’S EQUITY": [
+          {
+            "label": "Common shares",
+            "is_total": false,
+            "values": {
+              "2024": 141301.0,
+              "2023": 141301.0
+            },
+            "canonical_key": "share_capital"
+          }
+        ],
+        "ADDITIONAL PAID-IN CAPITAL": [
+          {
+            "label": "Balance – January",
+            "is_total": false,
+            "values": {
+              "2024": 4567361.0,
+              "2023": 2712100.0
+            },
+            "canonical_key": "company_specific_balance_january"
+          },
+          {
+            "label": "Contribution of entity under common control (Note 3)",
+            "is_total": false,
+            "values": {
+              "2024": 0.0,
+              "2023": 2946965.0
+            },
+            "canonical_key": "contribution_entity"
+          },
+          {
+            "label": "Deemed distribution on disposal of discontinued operations (Note 3)",
+            "is_total": false,
+            "values": {
+              "2024": 0.0,
+              "2023": -669319.0
+            },
+            "canonical_key": "deemed_distribution"
+          },
+          {
+            "label": "Return of capital (Note 9)",
+            "is_total": false,
+            "values": {
+              "2024": -1500000.0,
+              "2023": -422385.0
+            },
+            "canonical_key": "return_of_capital"
+          },
+          {
+            "label": "Other",
+            "is_total": false,
+            "values": {
+              "2024": -173.0,
+              "2023": 0.0
+            },
+            "canonical_key": "other_investments"
+          },
+          {
+            "label": "Balance – December",
+            "is_total": false,
+            "values": {
+              "2024": 3067188.0,
+              "2023": 4567361.0
+            },
+            "canonical_key": "company_specific_balance_december"
+          }
+        ],
+        "ACCUMULATED OTHER COMPREHENSIVE LOSS": [
+          {
+            "label": "Balance – January",
+            "is_total": false,
+            "values": {
+              "2024": -3241.0,
+              "2023": -3378.0
+            },
+            "canonical_key": "company_specific_balance_january"
+          },
+          {
+            "label": "Change in net unrealized gains on investments, net of tax",
+            "is_total": false,
+            "values": {
+              "2024": 48.0,
+              "2023": 137.0
+            },
+            "canonical_key": "unrealized_gains_on_investments"
+          },
+          {
+            "label": "Balance – December",
+            "is_total": false,
+            "values": {
+              "2024": -3193.0,
+              "2023": -3241.0
+            },
+            "canonical_key": "company_specific_balance_december"
+          }
+        ],
+        "RETAINED EARNINGS": [
+          {
+            "label": "Balance – January",
+            "is_total": false,
+            "values": {
+              "2024": 974110.0,
+              "2023": -600024.0
+            },
+            "canonical_key": "company_specific_balance_january"
+          },
+          {
+            "label": "Net income (loss)",
+            "is_total": true,
+            "values": {
+              "2024": 948826.0,
+              "2023": 1756862.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Dividends declared (Note 9)",
+            "is_total": false,
+            "values": {
+              "2024": -1003311.0,
+              "2023": -182728.0
+            },
+            "canonical_key": "dividends_declared"
+          },
+          {
+            "label": "Balance – December",
+            "is_total": false,
+            "values": {
+              "2024": 919625.0,
+              "2023": 974110.0
+            },
+            "canonical_key": "company_specific_balance_december"
+          },
+          {
+            "label": "Total shareholder’s equity",
+            "is_total": true,
+            "values": {
+              "2024": 4124921.0,
+              "2023": 5679531.0
+            },
+            "canonical_key": "total_equity"
+          }
+        ]
+      }
+    }
+  }
+}

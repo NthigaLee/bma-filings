@@ -1,0 +1,42 @@
+{
+  "company": "Ascot Bermuda Limited",
+  "year": 2024,
+  "validation": {
+    "bs_balance": {
+      "status": "SKIP",
+      "reason": "values not found",
+      "a": 11825140.0,
+      "b": null
+    },
+    "ni_is_vs_soci": {
+      "status": "PASS",
+      "a": 463817.0,
+      "b": 463817.0,
+      "diff": 0.0
+    },
+    "ni_is_vs_cf": {
+      "status": "PASS",
+      "a": 463817.0,
+      "b": 463817.0,
+      "diff": 0.0
+    },
+    "cash_bs_vs_cf": {
+      "status": "SKIP",
+      "reason": "values not found",
+      "a": 533331.0,
+      "b": null
+    },
+    "equity_bs_vs_se": {
+      "status": "SKIP",
+      "reason": "values not found",
+      "a": null,
+      "b": 1000.0
+    },
+    "tci_math": {
+      "status": "PASS",
+      "a": 442507.0,
+      "b": 442507.0,
+      "diff": 0.0
+    }
+  }
+}

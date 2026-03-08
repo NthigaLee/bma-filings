@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Insurance/Reinsurance Company Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .header {
+            background: white;
+            border-left: 6px solid #8b1538;
+            padding: 25px 30px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 2em;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .controls-row {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 20px;
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9em;
+        }
+
+        .control-group select,
+        .control-group input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transition: border-color 0.3s;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            outline: none;
+            border-color: #8b1538;
+            box-shadow: 0 0 0 2px rgba(139, 21, 56, 0.1);
+        }
+
+        .company-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.3s;
+        }
+
+        .btn-select-all {
+            background: #8b1538;
+            color: white;
+        }
+
+        .btn-select-all:hover {
+            background: #6b0f2b;
+        }
+
+        .btn-clear-all {
+            background: #ccc;
+            color: #333;
+        }
+
+        .btn-clear-all:hover {
+            background: #aaa;
+        }
+
+        .company-filter {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 10px;
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .company-checkbox {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid #e0e0e0;
+        }
+
+        .company-checkbox:hover {
+            background: #f0f0f0;
+            border-color: #8b1538;
+        }
+
+        .company-checkbox input[type="checkbox"] {
+            cursor: pointer;
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+            accent-color: #8b1538;
+        }
+
+        .company-checkbox label {
+            margin: 0;
+            cursor: pointer;
+            font-size: 0.85em;
+            flex: 1;
+        }
+
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid #8b1538;
+        }
+
+        .metric-label {
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #8b1538;
+            margin-top: 8px;
+        }
+
+        .chart-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .chart-title {
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .line-chart-container {
+            height: 350px;
+            margin-bottom: 10px;
+        }
+
+        .metric-selector {
+            margin-bottom: 15px;
+        }
+
+        .metric-selector label {
+            font-weight: 600;
+            color: #333;
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        .metric-selector select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+        }
+
+        .table-title {
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+        }
+
+        .comparison-table thead {
+            background: #f9f9f9;
+            border-bottom: 2px solid #8b1538;
+        }
+
+        .comparison-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .comparison-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .value-cell {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .color-block {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        @media (max-width: 1200px) {
+            .chart-row {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+
+            .header, .controls-row, .company-filter, .chart-card, .table-container {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Insurance/Reinsurance Company Dashboard</h1>
+        <p>Financial comparison of 10 major Bermuda-based insurance and reinsurance companies | All values in USD Millions</p>
+    </div>
+
+    <div class="controls-row">
+        <div class="control-group">
+            <label for="year-filter">Select Year</label>
+            <select id="year-filter">
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>&nbsp;</label>
+            <div class="company-buttons">
+                <button class="btn btn-select-all" onclick="selectAllCompanies()">Select All</button>
+                <button class="btn btn-clear-all" onclick="clearAllCompanies()">Clear All</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="company-filter" id="company-filter"></div>
+
+    <div class="metrics-row" id="metrics-row"></div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Total Assets by Company</div>
+            <div class="chart-container">
+                <canvas id="assetsChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Total Equity by Company</div>
+            <div class="chart-container">
+                <canvas id="equityChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Net Premiums Earned</div>
+            <div class="chart-container">
+                <canvas id="premiumsChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Net Income by Company</div>
+            <div class="chart-container">
+                <canvas id="incomeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">ROE (Return on Equity) %</div>
+            <div class="chart-container">
+                <canvas id="roeChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">ROA (Return on Assets) %</div>
+            <div class="chart-container">
+                <canvas id="roaChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Loss Ratio %</div>
+            <div class="chart-container">
+                <canvas id="lossRatioChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Expense Ratio %</div>
+            <div class="chart-container">
+                <canvas id="expenseRatioChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Equity Ratio %</div>
+            <div class="chart-container">
+                <canvas id="equityRatioChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Combined Ratio %</div>
+            <div class="chart-container">
+                <canvas id="combinedRatioChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card" style="grid-column: 1 / -1;">
+            <div class="chart-title">Year-over-Year Comparison</div>
+            <div class="metric-selector">
+                <label for="metric-select">Select Metric:</label>
+                <select id="metric-select" onchange="updateTrendChart()">
+                    <option value="Total Assets">Total Assets</option>
+                    <option value="Total Equity">Total Equity</option>
+                    <option value="Net Premiums Earned">Net Premiums Earned</option>
+                    <option value="Net Income">Net Income</option>
+                    <option value="Total Revenues">Total Revenues</option>
+                    <option value="ROE (%)">ROE (%)</option>
+                    <option value="ROA (%)">ROA (%)</option>
+                    <option value="Loss Ratio (%)">Loss Ratio (%)</option>
+                    <option value="Expense Ratio (%)">Expense Ratio (%)</option>
+                    <option value="Combined Ratio (%)">Combined Ratio (%)</option>
+                </select>
+            </div>
+            <div class="line-chart-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-title">Financial Metrics Comparison Table</div>
+        <table class="comparison-table" id="comparison-table"></table>
+    </div>
+
+    <script>
+        let dashboardData = null;
+        let charts = {};
+        let currentYear = 2024;
+
+        // Color palette
+        const colors = {
+            primary: '#8b1538',
+            lightGray: '#f0f0f0',
+            darkGray: '#333',
+            chartColors: [
+                '#8b1538', '#a82844', '#c43b54', '#d46b7e',
+                '#e09ba8', '#f0e0e6', '#b8434d', '#7a1131',
+                '#c41448', '#6b0f2b'
+            ]
+        };
+
+        // Load data
+        fetch('dashboard_data.json')
+            .then(response => response.json())
+            .then(data => {
+                dashboardData = data;
+                initializeDashboard();
+            })
+            .catch(err => console.error('Error loading data:', err));
+
+        function initializeDashboard() {
+            populateCompanyFilter();
+            selectAllCompanies();
+            setupEventListeners();
+            updateAllCharts();
+        }
+
+        function populateCompanyFilter() {
+            const filterDiv = document.getElementById('company-filter');
+            filterDiv.innerHTML = '';
+
+            dashboardData.companies.forEach((company, index) => {
+                const label = document.createElement('label');
+                label.className = 'company-checkbox';
+                label.innerHTML = `
+                    <input type="checkbox" class="company-checkbox-input" value="${company}" checked>
+                    <label>${company}</label>
+                `;
+                label.querySelector('input').addEventListener('change', updateAllCharts);
+                filterDiv.appendChild(label);
+            });
+        }
+
+        function getSelectedCompanies() {
+            return Array.from(document.querySelectorAll('.company-checkbox-input:checked'))
+                .map(cb => cb.value);
+        }
+
+        function selectAllCompanies() {
+            document.querySelectorAll('.company-checkbox-input').forEach(cb => {
+                cb.checked = true;
+            });
+            updateAllCharts();
+        }
+
+        function clearAllCompanies() {
+            document.querySelectorAll('.company-checkbox-input').forEach(cb => {
+                cb.checked = false;
+            });
+            updateAllCharts();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('year-filter').addEventListener('change', (e) => {
+                currentYear = parseInt(e.target.value);
+                updateAllCharts();
+            });
+        }
+
+        function getValue(company, metric, category, year = null) {
+            const y = String(year || currentYear);  // Convert to string for JSON keys
+            try {
+                return dashboardData.data[y][category][metric][company] || 0;
+            } catch {
+                return 0;
+            }
+        }
+
+        function updateAllCharts() {
+            const selected = getSelectedCompanies();
+            updateMetrics(selected);
+            updateBarChart('assetsChart', 'Total Assets', 'balance_sheet', selected);
+            updateBarChart('equityChart', 'Total Equity', 'balance_sheet', selected);
+            updateBarChart('premiumsChart', 'Net Premiums Earned', 'income_statement', selected);
+            updateBarChart('incomeChart', 'Net Income', 'income_statement', selected);
+            updateBarChart('roeChart', 'ROE (%)', 'ratios', selected);
+            updateBarChart('roaChart', 'ROA (%)', 'ratios', selected);
+            updateBarChart('lossRatioChart', 'Loss Ratio (%)', 'ratios', selected);
+            updateBarChart('expenseRatioChart', 'Expense Ratio (%)', 'ratios', selected);
+            updateBarChart('equityRatioChart', 'Equity Ratio (%)', 'ratios', selected);
+            updateBarChart('combinedRatioChart', 'Combined Ratio (%)', 'ratios', selected);
+            updateTrendChart();
+            updateComparisonTable(selected);
+        }
+
+        function updateMetrics(selected) {
+            const metricsDiv = document.getElementById('metrics-row');
+            metricsDiv.innerHTML = '';
+
+            if (selected.length === 0) {
+                metricsDiv.innerHTML = '<p style="color: #999;">Select companies to view metrics</p>';
+                return;
+            }
+
+            const largestAssets = Math.max(...selected.map(c => getValue(c, 'Total Assets', 'balance_sheet')));
+            const avgROE = (selected.reduce((sum, c) => sum + getValue(c, 'ROE (%)', 'ratios'), 0) / selected.length).toFixed(1);
+            const avgCombined = (selected.reduce((sum, c) => sum + getValue(c, 'Combined Ratio (%)', 'ratios'), 0) / selected.length).toFixed(1);
+            const totalEquity = selected.reduce((sum, c) => sum + getValue(c, 'Total Equity', 'balance_sheet'), 0).toFixed(0);
+
+            const metrics = [
+                { label: 'Largest Company Assets', value: '$' + largestAssets.toFixed(0) + 'B' },
+                { label: 'Average ROE', value: avgROE + '%' },
+                { label: 'Average Combined Ratio', value: avgCombined + '%' },
+                { label: 'Total Equity (Selected)', value: '$' + totalEquity + 'M' }
+            ];
+
+            metrics.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'metric-card';
+                card.innerHTML = `
+                    <div class="metric-label">${m.label}</div>
+                    <div class="metric-value">${m.value}</div>
+                `;
+                metricsDiv.appendChild(card);
+            });
+        }
+
+        function updateBarChart(chartId, metric, category, selected) {
+            const ctx = document.getElementById(chartId)?.getContext('2d');
+            if (!ctx) return;
+
+            const values = selected.map(c => getValue(c, metric, category));
+
+            if (charts[chartId]) {
+                charts[chartId].destroy();
+            }
+
+            charts[chartId] = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: selected,
+                    datasets: [{
+                        label: metric,
+                        data: values,
+                        backgroundColor: colors.chartColors.slice(0, selected.length),
+                        borderColor: colors.primary,
+                        borderWidth: 1,
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#666', font: { size: 10 } },
+                            grid: { color: '#f0f0f0' }
+                        },
+                        x: {
+                            ticks: { color: '#666', font: { size: 9 } },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateTrendChart() {
+            const ctx = document.getElementById('trendChart')?.getContext('2d');
+            if (!ctx) return;
+
+            const selected = getSelectedCompanies();
+            const metric = document.getElementById('metric-select').value;
+            const category = getCategoryForMetric(metric);
+
+            // Determine which category the metric belongs to
+            function getCategoryForMetric(m) {
+                if (dashboardData.data[2024].balance_sheet[m]) return 'balance_sheet';
+                if (dashboardData.data[2024].income_statement[m]) return 'income_statement';
+                if (dashboardData.data[2024].ratios[m]) return 'ratios';
+                return 'balance_sheet';
+            }
+
+            const data2023 = selected.map(c => getValue(c, metric, category, 2023));
+            const data2024 = selected.map(c => getValue(c, metric, category, 2024));
+
+            if (charts['trendChart']) {
+                charts['trendChart'].destroy();
+            }
+
+            charts['trendChart'] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: selected,
+                    datasets: [
+                        {
+                            label: '2023',
+                            data: data2023,
+                            borderColor: '#b8434d',
+                            backgroundColor: 'rgba(184, 67, 77, 0.05)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#b8434d',
+                            pointBorderColor: 'white',
+                            pointBorderWidth: 2
+                        },
+                        {
+                            label: '2024',
+                            data: data2024,
+                            borderColor: '#8b1538',
+                            backgroundColor: 'rgba(139, 21, 56, 0.05)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#8b1538',
+                            pointBorderColor: 'white',
+                            pointBorderWidth: 2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: '#333',
+                                font: { size: 11, weight: '600' },
+                                padding: 15,
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: '#666', font: { size: 10 } },
+                            grid: { color: '#f0f0f0' }
+                        },
+                        x: {
+                            ticks: { color: '#666', font: { size: 10 } },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateComparisonTable(selected) {
+            const table = document.getElementById('comparison-table');
+            table.innerHTML = '';
+
+            const headers = ['Metric', ...selected];
+            const headerRow = table.createTHead().insertRow();
+            headers.forEach(h => {
+                const th = document.createElement('th');
+                th.textContent = h;
+                headerRow.appendChild(th);
+            });
+
+            const metrics = [
+                'Total Assets', 'Total Equity', 'Total Liabilities',
+                'Net Premiums Earned', 'Total Revenues', 'Net Income',
+                'ROE (%)', 'ROA (%)', 'Equity Ratio (%)', 'Combined Ratio (%)'
+            ];
+
+            const tbody = table.createTBody();
+            metrics.forEach(metric => {
+                const row = tbody.insertRow();
+                const metricCell = row.insertCell();
+                metricCell.textContent = metric;
+                metricCell.style.fontWeight = '600';
+                metricCell.style.backgroundColor = '#f9f9f9';
+
+                const category = getCategoryForMetric(metric);
+                function getCategoryForMetric(m) {
+                    if (dashboardData.data[currentYear].balance_sheet[m]) return 'balance_sheet';
+                    if (dashboardData.data[currentYear].income_statement[m]) return 'income_statement';
+                    if (dashboardData.data[currentYear].ratios[m]) return 'ratios';
+                    return 'balance_sheet';
+                }
+
+                selected.forEach((company, idx) => {
+                    const cell = row.insertCell();
+                    const value = getValue(company, metric, category);
+                    cell.textContent = value.toFixed(value > 100 ? 0 : 1);
+                    cell.className = 'value-cell';
+                });
+            });
+        }
+    </script>
+</body>
+</html>

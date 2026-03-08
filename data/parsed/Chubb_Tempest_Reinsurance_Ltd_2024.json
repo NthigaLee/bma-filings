@@ -1,0 +1,1408 @@
+{
+  "metadata": {
+    "source_pdf": "2025-07-02-11-39-01-Chubb-Tempest-Reinsurance-Ltd.----2024-Financial-Statement---Class-4.pdf",
+    "company_name": "Chubb Tempest Reinsurance Ltd",
+    "parsed_company": "CHUBB TEMPEST REINSURANCE LTD. AND ITS SUBSIDIARIES",
+    "currency": "USD thousands",
+    "years": [
+      2024,
+      2023
+    ],
+    "warnings": [
+      "No pages found for soci",
+      "SOCI extracted from combined IS+SOCI page"
+    ]
+  },
+  "validation": {
+    "company": "CHUBB TEMPEST REINSURANCE LTD. AND ITS SUBSIDIARIES",
+    "year": 2024,
+    "checks": [
+      {
+        "name": "balance_sheet_balances",
+        "passed": true,
+        "detail": "28,607,257 == 15,333,530 + 13,273,727 (diff=0)"
+      },
+      {
+        "name": "net_income_is_vs_soci",
+        "passed": false,
+        "detail": "IS=3,342,324 SOCI=143,501 (diff=3198823)"
+      },
+      {
+        "name": "net_income_is_vs_cf",
+        "passed": true,
+        "detail": "IS=3,342,324 CF=3,342,324 (diff=0)"
+      },
+      {
+        "name": "net_income_is_vs_se",
+        "passed": false,
+        "detail": "IS=3,342,324 SE=3,198,823 (diff=143501)"
+      },
+      {
+        "name": "cash_reconciliation",
+        "passed": null,
+        "detail": "Cannot check — CF end=145,388, BS cash=N/A"
+      },
+      {
+        "name": "tci_equals_ni_plus_oci",
+        "passed": false,
+        "detail": "TCI=-40,273, NI+OCI=143,501+-40,273=103,228 (diff=143501)"
+      },
+      {
+        "name": "equity_se_vs_bs",
+        "passed": null,
+        "detail": "Cannot check — SE equity=N/A, BS equity=13,273,727"
+      }
+    ],
+    "all_passed": false,
+    "warnings": [],
+    "checks_run": 5,
+    "checks_passed": 2
+  },
+  "statements": {
+    "balance_sheet": {
+      "sections": {
+        "ASSETS": [
+          {
+            "label": "$7,779 and $14,945 (amortized cost - $6,666,094 and $7,619,828)",
+            "is_total": false,
+            "values": {
+              "2024": 6388889.0,
+              "2023": 7275278.0
+            },
+            "canonical_key": "company_specific__7_779_and_14_945"
+          },
+          {
+            "label": "Equity securities, at fair value",
+            "is_total": false,
+            "values": {
+              "2024": 3671927.0,
+              "2023": 41201.0
+            },
+            "canonical_key": "equity_securities"
+          },
+          {
+            "label": "Short-term investments, at cost and fair value",
+            "is_total": false,
+            "values": {
+              "2024": 443600.0,
+              "2023": 235579.0
+            },
+            "canonical_key": "purchases_short_term_investments"
+          },
+          {
+            "label": "Private equities",
+            "is_total": false,
+            "values": {
+              "2024": 10477645.0,
+              "2023": 9733106.0
+            },
+            "canonical_key": "purchases_equities"
+          },
+          {
+            "label": "Total investments",
+            "is_total": true,
+            "values": {
+              "2024": 20982061.0,
+              "2023": 17285164.0
+            },
+            "canonical_key": "total_investments"
+          },
+          {
+            "label": "Cash, including restricted cash $89,902 and $7,444",
+            "is_total": false,
+            "values": {
+              "2024": 145388.0,
+              "2023": 765613.0
+            },
+            "canonical_key": "restricted_cash"
+          },
+          {
+            "label": "Securities lending collateral",
+            "is_total": false,
+            "values": {
+              "2024": 80420.0,
+              "2023": 93787.0
+            },
+            "canonical_key": "company_specific_securities_lending_collateral"
+          },
+          {
+            "label": "Accrued investment income",
+            "is_total": false,
+            "values": {
+              "2024": 85806.0,
+              "2023": 84112.0
+            },
+            "canonical_key": "accrued_investment_income"
+          },
+          {
+            "label": "Reinsurance receivable, net of valuation allowance - $574 and $574",
+            "is_total": false,
+            "values": {
+              "2024": 1095725.0,
+              "2023": 1104062.0
+            },
+            "canonical_key": "company_specific_reinsurance_receivable_net_of_valuation_allowance_574_and_57"
+          },
+          {
+            "label": "Prepaid reinsurance premiums",
+            "is_total": false,
+            "values": {
+              "2024": 269150.0,
+              "2023": 240063.0
+            },
+            "canonical_key": "prepaid_reinsurance_premiums"
+          },
+          {
+            "label": "Reinsurance recoverable, net of valuation allowance - $21,321 and $21,321",
+            "is_total": false,
+            "values": {
+              "2024": 1268437.0,
+              "2023": 1304816.0
+            },
+            "canonical_key": "reinsurance_recoverables"
+          },
+          {
+            "label": "Value of reinsurance business assumed",
+            "is_total": false,
+            "values": {
+              "2024": 71338.0,
+              "2023": 87536.0
+            },
+            "canonical_key": "company_specific_value_of_reinsurance_business_assumed"
+          },
+          {
+            "label": "Deferred policy acquisition costs",
+            "is_total": false,
+            "values": {
+              "2024": 530773.0,
+              "2023": 486728.0
+            },
+            "canonical_key": "deferred_acquisition_costs"
+          },
+          {
+            "label": "Goodwill",
+            "is_total": false,
+            "values": {
+              "2024": 364958.0,
+              "2023": 364958.0
+            },
+            "canonical_key": "goodwill"
+          },
+          {
+            "label": "Amounts due from related parties",
+            "is_total": false,
+            "values": {
+              "2024": 338150.0,
+              "2023": 354339.0
+            },
+            "canonical_key": "company_specific_amounts_due_from_related_parties"
+          },
+          {
+            "label": "Loan due from affiliate",
+            "is_total": false,
+            "values": {
+              "2024": 250000.0,
+              "2023": 250000.0
+            },
+            "canonical_key": "due_from_affiliates"
+          },
+          {
+            "label": "Funds withheld",
+            "is_total": false,
+            "values": {
+              "2024": 892409.0,
+              "2023": 849166.0
+            },
+            "canonical_key": "company_specific_funds_withheld"
+          },
+          {
+            "label": "Deferred tax assets",
+            "is_total": false,
+            "values": {
+              "2024": 866743.0,
+              "2023": 832208.0
+            },
+            "canonical_key": "deferred_tax_assets"
+          },
+          {
+            "label": "Investments in partially-owned insurance companies",
+            "is_total": false,
+            "values": {
+              "2024": 1346671.0,
+              "2023": 1459502.0
+            },
+            "canonical_key": "company_specific_investments_in_partially_owned_insurance_companies"
+          },
+          {
+            "label": "Other assets",
+            "is_total": false,
+            "values": {
+              "2024": 19228.0,
+              "2023": 24081.0
+            },
+            "canonical_key": "other_assets"
+          },
+          {
+            "label": "Total assets",
+            "is_total": true,
+            "values": {
+              "2024": 28607257.0,
+              "2023": 25586135.0
+            },
+            "canonical_key": "total_assets"
+          }
+        ],
+        "LIABILITIES": [
+          {
+            "label": "Unpaid losses and loss expenses",
+            "is_total": false,
+            "values": {
+              "2024": 8518650.0,
+              "2023": 7741867.0
+            },
+            "canonical_key": "total_expenses"
+          },
+          {
+            "label": "Future policy benefits",
+            "is_total": false,
+            "values": {
+              "2024": 303379.0,
+              "2023": 299855.0
+            },
+            "canonical_key": "discount_rate_change"
+          },
+          {
+            "label": "Market risk benefits",
+            "is_total": false,
+            "values": {
+              "2024": 217707.0,
+              "2023": 276493.0
+            },
+            "canonical_key": "credit_risk_change"
+          },
+          {
+            "label": "Unearned premiums",
+            "is_total": false,
+            "values": {
+              "2024": 1481834.0,
+              "2023": 1429532.0
+            },
+            "canonical_key": "unearned_premiums"
+          },
+          {
+            "label": "Reinsurance balances payable",
+            "is_total": false,
+            "values": {
+              "2024": 4158618.0,
+              "2023": 3801129.0
+            },
+            "canonical_key": "insurance_reinsurance_payables"
+          },
+          {
+            "label": "Securities lending payable",
+            "is_total": false,
+            "values": {
+              "2024": 80427.0,
+              "2023": 93802.0
+            },
+            "canonical_key": "company_specific_securities_lending_payable"
+          },
+          {
+            "label": "Accounts payable, accrued expenses and other liabilities",
+            "is_total": false,
+            "values": {
+              "2024": 300596.0,
+              "2023": 149146.0
+            },
+            "canonical_key": "accounts_payable_accrued"
+          },
+          {
+            "label": "Deferred tax liabilities",
+            "is_total": false,
+            "values": {
+              "2024": 22986.0,
+              "2023": 0.0
+            },
+            "canonical_key": "deferred_tax_liabilities"
+          },
+          {
+            "label": "Repurchase agreements",
+            "is_total": false,
+            "values": {
+              "2024": 100545.0,
+              "2023": 100648.0
+            },
+            "canonical_key": "company_specific_repurchase_agreements"
+          },
+          {
+            "label": "Amounts due to related parties",
+            "is_total": false,
+            "values": {
+              "2024": 148788.0,
+              "2023": 17858.0
+            },
+            "canonical_key": "company_specific_amounts_due_to_related_parties"
+          },
+          {
+            "label": "Total liabilities",
+            "is_total": true,
+            "values": {
+              "2024": 15333530.0,
+              "2023": 13910330.0
+            },
+            "canonical_key": "total_liabilities"
+          }
+        ],
+        "SHAREHOLDER’S EQUITY": [],
+        "CHUBB TEMPEST REINSURANCE LTD. SHAREHOLDER’S EQUITY": [
+          {
+            "label": "Common shares (",
+            "is_total": false,
+            "values": {
+              "2024": 10.0,
+              "2023": 10000000.0
+            },
+            "canonical_key": "share_capital"
+          },
+          {
+            "label": "280,000 issued and outstanding)",
+            "is_total": false,
+            "values": {
+              "2024": 2800.0,
+              "2023": 2800.0
+            },
+            "canonical_key": "company_specific_280_000_issued_and_outstanding_"
+          },
+          {
+            "label": "Additional paid-in capital",
+            "is_total": false,
+            "values": {
+              "2024": 3746935.0,
+              "2023": 3746935.0
+            },
+            "canonical_key": "additional_paid_in_capital"
+          },
+          {
+            "label": "Retained earnings",
+            "is_total": false,
+            "values": {
+              "2024": 8963064.0,
+              "2023": 7464241.0
+            },
+            "canonical_key": "retained_earnings"
+          },
+          {
+            "label": "Accumulated other comprehensive income (AOCI)",
+            "is_total": true,
+            "values": {
+              "2024": -1049941.0,
+              "2023": -1005539.0
+            },
+            "canonical_key": "aoci"
+          },
+          {
+            "label": "Total Chubb Tempest Reinsurance Ltd. shareholder’s equity",
+            "is_total": true,
+            "values": {
+              "2024": 11662858.0,
+              "2023": 10208437.0
+            },
+            "canonical_key": "company_specific_total_chubb_tempest_reinsurance_ltd_shareholder_s_equity"
+          },
+          {
+            "label": "Non-controlling interest",
+            "is_total": false,
+            "values": {
+              "2024": 1610869.0,
+              "2023": 1467368.0
+            },
+            "canonical_key": "noncontrolling_interest_share"
+          },
+          {
+            "label": "Total shareholder’s equity",
+            "is_total": true,
+            "values": {
+              "2024": 13273727.0,
+              "2023": 11675805.0
+            },
+            "canonical_key": "total_equity"
+          },
+          {
+            "label": "Total liabilities and shareholder’s equity",
+            "is_total": true,
+            "values": {
+              "2024": 28607257.0,
+              "2023": 25586135.0
+            },
+            "canonical_key": "total_liabilities"
+          }
+        ]
+      }
+    },
+    "income_statement": {
+      "sections": {
+        "REVENUES": [
+          {
+            "label": "Gross premiums written",
+            "is_total": false,
+            "values": {
+              "2024": 6639399.0,
+              "2023": 5381826.0
+            },
+            "canonical_key": "gross_premiums_written"
+          },
+          {
+            "label": "Reinsurance premiums ceded",
+            "is_total": false,
+            "values": {
+              "2024": -744170.0,
+              "2023": -666775.0
+            },
+            "canonical_key": "ceded_premiums"
+          },
+          {
+            "label": "Net premiums written",
+            "is_total": false,
+            "values": {
+              "2024": 5895229.0,
+              "2023": 4715051.0
+            },
+            "canonical_key": "net_premiums_written"
+          },
+          {
+            "label": "Change in unearned premiums",
+            "is_total": false,
+            "values": {
+              "2024": -118668.0,
+              "2023": -95487.0
+            },
+            "canonical_key": "unearned_premiums"
+          },
+          {
+            "label": "Net premiums earned",
+            "is_total": false,
+            "values": {
+              "2024": 5776561.0,
+              "2023": 4619564.0
+            },
+            "canonical_key": "net_premiums_earned"
+          },
+          {
+            "label": "Net investment income",
+            "is_total": false,
+            "values": {
+              "2024": 543339.0,
+              "2023": 401689.0
+            },
+            "canonical_key": "net_investment_income"
+          },
+          {
+            "label": "Other income, net",
+            "is_total": false,
+            "values": {
+              "2024": 891272.0,
+              "2023": 815002.0
+            },
+            "canonical_key": "other_income"
+          },
+          {
+            "label": "Net realized gains (losses) (includes $(53,057) and $(47,067) reclassified from AOCI)",
+            "is_total": false,
+            "values": {
+              "2024": -48954.0,
+              "2023": 80531.0
+            },
+            "canonical_key": "net_realized_gains_losses"
+          },
+          {
+            "label": "Market risk benefits gains (losses)",
+            "is_total": false,
+            "values": {
+              "2024": 15496.0,
+              "2023": -93547.0
+            },
+            "canonical_key": "net_realized_gains_losses"
+          },
+          {
+            "label": "Total revenues",
+            "is_total": true,
+            "values": {
+              "2024": 7177714.0,
+              "2023": 5823239.0
+            },
+            "canonical_key": "total_revenues"
+          }
+        ],
+        "EXPENSES": [
+          {
+            "label": "Losses and loss expenses",
+            "is_total": false,
+            "values": {
+              "2024": 2498864.0,
+              "2023": 2185920.0
+            },
+            "canonical_key": "reinsurance_recoverables"
+          },
+          {
+            "label": "Policy benefits (includes remeasurement gains of $451 and $196)",
+            "is_total": false,
+            "values": {
+              "2024": 211931.0,
+              "2023": 148545.0
+            },
+            "canonical_key": "discount_rate_change"
+          },
+          {
+            "label": "Policy acquisition costs",
+            "is_total": false,
+            "values": {
+              "2024": 1105844.0,
+              "2023": 1080810.0
+            },
+            "canonical_key": "acquisition_costs"
+          },
+          {
+            "label": "Administrative expenses",
+            "is_total": false,
+            "values": {
+              "2024": 26061.0,
+              "2023": 25068.0
+            },
+            "canonical_key": "general_admin_expenses"
+          },
+          {
+            "label": "Interest expense",
+            "is_total": false,
+            "values": {
+              "2024": 7503.0,
+              "2023": 7188.0
+            },
+            "canonical_key": "interest_expense"
+          },
+          {
+            "label": "Total expenses",
+            "is_total": true,
+            "values": {
+              "2024": 3850203.0,
+              "2023": 3447531.0
+            },
+            "canonical_key": "total_expenses"
+          },
+          {
+            "label": "Income before income tax",
+            "is_total": true,
+            "values": {
+              "2024": 3327511.0,
+              "2023": 2375708.0
+            },
+            "canonical_key": "income_before_taxes"
+          },
+          {
+            "label": "Income tax benefit",
+            "is_total": false,
+            "values": {
+              "2024": 14813.0,
+              "2023": 832208.0
+            },
+            "canonical_key": "income_tax_expense"
+          },
+          {
+            "label": "Net income",
+            "is_total": true,
+            "values": {
+              "2024": 3342324.0,
+              "2023": 3207916.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Less: Net income attributable to the non-controlling interest",
+            "is_total": true,
+            "values": {
+              "2024": 143501.0,
+              "2023": 205438.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Net income attributable to Chubb Tempest Reinsurance Ltd.",
+            "is_total": true,
+            "values": {
+              "2024": 3198823.0,
+              "2023": 3002478.0
+            },
+            "canonical_key": "net_income"
+          }
+        ],
+        "OTHER COMPREHENSIVE INCOME": [
+          {
+            "label": "Unrealized appreciation on investments",
+            "is_total": false,
+            "values": {
+              "2024": 19065.0,
+              "2023": 250786.0
+            },
+            "canonical_key": "unrealized_gains_on_investments"
+          },
+          {
+            "label": "Reclassification adjustments for net realized losses included in net income",
+            "is_total": true,
+            "values": {
+              "2024": 53057.0,
+              "2023": 47067.0
+            },
+            "canonical_key": "net_realized_gains_losses"
+          },
+          {
+            "label": "Current discount rate on future policy benefits",
+            "is_total": false,
+            "values": {
+              "2024": -139032.0,
+              "2023": -46687.0
+            },
+            "canonical_key": "company_specific_current_discount_rate_on_future_policy_benefits"
+          },
+          {
+            "label": "Instrument-specific credit risk on market risk benefits",
+            "is_total": false,
+            "values": {
+              "2024": 4264.0,
+              "2023": -538.0
+            },
+            "canonical_key": "credit_risk_change"
+          },
+          {
+            "label": "Cumulative foreign currency translation adjustments",
+            "is_total": false,
+            "values": {
+              "2024": 22373.0,
+              "2023": -66990.0
+            },
+            "canonical_key": "foreign_currency_translation"
+          },
+          {
+            "label": "Other comprehensive income (loss), before income tax",
+            "is_total": true,
+            "values": {
+              "2024": -40273.0,
+              "2023": 183638.0
+            },
+            "canonical_key": "aoci"
+          },
+          {
+            "label": "Income tax (expense) related to OCI items",
+            "is_total": false,
+            "values": {
+              "2024": -4129.0,
+              "2023": 0.0
+            },
+            "canonical_key": "income_tax_expense"
+          },
+          {
+            "label": "Other comprehensive income (loss)",
+            "is_total": true,
+            "values": {
+              "2024": -44402.0,
+              "2023": 183638.0
+            },
+            "canonical_key": "aoci"
+          },
+          {
+            "label": "Less: Comprehensive income attributable to the non-controlling interest",
+            "is_total": true,
+            "values": {
+              "2024": 143501.0,
+              "2023": 205438.0
+            },
+            "canonical_key": "noncontrolling_interest_share"
+          }
+        ]
+      }
+    },
+    "soci": {
+      "sections": {
+        "EXPENSES_OCI": [
+          {
+            "label": "Less: Net income attributable to the non-controlling interest",
+            "is_total": true,
+            "values": {
+              "2024": 143501.0,
+              "2023": 205438.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Net income attributable to Chubb Tempest Reinsurance Ltd.",
+            "is_total": true,
+            "values": {
+              "2024": 3198823.0,
+              "2023": 3002478.0
+            },
+            "canonical_key": "net_income"
+          }
+        ],
+        "OTHER COMPREHENSIVE INCOME": [
+          {
+            "label": "Unrealized appreciation on investments",
+            "is_total": false,
+            "values": {
+              "2024": 19065.0,
+              "2023": 250786.0
+            },
+            "canonical_key": "unrealized_gains_on_investments"
+          },
+          {
+            "label": "Reclassification adjustments for net realized losses included in net income",
+            "is_total": true,
+            "values": {
+              "2024": 53057.0,
+              "2023": 47067.0
+            },
+            "canonical_key": "net_realized_gains_losses"
+          },
+          {
+            "label": "Current discount rate on future policy benefits",
+            "is_total": false,
+            "values": {
+              "2024": -139032.0,
+              "2023": -46687.0
+            },
+            "canonical_key": "company_specific_current_discount_rate_on_future_policy_benefits"
+          },
+          {
+            "label": "Instrument-specific credit risk on market risk benefits",
+            "is_total": false,
+            "values": {
+              "2024": 4264.0,
+              "2023": -538.0
+            },
+            "canonical_key": "credit_risk_change"
+          },
+          {
+            "label": "Cumulative foreign currency translation adjustments",
+            "is_total": false,
+            "values": {
+              "2024": 22373.0,
+              "2023": -66990.0
+            },
+            "canonical_key": "foreign_currency_translation"
+          },
+          {
+            "label": "Other comprehensive income (loss), before income tax",
+            "is_total": true,
+            "values": {
+              "2024": -40273.0,
+              "2023": 183638.0
+            },
+            "canonical_key": "aoci"
+          },
+          {
+            "label": "Income tax (expense) related to OCI items",
+            "is_total": false,
+            "values": {
+              "2024": -4129.0,
+              "2023": 0.0
+            },
+            "canonical_key": "income_tax_expense"
+          },
+          {
+            "label": "Other comprehensive income (loss)",
+            "is_total": true,
+            "values": {
+              "2024": -44402.0,
+              "2023": 183638.0
+            },
+            "canonical_key": "aoci"
+          },
+          {
+            "label": "Less: Comprehensive income attributable to the non-controlling interest",
+            "is_total": true,
+            "values": {
+              "2024": 143501.0,
+              "2023": 205438.0
+            },
+            "canonical_key": "noncontrolling_interest_share"
+          }
+        ]
+      }
+    },
+    "cash_flows": {
+      "sections": {
+        "GENERAL": [
+          {
+            "label": "Net income",
+            "is_total": true,
+            "values": {
+              "2024": 3342324.0,
+              "2023": 3207916.0
+            },
+            "canonical_key": "net_income"
+          }
+        ],
+        "ADJUSTMENTS TO RECONCILE NET INCOME TO NET CASH FLOWS FROM OPERATING ACTIVITIES:": [
+          {
+            "label": "Net realized losses (gains)",
+            "is_total": false,
+            "values": {
+              "2024": 48954.0,
+              "2023": -80531.0
+            },
+            "canonical_key": "net_realized_gains_losses"
+          },
+          {
+            "label": "Market risk benefits losses (gains)",
+            "is_total": false,
+            "values": {
+              "2024": -15496.0,
+              "2023": 93547.0
+            },
+            "canonical_key": "market_risk_benefit_assets"
+          },
+          {
+            "label": "Amortization of premiums/discounts on fixed maturities",
+            "is_total": false,
+            "values": {
+              "2024": -30588.0,
+              "2023": -9374.0
+            },
+            "canonical_key": "fixed_maturities"
+          },
+          {
+            "label": "Equity in net income of partially-owned entities",
+            "is_total": true,
+            "values": {
+              "2024": -890239.0,
+              "2023": -814162.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Deferred income taxes",
+            "is_total": false,
+            "values": {
+              "2024": -14813.0,
+              "2023": -832208.0
+            },
+            "canonical_key": "income_tax_expense"
+          },
+          {
+            "label": "Unpaid losses and loss expenses, net of reinsurance recoverable",
+            "is_total": false,
+            "values": {
+              "2024": 987637.0,
+              "2023": 520768.0
+            },
+            "canonical_key": "reinsurance_recoverables"
+          },
+          {
+            "label": "Future policy benefits, net of reinsurance recoverable",
+            "is_total": false,
+            "values": {
+              "2024": 33116.0,
+              "2023": 11619.0
+            },
+            "canonical_key": "reinsurance_recoverables"
+          },
+          {
+            "label": "Unearned premiums",
+            "is_total": false,
+            "values": {
+              "2024": 151514.0,
+              "2023": 109001.0
+            },
+            "canonical_key": "unearned_premiums"
+          },
+          {
+            "label": "Reinsurance balances payable",
+            "is_total": false,
+            "values": {
+              "2024": 359467.0,
+              "2023": 908421.0
+            },
+            "canonical_key": "insurance_reinsurance_payables"
+          },
+          {
+            "label": "Accounts payable, accrued expenses, other liabilities and funds withheld",
+            "is_total": false,
+            "values": {
+              "2024": 928.0,
+              "2023": 73349.0
+            },
+            "canonical_key": "other_liabilities"
+          },
+          {
+            "label": "Reinsurance balances receivable",
+            "is_total": false,
+            "values": {
+              "2024": 701.0,
+              "2023": -157798.0
+            },
+            "canonical_key": "insurance_reinsurance_payables"
+          },
+          {
+            "label": "Prepaid reinsurance premiums",
+            "is_total": false,
+            "values": {
+              "2024": -39904.0,
+              "2023": -8250.0
+            },
+            "canonical_key": "prepaid_reinsurance_premiums"
+          },
+          {
+            "label": "Accrued investment income",
+            "is_total": false,
+            "values": {
+              "2024": -25360.0,
+              "2023": -7105.0
+            },
+            "canonical_key": "accrued_investment_income"
+          },
+          {
+            "label": "Deferred policy acquisition costs",
+            "is_total": false,
+            "values": {
+              "2024": -74984.0,
+              "2023": -28621.0
+            },
+            "canonical_key": "deferred_acquisition_costs"
+          },
+          {
+            "label": "Value of reinsurance business assumed",
+            "is_total": false,
+            "values": {
+              "2024": 16198.0,
+              "2023": 6639.0
+            },
+            "canonical_key": "company_specific_value_of_reinsurance_business_assumed"
+          },
+          {
+            "label": "Amounts (paid to) received from parent and affiliates",
+            "is_total": false,
+            "values": {
+              "2024": 145958.0,
+              "2023": 57042.0
+            },
+            "canonical_key": "company_specific_amounts_received_from_parent_and_affiliates"
+          },
+          {
+            "label": "Other",
+            "is_total": false,
+            "values": {
+              "2024": -76661.0,
+              "2023": -115814.0
+            },
+            "canonical_key": "other_investments"
+          },
+          {
+            "label": "Net cash flows from (used in) operating activities",
+            "is_total": true,
+            "values": {
+              "2024": 3918752.0,
+              "2023": 2934439.0
+            },
+            "canonical_key": "net_cash_operating"
+          },
+          {
+            "label": "Purchases of fixed maturities (available-for-sale and held-to-maturity)",
+            "is_total": false,
+            "values": {
+              "2024": -3812984.0,
+              "2023": -1884929.0
+            },
+            "canonical_key": "fixed_maturities"
+          },
+          {
+            "label": "Purchases of equity securities",
+            "is_total": false,
+            "values": {
+              "2024": -688373.0,
+              "2023": 0.0
+            },
+            "canonical_key": "equity_securities"
+          },
+          {
+            "label": "Sales of fixed maturities available-for-sale",
+            "is_total": false,
+            "values": {
+              "2024": 939381.0,
+              "2023": 1036930.0
+            },
+            "canonical_key": "fixed_maturities"
+          },
+          {
+            "label": "Maturities and redemptions of fixed maturities (available-for-sale and held-to-maturity)",
+            "is_total": false,
+            "values": {
+              "2024": 776821.0,
+              "2023": 477638.0
+            },
+            "canonical_key": "fixed_maturities"
+          },
+          {
+            "label": "Net change in short-term investments",
+            "is_total": false,
+            "values": {
+              "2024": -210352.0,
+              "2023": 17587.0
+            },
+            "canonical_key": "purchases_short_term_investments"
+          },
+          {
+            "label": "Net derivative instruments settlements",
+            "is_total": false,
+            "values": {
+              "2024": 3450.0,
+              "2023": -8052.0
+            },
+            "canonical_key": "net_derivative_settlements"
+          },
+          {
+            "label": "Private equity contributions",
+            "is_total": false,
+            "values": {
+              "2024": -650396.0,
+              "2023": -1120732.0
+            },
+            "canonical_key": "company_specific_private_equity_contributions"
+          },
+          {
+            "label": "Private equity distributions",
+            "is_total": false,
+            "values": {
+              "2024": 831902.0,
+              "2023": 783305.0
+            },
+            "canonical_key": "company_specific_private_equity_distributions"
+          },
+          {
+            "label": "Other",
+            "is_total": false,
+            "values": {
+              "2024": 1048.0,
+              "2023": -360.0
+            },
+            "canonical_key": "other_investments"
+          },
+          {
+            "label": "Net cash flows from (used in) investing activities",
+            "is_total": true,
+            "values": {
+              "2024": -2809503.0,
+              "2023": -698613.0
+            },
+            "canonical_key": "net_cash_investing"
+          },
+          {
+            "label": "Net proceeds from affiliated notional cash pooling program",
+            "is_total": false,
+            "values": {
+              "2024": 106742.0,
+              "2023": -60032.0
+            },
+            "canonical_key": "company_specific_net_proceeds_from_affiliated_notional_cash_pooling_program"
+          },
+          {
+            "label": "Dividends paid",
+            "is_total": false,
+            "values": {
+              "2024": -1700000.0,
+              "2023": -1500000.0
+            },
+            "canonical_key": "dividends_paid"
+          },
+          {
+            "label": "Other",
+            "is_total": false,
+            "values": {
+              "2024": -34411.0,
+              "2023": -34867.0
+            },
+            "canonical_key": "other_investments"
+          },
+          {
+            "label": "Net cash flows from (used in) financing activities",
+            "is_total": true,
+            "values": {
+              "2024": -1627669.0,
+              "2023": -1594899.0
+            },
+            "canonical_key": "net_cash_financing"
+          },
+          {
+            "label": "Effect of foreign currency rate change on cash and restricted cash",
+            "is_total": false,
+            "values": {
+              "2024": -101805.0,
+              "2023": 56817.0
+            },
+            "canonical_key": "restricted_cash"
+          },
+          {
+            "label": "Net increase (decrease) in cash and restricted cash",
+            "is_total": false,
+            "values": {
+              "2024": -620225.0,
+              "2023": 697744.0
+            },
+            "canonical_key": "restricted_cash"
+          },
+          {
+            "label": "Cash and restricted cash- beginning of year",
+            "is_total": false,
+            "values": {
+              "2024": 765613.0,
+              "2023": 67869.0
+            },
+            "canonical_key": "restricted_cash"
+          },
+          {
+            "label": "Cash and restricted cash - end of year",
+            "is_total": false,
+            "values": {
+              "2024": 145388.0,
+              "2023": 765613.0
+            },
+            "canonical_key": "restricted_cash"
+          },
+          {
+            "label": "Interest paid",
+            "is_total": false,
+            "values": {
+              "2024": 7503.0,
+              "2023": 6294.0
+            },
+            "canonical_key": "interest_paid"
+          }
+        ]
+      }
+    },
+    "shareholders_equity": {
+      "sections": {
+        "CONSOLIDATED STATEMENTS OF SHAREHOLDER'S EQUITY": [
+          {
+            "label": "Balance – beginning and end of year",
+            "is_total": false,
+            "values": {
+              "2024": 2800.0,
+              "2023": 2800.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          }
+        ],
+        "ADDITIONAL PAID-IN CAPITAL": [
+          {
+            "label": "Balance – beginning and end of year",
+            "is_total": false,
+            "values": {
+              "2024": 3746935.0,
+              "2023": 3746935.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          }
+        ],
+        "RETAINED EARNINGS": [
+          {
+            "label": "Balance – beginning of year",
+            "is_total": false,
+            "values": {
+              "2024": 7464241.0,
+              "2023": 5961763.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Net income attributable to Chubb Tempest Reinsurance Ltd.",
+            "is_total": true,
+            "values": {
+              "2024": 3198823.0,
+              "2023": 3002478.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Dividends declared",
+            "is_total": false,
+            "values": {
+              "2024": -1700000.0,
+              "2023": -1500000.0
+            },
+            "canonical_key": "dividends_declared"
+          },
+          {
+            "label": "Balance - end of year",
+            "is_total": false,
+            "values": {
+              "2024": 8963064.0,
+              "2023": 7464241.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          }
+        ],
+        "ACCUMULATED OTHER COMPREHENSIVE INCOME (LOSS) (AOCI)": [
+          {
+            "label": "Balance – beginning of year",
+            "is_total": false,
+            "values": {
+              "2024": -427884.0,
+              "2023": -725737.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Change in year, before reclassification from AOCI to net income",
+            "is_total": true,
+            "values": {
+              "2024": 18391.0,
+              "2023": 250786.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Amounts reclassified from AOCI to net income",
+            "is_total": true,
+            "values": {
+              "2024": 53057.0,
+              "2023": 47067.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Balance - end of year",
+            "is_total": false,
+            "values": {
+              "2024": -356436.0,
+              "2023": -427884.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Balance – beginning of year",
+            "is_total": false,
+            "values": {
+              "2024": -187493.0,
+              "2023": -140806.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Change in year",
+            "is_total": false,
+            "values": {
+              "2024": -141597.0,
+              "2023": -46687.0
+            },
+            "canonical_key": "company_specific_change_in_year"
+          },
+          {
+            "label": "Balance - end of year",
+            "is_total": false,
+            "values": {
+              "2024": -329090.0,
+              "2023": -187493.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Balance – beginning of year",
+            "is_total": false,
+            "values": {
+              "2024": -6578.0,
+              "2023": -6040.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Change in year",
+            "is_total": false,
+            "values": {
+              "2024": 3374.0,
+              "2023": -538.0
+            },
+            "canonical_key": "company_specific_change_in_year"
+          },
+          {
+            "label": "Balance - end of year",
+            "is_total": false,
+            "values": {
+              "2024": -3204.0,
+              "2023": -6578.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Balance – beginning of year",
+            "is_total": false,
+            "values": {
+              "2024": -383584.0,
+              "2023": -316594.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Change in year",
+            "is_total": false,
+            "values": {
+              "2024": 22373.0,
+              "2023": -66990.0
+            },
+            "canonical_key": "company_specific_change_in_year"
+          },
+          {
+            "label": "Balance - end of year",
+            "is_total": false,
+            "values": {
+              "2024": -361211.0,
+              "2023": -383584.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Accumulated other comprehensive income (loss)",
+            "is_total": true,
+            "values": {
+              "2024": -1049941.0,
+              "2023": -1005539.0
+            },
+            "canonical_key": "aoci"
+          },
+          {
+            "label": "Total Chubb Tempest Reinsurance Ltd. shareholder’s equity",
+            "is_total": true,
+            "values": {
+              "2024": 11662858.0,
+              "2023": 10208437.0
+            },
+            "canonical_key": "company_specific_total_chubb_tempest_reinsurance_ltd_shareholder_s_equity"
+          },
+          {
+            "label": "Balance - beginning of year",
+            "is_total": false,
+            "values": {
+              "2024": 1467368.0,
+              "2023": 1261930.0
+            },
+            "canonical_key": "balance_beginning_of_year"
+          },
+          {
+            "label": "Net income",
+            "is_total": true,
+            "values": {
+              "2024": 143501.0,
+              "2023": 205438.0
+            },
+            "canonical_key": "net_income"
+          },
+          {
+            "label": "Total non-controlling interest",
+            "is_total": true,
+            "values": {
+              "2024": 1610869.0,
+              "2023": 1467368.0
+            },
+            "canonical_key": "redeemable_noncontrolling_interests"
+          }
+        ]
+      }
+    }
+  }
+}

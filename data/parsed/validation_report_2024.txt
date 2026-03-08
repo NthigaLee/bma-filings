@@ -1,0 +1,115 @@
+BMA Class 4 Financial Statement Validation Report - FY2024
+======================================================================
+
+Company: ARCH REINSURANCE LTD. AND SUBSIDIARIES
+Year: 2024
+Result: SOME FAILED (1/6 checks passed)
+  [✗] balance_sheet_balances: 70,734 == 48,735 + 21,888 (diff=111)
+  [✗] net_income_is_vs_soci: IS=580 SOCI=4,485 (diff=3905)
+  [✗] net_income_is_vs_cf: IS=580 CF=4,485 (diff=3905)
+  [✗] net_income_is_vs_se: IS=580 SE=4,485 (diff=3905)
+  [✗] cash_reconciliation: CF end=1,716 vs BS cash=936 + restricted=N/A = 936 (diff=780)
+  [?] tci_equals_ni_plus_oci: Cannot check — TCI=N/A, NI=4,485, OCI=N/A
+  [✓] equity_se_vs_bs: SE end equity=21,888, BS equity=21,888 (diff=0)
+  [!] Balance sheet off by 111 (possible rounding)
+  [!] Cash reconciliation off by 780
+
+Company: AXIS SPECIALTY LIMITED
+Year: 2024
+Result: SOME FAILED (5/7 checks passed)
+  [✓] balance_sheet_balances: 8,835,804 == 5,668,110 + 3,167,694 (diff=0)
+  [✗] net_income_is_vs_soci: IS=509,739 SOCI=-74,033 (diff=583772)
+  [✓] net_income_is_vs_cf: IS=509,739 CF=509,739 (diff=0)
+  [✓] net_income_is_vs_se: IS=509,739 SE=509,739 (diff=0)
+  [✓] cash_reconciliation: CF end=903,535 vs BS cash=389,521 + restricted=514,014 = 903,535 (diff=0)
+  [✗] tci_equals_ni_plus_oci: TCI=65,206, NI+OCI=-74,033+65,206=-8,827 (diff=74033)
+  [✓] equity_se_vs_bs: SE end equity=3,167,694, BS equity=3,167,694 (diff=0)
+
+Company: RENAISSANCE REINSURANCE LTD. AND SUBSIDIARIES
+Year: 2024
+Result: ALL PASSED (5/5 checks passed)
+  [✓] balance_sheet_balances: 17,352,778 == 13,227,857 + 4,124,921 (diff=0)
+  [✓] net_income_is_vs_soci: IS=948,826 SOCI=948,826 (diff=0)
+  [?] net_income_is_vs_cf: Cannot check — IS NI=948,826, CF NI=N/A
+  [✓] net_income_is_vs_se: IS=948,826 SE=948,826 (diff=0)
+  [✓] cash_reconciliation: CF end=512,200 vs BS cash=512,200 + restricted=N/A = 512,200 (diff=0)
+  [?] tci_equals_ni_plus_oci: Cannot check — TCI=N/A, NI=948,826, OCI=N/A
+  [✓] equity_se_vs_bs: SE end equity=4,124,921, BS equity=4,124,921 (diff=0)
+
+Company: Unknown Company
+Year: 2024
+Result: SOME FAILED (3/6 checks passed)
+  [✗] balance_sheet_balances: 14,090,572 == 8,490,355 + 5,594,341 (diff=5876)
+  [✗] net_income_is_vs_soci: IS=1,395,212 SOCI=1,394,336 (diff=876)
+  [✗] net_income_is_vs_cf: IS=1,395,212 CF=1,394,336 (diff=876)
+  [✓] net_income_is_vs_se: IS=1,395,212 SE=1,395,212 (diff=0)
+  [✓] cash_reconciliation: CF end=333,565 vs BS cash=333,565 + restricted=N/A = 333,565 (diff=0)
+  [?] tci_equals_ni_plus_oci: Cannot check — TCI=N/A, NI=1,394,336, OCI=N/A
+  [✓] equity_se_vs_bs: SE end equity=5,594,341, BS equity=5,594,341 (diff=0)
+
+Company: Unknown Company
+Year: 2024
+Result: SOME FAILED (2/3 checks passed)
+  [?] balance_sheet_balances: Cannot check — missing: total_assets, total_liabilities, total_equity
+  [✓] net_income_is_vs_soci: IS=676,155 SOCI=676,155 (diff=0)
+  [✓] net_income_is_vs_cf: IS=676,155 CF=676,155 (diff=0)
+  [✗] net_income_is_vs_se: IS=676,155 SE=845,948 (diff=169793)
+  [?] cash_reconciliation: Cannot check — CF end=100,929, BS cash=N/A
+  [?] tci_equals_ni_plus_oci: Cannot check — TCI=667,240, NI=676,155, OCI=N/A
+  [?] equity_se_vs_bs: Cannot check — SE equity=N/A, BS equity=N/A
+
+Company: ASCOT BERMUDA LIMITED
+Year: 2024
+Result: ALL PASSED (7/7 checks passed)
+  [✓] balance_sheet_balances: 11,825,140 == 9,153,475 + 2,671,665 (diff=0)
+  [✓] net_income_is_vs_soci: IS=463,817 SOCI=463,817 (diff=0)
+  [✓] net_income_is_vs_cf: IS=463,817 CF=463,817 (diff=0)
+  [✓] net_income_is_vs_se: IS=463,817 SE=463,817 (diff=0)
+  [✓] cash_reconciliation: CF end=555,671 vs BS cash=533,331 + restricted=22,340 = 555,671 (diff=0)
+  [✓] tci_equals_ni_plus_oci: TCI=442,507, NI+OCI=463,817+-21,310=442,507 (diff=0)
+  [✓] equity_se_vs_bs: SE end equity=2,671,665, BS equity=2,671,665 (diff=0)
+
+Company: EVEREST REINSURANCE (BERMUDA), LTD.
+Year: 2024
+Result: SOME FAILED (3/7 checks passed)
+  [✓] balance_sheet_balances: 17,314,978 == 12,991,805 + 4,323,172 (diff=1)
+  [✗] net_income_is_vs_soci: IS=889,776 SOCI=-7 (diff=889783)
+  [✗] net_income_is_vs_cf: IS=889,776 CF=889,768 (diff=8)
+  [✗] net_income_is_vs_se: IS=889,776 SE=889,768 (diff=8)
+  [✓] cash_reconciliation: CF end=413,914 vs BS cash=413,914 + restricted=N/A = 413,914 (diff=0)
+  [✗] tci_equals_ni_plus_oci: TCI=-11,909, NI+OCI=-7+-11,909=-11,916 (diff=7)
+  [✓] equity_se_vs_bs: SE end equity=4,323,172, BS equity=4,323,172 (diff=0)
+
+Company: CHUBB TEMPEST REINSURANCE LTD. AND ITS SUBSIDIARIES
+Year: 2024
+Result: SOME FAILED (2/5 checks passed)
+  [✓] balance_sheet_balances: 28,607,257 == 15,333,530 + 13,273,727 (diff=0)
+  [✗] net_income_is_vs_soci: IS=3,342,324 SOCI=143,501 (diff=3198823)
+  [✓] net_income_is_vs_cf: IS=3,342,324 CF=3,342,324 (diff=0)
+  [✗] net_income_is_vs_se: IS=3,342,324 SE=3,198,823 (diff=143501)
+  [?] cash_reconciliation: Cannot check — CF end=145,388, BS cash=N/A
+  [✗] tci_equals_ni_plus_oci: TCI=-40,273, NI+OCI=143,501+-40,273=103,228 (diff=143501)
+  [?] equity_se_vs_bs: Cannot check — SE equity=N/A, BS equity=13,273,727
+
+Company: ASPEN BERMUDA LIMITED
+Year: 2024
+Result: SOME FAILED (4/7 checks passed)
+  [✓] balance_sheet_balances: 5,052,927 == 3,930,064 + 1,122,863 (diff=0)
+  [✗] net_income_is_vs_soci: IS=233,476 SOCI=11,425 (diff=222051)
+  [✓] net_income_is_vs_cf: IS=233,476 CF=233,476 (diff=0)
+  [✓] net_income_is_vs_se: IS=233,476 SE=233,476 (diff=0)
+  [✗] cash_reconciliation: CF end=186,878 vs BS cash=186,878 + restricted=2,023 = 188,901 (diff=2023)
+  [✗] tci_equals_ni_plus_oci: TCI=7,307, NI+OCI=11,425+7,307=18,732 (diff=11425)
+  [✓] equity_se_vs_bs: SE end equity=1,122,863, BS equity=1,122,863 (diff=0)
+  [!] Cash reconciliation off by 2023
+
+Company: MARKEL BERMUDA LIMITED
+Year: 2024
+Result: SOME FAILED (3/5 checks passed)
+  [✓] balance_sheet_balances: 8,705,040 == 6,290,675 + 2,414,365 (diff=0)
+  [✗] net_income_is_vs_soci: IS=614,057 SOCI=2,182 (diff=611875)
+  [✓] net_income_is_vs_cf: IS=614,057 CF=614,057 (diff=0)
+  [✗] net_income_is_vs_se: IS=614,057 SE=0 (diff=614057)
+  [✓] cash_reconciliation: CF end=318,912 vs BS cash=229,601 + restricted=89,311 = 318,912 (diff=0)
+  [?] tci_equals_ni_plus_oci: Cannot check — TCI=N/A, NI=2,182, OCI=-47,845
+  [?] equity_se_vs_bs: Cannot check — SE equity=N/A, BS equity=2,414,365
