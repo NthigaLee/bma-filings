@@ -5,9 +5,10 @@ A comprehensive interactive dashboard for analyzing financial statements and key
 ## Features
 
 ✨ **Interactive Dashboard**
-- Real-time company and year filtering
+- Real-time company and year filtering (30 companies)
 - 10 financial metric charts covering assets, equity, premiums, income, and profitability
 - Year-over-year trend analysis with 10 selectable metrics
+- Accounting format with comma separators for all numbers
 - Comparative analysis table
 - Responsive design for desktop and mobile
 
@@ -16,7 +17,8 @@ A comprehensive interactive dashboard for analyzing financial statements and key
 - Income Statement: Gross Premiums Written, Net Premiums Earned, Total Revenues, Net Income
 - Ratios: ROE, ROA, Loss Ratio, Expense Ratio, Combined Ratio, Equity Ratio
 
-🏢 **Companies Covered**
+🏢 **Companies Covered (30 Total)**
+**Original 10:**
 1. Arch Reinsurance
 2. Ascot Bermuda
 3. Aspen Bermuda
@@ -27,6 +29,28 @@ A comprehensive interactive dashboard for analyzing financial statements and key
 8. Markel Bermuda
 9. Partner Reinsurance Company
 10. Renaissance Reinsurance
+
+**Expanded 20:**
+11. Endurance Specialty Insurance
+12. XL Bermuda
+13. AXA XL Reinsurance
+14. Validus Reinsurance
+15. Somers Re
+16. Lancashire Insurance Company
+17. Hiscox Insurance Company Bermuda
+18. Canopius Reinsurance
+19. Conduit Reinsurance
+20. Fidelis Insurance Bermuda
+21. Fortitude Reinsurance Company
+22. Group Ark Insurance
+23. Hamilton Re
+24. Harrington Re
+25. Liberty Specialty Markets Bermuda
+26. MS Amlin AG
+27. Premia Reinsurance
+28. Starr Insurance & Reinsurance
+29. Vantage Risk
+30. SiriusPoint Bermuda Insurance
 
 📅 **Years Supported**
 - 2023
@@ -67,10 +91,12 @@ bma-filings/
 ├── create_dashboard_data_multi_year.py    # Data extraction script
 ├── extract_losses_from_pdfs.py            # Loss data extraction from PDFs
 ├── data/                                   # Excel workbooks
-│   ├── BMA_Statements_2024_MILLIONS.xlsx
-│   └── BMA_Statements_2023_MILLIONS.xlsx
-├── pdfs/                                   # PDF financial statements
-│   └── [10 company 10-K PDFs]
+│   ├── BMA_Statements_30_Companies_2024_MILLIONS.xlsx
+│   ├── BMA_Statements_30_Companies_2023_MILLIONS.xlsx
+│   ├── BMA_Statements_2024_MILLIONS.xlsx (original 10)
+│   └── BMA_Statements_2023_MILLIONS.xlsx (original 10)
+├── pdfs/                                   # PDF financial statements (250+ files)
+│   └── [30 company financial statements for multiple years]
 ├── docs/                                   # Documentation
 │   ├── README_DOCUMENTATION_INDEX.md
 │   ├── QUICK_START_v2.md
@@ -86,7 +112,7 @@ bma-filings/
 Click the year dropdown (top left) to switch between 2023 and 2024 data.
 
 ### Company Selection
-Check/uncheck company names to include/exclude them from all charts and calculations.
+Check/uncheck company names to include/exclude them from all charts and calculations. Choose from 30 major Bermuda insurance and reinsurance companies.
 
 ### Metric Selector (Trend Chart)
 Select different metrics from the dropdown to view year-over-year trends for any financial metric or ratio.

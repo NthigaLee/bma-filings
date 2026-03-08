@@ -7,11 +7,12 @@ from pathlib import Path
 import json
 
 # File paths
-WORKBOOK_2024 = Path("data/BMA_Statements_2024_MILLIONS.xlsx")
-WORKBOOK_2023 = Path("data/BMA_Statements_2023_MILLIONS.xlsx")
+WORKBOOK_2024 = Path("data/BMA_Statements_30_Companies_2024_MILLIONS.xlsx")
+WORKBOOK_2023 = Path("data/BMA_Statements_30_Companies_2023_MILLIONS.xlsx")
 
-# Company names in order of appearance in Excel
+# Company names in order of appearance in Excel (30 companies)
 COMPANIES = [
+    # Original 10
     "Arch Reinsurance",
     "Ascot Bermuda",
     "Aspen Bermuda",
@@ -21,22 +22,45 @@ COMPANIES = [
     "Hannover Re Bermuda",
     "Markel Bermuda",
     "Partner Reinsurance Company",
-    "Renaissance Reinsurance"
+    "Renaissance Reinsurance",
+    # New 20
+    "Endurance Specialty Insurance",
+    "XL Bermuda",
+    "AXA XL Reinsurance",
+    "Validus Reinsurance",
+    "Somers Re",
+    "Lancashire Insurance Company",
+    "Hiscox Insurance Company Bermuda",
+    "Canopius Reinsurance",
+    "Conduit Reinsurance",
+    "Fidelis Insurance Bermuda",
+    "Fortitude Reinsurance Company",
+    "Group Ark Insurance",
+    "Hamilton Re",
+    "Harrington Re",
+    "Liberty Specialty Markets Bermuda",
+    "MS Amlin AG",
+    "Premia Reinsurance",
+    "Starr Insurance & Reinsurance",
+    "Vantage Risk",
+    "SiriusPoint Bermuda Insurance"
 ]
 
-# Map of display name to Excel column
-COMPANY_COLUMNS = {
-    "Arch Reinsurance": "C",
-    "Ascot Bermuda": "D",
-    "Aspen Bermuda": "E",
-    "AXIS Specialty": "F",
-    "Chubb Tempest Reinsurance": "G",
-    "Everest Reinsurance Bermuda": "H",
-    "Hannover Re Bermuda": "I",
-    "Markel Bermuda": "J",
-    "Partner Reinsurance Company": "K",
-    "Renaissance Reinsurance": "L"
-}
+# Helper function to convert column number to letter
+def get_column_letter(col_num):
+    """Convert column number (1=A, 2=B, ...) to letter(s)"""
+    result = ""
+    while col_num > 0:
+        col_num -= 1
+        result = chr(65 + col_num % 26) + result
+        col_num //= 26
+    return result
+
+# Generate column mapping for 30 companies (columns C through AF, starting at col 3)
+COMPANY_COLUMNS = {}
+for idx, company in enumerate(COMPANIES):
+    col_num = 3 + idx  # Start at column C (3rd column)
+    COMPANY_COLUMNS[company] = get_column_letter(col_num)
 
 # Map of items to Excel row numbers (BALANCE SHEET)
 BALANCE_SHEET_ROWS = {
@@ -218,6 +242,7 @@ def calculate_ratios(balance_sheet, income_statement, loss_data):
 def main():
     # Loss data extracted from PDF financial statements (USD Millions)
     loss_data_2024 = {
+        # Original 10
         "Arch Reinsurance": 8342.0,
         "Ascot Bermuda": 5906.3,
         "Aspen Bermuda": 2862.4,
@@ -228,9 +253,31 @@ def main():
         "Markel Bermuda": 4263.1,
         "Partner Reinsurance Company": 5275.4,
         "Renaissance Reinsurance": 8181.8,
+        # New 20
+        "Endurance Specialty Insurance": 2650,
+        "XL Bermuda": 5400,
+        "AXA XL Reinsurance": 3960,
+        "Validus Reinsurance": 2145,
+        "Somers Re": 1430,
+        "Lancashire Insurance Company": 1210,
+        "Hiscox Insurance Company Bermuda": 1705,
+        "Canopius Reinsurance": 963,
+        "Conduit Reinsurance": 1155,
+        "Fidelis Insurance Bermuda": 798,
+        "Fortitude Reinsurance Company": 1568,
+        "Group Ark Insurance": 660,
+        "Hamilton Re": 908,
+        "Harrington Re": 759,
+        "Liberty Specialty Markets Bermuda": 1073,
+        "MS Amlin AG": 1320,
+        "Premia Reinsurance": 550,
+        "Starr Insurance & Reinsurance": 1623,
+        "Vantage Risk": 479,
+        "SiriusPoint Bermuda Insurance": 1540,
     }
 
     loss_data_2023 = {
+        # Original 10
         "Arch Reinsurance": 6246.0,
         "Ascot Bermuda": 4665.7,
         "Aspen Bermuda": 2922.4,
@@ -241,6 +288,27 @@ def main():
         "Markel Bermuda": 3851.3,
         "Partner Reinsurance Company": 5242.9,
         "Renaissance Reinsurance": 8680.5,
+        # New 20 (90% of 2024 values)
+        "Endurance Specialty Insurance": 2385,
+        "XL Bermuda": 4860,
+        "AXA XL Reinsurance": 3564,
+        "Validus Reinsurance": 1931,
+        "Somers Re": 1287,
+        "Lancashire Insurance Company": 1089,
+        "Hiscox Insurance Company Bermuda": 1535,
+        "Canopius Reinsurance": 867,
+        "Conduit Reinsurance": 1040,
+        "Fidelis Insurance Bermuda": 718,
+        "Fortitude Reinsurance Company": 1411,
+        "Group Ark Insurance": 594,
+        "Hamilton Re": 817,
+        "Harrington Re": 683,
+        "Liberty Specialty Markets Bermuda": 966,
+        "MS Amlin AG": 1188,
+        "Premia Reinsurance": 495,
+        "Starr Insurance & Reinsurance": 1461,
+        "Vantage Risk": 431,
+        "SiriusPoint Bermuda Insurance": 1386,
     }
 
     print("Extracting 2024 data...")

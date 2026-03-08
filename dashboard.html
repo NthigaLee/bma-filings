@@ -523,6 +523,14 @@
             });
         }
 
+        // Format number with commas for accounting format
+        function formatNumber(num, decimals = 0) {
+            if (typeof num !== 'number') {
+                num = parseFloat(num) || 0;
+            }
+            return num.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
         function getValue(company, metric, category, year = null) {
             const y = String(year || currentYear);  // Convert to string for JSON keys
             try {
@@ -564,10 +572,10 @@
             const totalEquity = selected.reduce((sum, c) => sum + getValue(c, 'Total Equity', 'balance_sheet'), 0).toFixed(0);
 
             const metrics = [
-                { label: 'Largest Company Assets', value: '$' + largestAssets.toFixed(0) + 'B' },
+                { label: 'Largest Company Assets', value: '$' + formatNumber(largestAssets, 0) + 'B' },
                 { label: 'Average ROE', value: avgROE + '%' },
                 { label: 'Average Combined Ratio', value: avgCombined + '%' },
-                { label: 'Total Equity (Selected)', value: '$' + totalEquity + 'M' }
+                { label: 'Total Equity (Selected)', value: '$' + formatNumber(totalEquity, 0) + 'M' }
             ];
 
             metrics.forEach(m => {
@@ -613,7 +621,17 @@
                             backgroundColor: 'rgba(0, 0, 0, 0.8)',
                             padding: 12,
                             titleFont: { size: 12 },
-                            bodyFont: { size: 11 }
+                            bodyFont: { size: 11 },
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += formatNumber(context.parsed.y, context.parsed.y > 100 ? 0 : 1);
+                                    return label;
+                                }
+                            }
                         }
                     },
                     scales: {
@@ -760,7 +778,8 @@
                 selected.forEach((company, idx) => {
                     const cell = row.insertCell();
                     const value = getValue(company, metric, category);
-                    cell.textContent = value.toFixed(value > 100 ? 0 : 1);
+                    const decimals = value > 100 ? 0 : 1;
+                    cell.textContent = formatNumber(value, decimals);
                     cell.className = 'value-cell';
                 });
             });
