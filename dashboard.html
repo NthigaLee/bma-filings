@@ -595,11 +595,19 @@
             });
         }
 
+        function getIndustryAvg(metric, category, year) {
+            const allValues = dashboardData.companies
+                .map(c => getValue(c, metric, category, year))
+                .filter(v => v !== 0 && !isNaN(v));
+            return allValues.length > 0 ? allValues.reduce((a, b) => a + b, 0) / allValues.length : 0;
+        }
+
         function updateBarChart(chartId, metric, category, selected) {
             const ctx = document.getElementById(chartId)?.getContext('2d');
             if (!ctx) return;
 
             const values = selected.map(c => getValue(c, metric, category));
+            const industryAvg = getIndustryAvg(metric, category, currentYear);
 
             if (charts[chartId]) {
                 charts[chartId].destroy();
@@ -609,20 +617,46 @@
                 type: 'bar',
                 data: {
                     labels: selected,
-                    datasets: [{
-                        label: metric,
-                        data: values,
-                        backgroundColor: colors.chartColors.slice(0, selected.length),
-                        borderColor: colors.primary,
-                        borderWidth: 1,
-                        borderRadius: 4
-                    }]
+                    datasets: [
+                        {
+                            label: metric,
+                            data: values,
+                            backgroundColor: colors.chartColors.slice(0, selected.length),
+                            borderColor: colors.primary,
+                            borderWidth: 1,
+                            borderRadius: 4,
+                            order: 1
+                        },
+                        {
+                            label: 'Industry Avg',
+                            data: Array(selected.length).fill(industryAvg),
+                            type: 'line',
+                            borderColor: '#22c55e',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            pointHoverBackgroundColor: '#22c55e',
+                            fill: false,
+                            order: 0
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: false },
+                        legend: {
+                            display: true,
+                            labels: {
+                                filter: (item) => item.text === 'Industry Avg',
+                                color: '#22c55e',
+                                font: { size: 10, weight: '600' },
+                                usePointStyle: true,
+                                pointStyle: 'line'
+                            }
+                        },
                         tooltip: {
                             backgroundColor: 'rgba(0, 0, 0, 0.8)',
                             padding: 12,
@@ -631,10 +665,10 @@
                             callbacks: {
                                 label: function(context) {
                                     let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    label += formatNumber(context.parsed.y, context.parsed.y > 100 ? 0 : 1);
+                                    if (label) label += ': ';
+                                    const val = context.parsed.y;
+                                    label += formatNumber(val, val > 100 ? 0 : 1);
+                                    if (context.dataset.label === 'Industry Avg') label += ' (avg)';
                                     return label;
                                 }
                             }
@@ -673,6 +707,8 @@
 
             const data2023 = selected.map(c => getValue(c, metric, category, 2023));
             const data2024 = selected.map(c => getValue(c, metric, category, 2024));
+            const avg2023 = getIndustryAvg(metric, category, 2023);
+            const avg2024 = getIndustryAvg(metric, category, 2024);
 
             if (charts['trendChart']) {
                 charts['trendChart'].destroy();
@@ -694,7 +730,8 @@
                             pointRadius: 5,
                             pointBackgroundColor: '#b8434d',
                             pointBorderColor: 'white',
-                            pointBorderWidth: 2
+                            pointBorderWidth: 2,
+                            order: 1
                         },
                         {
                             label: '2024',
@@ -707,7 +744,34 @@
                             pointRadius: 5,
                             pointBackgroundColor: '#8b1538',
                             pointBorderColor: 'white',
-                            pointBorderWidth: 2
+                            pointBorderWidth: 2,
+                            order: 1
+                        },
+                        {
+                            label: 'Industry Avg 2023',
+                            data: Array(selected.length).fill(avg2023),
+                            borderColor: '#86efac',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            fill: false,
+                            tension: 0,
+                            order: 0
+                        },
+                        {
+                            label: 'Industry Avg 2024',
+                            data: Array(selected.length).fill(avg2024),
+                            borderColor: '#22c55e',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            fill: false,
+                            tension: 0,
+                            order: 0
                         }
                     ]
                 },
