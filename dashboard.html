@@ -387,11 +387,11 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 0.85em;
-            background: #ffffff !important;
+            background: #ffffff;
         }
 
         .comparison-table thead {
-            background: #f4f4f4 !important;
+            background: #f4f4f4;
             border-bottom: 2px solid #8b1538;
         }
 
@@ -399,19 +399,19 @@
             padding: 12px;
             text-align: left;
             font-weight: 600;
-            color: #222 !important;
-            background: #f4f4f4 !important;
+            color: #222;
+            background: #f4f4f4;
         }
 
         .comparison-table td {
             padding: 12px;
             border-bottom: 1px solid #eee;
-            color: #222 !important;
-            background: #ffffff !important;
+            color: #222;
+            background: #ffffff;
         }
 
         .comparison-table tbody tr:hover td {
-            background: #faf8f8 !important;
+            background: #faf8f8;
         }
 
         .comparison-table tr.industry-avg-row td {
@@ -423,6 +423,55 @@
         }
         .comparison-table tr.industry-avg-row td:first-child {
             color: #8b1538 !important;
+        }
+
+        /* ── Industry Avg column (light mode) ── */
+        .comparison-table th.industry-avg-col-header {
+            background: #fff0f3 !important;
+            color: #8b1538 !important;
+        }
+        .comparison-table td.industry-avg-col {
+            background: #fff0f3 !important;
+            color: #5a2230 !important;
+            font-weight: 600;
+        }
+
+        /* ── Comparison table: dark mode ── */
+        body.dark-mode .comparison-table {
+            background: #0d0d0d;
+        }
+        body.dark-mode .comparison-table thead {
+            background: #111111;
+            border-bottom-color: #8b1538;
+        }
+        body.dark-mode .comparison-table th {
+            background: #111111;
+            color: #ffffff;
+        }
+        body.dark-mode .comparison-table td {
+            background: #0d0d0d;
+            color: #ffffff;
+            border-bottom-color: #222222;
+        }
+        body.dark-mode .comparison-table tbody tr:hover td {
+            background: #1a1a1a;
+        }
+        body.dark-mode .comparison-table tr.industry-avg-row td {
+            background: #2a0d16 !important;
+            color: #f4b8c8 !important;
+            border-top-color: #5a1a2e;
+            border-bottom-color: #5a1a2e;
+        }
+        body.dark-mode .comparison-table tr.industry-avg-row td:first-child {
+            color: #e8839a !important;
+        }
+        body.dark-mode .comparison-table th.industry-avg-col-header {
+            background: #2a0d16 !important;
+            color: #e8839a !important;
+        }
+        body.dark-mode .comparison-table td.industry-avg-col {
+            background: #2a0d16 !important;
+            color: #f4b8c8 !important;
         }
 
         .value-cell {
@@ -1318,8 +1367,7 @@
                 const th = document.createElement('th');
                 th.textContent = h;
                 if (i === headers.length - 1) {
-                    th.style.color = '#8b1538';
-                    th.style.background = '#fff0f3';
+                    th.className = 'industry-avg-col-header';
                 }
                 headerRow.appendChild(th);
             });
@@ -1355,10 +1403,7 @@
                 const avgVal = getIndustryAvg(metric, category, currentYear);
                 const avgDecimals = Math.abs(avgVal) > 100 ? 0 : 1;
                 avgCell.textContent = formatNumber(avgVal, avgDecimals);
-                avgCell.className = 'value-cell';
-                avgCell.style.background = '#fff0f3';
-                avgCell.style.color = '#5a2230';
-                avgCell.style.fontWeight = '600';
+                avgCell.className = 'value-cell industry-avg-col';
             });
 
             // Industry Avg summary row at bottom
@@ -1378,7 +1423,6 @@
             totalAvgCell.className = 'value-cell';
             totalAvgCell.textContent = '(all 40 co.)';
             totalAvgCell.style.fontSize = '0.8em';
-            totalAvgCell.style.color = '#8b1538';
         }
         // ── EXPORT: PDF ──────────────────────────────────────────────
         function exportPDF() {
