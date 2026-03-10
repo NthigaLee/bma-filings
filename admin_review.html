@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BMA Admin Review</title>
+<script src="dashboard_data.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #0f0f0f;
+    color: #e0e0e0;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  /* ── TOP BAR ── */
+  .topbar {
+    height: 60px;
+    min-height: 60px;
+    background: #141414;
+    border-bottom: 1px solid #2a2a2a;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    gap: 12px;
+    z-index: 100;
+  }
+
+  .topbar-logo {
+    font-size: 16px;
+    font-weight: 700;
+    color: #8b1538;
+    white-space: nowrap;
+    margin-right: 8px;
+  }
+
+  .topbar-sep {
+    width: 1px;
+    height: 28px;
+    background: #2a2a2a;
+    margin: 0 4px;
+  }
+
+  .company-select-wrap {
+    position: relative;
+    flex: 0 0 260px;
+  }
+
+  #company-search {
+    width: 100%;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #e0e0e0;
+    padding: 6px 10px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    cursor: pointer;
+  }
+  #company-search:focus { border-color: #8b1538; }
+
+  #company-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    width: 100%;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 5px;
+    max-height: 260px;
+    overflow-y: auto;
+    z-index: 999;
+  }
+  #company-dropdown.open { display: block; }
+  .dropdown-item {
+    padding: 7px 10px;
+    cursor: pointer;
+    transition: background 0.15s;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .dropdown-item:hover { background: #2a2a2a; }
+  .dropdown-item.selected { background: #1f0a10; color: #e07090; }
+
+  .year-buttons {
+    display: flex;
+    gap: 4px;
+  }
+  .year-btn {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #aaa;
+    padding: 5px 14px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+  .year-btn:hover { border-color: #8b1538; color: #e0e0e0; }
+  .year-btn.active { background: #8b1538; border-color: #8b1538; color: #fff; }
+
+  #status-badge {
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    background: #222;
+    color: #777;
+    border: 1px solid #333;
+    white-space: nowrap;
+  }
+  #status-badge.draft { background: #2a1f00; color: #f0a000; border-color: #5a3f00; }
+  #status-badge.approved { background: #0a2010; color: #40c060; border-color: #1a5030; }
+
+  .topbar-spacer { flex: 1; }
+
+  .btn-save {
+    background: transparent;
+    border: 1px solid #8b1538;
+    color: #8b1538;
+    border-radius: 5px;
+    padding: 6px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-save:hover { background: #1f0a10; }
+
+  .btn-approve {
+    background: #8b1538;
+    border: 1px solid #8b1538;
+    color: #fff;
+    border-radius: 5px;
+    padding: 6px 16px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .btn-approve:hover { background: #a01840; }
+
+  /* ── MAIN LAYOUT ── */
+  .main-layout {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: #141414;
+    border-right: 1px solid #222;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: width 0.2s;
+  }
+  .sidebar.collapsed { width: 0; min-width: 0; }
+
+  .sidebar-header {
+    padding: 10px 10px 8px;
+    border-bottom: 1px solid #222;
+    flex-shrink: 0;
+  }
+
+  .sidebar-toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  .sidebar-title { font-size: 11px; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.8px; }
+  .sidebar-collapse-btn {
+    background: none;
+    border: none;
+    color: #555;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 4px;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .sidebar-collapse-btn:hover { color: #aaa; }
+
+  .filter-pills {
+    display: flex;
+    gap: 4px;
+  }
+  .filter-pill {
+    flex: 1;
+    text-align: center;
+    padding: 4px 0;
+    border-radius: 4px;
+    font-size: 11px;
+    cursor: pointer;
+    border: 1px solid #2a2a2a;
+    color: #777;
+    background: #1a1a1a;
+    transition: all 0.2s;
+  }
+  .filter-pill:hover { border-color: #444; color: #aaa; }
+  .filter-pill.active { background: #1f0a10; border-color: #8b1538; color: #e07090; }
+
+  .sidebar-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 4px 0;
+  }
+  .sidebar-list::-webkit-scrollbar { width: 4px; }
+  .sidebar-list::-webkit-scrollbar-track { background: transparent; }
+  .sidebar-list::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+
+  .sidebar-item {
+    display: flex;
+    align-items: center;
+    padding: 7px 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+    border-left: 3px solid transparent;
+    gap: 8px;
+  }
+  .sidebar-item:hover { background: #1e1e1e; }
+  .sidebar-item.selected { background: #1f0a10; border-left-color: #8b1538; }
+
+  .status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: #444;
+  }
+  .status-dot.draft { background: #f0a000; }
+  .status-dot.approved { background: #40c060; }
+
+  .sidebar-item-name {
+    font-size: 12px;
+    color: #ccc;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    flex: 1;
+  }
+  .sidebar-item.selected .sidebar-item-name { color: #e07090; }
+
+  /* ── PDF PANEL ── */
+  .pdf-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #222;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .pdf-header {
+    height: 40px;
+    min-height: 40px;
+    background: #161616;
+    border-bottom: 1px solid #222;
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+  .pdf-header-title { font-size: 12px; color: #777; }
+  .pdf-header-name { font-size: 13px; color: #ccc; font-weight: 500; }
+  .pdf-header-year { font-size: 11px; color: #8b1538; font-weight: 600; background: #1f0a10; padding: 2px 7px; border-radius: 3px; }
+
+  .pdf-open-link {
+    margin-left: auto;
+    font-size: 11px;
+    color: #555;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .pdf-open-link:hover { color: #8b1538; }
+
+  #pdf-frame {
+    flex: 1;
+    border: none;
+    background: #1a1a1a;
+  }
+
+  .pdf-unavailable {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    color: #444;
+  }
+  .pdf-unavailable-icon { font-size: 40px; }
+  .pdf-unavailable-text { font-size: 14px; }
+
+  /* ── FORM PANEL ── */
+  .form-panel {
+    width: 380px;
+    min-width: 380px;
+    background: #141414;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid #222;
+    flex-shrink: 0;
+  }
+  .tab-btn {
+    flex: 1;
+    padding: 11px 0;
+    text-align: center;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    transition: all 0.2s;
+  }
+  .tab-btn:hover { color: #aaa; }
+  .tab-btn.active { color: #fff; border-bottom-color: #8b1538; }
+
+  .tab-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+  }
+  .tab-content::-webkit-scrollbar { width: 4px; }
+  .tab-content::-webkit-scrollbar-track { background: transparent; }
+  .tab-content::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 2px; }
+
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  .field-group {
+    margin-bottom: 14px;
+  }
+
+  .field-label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+
+  .field-label {
+    font-size: 11px;
+    color: #888;
+    font-weight: 500;
+  }
+
+  .reviewed-tag {
+    display: none;
+    font-size: 10px;
+    color: #40c060;
+    background: #0a2010;
+    border: 1px solid #1a5030;
+    border-radius: 3px;
+    padding: 1px 6px;
+  }
+  .reviewed-tag.show { display: inline-block; }
+
+  .field-current {
+    font-size: 10px;
+    color: #555;
+    margin-bottom: 3px;
+  }
+
+  .field-input {
+    width: 100%;
+    background: #1e1e1e;
+    border: 1px solid #2a2a2a;
+    border-radius: 4px;
+    color: #e0e0e0;
+    padding: 6px 9px;
+    font-size: 13px;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: inherit;
+  }
+  .field-input:focus { border-color: #8b1538; background: #222; }
+
+  .section-title {
+    font-size: 10px;
+    font-weight: 700;
+    color: #8b1538;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    padding: 8px 0 6px;
+    border-bottom: 1px solid #1e1e1e;
+    margin-bottom: 10px;
+  }
+
+  .toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 6px;
+    padding: 10px 16px;
+    font-size: 13px;
+    color: #e0e0e0;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.3s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.success { border-color: #1a5030; color: #40c060; }
+  .toast.error { border-color: #5a1020; color: #e05070; }
+
+  /* Scrollbar styling for dropdown */
+  #company-dropdown::-webkit-scrollbar { width: 4px; }
+  #company-dropdown::-webkit-scrollbar-track { background: transparent; }
+  #company-dropdown::-webkit-scrollbar-thumb { background: #333; border-radius: 2px; }
+
+  .sidebar-expand-btn {
+    position: absolute;
+    left: 0;
+    top: 70px;
+    background: #1a1a1a;
+    border: 1px solid #222;
+    border-left: none;
+    border-radius: 0 4px 4px 0;
+    color: #555;
+    cursor: pointer;
+    padding: 6px 5px;
+    font-size: 12px;
+    z-index: 50;
+    display: none;
+    transition: color 0.2s;
+  }
+  .sidebar-expand-btn:hover { color: #aaa; }
+  .sidebar-expand-btn.visible { display: block; }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="topbar-logo">BMA Admin Review</div>
+    <div class="topbar-sep"></div>
+
+    <div class="company-select-wrap">
+      <input type="text" id="company-search" placeholder="Select company..." autocomplete="off" readonly>
+      <div id="company-dropdown"></div>
+    </div>
+
+    <div class="year-buttons">
+      <button class="year-btn active" data-year="2023" onclick="setYear(2023)">2023</button>
+      <button class="year-btn" data-year="2024" onclick="setYear(2024)">2024</button>
+    </div>
+
+    <span id="status-badge">Unreviewed</span>
+
+    <div class="topbar-spacer"></div>
+
+    <button class="btn-save" onclick="saveDraft()">Save Draft</button>
+    <button class="btn-approve" onclick="markApproved()">Mark Approved</button>
+  </div>
+
+  <!-- MAIN LAYOUT -->
+  <div class="main-layout" style="position:relative;">
+
+    <button class="sidebar-expand-btn" id="sidebar-expand-btn" onclick="expandSidebar()" title="Show companies">&#9654;</button>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-toggle-row">
+          <span class="sidebar-title">Companies</span>
+          <button class="sidebar-collapse-btn" onclick="collapseSidebar()" title="Collapse">&#9664;</button>
+        </div>
+        <div class="filter-pills">
+          <div class="filter-pill active" data-filter="all" onclick="setFilter('all')">All</div>
+          <div class="filter-pill" data-filter="unreviewed" onclick="setFilter('unreviewed')">Unreviewed</div>
+          <div class="filter-pill" data-filter="approved" onclick="setFilter('approved')">Approved</div>
+        </div>
+      </div>
+      <div class="sidebar-list" id="sidebar-list"></div>
+    </aside>
+
+    <!-- PDF PANEL -->
+    <div class="pdf-panel">
+      <div class="pdf-header">
+        <span class="pdf-header-title">Source PDF:</span>
+        <span class="pdf-header-name" id="pdf-header-name">--</span>
+        <span class="pdf-header-year" id="pdf-header-year">--</span>
+        <a class="pdf-open-link" id="pdf-open-link" href="#" target="_blank">Open in new tab &#8599;</a>
+      </div>
+      <iframe id="pdf-frame" src="about:blank"></iframe>
+      <div class="pdf-unavailable" id="pdf-unavailable" style="display:none;">
+        <div class="pdf-unavailable-icon">&#128196;</div>
+        <div class="pdf-unavailable-text">PDF not available for this company / year</div>
+      </div>
+    </div>
+
+    <!-- FORM PANEL -->
+    <div class="form-panel">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="income" onclick="switchTab('income')">Income Statement</button>
+        <button class="tab-btn" data-tab="balance" onclick="switchTab('balance')">Balance Sheet</button>
+        <button class="tab-btn" data-tab="ratios" onclick="switchTab('ratios')">Ratios</button>
+      </div>
+      <div class="tab-content">
+        <div class="tab-pane active" id="tab-income"></div>
+        <div class="tab-pane" id="tab-balance"></div>
+        <div class="tab-pane" id="tab-ratios"></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ──────────────────────────────────────────────
+// PDF MAP
+// ──────────────────────────────────────────────
+const PDF_MAP = {
+  2023: {
+    "Arch Reinsurance":                          "pdfs/2024-06-28-13-14-00-Arch-Reinsurance-Ltd.---2023-Financial-Statement---Class-4.pdf",
+    "Aspen Bermuda":                             "pdfs/2024-06-28-13-14-00-Aspen-Bermuda-Limited---2023-Financial-Statement.pdf",
+    "AXIS Specialty":                            "pdfs/2024-06-28-13-13-49-AXIS-Specialty-Limited---2023-Financial-Statement.pdf",
+    "Chubb Tempest Reinsurance":                 "pdfs/2024-06-28-13-13-50-Chubb-Tempest-Reinsurance-Ltd.---2023-Financial-Statement---Class-4.pdf",
+    "Everest Reinsurance Bermuda":               "pdfs/2024-07-30-16-11-12-Everest-Reinsurance-Bermuda-Ltd.---2023-Financial-Statement---Class-4.pdf",
+    "Hannover Re Bermuda":                       "pdfs/2024-06-28-13-13-53-Hannover-Re-Bermuda-Ltd.---2023-Financial-Statement---Class-4.pdf",
+    "Markel Bermuda":                            "pdfs/2024-06-28-13-13-55-Markel-Bermuda-Limited---2023-Financial-Statement.pdf",
+    "Partner Reinsurance Company":               "pdfs/2024-06-28-13-13-56-Partner-Reinsurance-Company-Ltd.---2023-Financial-Statement---Class-4.pdf",
+    "Renaissance Reinsurance":                   "pdfs/2024-06-28-13-13-56-Renaissance-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+    "Endurance Specialty Insurance":             "pdfs/2024-06-28-13-13-51-Endurance-Specialty-Insurance-Ltd.---2023-Financial-Statement.pdf",
+    "XL Bermuda":                                "pdfs/2024-06-28-13-13-59-XL-Bermuda-Ltd---2023-Financial-Statement---Class-4.pdf",
+    "AXA XL Reinsurance":                        "pdfs/2024-06-28-13-14-01-AXA-XL-Reinsurance-Ltd---2023-Financial-Statement.pdf",
+    "Validus Reinsurance":                       "pdfs/2024-06-28-13-13-58-Validus-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+    "Somers Re":                                 "pdfs/2024-06-28-13-13-57-Somers-Re-Ltd.---2023-Financial-Statement.pdf",
+    "Lancashire Insurance Company":              "pdfs/2024-06-28-13-13-54-Lancashire-Insurance-Company-Limited---2023-Financial-Statement.pdf",
+    "Hiscox Insurance Company Bermuda":          "pdfs/2024-06-28-13-13-54-Hiscox-Insurance-Company-Bermuda-Limited---2023-Financial-Statement.pdf",
+    "Canopius Reinsurance":                      "pdfs/2024-06-28-13-13-49-Canopius-Reinsurance-Limited---2023-Financial-Statement.pdf",
+    "Conduit Reinsurance":                       "pdfs/2024-06-28-13-13-50-Conduit-Reinsurance-Limited---2023-Financial-Statement.pdf",
+    "Fidelis Insurance Bermuda":                 "pdfs/2024-06-28-13-13-52-Fidelis-Insurance-Bermuda-Limited---2023-Financial-Statement.pdf",
+    "Fortitude Reinsurance Company":             "pdfs/2024-06-28-13-13-52-Fortitude-Reinsurance-Company-Ltd.---2023-Financial-Statement---Class-4.pdf",
+    "Group Ark Insurance":                       "pdfs/2024-06-28-13-13-53-Group-Ark-Insurance-Limited---2023-Financial-Statement.pdf",
+    "Hamilton Re":                               "pdfs/2024-06-28-13-13-53-Hamilton-Re-Ltd.---2023-Financial-Statement.pdf",
+    "Harrington Re":                             "pdfs/2024-06-28-13-13-53-Harrington-Re-Ltd.---2023-Financial-Statement.pdf",
+    "Liberty Specialty Markets Bermuda":         "pdfs/2024-06-28-13-13-55-Liberty-Specialty-Markets-Bermuda-Limited---2023-Financial-Statement.pdf",
+    "MS Amlin AG":                               "pdfs/2024-06-28-13-13-55-MS-Amlin-AG---2023-Financial-Statement.pdf",
+    "Premia Reinsurance":                        "pdfs/2024-06-28-13-13-56-Premia-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+    "Starr Insurance & Reinsurance":             "pdfs/2024-06-28-13-13-57-Starr-Insurance--Reinsurance-Limited---2023-Financial-Statement.pdf",
+    "Vantage Risk":                              "pdfs/2024-06-28-13-13-58-Vantage-Risk-Ltd.---2023-Financial-Statement.pdf",
+    "SiriusPoint Bermuda Insurance":             "pdfs/2024-06-28-13-13-57-SiriusPoint-Bermuda-Insurance-Company-Ltd.---2023-Financial-Statement.pdf",
+    "ABR Reinsurance Ltd.":                      "pdfs/2024-06-28-13-13-59-ABR-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+    "Allied World Assurance Company Ltd":        "pdfs/2024-06-28-13-13-59-Allied-World-Assurance-Company-Ltd.---2023-Financial-Statement.pdf",
+    "American International Reinsurance Company Ltd.": "pdfs/2024-07-30-16-11-09-American-International-Reinsurance-Company-Ltd.---2023-Financial-Statement---Class-4.pdf",
+    "Antares Reinsurance Company Limited":       "pdfs/2024-06-28-13-14-00-Antares-Reinsurance-Company-Limited---2023-Financial-Statement.pdf",
+    "Argo Re Ltd.":                              "pdfs/2024-06-28-13-14-00-Argo-Re-Ltd.---2023-Financial-Statement.pdf",
+    "Convex Re Limited":                         "pdfs/2024-06-28-13-13-51-Convex-Re-Limited---2023-Financial-Statement.pdf",
+    "DaVinci Reinsurance Ltd.":                  "pdfs/2024-06-28-13-13-51-DaVinci-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+    "Everest International Reinsurance Ltd.":    "pdfs/2024-07-30-16-11-09-Everest-International-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+    "Fortitude International Reinsurance Ltd.":  "pdfs/2024-06-28-13-13-52-Fortitude-International-Reinsurance-Ltd.---2023-Financial-Statement---Class-4.pdf"
+  },
+  2024: {
+    "Arch Reinsurance":                          "pdfs/2025-07-02-11-38-56-Arch-Reinsurance-Ltd.---2024-Financial-Statement---Class-4.pdf",
+    "Ascot Bermuda":                             "pdfs/2025-07-02-11-38-57-Ascot-Bermuda-Limited---2024-Financial-Statement.pdf",
+    "Aspen Bermuda":                             "pdfs/2025-07-02-11-38-58-Aspen-Bermuda-Limited---2024-Financial-Statement.pdf",
+    "AXIS Specialty":                            "pdfs/2025-07-02-11-38-58-Axis-Specialty-Limited---2024-Financial-Statement.pdf",
+    "Chubb Tempest Reinsurance":                 "pdfs/2025-11-03-13-25-10-Chubb-Tempest-Reinsurance-Ltd.---2024-Financial-Statement---Class-4.pdf",
+    "Everest Reinsurance Bermuda":               "pdfs/2025-07-02-11-39-03-Everest-Reinsurance-Bermuda-Ltd.---2024-Financial-Statement---Class-4.pdf",
+    "Hannover Re Bermuda":                       "pdfs/2025-07-02-11-39-05-Hannover-Re-Bermuda-Ltd.---2024-Financial-Statement---Class-4.pdf",
+    "Markel Bermuda":                            "pdfs/2025-09-30-15-59-45-Markel-Bermuda-Limited---2024-Financial-Statement.pdf",
+    "Partner Reinsurance Company":               "pdfs/2025-07-02-11-39-07-Partner-Reinsurance-Company-Ltd.---2024-Financial-Statement---Class-4.pdf",
+    "Renaissance Reinsurance":                   "pdfs/2025-07-02-11-39-07-Renaissance-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+    "Endurance Specialty Insurance":             "pdfs/2025-07-02-11-39-03-Endurance-Specialty-Insurance-Ltd.---2024-Financial-Statement.pdf",
+    "XL Bermuda":                                "pdfs/2025-07-02-11-39-09-XL-Bermuda-Ltd----2024-Financial-Statement---Class-4.pdf",
+    "AXA XL Reinsurance":                        "pdfs/2025-07-02-11-38-58-AXA-XL-Reinsurance-Ltd---2024-Financial-Statement.pdf",
+    "Somers Re":                                 "pdfs/2025-07-02-11-39-08-Somers-Re-Ltd.---2024-Financial-Statement.pdf",
+    "Lancashire Insurance Company":              "pdfs/2025-07-02-11-39-06-Lancashire-Insurance-Company-Limited---2024-Financial-Statement.pdf",
+    "Hiscox Insurance Company Bermuda":          "pdfs/2025-07-02-11-39-06-Hiscox-Insurance-Company-Bermuda-Limited---2024-Financial-Statement.pdf",
+    "Canopius Reinsurance":                      "pdfs/2025-07-02-11-38-59-Canopius-Reinsurance-Limited----2024-Financial-Statement.pdf",
+    "Conduit Reinsurance":                       "pdfs/2025-07-02-11-39-02-Conduit-Reinsurance-Limited---2024-Financial-Statement.pdf",
+    "Fidelis Insurance Bermuda":                 "pdfs/2025-07-02-11-39-03-Fidelis-Insurance-Bermuda-Limited---2024-Financial-Statement.pdf",
+    "Fortitude Reinsurance Company":             "pdfs/2025-07-02-11-39-04-Fortitude-Reinsurance-Company-Ltd.----2024-Financial-Statement---Class-4.pdf",
+    "Group Ark Insurance":                       "pdfs/2025-07-02-11-39-05-Group-Ark-Insurance-Limited---2024-Financial-Statement.pdf",
+    "Hamilton Re":                               "pdfs/2025-07-02-11-39-05-Hamilton-Re-Ltd.----2024-Financial-Statement.pdf",
+    "Harrington Re":                             "pdfs/2025-07-02-11-39-05-Harrington-Re-Ltd.---2024-Financial-Statement.pdf",
+    "Liberty Specialty Markets Bermuda":         "pdfs/2025-07-02-11-39-06-Liberty-Specialty-Markets-Bermuda-Limited----2024-Financial-Statement.pdf",
+    "MS Amlin AG":                               "pdfs/2025-07-02-11-39-06-MS-Amlin-AG----2024-Financial-Statement.pdf",
+    "Premia Reinsurance":                        "pdfs/2025-07-29-13-37-43-Premia-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+    "Starr Insurance & Reinsurance":             "pdfs/2025-07-02-11-39-09-Starr-Insurance--Reinsurance-Limited---2024-Financial-Statement.pdf",
+    "Vantage Risk":                              "pdfs/2025-07-02-11-39-09-Vantage-Risk-Ltd.---2024-Financial-Statement.pdf",
+    "SiriusPoint Bermuda Insurance":             "pdfs/2025-07-02-11-39-08-Siriuspoint-Bermuda-Insurance-Company-Ltd.---2024-Financial-Statement.pdf",
+    "ABR Reinsurance Ltd.":                      "pdfs/2025-07-02-11-38-56-ABR-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+    "Allied World Assurance Company Ltd":        "pdfs/2025-07-02-11-38-56-Allied-World-Assurance-Company-Ltd---2024-Financial-Statement.pdf",
+    "American International Reinsurance Company Ltd.": "pdfs/2025-07-29-13-37-43-American-International-Reinsurance-Company-Ltd.---2024-Financial-Statement---Class-4.pdf",
+    "Antares Reinsurance Company Limited":       "pdfs/2025-07-02-11-38-56-Antares-Reinsurance-Company-Limited----2024-Financial-Statement.pdf",
+    "Argo Re Ltd.":                              "pdfs/2025-07-02-11-38-57-Argo-Re-Ltd.---2024-Financial-Statement.pdf",
+    "Brit Reinsurance Bermuda Limited":          "pdfs/2025-07-02-11-39-02-Brit-Reinsurance-Bermuda-Limited---2024-Financial-Statement.pdf",
+    "Convex Re Limited":                         "pdfs/2025-07-29-13-37-43-Convex-Re-Limited---2024-Financial-Statement.pdf",
+    "DaVinci Reinsurance Ltd.":                  "pdfs/2025-07-02-11-39-02-DaVinci-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+    "Everest International Reinsurance Ltd.":    "pdfs/2025-07-02-11-39-03-Everest-International-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+    "Fortitude International Reinsurance Ltd.":  "pdfs/2025-07-02-11-39-04-Fortitude-International-Reinsurance-Ltd.---2024-Financial-Statement---Class-4.pdf"
+  }
+};
+
+// ──────────────────────────────────────────────
+// Field definitions
+// ──────────────────────────────────────────────
+const INCOME_FIELDS = [
+  'Gross Premiums Written',
+  'Net Premiums Earned',
+  'Net Investment Income',
+  'Investment Gains/Losses',
+  'Total Revenues',
+  'Losses and LAE',
+  'Total Expenses',
+  'Net Income'
+];
+
+const BALANCE_FIELDS = [
+  'Fixed Maturities - AFS',
+  'Fixed Maturities - Trading',
+  'Equity Securities',
+  'Short-term Investments',
+  'Other Investments',
+  'Total Investments',
+  'Cash and Cash Equivalents',
+  'Total Assets',
+  'Loss Reserves',
+  'Unearned Premiums',
+  'Total Liabilities',
+  'Total Equity'
+];
+
+const RATIO_FIELDS = [
+  'Loss Ratio (%)',
+  'Expense Ratio (%)',
+  'Combined Ratio (%)',
+  'ROE (%)',
+  'ROA (%)',
+  'Equity Ratio (%)',
+  'Investment Return (%)',
+  'Investment Yield (%)',
+  'Investments to Assets (%)'
+];
+
+// Section key map: field name → section key in dashboard_data
+const SECTION_MAP = {
+  income_statement: INCOME_FIELDS,
+  balance_sheet: BALANCE_FIELDS,
+  ratios: RATIO_FIELDS
+};
+
+// ──────────────────────────────────────────────
+// State
+// ──────────────────────────────────────────────
+let selectedCompany = null;
+let selectedYear = 2023;
+let currentFilter = 'all';
+let reviewedData = {};         // from /api/reviews
+const companyStatuses = {};    // company → { 2023: 'draft'|'approved'|null, 2024: ... }
+
+const COMPANIES = window.BMA_DASHBOARD_DATA ? window.BMA_DASHBOARD_DATA.companies : [];
+
+// ──────────────────────────────────────────────
+// Utility
+// ──────────────────────────────────────────────
+function fmtNum(v) {
+  if (v === null || v === undefined || v === '') return '';
+  const n = parseFloat(v);
+  if (isNaN(n)) return v;
+  return n.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+}
+
+function getDashboardValue(year, section, field, company) {
+  try {
+    return window.BMA_DASHBOARD_DATA.data[String(year)][section][field][company];
+  } catch(e) { return null; }
+}
+
+function getReviewKey(company, year) {
+  return `${company} - ${year}`;
+}
+
+function getStatus(company, year) {
+  const key = getReviewKey(company, year);
+  if (reviewedData[key]) return reviewedData[key].status || 'draft';
+  return null;
+}
+
+function showToast(msg, type='success') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  setTimeout(() => { el.className = 'toast'; }, 2800);
+}
+
+// ──────────────────────────────────────────────
+// Sidebar
+// ──────────────────────────────────────────────
+function renderSidebar() {
+  const list = document.getElementById('sidebar-list');
+  list.innerHTML = '';
+
+  for (const co of COMPANIES) {
+    const status = getStatus(co, selectedYear);
+    if (currentFilter === 'unreviewed' && status) continue;
+    if (currentFilter === 'approved' && status !== 'approved') continue;
+
+    const item = document.createElement('div');
+    item.className = 'sidebar-item' + (co === selectedCompany ? ' selected' : '');
+    item.dataset.company = co;
+    item.onclick = () => selectCompany(co);
+
+    const dot = document.createElement('span');
+    dot.className = 'status-dot' + (status === 'approved' ? ' approved' : status === 'draft' ? ' draft' : '');
+
+    const name = document.createElement('span');
+    name.className = 'sidebar-item-name';
+    name.textContent = co;
+    name.title = co;
+
+    item.appendChild(dot);
+    item.appendChild(name);
+    list.appendChild(item);
+  }
+}
+
+function setFilter(f) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-pill').forEach(p => {
+    p.classList.toggle('active', p.dataset.filter === f);
+  });
+  renderSidebar();
+}
+
+function collapseSidebar() {
+  document.getElementById('sidebar').classList.add('collapsed');
+  document.getElementById('sidebar-expand-btn').classList.add('visible');
+}
+
+function expandSidebar() {
+  document.getElementById('sidebar').classList.remove('collapsed');
+  document.getElementById('sidebar-expand-btn').classList.remove('visible');
+}
+
+// ──────────────────────────────────────────────
+// Company selection
+// ──────────────────────────────────────────────
+function selectCompany(co) {
+  selectedCompany = co;
+  document.getElementById('company-search').value = co;
+  document.getElementById('company-dropdown').classList.remove('open');
+  renderSidebar();
+  updatePDF();
+  renderForms();
+  updateStatusBadge();
+}
+
+function setYear(y) {
+  selectedYear = y;
+  document.querySelectorAll('.year-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.year) === y);
+  });
+  renderSidebar();
+  updatePDF();
+  renderForms();
+  updateStatusBadge();
+}
+
+// ──────────────────────────────────────────────
+// Status badge
+// ──────────────────────────────────────────────
+function updateStatusBadge() {
+  const badge = document.getElementById('status-badge');
+  if (!selectedCompany) {
+    badge.textContent = 'Unreviewed';
+    badge.className = '';
+    return;
+  }
+  const s = getStatus(selectedCompany, selectedYear);
+  if (s === 'approved') {
+    badge.textContent = 'Approved';
+    badge.className = 'approved';
+  } else if (s === 'draft') {
+    badge.textContent = 'Draft Saved';
+    badge.className = 'draft';
+  } else {
+    badge.textContent = 'Unreviewed';
+    badge.className = '';
+  }
+}
+
+// ──────────────────────────────────────────────
+// PDF panel
+// ──────────────────────────────────────────────
+function updatePDF() {
+  const frame = document.getElementById('pdf-frame');
+  const unavail = document.getElementById('pdf-unavailable');
+  const headerName = document.getElementById('pdf-header-name');
+  const headerYear = document.getElementById('pdf-header-year');
+  const openLink = document.getElementById('pdf-open-link');
+
+  if (!selectedCompany) {
+    frame.src = 'about:blank';
+    frame.style.display = 'block';
+    unavail.style.display = 'none';
+    headerName.textContent = '--';
+    headerYear.textContent = '--';
+    openLink.href = '#';
+    return;
+  }
+
+  const pdfPath = (PDF_MAP[selectedYear] || {})[selectedCompany];
+  headerName.textContent = selectedCompany;
+  headerYear.textContent = selectedYear;
+
+  if (pdfPath) {
+    frame.style.display = 'block';
+    unavail.style.display = 'none';
+    frame.src = pdfPath;
+    openLink.href = pdfPath;
+  } else {
+    frame.style.display = 'none';
+    frame.src = 'about:blank';
+    unavail.style.display = 'flex';
+    openLink.href = '#';
+  }
+}
+
+// ──────────────────────────────────────────────
+// Form rendering
+// ──────────────────────────────────────────────
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.toggle('active', p.id === `tab-${tab}`));
+}
+
+function buildFieldHTML(section, field, company, year, reviewedEntry) {
+  const dashVal = getDashboardValue(year, section, field, company);
+  const reviewedVal = reviewedEntry && reviewedEntry[section] ? reviewedEntry[section][field] : undefined;
+  const isReviewed = reviewedVal !== undefined && reviewedVal !== null;
+  const displayVal = isReviewed ? reviewedVal : (dashVal !== null && dashVal !== undefined ? dashVal : '');
+
+  const id = `field_${section}_${field.replace(/[^a-zA-Z0-9]/g, '_')}`;
+
+  return `
+    <div class="field-group">
+      <div class="field-label-row">
+        <span class="field-label">${field}</span>
+        <span class="reviewed-tag${isReviewed ? ' show' : ''}" id="rtag_${id}">&#10003; Reviewed</span>
+      </div>
+      <div class="field-current">Original: ${dashVal !== null && dashVal !== undefined ? fmtNum(dashVal) : '—'}</div>
+      <input class="field-input" id="${id}" type="text" value="${displayVal !== '' ? fmtNum(displayVal) : ''}" data-section="${section}" data-field="${field}" placeholder="—">
+    </div>`;
+}
+
+function renderForms() {
+  const co = selectedCompany;
+  const yr = selectedYear;
+
+  const reviewKey = getReviewKey(co, yr);
+  const reviewedEntry = reviewedData[reviewKey] || null;
+
+  // Income statement
+  const incomePane = document.getElementById('tab-income');
+  incomePane.innerHTML = '<div class="section-title">Income Statement</div>';
+  for (const field of INCOME_FIELDS) {
+    incomePane.innerHTML += buildFieldHTML('income_statement', field, co, yr, reviewedEntry);
+  }
+
+  // Balance sheet
+  const balancePane = document.getElementById('tab-balance');
+  balancePane.innerHTML = '<div class="section-title">Balance Sheet</div>';
+  for (const field of BALANCE_FIELDS) {
+    balancePane.innerHTML += buildFieldHTML('balance_sheet', field, co, yr, reviewedEntry);
+  }
+
+  // Ratios
+  const ratiosPane = document.getElementById('tab-ratios');
+  ratiosPane.innerHTML = '<div class="section-title">Financial Ratios</div>';
+  for (const field of RATIO_FIELDS) {
+    ratiosPane.innerHTML += buildFieldHTML('ratios', field, co, yr, reviewedEntry);
+  }
+}
+
+// ──────────────────────────────────────────────
+// Collect section values from inputs
+// ──────────────────────────────────────────────
+function collectSection(section) {
+  const result = {};
+  document.querySelectorAll(`.field-input[data-section="${section}"]`).forEach(input => {
+    const field = input.dataset.field;
+    const rawVal = input.value.replace(/,/g, '').trim();
+    result[field] = rawVal !== '' ? parseFloat(rawVal) || rawVal : null;
+  });
+  return result;
+}
+
+// ──────────────────────────────────────────────
+// Save / Approve
+// ──────────────────────────────────────────────
+async function saveDraft() {
+  if (!selectedCompany) { showToast('Select a company first', 'error'); return; }
+  const key = `${selectedCompany} - ${selectedYear}`;
+  const payload = {
+    key,
+    status: 'draft',
+    income_statement: collectSection('income_statement'),
+    balance_sheet: collectSection('balance_sheet'),
+    ratios: collectSection('ratios'),
+    reviewed_by: 'admin',
+    reviewed_at: new Date().toISOString()
+  };
+
+  try {
+    const r = await fetch('/api/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!r.ok) throw new Error('Server error');
+    reviewedData[key] = payload;
+    updateStatusBadge();
+    renderSidebar();
+    showToast('Draft saved successfully', 'success');
+  } catch(e) {
+    showToast('Save failed: ' + e.message, 'error');
+  }
+}
+
+async function markApproved() {
+  if (!selectedCompany) { showToast('Select a company first', 'error'); return; }
+  const key = `${selectedCompany} - ${selectedYear}`;
+  const payload = {
+    key,
+    status: 'approved',
+    income_statement: collectSection('income_statement'),
+    balance_sheet: collectSection('balance_sheet'),
+    ratios: collectSection('ratios'),
+    reviewed_by: 'admin',
+    reviewed_at: new Date().toISOString()
+  };
+
+  try {
+    const r = await fetch('/api/approve', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!r.ok) throw new Error('Server error');
+    reviewedData[key] = payload;
+    updateStatusBadge();
+    renderSidebar();
+    showToast('Approved and pushed to git', 'success');
+    // Refresh reviewed tags
+    renderForms();
+  } catch(e) {
+    showToast('Approve failed: ' + e.message, 'error');
+  }
+}
+
+// ──────────────────────────────────────────────
+// Company dropdown (searchable)
+// ──────────────────────────────────────────────
+function initCompanyDropdown() {
+  const input = document.getElementById('company-search');
+  const dropdown = document.getElementById('company-dropdown');
+
+  function renderDropdown(filter) {
+    dropdown.innerHTML = '';
+    const lc = filter.toLowerCase();
+    const filtered = COMPANIES.filter(c => c.toLowerCase().includes(lc));
+    filtered.forEach(c => {
+      const item = document.createElement('div');
+      item.className = 'dropdown-item' + (c === selectedCompany ? ' selected' : '');
+      item.textContent = c;
+      item.onclick = (e) => {
+        e.stopPropagation();
+        selectCompany(c);
+      };
+      dropdown.appendChild(item);
+    });
+    dropdown.classList.toggle('open', filtered.length > 0);
+  }
+
+  input.addEventListener('click', () => {
+    input.removeAttribute('readonly');
+    input.select();
+    renderDropdown(input.value === selectedCompany ? '' : input.value);
+  });
+
+  input.addEventListener('input', () => {
+    renderDropdown(input.value);
+  });
+
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      dropdown.classList.remove('open');
+      if (selectedCompany) input.value = selectedCompany;
+    }
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.company-select-wrap')) {
+      dropdown.classList.remove('open');
+      if (selectedCompany) input.value = selectedCompany;
+      else input.value = '';
+    }
+  });
+}
+
+// ──────────────────────────────────────────────
+// Load reviewed data from server
+// ──────────────────────────────────────────────
+async function loadReviewedData() {
+  try {
+    const r = await fetch('/api/reviews');
+    if (r.ok) {
+      reviewedData = await r.json();
+    }
+  } catch(e) {
+    // server not running — skip silently
+  }
+}
+
+// ──────────────────────────────────────────────
+// Init
+// ──────────────────────────────────────────────
+async function init() {
+  await loadReviewedData();
+  initCompanyDropdown();
+
+  // Auto-select first company
+  if (COMPANIES.length) {
+    selectCompany(COMPANIES[0]);
+  } else {
+    renderSidebar();
+    updatePDF();
+    updateStatusBadge();
+  }
+}
+
+init();
+</script>
+</body>
+</html>

@@ -396,6 +396,98 @@
             .table-container { overflow: visible !important; }
             .chart-row { grid-template-columns: 1fr 1fr; }
         }
+
+        /* ── Dark Mode ─────────────────────────────────────────────── */
+        :root {
+            --bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --text-muted: #666666;
+            --border: #f0f0f0;
+            --border-input: #dddddd;
+            --row-alt: #f9f9f9;
+            --chart-grid: #f0f0f0;
+            --chart-tick: #666666;
+            --legend-color: #333333;
+        }
+
+        body.dark-mode {
+            --bg: #0f1117;
+            --card-bg: #1a1b23;
+            --text: #e8e8e8;
+            --text-muted: #9ca3af;
+            --border: #2a2b35;
+            --border-input: #3a3b45;
+            --row-alt: #1e1f28;
+            --chart-grid: #2a2b35;
+            --chart-tick: #9ca3af;
+            --legend-color: #e8e8e8;
+        }
+
+        body {
+            background: var(--bg);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .header, .controls-row, .company-filter,
+        .chart-card, .table-container, .metric-card {
+            background: var(--card-bg);
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .header h1, .chart-title, .table-title, .metric-label,
+        .control-group label, .metric-selector label, .comparison-table th {
+            color: var(--text);
+        }
+
+        .header p, .metric-value {
+            color: var(--text-muted);
+        }
+
+        .metric-card .metric-value { color: var(--text); }
+
+        .control-group select, .control-group input, .metric-selector select {
+            background: var(--card-bg);
+            color: var(--text);
+            border-color: var(--border-input);
+        }
+
+        .company-checkbox {
+            background: var(--row-alt);
+            border-color: var(--border-input);
+        }
+
+        .company-checkbox:hover {
+            background: var(--border);
+        }
+
+        .company-checkbox label { color: var(--text); }
+
+        .comparison-table thead { background: var(--row-alt); }
+        .comparison-table td { border-bottom-color: var(--border); }
+        .comparison-table tbody tr:hover { background: var(--row-alt); }
+
+        .chart-toggle-pill { background: var(--row-alt); border-color: var(--border-input); color: var(--text-muted); }
+
+        .btn-theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: 1px solid var(--border-input);
+            border-radius: 4px;
+            background: var(--card-bg);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .btn-theme-toggle:hover {
+            border-color: #8b1538;
+            color: #8b1538;
+        }
     </style>
 </head>
 <body>
@@ -405,6 +497,7 @@
             <p>Financial comparison of 10 major Bermuda-based insurance and reinsurance companies | All values in USD Millions</p>
         </div>
         <div class="export-bar">
+            <button class="btn-theme-toggle" id="theme-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
             <button class="btn-export btn-export-pdf" onclick="exportPDF()" title="Export PDF">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
             </button>
@@ -790,6 +883,7 @@
             const ctx = document.getElementById(chartId)?.getContext('2d');
             if (!ctx) return;
 
+            const cc = getChartColors();
             const values = selected.map(c => getValue(c, metric, category));
             const industryAvg = getIndustryAvg(metric, category, currentYear);
             const selectedAvg = getSelectedAvg(metric, category, selected, currentYear);
@@ -883,11 +977,11 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: { color: '#666', font: { size: 10 } },
-                            grid: { color: '#f0f0f0' }
+                            ticks: { color: cc.tick, font: { size: 10 } },
+                            grid: { color: cc.grid }
                         },
                         x: {
-                            ticks: { color: '#666', font: { size: 9 } },
+                            ticks: { color: cc.tick, font: { size: 9 } },
                             grid: { display: false }
                         }
                     }
@@ -899,6 +993,7 @@
             const ctx = document.getElementById('trendChart')?.getContext('2d');
             if (!ctx) return;
 
+            const cc = getChartColors();
             const selected = getSelectedCompanies();
             const metric = document.getElementById('metric-select').value;
             const category = getCategoryForMetric(metric);
@@ -989,7 +1084,7 @@
                             display: true,
                             position: 'top',
                             labels: {
-                                color: '#333',
+                                color: cc.legend,
                                 font: { size: 11, weight: '600' },
                                 padding: 15,
                                 usePointStyle: true
@@ -1005,11 +1100,11 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: { color: '#666', font: { size: 10 } },
-                            grid: { color: '#f0f0f0' }
+                            ticks: { color: cc.tick, font: { size: 10 } },
+                            grid: { color: cc.grid }
                         },
                         x: {
-                            ticks: { color: '#666', font: { size: 10 } },
+                            ticks: { color: cc.tick, font: { size: 10 } },
                             grid: { display: false }
                         }
                     }
@@ -1044,7 +1139,7 @@
                 const metricCell = row.insertCell();
                 metricCell.textContent = metric;
                 metricCell.style.fontWeight = '600';
-                metricCell.style.backgroundColor = '#f9f9f9';
+                metricCell.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--row-alt').trim() || '#f9f9f9';
 
                 const category = getCategoryForMetric(metric);
                 function getCategoryForMetric(m) {
@@ -1269,6 +1364,35 @@
 
             await pptx.writeFile({ fileName: `BMA_Filings_${currentYear}_Dashboard.pptx` });
         }
+
+        // ── DARK MODE ─────────────────────────────────────────────────
+        function toggleDarkMode() {
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('bma-theme', isDark ? 'dark' : 'light');
+            document.getElementById('theme-toggle').textContent = isDark ? '☀️' : '🌙';
+            updateAllCharts();
+        }
+
+        function getChartColors() {
+            const isDark = document.body.classList.contains('dark-mode');
+            return {
+                grid: isDark ? '#2a2b35' : '#f0f0f0',
+                tick: isDark ? '#9ca3af' : '#666666',
+                legend: isDark ? '#e8e8e8' : '#333333',
+            };
+        }
+
+        // Apply saved theme on load
+        (function() {
+            const saved = localStorage.getItem('bma-theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.addEventListener('DOMContentLoaded', () => {
+                    const btn = document.getElementById('theme-toggle');
+                    if (btn) btn.textContent = '☀️';
+                });
+            }
+        })();
 
     </script>
 </body>
