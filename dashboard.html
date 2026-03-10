@@ -25,10 +25,14 @@
         .header {
             background: white;
             border-left: 6px solid #8b1538;
-            padding: 25px 30px;
+            padding: 20px 24px;
             margin-bottom: 20px;
             border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
         }
 
         .header h1 {
@@ -335,28 +339,17 @@
 
         .export-bar {
             display: flex;
-            gap: 12px;
-            background: white;
-            padding: 16px 20px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            gap: 8px;
             align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .export-bar span {
-            font-weight: 600;
-            color: #333;
-            font-size: 0.9em;
-            margin-right: 4px;
         }
 
         .btn-export {
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 18px;
+            justify-content: center;
+            padding: 8px;
+            width: 32px;
+            height: 32px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -385,37 +378,43 @@
         }
 
         @media print {
-            body { background: white; }
+            @page {
+                size: A4 landscape;
+                margin: 10mm;
+            }
+            body {
+                background: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
             .export-bar, .controls-row, .company-filter, .btn { display: none !important; }
             .header, .chart-card, .table-container, .metrics-row .metric-card {
                 box-shadow: none;
                 border: 1px solid #ddd;
                 page-break-inside: avoid;
             }
+            .table-container { overflow: visible !important; }
             .chart-row { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Insurance/Reinsurance Company Dashboard</h1>
-        <p>Financial comparison of 10 major Bermuda-based insurance and reinsurance companies | All values in USD Millions</p>
-    </div>
-
-    <div class="export-bar">
-        <span>Export:</span>
-        <button class="btn-export btn-export-pdf" onclick="exportPDF()">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
-            PDF
-        </button>
-        <button class="btn-export btn-export-xlsx" onclick="exportExcel()">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 16l2-3-2-3h1.5l1.25 2 1.25-2H13.5l-2 3 2 3H12l-1.25-2L9.5 16H8z"/></svg>
-            Excel
-        </button>
-        <button class="btn-export btn-export-pptx" onclick="exportPPTX()">
-            <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13H9.5v3H8V6h4zm-1.5 5.5H12c1.1 0 2-.9 2-2s-.9-2-2-2h-1.5v4z"/></svg>
-            PowerPoint
-        </button>
+        <div>
+            <h1>Insurance/Reinsurance Company Dashboard</h1>
+            <p>Financial comparison of 10 major Bermuda-based insurance and reinsurance companies | All values in USD Millions</p>
+        </div>
+        <div class="export-bar">
+            <button class="btn-export btn-export-pdf" onclick="exportPDF()" title="Export PDF">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
+            </button>
+            <button class="btn-export btn-export-xlsx" onclick="exportExcel()" title="Export Excel">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 16l2-3-2-3h1.5l1.25 2 1.25-2H13.5l-2 3 2 3H12l-1.25-2L9.5 16H8z"/></svg>
+            </button>
+            <button class="btn-export btn-export-pptx" onclick="exportPPTX()" title="Export PowerPoint">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13H9.5v3H8V6h4zm-1.5 5.5H12c1.1 0 2-.9 2-2s-.9-2-2-2h-1.5v4z"/></svg>
+            </button>
+        </div>
     </div>
 
     <div class="controls-row">
@@ -1095,6 +1094,31 @@
 
             const wb = XLSX.utils.book_new();
 
+            const applySheetStyling = (ws, headerRowIndex = 1) => {
+                const range = XLSX.utils.decode_range(ws['!ref']);
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                    const cellRef = XLSX.utils.encode_cell({ r: headerRowIndex - 1, c: C });
+                    const cell = ws[cellRef];
+                    if (cell) {
+                        cell.s = cell.s || {};
+                        cell.s.fill = { fgColor: { rgb: '8B1538' } };
+                        cell.s.font = { color: { rgb: 'FFFFFF' }, bold: true };
+                        cell.s.alignment = { horizontal: 'center' };
+                    }
+                }
+                for (let R = headerRowIndex; R <= range.e.r; ++R) {
+                    for (let C = 1; C <= range.e.c; ++C) {
+                        const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+                        const cell = ws[cellRef];
+                        if (cell && typeof cell.v === 'number') {
+                            cell.s = cell.s || {};
+                            cell.s.numFmt = '#,##0.0_);[Red](#,##0.0)';
+                            cell.s.alignment = { horizontal: 'right' };
+                        }
+                    }
+                }
+            };
+
             [2024, 2023].forEach(year => {
                 const rows = [['Metric', ...selected, 'Industry Avg']];
                 metrics.forEach(({ label, category }) => {
@@ -1103,12 +1127,11 @@
                     rows.push([label, ...vals.map(v => parseFloat(v.toFixed(2))), parseFloat(avg.toFixed(2))]);
                 });
                 const ws = XLSX.utils.aoa_to_sheet(rows);
-                // Column widths
-                ws['!cols'] = [{ wch: 22 }, ...selected.map(() => ({ wch: 16 })), { wch: 16 }];
+                ws['!cols'] = [{ wch: 24 }, ...selected.map(() => ({ wch: 16 })), { wch: 16 }];
+                applySheetStyling(ws, 1);
                 XLSX.utils.book_append_sheet(wb, ws, `FY${year}`);
             });
 
-            // Summary sheet: 2023 vs 2024 side by side
             const summaryRows = [['Metric', ...selected.flatMap(c => [`${c} 2023`, `${c} 2024`]), 'Avg 2023', 'Avg 2024']];
             metrics.forEach(({ label, category }) => {
                 const row = [label];
@@ -1121,7 +1144,8 @@
                 summaryRows.push(row);
             });
             const wsSummary = XLSX.utils.aoa_to_sheet(summaryRows);
-            wsSummary['!cols'] = [{ wch: 22 }, ...Array(summaryRows[0].length - 1).fill({ wch: 14 })];
+            wsSummary['!cols'] = [{ wch: 24 }, ...Array(summaryRows[0].length - 1).fill({ wch: 14 })];
+            applySheetStyling(wsSummary, 1);
             XLSX.utils.book_append_sheet(wb, wsSummary, 'YoY Comparison');
 
             XLSX.writeFile(wb, `BMA_Filings_${currentYear}_Export.xlsx`);
