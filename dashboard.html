@@ -479,21 +479,68 @@
     </div>
 
     <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Total Investments</div>
+            <div class="chart-container">
+                <canvas id="investmentsChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Investment Return %</div>
+            <div class="chart-container">
+                <canvas id="investmentReturnChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Investment Yield %</div>
+            <div class="chart-container">
+                <canvas id="investmentYieldChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Investments to Assets %</div>
+            <div class="chart-container">
+                <canvas id="investmentRatioChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
         <div class="chart-card" style="grid-column: 1 / -1;">
             <div class="chart-title">Year-over-Year Comparison</div>
             <div class="metric-selector">
                 <label for="metric-select">Select Metric:</label>
                 <select id="metric-select" onchange="updateTrendChart()">
-                    <option value="Total Assets">Total Assets</option>
-                    <option value="Total Equity">Total Equity</option>
-                    <option value="Net Premiums Earned">Net Premiums Earned</option>
-                    <option value="Net Income">Net Income</option>
-                    <option value="Total Revenues">Total Revenues</option>
-                    <option value="ROE (%)">ROE (%)</option>
-                    <option value="ROA (%)">ROA (%)</option>
-                    <option value="Loss Ratio (%)">Loss Ratio (%)</option>
-                    <option value="Expense Ratio (%)">Expense Ratio (%)</option>
-                    <option value="Combined Ratio (%)">Combined Ratio (%)</option>
+                    <optgroup label="Balance Sheet">
+                        <option value="Total Assets">Total Assets</option>
+                        <option value="Total Equity">Total Equity</option>
+                        <option value="Total Investments">Total Investments</option>
+                        <option value="Cash and Cash Equivalents">Cash and Cash Equivalents</option>
+                    </optgroup>
+                    <optgroup label="Income Statement">
+                        <option value="Gross Premiums Written">Gross Premiums Written</option>
+                        <option value="Net Premiums Earned">Net Premiums Earned</option>
+                        <option value="Total Revenues">Total Revenues</option>
+                        <option value="Net Income">Net Income</option>
+                        <option value="Net Investment Income">Net Investment Income</option>
+                        <option value="Investment Gains/Losses">Investment Gains/Losses</option>
+                    </optgroup>
+                    <optgroup label="Profitability & Underwriting">
+                        <option value="ROE (%)">ROE (%)</option>
+                        <option value="ROA (%)">ROA (%)</option>
+                        <option value="Loss Ratio (%)">Loss Ratio (%)</option>
+                        <option value="Expense Ratio (%)">Expense Ratio (%)</option>
+                        <option value="Combined Ratio (%)">Combined Ratio (%)</option>
+                        <option value="Equity Ratio (%)">Equity Ratio (%)</option>
+                    </optgroup>
+                    <optgroup label="Investment Metrics">
+                        <option value="Investment Return (%)">Investment Return (%)</option>
+                        <option value="Investment Yield (%)">Investment Yield (%)</option>
+                        <option value="Investments to Assets (%)">Investments to Assets (%)</option>
+                    </optgroup>
                 </select>
             </div>
             <div class="line-chart-container">
@@ -617,6 +664,10 @@
             updateBarChart('expenseRatioChart', 'Expense Ratio (%)', 'ratios', selected);
             updateBarChart('equityRatioChart', 'Equity Ratio (%)', 'ratios', selected);
             updateBarChart('combinedRatioChart', 'Combined Ratio (%)', 'ratios', selected);
+            updateBarChart('investmentsChart', 'Total Investments', 'balance_sheet', selected);
+            updateBarChart('investmentReturnChart', 'Investment Return (%)', 'ratios', selected);
+            updateBarChart('investmentYieldChart', 'Investment Yield (%)', 'ratios', selected);
+            updateBarChart('investmentRatioChart', 'Investments to Assets (%)', 'ratios', selected);
             updateTrendChart();
             updateComparisonTable(selected);
         }
@@ -634,12 +685,14 @@
             const avgROE = (selected.reduce((sum, c) => sum + getValue(c, 'ROE (%)', 'ratios'), 0) / selected.length).toFixed(1);
             const avgCombined = (selected.reduce((sum, c) => sum + getValue(c, 'Combined Ratio (%)', 'ratios'), 0) / selected.length).toFixed(1);
             const totalEquity = selected.reduce((sum, c) => sum + getValue(c, 'Total Equity', 'balance_sheet'), 0).toFixed(0);
+            const totalInvestments = selected.reduce((sum, c) => sum + getValue(c, 'Total Investments', 'balance_sheet'), 0).toFixed(0);
+            const avgInvReturn = (selected.reduce((sum, c) => sum + getValue(c, 'Investment Return (%)', 'ratios'), 0) / selected.length).toFixed(2);
 
             const metrics = [
                 { label: 'Largest Company Assets', value: '$' + formatNumber(largestAssets, 0) + 'B' },
-                { label: 'Average ROE', value: avgROE + '%' },
-                { label: 'Average Combined Ratio', value: avgCombined + '%' },
-                { label: 'Total Equity (Selected)', value: '$' + formatNumber(totalEquity, 0) + 'M' }
+                { label: 'Total Investments (Selected)', value: '$' + formatNumber(totalInvestments, 0) + 'M' },
+                { label: 'Average Investment Return', value: avgInvReturn + '%' },
+                { label: 'Average Combined Ratio', value: avgCombined + '%' }
             ];
 
             metrics.forEach(m => {
@@ -882,9 +935,12 @@
             });
 
             const metrics = [
-                'Total Assets', 'Total Equity', 'Total Liabilities',
+                'Total Assets', 'Total Equity', 'Total Liabilities', 'Total Investments',
                 'Net Premiums Earned', 'Total Revenues', 'Net Income',
-                'ROE (%)', 'ROA (%)', 'Equity Ratio (%)', 'Combined Ratio (%)'
+                'Net Investment Income', 'Investment Gains/Losses',
+                'ROE (%)', 'ROA (%)', 'Equity Ratio (%)',
+                'Loss Ratio (%)', 'Expense Ratio (%)', 'Combined Ratio (%)',
+                'Investment Return (%)', 'Investment Yield (%)', 'Investments to Assets (%)'
             ];
 
             const tbody = table.createTBody();
@@ -921,18 +977,24 @@
         function exportExcel() {
             const selected = getSelectedCompanies();
             const metrics = [
-                { label: 'Total Assets',        category: 'balance_sheet' },
-                { label: 'Total Equity',         category: 'balance_sheet' },
-                { label: 'Total Liabilities',    category: 'balance_sheet' },
-                { label: 'Net Premiums Earned',  category: 'income_statement' },
-                { label: 'Total Revenues',       category: 'income_statement' },
-                { label: 'Net Income',           category: 'income_statement' },
-                { label: 'ROE (%)',              category: 'ratios' },
-                { label: 'ROA (%)',              category: 'ratios' },
-                { label: 'Loss Ratio (%)',       category: 'ratios' },
-                { label: 'Expense Ratio (%)',    category: 'ratios' },
-                { label: 'Equity Ratio (%)',     category: 'ratios' },
-                { label: 'Combined Ratio (%)',   category: 'ratios' },
+                { label: 'Total Assets',              category: 'balance_sheet' },
+                { label: 'Total Equity',              category: 'balance_sheet' },
+                { label: 'Total Liabilities',         category: 'balance_sheet' },
+                { label: 'Total Investments',         category: 'balance_sheet' },
+                { label: 'Net Premiums Earned',       category: 'income_statement' },
+                { label: 'Total Revenues',            category: 'income_statement' },
+                { label: 'Net Income',                category: 'income_statement' },
+                { label: 'Net Investment Income',     category: 'income_statement' },
+                { label: 'Investment Gains/Losses',   category: 'income_statement' },
+                { label: 'ROE (%)',                   category: 'ratios' },
+                { label: 'ROA (%)',                   category: 'ratios' },
+                { label: 'Equity Ratio (%)',          category: 'ratios' },
+                { label: 'Loss Ratio (%)',            category: 'ratios' },
+                { label: 'Expense Ratio (%)',         category: 'ratios' },
+                { label: 'Combined Ratio (%)',        category: 'ratios' },
+                { label: 'Investment Return (%)',     category: 'ratios' },
+                { label: 'Investment Yield (%)',      category: 'ratios' },
+                { label: 'Investments to Assets (%)', category: 'ratios' },
             ];
 
             const wb = XLSX.utils.book_new();
