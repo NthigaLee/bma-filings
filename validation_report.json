@@ -1,15 +1,31 @@
 {
-  "timestamp": "2026-03-10T01:26:59.408661",
-  "companies_validated": 30,
+  "timestamp": "2026-03-10T18:13:49.462753",
+  "companies_validated": 40,
   "years_validated": 2,
-  "checks_passed": 1198,
-  "total_checks": 1210,
-  "quality_score": 99.00826446280992,
+  "checks_passed": 1562,
+  "total_checks": 1583,
+  "quality_score": 98.67340492735312,
   "errors": [
     "Hannover Re Bermuda (2023): Total Assets <= 0 ($0M)",
     "Hannover Re Bermuda (2023): Total Equity <= 0 ($0M) - Insolvent!",
+    "Antares Reinsurance Company Limited (2023): Total Assets <= 0 ($0M)",
+    "Antares Reinsurance Company Limited (2023): Total Equity <= 0 ($0M) - Insolvent!",
+    "Argo Re Ltd. (2023): Total Assets <= 0 ($0M)",
+    "Argo Re Ltd. (2023): Total Equity <= 0 ($0M) - Insolvent!",
+    "Brit Reinsurance Bermuda Limited (2023): Total Assets <= 0 ($0M)",
+    "Brit Reinsurance Bermuda Limited (2023): Total Equity <= 0 ($0M) - Insolvent!",
+    "Fortitude International Reinsurance Ltd. (2023): Total Assets <= 0 ($0M)",
+    "Fortitude International Reinsurance Ltd. (2023): Total Equity <= 0 ($0M) - Insolvent!",
     "Hannover Re Bermuda (2024): Total Assets <= 0 ($0M)",
-    "Hannover Re Bermuda (2024): Total Equity <= 0 ($0M) - Insolvent!"
+    "Hannover Re Bermuda (2024): Total Equity <= 0 ($0M) - Insolvent!",
+    "American International Reinsurance Company Ltd. (2024): Total Assets <= 0 ($0M)",
+    "American International Reinsurance Company Ltd. (2024): Total Equity <= 0 ($0M) - Insolvent!",
+    "Argo Re Ltd. (2024): Total Assets <= 0 ($0M)",
+    "Argo Re Ltd. (2024): Total Equity <= 0 ($0M) - Insolvent!",
+    "Brit Reinsurance Bermuda Limited (2024): Total Assets <= 0 ($0M)",
+    "Brit Reinsurance Bermuda Limited (2024): Total Equity <= 0 ($0M) - Insolvent!",
+    "Fortitude International Reinsurance Ltd. (2024): Total Assets <= 0 ($0M)",
+    "Fortitude International Reinsurance Ltd. (2024): Total Equity <= 0 ($0M) - Insolvent!"
   ],
   "warnings": [
     "Arch Reinsurance (2023): Investment composition missing 30146M",
@@ -29,11 +45,7 @@
     "Markel Bermuda (2024): Investment composition missing 4822M",
     "Partner Reinsurance Company (2024): Investment composition missing 6064M",
     "Renaissance Reinsurance (2024): Investment composition missing 6958M",
-    "Aspen Bermuda (2023): Loss Ratio 330.9% (very high - review data)",
-    "AXIS Specialty (2023): Loss Ratio 322.7% (very high - review data)",
-    "Everest Reinsurance Bermuda (2023): Loss Ratio 265.8% (very high - review data)",
     "Hannover Re Bermuda (2023): Investment Return 28450.00% (review)",
-    "Renaissance Reinsurance (2023): Loss Ratio 384.5% (very high - review data)",
     "Endurance Specialty Insurance (2023): Investment Return 2847.96% (review)",
     "XL Bermuda (2023): Investment Return 2847.96% (review)",
     "AXA XL Reinsurance (2023): Investment Return 2847.96% (review)",
@@ -54,14 +66,17 @@
     "Starr Insurance & Reinsurance (2023): Investment Return 2847.96% (review)",
     "Vantage Risk (2023): Investment Return 2847.96% (review)",
     "SiriusPoint Bermuda Insurance (2023): Investment Return 2847.96% (review)",
-    "Aspen Bermuda (2024): Loss Ratio 289.0% (very high - review data)",
-    "AXIS Specialty (2024): Loss Ratio 340.9% (very high - review data)",
-    "Everest Reinsurance Bermuda (2024): Loss Ratio 229.7% (very high - review data)",
+    "ABR Reinsurance Ltd. (2023): Investments are 83.0% of assets (high)",
+    "DaVinci Reinsurance Ltd. (2023): Investments are 85.1% of assets (high)",
     "Hannover Re Bermuda (2024): Investment Return -10133.33% (review)",
-    "Renaissance Reinsurance (2024): Loss Ratio 278.2% (very high - review data)"
+    "DaVinci Reinsurance Ltd. (2024): Investments are 86.8% of assets (high)"
   ],
   "yoy_changes": [
     "Everest Reinsurance Bermuda: Premiums changed +32.2% YoY (unusual)",
-    "Renaissance Reinsurance: Premiums changed +30.3% YoY (unusual)"
+    "Renaissance Reinsurance: Premiums changed +30.3% YoY (unusual)",
+    "ABR Reinsurance Ltd.: Premiums changed -100.0% YoY (unusual)",
+    "American International Reinsurance Company Ltd.: Assets changed -100.0% YoY (review)",
+    "Convex Re Limited: Premiums changed +31.4% YoY (unusual)",
+    "DaVinci Reinsurance Ltd.: Premiums changed +24340.0% YoY (unusual)"
   ]
 }

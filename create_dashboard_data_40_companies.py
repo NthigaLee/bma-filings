@@ -103,7 +103,7 @@ INCOME_STATEMENT_ITEMS = {
     "Investment Gains/Losses": "Investment Gains/Losses",
     # Revenue & expenses (existing)
     "Total Revenues": "TOTAL REVENUES",
-    "Losses and LAE": "Losses and LAE",
+    "Losses and LAE": "Losses and LAE",  # Now extracted from Excel instead of hardcoded
     "Total Expenses": "TOTAL EXPENSES",
     "Net Income": "NET INCOME"
 }
@@ -201,8 +201,8 @@ def extract_data_from_workbook(workbook_path):
 
     return data
 
-def calculate_ratios(balance_sheet, income_statement, loss_data):
-    """Calculate key financial ratios"""
+def calculate_ratios(balance_sheet, income_statement):
+    """Calculate key financial ratios (now extracting loss data from income statement)"""
     ratios = {
         "Loss Ratio (%)": {},
         "Expense Ratio (%)": {},
@@ -239,8 +239,8 @@ def calculate_ratios(balance_sheet, income_statement, loss_data):
             else:
                 ratios["Equity Ratio (%)"][company] = 0
 
-            # Loss Ratio = Losses & LAE / Net Premiums Earned
-            losses = loss_data.get(company, 0)
+            # Loss Ratio = Losses & LAE / Net Premiums Earned (extracted from Excel)
+            losses = income_statement.get("Losses and LAE", {}).get(company, 0)
             net_premiums = income_statement.get("Net Premiums Earned", {}).get(company, 1)
             if net_premiums != 0 and losses > 0:
                 ratios["Loss Ratio (%)"][company] = round((losses / net_premiums) * 100, 1)
@@ -294,107 +294,16 @@ def calculate_ratios(balance_sheet, income_statement, loss_data):
     return ratios
 
 def main():
-    # Loss data extracted from PDF financial statements (USD Millions)
-    loss_data_2024 = {
-        # Original 10
-        "Arch Reinsurance": 8342.0,
-        "Ascot Bermuda": 5906.3,
-        "Aspen Bermuda": 2862.4,
-        "AXIS Specialty": 4356.1,
-        "Chubb Tempest Reinsurance": 8518.6,
-        "Everest Reinsurance Bermuda": 9371.1,
-        "Hannover Re Bermuda": 0,
-        "Markel Bermuda": 4263.1,
-        "Partner Reinsurance Company": 5275.4,
-        "Renaissance Reinsurance": 8181.8,
-        # New 20
-        "Endurance Specialty Insurance": 2650,
-        "XL Bermuda": 5400,
-        "AXA XL Reinsurance": 3960,
-        "Validus Reinsurance": 2145,
-        "Somers Re": 1430,
-        "Lancashire Insurance Company": 1210,
-        "Hiscox Insurance Company Bermuda": 1705,
-        "Canopius Reinsurance": 963,
-        "Conduit Reinsurance": 1155,
-        "Fidelis Insurance Bermuda": 798,
-        "Fortitude Reinsurance Company": 1568,
-        "Group Ark Insurance": 660,
-        "Hamilton Re": 908,
-        "Harrington Re": 759,
-        "Liberty Specialty Markets Bermuda": 1073,
-        "MS Amlin AG": 1320,
-        "Premia Reinsurance": 550,
-        "Starr Insurance & Reinsurance": 1623,
-        "Vantage Risk": 479,
-        "SiriusPoint Bermuda Insurance": 1540,
-        # Additional 10 (estimated)
-        "ABR Reinsurance Ltd.": 1050,
-        "Allied World Assurance Company Ltd": 290,
-        "American International Reinsurance Company Ltd.": 180,
-        "Antares Reinsurance Company Limited": 800,
-        "Argo Re Ltd.": 1100,
-        "Brit Reinsurance Bermuda Limited": 900,
-        "Convex Re Limited": 1550,
-        "DaVinci Reinsurance Ltd.": 1200,
-        "Everest International Reinsurance Ltd.": 950,
-        "Fortitude International Reinsurance Ltd.": 700,
-    }
-
-    loss_data_2023 = {
-        # Original 10
-        "Arch Reinsurance": 6246.0,
-        "Ascot Bermuda": 4665.7,
-        "Aspen Bermuda": 2922.4,
-        "AXIS Specialty": 4383.8,
-        "Chubb Tempest Reinsurance": 7741.9,
-        "Everest Reinsurance Bermuda": 8199.3,
-        "Hannover Re Bermuda": 0,
-        "Markel Bermuda": 3851.3,
-        "Partner Reinsurance Company": 5242.9,
-        "Renaissance Reinsurance": 8680.5,
-        # New 20 (90% of 2024 values)
-        "Endurance Specialty Insurance": 2385,
-        "XL Bermuda": 4860,
-        "AXA XL Reinsurance": 3564,
-        "Validus Reinsurance": 1931,
-        "Somers Re": 1287,
-        "Lancashire Insurance Company": 1089,
-        "Hiscox Insurance Company Bermuda": 1535,
-        "Canopius Reinsurance": 867,
-        "Conduit Reinsurance": 1040,
-        "Fidelis Insurance Bermuda": 718,
-        "Fortitude Reinsurance Company": 1411,
-        "Group Ark Insurance": 594,
-        "Hamilton Re": 817,
-        "Harrington Re": 683,
-        "Liberty Specialty Markets Bermuda": 966,
-        "MS Amlin AG": 1188,
-        "Premia Reinsurance": 495,
-        "Starr Insurance & Reinsurance": 1461,
-        "Vantage Risk": 431,
-        "SiriusPoint Bermuda Insurance": 1386,
-        # Additional 10 (80% of 2024 values)
-        "ABR Reinsurance Ltd.": 840,
-        "Allied World Assurance Company Ltd": 232,
-        "American International Reinsurance Company Ltd.": 144,
-        "Antares Reinsurance Company Limited": 640,
-        "Argo Re Ltd.": 880,
-        "Brit Reinsurance Bermuda Limited": 720,
-        "Convex Re Limited": 1240,
-        "DaVinci Reinsurance Ltd.": 960,
-        "Everest International Reinsurance Ltd.": 760,
-        "Fortitude International Reinsurance Ltd.": 560,
-    }
-
     print("Extracting 2024 data...")
     data_2024 = extract_data_from_workbook(WORKBOOK_2024)
-    ratios_2024 = calculate_ratios(data_2024["balance_sheet"], data_2024["income_statement"], loss_data_2024)
+    # Loss data now extracted from Excel income statement (Losses and LAE row)
+    ratios_2024 = calculate_ratios(data_2024["balance_sheet"], data_2024["income_statement"])
     data_2024["ratios"] = ratios_2024
 
     print("\nExtracting 2023 data...")
     data_2023 = extract_data_from_workbook(WORKBOOK_2023)
-    ratios_2023 = calculate_ratios(data_2023["balance_sheet"], data_2023["income_statement"], loss_data_2023)
+    # Loss data now extracted from Excel income statement (Losses and LAE row)
+    ratios_2023 = calculate_ratios(data_2023["balance_sheet"], data_2023["income_statement"])
     data_2023["ratios"] = ratios_2023
 
     # Combine into final structure
