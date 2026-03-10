@@ -1,0 +1,832 @@
+{
+  "2024": {
+    "Arch Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 40476.0,
+        "Total Assets": 70734.0,
+        "Loss Reserves": -1.0,
+        "Unearned Premiums": 2428.0,
+        "Total Liabilities": 48735.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 31.0,
+        "Net Premiums Earned": 15100.0,
+        "Total Revenues": 17438.0,
+        "Total Expenses": 12793.0,
+        "Net Income": 580.0
+      },
+      "losses": 17.0
+    },
+    "Ascot Bermuda": {
+      "balance_sheet": {
+        "Total Assets": 11825140.0,
+        "Total Liabilities": 9153475.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 2024.0,
+        "Net Income": 10.0
+      },
+      "losses": 29039.0
+    },
+    "Aspen Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 3.0,
+        "Cash and Cash Equivalents": 11.0,
+        "Total Assets": 5052927.0,
+        "Loss Reserves": 216777.0,
+        "Unearned Premiums": -11902.0,
+        "Total Liabilities": 3930064.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 8.0,
+        "Net Premiums Earned": 990327.0,
+        "Total Revenues": 1121419.0,
+        "Total Expenses": 898159.0,
+        "Net Income": 233476.0
+      },
+      "losses": 7.0
+    },
+    "AXIS Specialty": {
+      "balance_sheet": {
+        "Total Investments": 2474550.0,
+        "Cash and Cash Equivalents": 1440.0,
+        "Total Assets": 3121523.0,
+        "Loss Reserves": 31.0,
+        "Unearned Premiums": 719602.0,
+        "Total Liabilities": 2453139.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 719602.0,
+        "Total Revenues": 188.0,
+        "Total Expenses": 188.0
+      },
+      "losses": 25.0
+    },
+    "Chubb Tempest Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 20982061.0,
+        "Total Assets": 28607257.0,
+        "Unearned Premiums": 1481834.0,
+        "Total Liabilities": 15333530.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 6639399.0,
+        "Net Premiums Earned": 5776561.0,
+        "Total Revenues": 7177714.0,
+        "Total Expenses": 3850203.0,
+        "Net Income": 3342324.0
+      },
+      "losses": null
+    },
+    "Everest Reinsurance Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 9271786.0,
+        "Total Assets": 17314978.0,
+        "Loss Reserves": 37.0,
+        "Unearned Premiums": 303683.0,
+        "Total Liabilities": 12991805.0
+      },
+      "income_statement": {
+        "Net Premiums Earned": 4079120.0,
+        "Total Revenues": 4428627.0,
+        "Net Income": 889768.0
+      },
+      "losses": 9371116.0
+    },
+    "Hannover Re Bermuda": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 70087.0
+      },
+      "income_statement": {
+        "Net Income": 676155.0
+      },
+      "losses": null
+    },
+    "Markel Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 4876183.0,
+        "Cash and Cash Equivalents": 229601.0,
+        "Total Assets": 8705040.0,
+        "Loss Reserves": 31.0,
+        "Total Liabilities": 6290675.0,
+        "Total Equity": 2248170.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 645248.0,
+        "Total Revenues": 1954847.0,
+        "Net Income": 614057.0
+      },
+      "losses": 4263139.0
+    },
+    "Partner Reinsurance Company": {
+      "balance_sheet": {
+        "Total Investments": 8703296.0,
+        "Cash and Cash Equivalents": 333565.0,
+        "Total Assets": 14090572.0,
+        "Unearned Premiums": -1.0,
+        "Total Liabilities": 8490355.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": -1.0,
+        "Net Premiums Earned": -1.0,
+        "Total Revenues": 4577174.0,
+        "Total Expenses": 3154492.0,
+        "Net Income": 1395212.0
+      },
+      "losses": 1210242.0
+    },
+    "Renaissance Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 7296789.0,
+        "Cash and Cash Equivalents": 512200.0,
+        "Total Assets": 17352778.0,
+        "Unearned Premiums": 10.0,
+        "Total Liabilities": 13227857.0,
+        "Total Equity": 1720099.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 7.0,
+        "Net Premiums Earned": 7.0,
+        "Total Revenues": 3250033.0,
+        "Total Expenses": 2302908.0,
+        "Net Income": 5.0
+      },
+      "losses": null
+    },
+    "Endurance Specialty Insurance": {
+      "balance_sheet": {
+        "Total Investments": 21341932.0,
+        "Cash and Cash Equivalents": 5.0,
+        "Total Assets": 33232439.0,
+        "Total Liabilities": 22896137.0
+      },
+      "income_statement": {
+        "Net Income": -13153.0
+      },
+      "losses": null
+    },
+    "XL Bermuda": {
+      "balance_sheet": {
+        "Total Investments": -1211389.0,
+        "Cash and Cash Equivalents": 902983.0,
+        "Total Assets": 65720401.0
+      },
+      "income_statement": {
+        "Total Expenses": -18555815.0,
+        "Net Income": 2225839.0
+      },
+      "losses": null
+    },
+    "AXA XL Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 102034.0,
+        "Cash and Cash Equivalents": 631634.0,
+        "Total Assets": 9479140.0
+      },
+      "income_statement": {
+        "Total Expenses": -2137866.0,
+        "Net Income": 581872.0
+      },
+      "losses": null
+    },
+    "Validus Reinsurance": {
+      "balance_sheet": {},
+      "income_statement": {},
+      "losses": null
+    },
+    "Somers Re": {
+      "balance_sheet": {
+        "Loss Reserves": 56.5
+      },
+      "income_statement": {
+        "Net Income": 31.0
+      },
+      "losses": 12.0
+    },
+    "Lancashire Insurance Company": {
+      "balance_sheet": {
+        "Total Investments": 934.2,
+        "Cash and Cash Equivalents": 1.3,
+        "Total Assets": 31.0,
+        "Total Liabilities": 31.0,
+        "Total Equity": 3.5
+      },
+      "income_statement": {
+        "Net Income": 10.0
+      },
+      "losses": null
+    },
+    "Hiscox Insurance Company Bermuda": {
+      "balance_sheet": {},
+      "income_statement": {},
+      "losses": null
+    },
+    "Canopius Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 3.0,
+        "Cash and Cash Equivalents": 13.0,
+        "Total Assets": 2415062.0,
+        "Loss Reserves": 50988.0,
+        "Unearned Premiums": -197557.0,
+        "Total Liabilities": 1631514.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 933243.0,
+        "Net Premiums Earned": 8.0,
+        "Total Revenues": 756539.0,
+        "Total Expenses": 589428.0,
+        "Net Income": 167111.0
+      },
+      "losses": 7.0
+    },
+    "Conduit Reinsurance": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 10.0,
+        "Total Assets": 1900.4,
+        "Total Liabilities": 850.8
+      },
+      "income_statement": {},
+      "losses": null
+    },
+    "Fidelis Insurance Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 2726.9,
+        "Cash and Cash Equivalents": 426.5,
+        "Total Assets": 7373.1,
+        "Unearned Premiums": 2256.3,
+        "Total Liabilities": 5572.4
+      },
+      "income_statement": {
+        "Gross Premiums Written": 2756.1,
+        "Net Premiums Earned": 1586.3,
+        "Total Revenues": 1710.1,
+        "Total Expenses": 1650.5,
+        "Net Income": 60.6
+      },
+      "losses": 0.7
+    },
+    "Fortitude Reinsurance Company": {
+      "balance_sheet": {
+        "Total Investments": 62198.0,
+        "Cash and Cash Equivalents": 749.0,
+        "Total Assets": 69527.0,
+        "Total Liabilities": 71400.0,
+        "Total Equity": -1873.0
+      },
+      "income_statement": {
+        "Total Revenues": 2390.0,
+        "Net Income": -920.0
+      },
+      "losses": 2639.0
+    },
+    "Group Ark Insurance": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 14.0,
+        "Total Assets": 3753557.0,
+        "Unearned Premiums": 56302.0,
+        "Total Liabilities": 2504564.0,
+        "Total Equity": 1248993.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 1540399.0,
+        "Net Premiums Earned": 1057052.0,
+        "Total Expenses": -868857.0,
+        "Net Income": 2023.0
+      },
+      "losses": null
+    },
+    "Hamilton Re": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 90.0
+      },
+      "income_statement": {
+        "Net Income": 10233.0
+      },
+      "losses": 31.0
+    },
+    "Harrington Re": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 137732.0,
+        "Total Assets": 1765435.0,
+        "Unearned Premiums": 149089.0,
+        "Total Liabilities": 1038292.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 218327.0,
+        "Net Premiums Earned": 265665.0,
+        "Total Revenues": 325115.0,
+        "Total Expenses": 274057.0,
+        "Net Income": 51058.0
+      },
+      "losses": null
+    },
+    "Liberty Specialty Markets Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 2541709.0,
+        "Cash and Cash Equivalents": 121411.0,
+        "Total Assets": 4063751.0,
+        "Loss Reserves": -12274.0,
+        "Unearned Premiums": 575961.0,
+        "Total Liabilities": 1966171.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 1883556.0,
+        "Net Premiums Earned": 1757740.0,
+        "Total Revenues": 1830017.0,
+        "Total Expenses": 1361265.0,
+        "Net Income": 370522.0
+      },
+      "losses": 1244994.0
+    },
+    "MS Amlin AG": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 441924579.0,
+        "Total Assets": 9569925819.0,
+        "Loss Reserves": 4385028347.0,
+        "Total Liabilities": 7548652312.0,
+        "Total Equity": 7.0
+      },
+      "income_statement": {
+        "Net Premiums Earned": 2845245534.0,
+        "Net Income": 192612174.0
+      },
+      "losses": null
+    },
+    "Premia Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 4.0,
+        "Cash and Cash Equivalents": 18143.0,
+        "Total Assets": 3017680.0,
+        "Loss Reserves": 30.0,
+        "Unearned Premiums": 1702.0,
+        "Total Liabilities": 2179777.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 3226.0,
+        "Net Premiums Earned": 4540.0,
+        "Total Revenues": 113792.0,
+        "Total Expenses": -101804.0,
+        "Net Income": 11988.0
+      },
+      "losses": 6.0
+    },
+    "Starr Insurance & Reinsurance": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 483079.0,
+        "Total Assets": 10608947.0,
+        "Loss Reserves": 31.0,
+        "Unearned Premiums": 1981376.0,
+        "Total Liabilities": 7733645.0
+      },
+      "income_statement": {
+        "Net Premiums Earned": 1238414.0,
+        "Total Expenses": 78673.0,
+        "Net Income": 409321.0
+      },
+      "losses": 833152.0
+    },
+    "Vantage Risk": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 107477.0,
+        "Total Assets": 1853942.0,
+        "Unearned Premiums": 313449.0,
+        "Total Liabilities": 1187287.0,
+        "Total Equity": 666655.0
+      },
+      "income_statement": {
+        "Total Revenues": 542579.0,
+        "Total Expenses": 448269.0,
+        "Net Income": 94310.0
+      },
+      "losses": null
+    },
+    "SiriusPoint Bermuda Insurance": {
+      "balance_sheet": {
+        "Total Investments": 5705.3,
+        "Cash and Cash Equivalents": 667.8,
+        "Total Assets": 12428.0,
+        "Loss Reserves": 15.0,
+        "Unearned Premiums": 463.9,
+        "Total Liabilities": 9562.1
+      },
+      "income_statement": {
+        "Gross Premiums Written": 3244.6,
+        "Net Premiums Earned": 2343.5,
+        "Total Revenues": 2771.1,
+        "Total Expenses": 2327.6,
+        "Net Income": 383.7
+      },
+      "losses": null
+    }
+  },
+  "2023": {
+    "Arch Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 33820.0,
+        "Total Assets": 58762.0,
+        "Loss Reserves": 538.0,
+        "Unearned Premiums": 2170.0,
+        "Total Liabilities": 39201.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 31.0,
+        "Net Premiums Earned": 12440.0,
+        "Total Revenues": 13638.0,
+        "Total Expenses": 10100.0,
+        "Net Income": 278.0
+      },
+      "losses": 21.0
+    },
+    "Ascot Bermuda": {
+      "balance_sheet": {},
+      "income_statement": {},
+      "losses": null
+    },
+    "Aspen Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 3.0,
+        "Cash and Cash Equivalents": 11.0,
+        "Total Assets": 5552327.0,
+        "Loss Reserves": -269599.0,
+        "Unearned Premiums": -23720.0,
+        "Total Liabilities": 4370247.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 8.0,
+        "Net Premiums Earned": 883054.0,
+        "Total Revenues": 1054842.0,
+        "Total Expenses": 792222.0,
+        "Net Income": 410817.0
+      },
+      "losses": 7.0
+    },
+    "AXIS Specialty": {
+      "balance_sheet": {},
+      "income_statement": {},
+      "losses": null
+    },
+    "Chubb Tempest Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 18050777.0,
+        "Total Assets": 25586135.0,
+        "Unearned Premiums": 1429532.0,
+        "Total Liabilities": 13910330.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 5381826.0,
+        "Net Premiums Earned": 4619564.0,
+        "Total Revenues": 5823239.0,
+        "Total Expenses": 3447531.0,
+        "Net Income": 3207916.0
+      },
+      "losses": null
+    },
+    "Everest Reinsurance Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 8962484.0,
+        "Total Assets": 15524068.0,
+        "Loss Reserves": 759.0,
+        "Unearned Premiums": 786972.0,
+        "Total Liabilities": 11328755.0
+      },
+      "income_statement": {
+        "Net Premiums Earned": 3084628.0,
+        "Total Revenues": 3409056.0,
+        "Net Income": 1481078.0
+      },
+      "losses": 8199343.0
+    },
+    "Hannover Re Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 4423816.0,
+        "Cash and Cash Equivalents": 5.0,
+        "Total Assets": 5201298.0,
+        "Total Liabilities": 2976685.0
+      },
+      "income_statement": {
+        "Net Income": 649935.0
+      },
+      "losses": null
+    },
+    "Markel Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 4723803.0,
+        "Cash and Cash Equivalents": 297725.0,
+        "Total Assets": 8165609.0,
+        "Loss Reserves": 31.0,
+        "Total Liabilities": 5867456.0,
+        "Total Equity": 2160813.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 542384.0,
+        "Total Revenues": 1841649.0,
+        "Net Income": 429512.0
+      },
+      "losses": 3851260.0
+    },
+    "Partner Reinsurance Company": {
+      "balance_sheet": {
+        "Total Investments": 7660584.0,
+        "Cash and Cash Equivalents": 335432.0,
+        "Total Assets": 13527730.0,
+        "Loss Reserves": -29226.0,
+        "Unearned Premiums": -1.0,
+        "Total Liabilities": 8454153.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": -1.0,
+        "Net Premiums Earned": -1.0,
+        "Total Revenues": 4373984.0,
+        "Total Expenses": 3181194.0,
+        "Net Income": 1619788.0
+      },
+      "losses": 1106753.0
+    },
+    "Renaissance Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 5748685.0,
+        "Cash and Cash Equivalents": 534928.0,
+        "Total Assets": 13435994.0,
+        "Unearned Premiums": 8.0,
+        "Total Liabilities": 10353532.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 5.0,
+        "Net Premiums Earned": 5.0,
+        "Total Revenues": 2403748.0,
+        "Total Expenses": 1358703.0,
+        "Net Income": 1437439.0
+      },
+      "losses": null
+    },
+    "Endurance Specialty Insurance": {
+      "balance_sheet": {
+        "Total Investments": 18449836.0,
+        "Cash and Cash Equivalents": 5.0,
+        "Total Assets": 31183869.0,
+        "Total Liabilities": 21494567.0
+      },
+      "income_statement": {
+        "Total Expenses": -40901.0,
+        "Net Income": -12954.0
+      },
+      "losses": null
+    },
+    "XL Bermuda": {
+      "balance_sheet": {
+        "Total Investments": -1330584.0,
+        "Cash and Cash Equivalents": 1275197.0,
+        "Total Assets": 65867090.0
+      },
+      "income_statement": {
+        "Net Premiums Earned": 76662.0,
+        "Total Expenses": -18035956.0,
+        "Net Income": 2039972.0
+      },
+      "losses": null
+    },
+    "AXA XL Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": -203942.0,
+        "Cash and Cash Equivalents": 793337.0,
+        "Total Assets": 10044257.0,
+        "Loss Reserves": 1622.6
+      },
+      "income_statement": {
+        "Total Expenses": -1990449.0,
+        "Net Income": -400345.0
+      },
+      "losses": null
+    },
+    "Validus Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 2626899.0,
+        "Cash and Cash Equivalents": 169491.0,
+        "Total Assets": 6077553.0,
+        "Unearned Premiums": 11.0,
+        "Total Liabilities": 3477702.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 8.0,
+        "Net Premiums Earned": 8.0,
+        "Total Revenues": 293983.0,
+        "Total Expenses": 109032.0,
+        "Net Income": 322204.0
+      },
+      "losses": null
+    },
+    "Somers Re": {
+      "balance_sheet": {
+        "Loss Reserves": 30.9
+      },
+      "income_statement": {
+        "Net Income": 31.0
+      },
+      "losses": 12.0
+    },
+    "Lancashire Insurance Company": {
+      "balance_sheet": {
+        "Total Investments": 233.0,
+        "Cash and Cash Equivalents": 8.0,
+        "Total Assets": 2674.5,
+        "Total Liabilities": 1151.7,
+        "Total Equity": 2.9
+      },
+      "income_statement": {
+        "Gross Premiums Written": 17.0,
+        "Net Income": 10.0
+      },
+      "losses": null
+    },
+    "Hiscox Insurance Company Bermuda": {
+      "balance_sheet": {},
+      "income_statement": {},
+      "losses": null
+    },
+    "Canopius Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 3413.0,
+        "Cash and Cash Equivalents": 13.0,
+        "Total Assets": 1774960.0,
+        "Loss Reserves": -6369.0,
+        "Unearned Premiums": -101635.0,
+        "Total Liabilities": 1158523.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 609443.0,
+        "Net Premiums Earned": 8.0,
+        "Total Revenues": 536629.0,
+        "Total Expenses": 392593.0,
+        "Net Income": 144036.0
+      },
+      "losses": 78.0
+    },
+    "Conduit Reinsurance": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 10.0,
+        "Total Assets": 1504.2,
+        "Total Liabilities": 495.5
+      },
+      "income_statement": {
+        "Gross Premiums Written": 31.0
+      },
+      "losses": 18.0
+    },
+    "Fidelis Insurance Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 2566.9,
+        "Cash and Cash Equivalents": 428.2,
+        "Total Assets": 6332.0,
+        "Unearned Premiums": 1916.1,
+        "Total Liabilities": 4415.8
+      },
+      "income_statement": {
+        "Gross Premiums Written": 2210.5,
+        "Net Premiums Earned": 1306.5,
+        "Total Revenues": 1403.4,
+        "Total Expenses": 1044.0,
+        "Net Income": 448.3
+      },
+      "losses": 1.1
+    },
+    "Fortitude Reinsurance Company": {
+      "balance_sheet": {
+        "Total Investments": 65948.0,
+        "Cash and Cash Equivalents": 1360.0,
+        "Total Assets": 73814.0,
+        "Total Liabilities": 74406.0,
+        "Total Equity": -592.0
+      },
+      "income_statement": {
+        "Total Revenues": -3709.0,
+        "Net Income": 1107.0
+      },
+      "losses": 3168.0
+    },
+    "Group Ark Insurance": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 46590.0,
+        "Unearned Premiums": 48929.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 1344842.0,
+        "Net Premiums Earned": 938881.0,
+        "Total Expenses": -765481.0,
+        "Net Income": 2023.0
+      },
+      "losses": -711636.0
+    },
+    "Hamilton Re": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 90.0,
+        "Total Assets": 31.0,
+        "Total Liabilities": 31.0
+      },
+      "income_statement": {
+        "Net Income": 2596.0
+      },
+      "losses": 31.0
+    },
+    "Harrington Re": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 99574.0,
+        "Total Assets": 2038361.0,
+        "Unearned Premiums": 196426.0,
+        "Total Liabilities": 1180276.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 292358.0,
+        "Net Premiums Earned": 298650.0,
+        "Total Revenues": 370684.0,
+        "Total Expenses": 321854.0,
+        "Net Income": 48830.0
+      },
+      "losses": null
+    },
+    "Liberty Specialty Markets Bermuda": {
+      "balance_sheet": {
+        "Total Investments": 1950326.0,
+        "Cash and Cash Equivalents": 220824.0,
+        "Total Assets": 3729630.0,
+        "Unearned Premiums": 554573.0,
+        "Total Liabilities": 1977330.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 1608004.0,
+        "Net Premiums Earned": 1456190.0,
+        "Total Revenues": 1521730.0,
+        "Total Expenses": 1343982.0,
+        "Net Income": 140173.0
+      },
+      "losses": 1307444.0
+    },
+    "MS Amlin AG": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 461248120.0,
+        "Total Assets": 8446838962.0,
+        "Loss Reserves": 3933329644.0,
+        "Total Liabilities": 6747217207.0,
+        "Total Equity": 7.0
+      },
+      "income_statement": {
+        "Net Premiums Earned": 2468967604.0,
+        "Net Income": -227472823.0
+      },
+      "losses": null
+    },
+    "Premia Reinsurance": {
+      "balance_sheet": {
+        "Total Investments": 4.0,
+        "Cash and Cash Equivalents": 20401.0,
+        "Total Assets": 3120969.0,
+        "Loss Reserves": 495.231,
+        "Unearned Premiums": 3016.0,
+        "Total Liabilities": 2305716.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 7080.0,
+        "Net Premiums Earned": 12500.0,
+        "Total Revenues": 119978.0,
+        "Total Expenses": -85851.0,
+        "Net Income": 34127.0
+      },
+      "losses": 6.0
+    },
+    "Starr Insurance & Reinsurance": {
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 409581.0,
+        "Total Assets": 9278022.0,
+        "Loss Reserves": 31.0,
+        "Unearned Premiums": 1759381.0,
+        "Total Liabilities": 6741834.0
+      },
+      "income_statement": {
+        "Net Premiums Earned": 1109316.0,
+        "Total Expenses": 77374.0,
+        "Net Income": 242153.0
+      },
+      "losses": 945083.0
+    },
+    "Vantage Risk": {
+      "balance_sheet": {
+        "Total Investments": 1009415.0,
+        "Cash and Cash Equivalents": 123569.0,
+        "Total Assets": 1706324.0,
+        "Unearned Premiums": 278910.0,
+        "Total Liabilities": 1046647.0,
+        "Total Equity": 659677.0
+      },
+      "income_statement": {
+        "Total Revenues": 451171.0,
+        "Total Expenses": 358163.0,
+        "Net Income": 93008.0
+      },
+      "losses": null
+    },
+    "SiriusPoint Bermuda Insurance": {
+      "balance_sheet": {},
+      "income_statement": {},
+      "losses": null
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-03-10T00:40:22.732054",
+  "companies_validated": 30,
+  "years_validated": 2,
+  "checks_passed": 1198,
+  "total_checks": 1210,
+  "quality_score": 99.00826446280992,
+  "errors": [
+    "Hannover Re Bermuda (2023): Total Assets <= 0 ($0M)",
+    "Hannover Re Bermuda (2023): Total Equity <= 0 ($0M) - Insolvent!",
+    "Hannover Re Bermuda (2024): Total Assets <= 0 ($0M)",
+    "Hannover Re Bermuda (2024): Total Equity <= 0 ($0M) - Insolvent!"
+  ],
+  "warnings": [
+    "Arch Reinsurance (2023): Investment composition missing 30146M",
+    "Ascot Bermuda (2023): Investment composition missing 4722M",
+    "Aspen Bermuda (2023): Investment composition missing 1973M",
+    "AXIS Specialty (2023): Investment composition missing 4197M",
+    "Everest Reinsurance Bermuda (2023): Investment composition missing 7723M",
+    "Markel Bermuda (2023): Investment composition missing 4656M",
+    "Partner Reinsurance Company (2023): Investment composition missing 4642M",
+    "Renaissance Reinsurance (2023): Investment composition missing 8349M",
+    "Arch Reinsurance (2024): Investment composition missing 35735M",
+    "Ascot Bermuda (2024): Investment composition missing 6078M",
+    "Aspen Bermuda (2024): Investment composition missing 1803M",
+    "AXIS Specialty (2024): Investment composition missing 3416M",
+    "Chubb Tempest Reinsurance (2024): Investment composition missing 17387M",
+    "Everest Reinsurance Bermuda (2024): Investment composition missing 7964M",
+    "Markel Bermuda (2024): Investment composition missing 4822M",
+    "Partner Reinsurance Company (2024): Investment composition missing 6064M",
+    "Renaissance Reinsurance (2024): Investment composition missing 6958M",
+    "Aspen Bermuda (2023): Loss Ratio 330.9% (very high - review data)",
+    "AXIS Specialty (2023): Loss Ratio 322.7% (very high - review data)",
+    "Everest Reinsurance Bermuda (2023): Loss Ratio 265.8% (very high - review data)",
+    "Hannover Re Bermuda (2023): Investment Return 28450.00% (review)",
+    "Renaissance Reinsurance (2023): Loss Ratio 384.5% (very high - review data)",
+    "Aspen Bermuda (2024): Loss Ratio 289.0% (very high - review data)",
+    "AXIS Specialty (2024): Loss Ratio 340.9% (very high - review data)",
+    "Everest Reinsurance Bermuda (2024): Loss Ratio 229.7% (very high - review data)",
+    "Hannover Re Bermuda (2024): Investment Return -10133.33% (review)",
+    "Renaissance Reinsurance (2024): Loss Ratio 278.2% (very high - review data)"
+  ],
+  "yoy_changes": [
+    "Everest Reinsurance Bermuda: Premiums changed +32.2% YoY (unusual)",
+    "Renaissance Reinsurance: Premiums changed +30.3% YoY (unusual)"
+  ]
+}

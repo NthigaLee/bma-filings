@@ -65,6 +65,7 @@ run_with_timeout.py
 smart_parser.py
 test_*.py
 validate_*.py
+!validate_financial_data.py
 ascot/
 
 # Old documentation

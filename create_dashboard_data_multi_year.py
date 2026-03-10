@@ -64,7 +64,15 @@ for idx, company in enumerate(COMPANIES):
 
 # Map of items to Excel row numbers (BALANCE SHEET)
 BALANCE_SHEET_ROWS = {
+    # Investment breakdown (new)
+    "Fixed Maturities - AFS": "Fixed Maturities - Available for Sale",
+    "Fixed Maturities - Trading": "Fixed Maturities - Trading",
+    "Equity Securities": "Equity Securities",
+    "Short-term Investments": "Short-term Investments",
+    "Other Investments": "Other Investments",
+    # Aggregate investment (existing)
     "Total Investments": "TOTAL INVESTMENTS",
+    # Other assets (existing)
     "Cash and Cash Equivalents": "Cash and Cash Equivalents",
     "Total Assets": "TOTAL ASSETS",
     "Loss Reserves": "Loss Reserves",
@@ -75,10 +83,15 @@ BALANCE_SHEET_ROWS = {
 
 # Map of items to search strings (INCOME STATEMENT)
 INCOME_STATEMENT_ITEMS = {
+    # Premium items (existing)
     "Gross Premiums Written": "GROSS PREMIUMS WRITTEN",
     "Net Premiums Earned": "NET PREMIUMS EARNED",
+    # Investment income (new)
+    "Net Investment Income": "Net Investment Income",
+    "Investment Gains/Losses": "Investment Gains/Losses",
+    # Revenue & expenses (existing)
     "Total Revenues": "TOTAL REVENUES",
-    "Losses and LAE": "LOSSES AND LOSS ADJUSTMENT",
+    "Losses and LAE": "Losses and LAE",
     "Total Expenses": "TOTAL EXPENSES",
     "Net Income": "NET INCOME"
 }
@@ -184,7 +197,11 @@ def calculate_ratios(balance_sheet, income_statement, loss_data):
         "Combined Ratio (%)": {},
         "ROE (%)": {},
         "ROA (%)": {},
-        "Equity Ratio (%)": {}
+        "Equity Ratio (%)": {},
+        # Investment metrics (new)
+        "Investment Return (%)": {},
+        "Investment Yield (%)": {},
+        "Investments to Assets (%)": {}
     }
 
     for company in COMPANIES:
@@ -231,6 +248,31 @@ def calculate_ratios(balance_sheet, income_statement, loss_data):
                 ratios["Combined Ratio (%)"][company] = round(combined, 1)
             else:
                 ratios["Combined Ratio (%)"][company] = 0
+
+            # Investment Return = (Net Investment Income + Investment Gains/Losses) / Total Investments
+            net_inv_income = income_statement.get("Net Investment Income", {}).get(company, 0)
+            inv_gains_losses = income_statement.get("Investment Gains/Losses", {}).get(company, 0)
+            total_investments = balance_sheet.get("Total Investments", {}).get(company, 1)
+
+            if total_investments != 0:
+                inv_return = (net_inv_income + inv_gains_losses) / total_investments * 100
+                ratios["Investment Return (%)"][company] = round(inv_return, 2)
+            else:
+                ratios["Investment Return (%)"][company] = 0
+
+            # Investment Yield = Net Investment Income / Total Investments (excludes gains/losses)
+            if total_investments != 0:
+                inv_yield = (net_inv_income / total_investments) * 100
+                ratios["Investment Yield (%)"][company] = round(inv_yield, 2)
+            else:
+                ratios["Investment Yield (%)"][company] = 0
+
+            # Investments to Assets = Total Investments / Total Assets
+            if total_assets != 0:
+                inv_to_assets = (total_investments / total_assets) * 100
+                ratios["Investments to Assets (%)"][company] = round(inv_to_assets, 1)
+            else:
+                ratios["Investments to Assets (%)"][company] = 0
 
         except Exception as e:
             print(f"  Error calculating ratios for {company}: {e}")
