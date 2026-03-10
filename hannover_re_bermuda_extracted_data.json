@@ -1,0 +1,49 @@
+{
+  "company": "Hannover Re Bermuda",
+  "2024": {
+    "balance_sheet": {
+      "Total Assets": null,
+      "Total Investments": -1.5,
+      "Total Liabilities": null,
+      "Total Equity": null,
+      "Cash": 70.1
+    },
+    "income_statement": {
+      "Gross Premiums Written": 2000.909,
+      "Net Premiums Earned": 942.851,
+      "Net Investment Income": 151.955,
+      "Investment Gains/Losses": -1.513,
+      "Losses and LAE": 605.55,
+      "Net Income": 676.155
+    },
+    "ratios": {}
+  },
+  "2023": {
+    "balance_sheet": {
+      "Total Assets": 5201.3,
+      "Total Investments": 4423.8,
+      "Total Liabilities": 2976.7,
+      "Total Equity": 2224.6,
+      "Cash": 140.1
+    },
+    "income_statement": {
+      "Gross Premiums Written": 1904.951,
+      "Net Premiums Earned": 1036.836,
+      "Net Investment Income": 113.827,
+      "Investment Gains/Losses": 0.448,
+      "Losses and LAE": 615.366,
+      "Net Income": 845.948
+    },
+    "ratios": {
+      "Investment Return %": 2.58,
+      "Investment Yield %": 2.57,
+      "Investments to Assets %": 85.05
+    }
+  },
+  "data_quality_issues": [
+    "2024 Balance Sheet: Total Assets, Total Liabilities, Total Equity NOT found in PDF",
+    "2024 Total Investments: Negative value ($-1.5M) indicates data quality issue",
+    "2023 Balance Sheet: Complete",
+    "Excel files have incomplete/placeholder data for balance sheet items"
+  ]
+}

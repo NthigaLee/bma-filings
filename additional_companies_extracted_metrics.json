@@ -1,0 +1,88 @@
+{
+  "ABR Reinsurance Ltd.": {
+    "2023": {
+      "Total Assets": 2165.7,
+      "Total Investments": 1798.2,
+      "Gross Premiums Written": 5.0,
+      "Net Premiums Earned": 517.8
+    },
+    "2024": {
+      "Total Assets": 2281.7,
+      "Total Investments": 1724.2
+    }
+  },
+  "Allied World Assurance Company Ltd": {
+    "2023": {
+      "Total Assets": 22.2,
+      "Total Investments": 12.2,
+      "Gross Premiums Written": 6.5
+    },
+    "2024": {
+      "Total Assets": 22.5,
+      "Total Investments": 12.3,
+      "Gross Premiums Written": 6.7,
+      "Net Premiums Earned": 4.6
+    }
+  },
+  "American International Reinsurance Company Ltd.": {
+    "2023": {
+      "Total Assets": 6.5,
+      "Total Investments": 2.4
+    }
+  },
+  "Antares Reinsurance Company Limited": {
+    "2023": {},
+    "2024": {
+      "Total Assets": 4332.9,
+      "Gross Premiums Written": 2.0,
+      "Net Income": 31.0,
+      "Total Liabilities": 3218.6
+    }
+  },
+  "Argo Re Ltd.": {
+    "2023": {},
+    "2024": {}
+  },
+  "Brit Reinsurance Bermuda Limited": {
+    "2024": {}
+  },
+  "Convex Re Limited": {
+    "2023": {
+      "Total Assets": 8588.1,
+      "Total Investments": 4364.5,
+      "Gross Premiums Written": 4217.6,
+      "Net Premiums Earned": 2337.1
+    },
+    "2024": {
+      "Total Assets": 11152.0,
+      "Total Investments": 5736.3,
+      "Gross Premiums Written": 5166.4,
+      "Net Premiums Earned": 3070.4
+    }
+  },
+  "DaVinci Reinsurance Ltd.": {
+    "2023": {
+      "Total Assets": 5592.8,
+      "Total Investments": 4758.7,
+      "Gross Premiums Written": 5.0,
+      "Net Premiums Earned": 5.0
+    },
+    "2024": {
+      "Total Assets": 6083.3,
+      "Total Investments": 5278.5,
+      "Gross Premiums Written": 5.0,
+      "Net Premiums Earned": 1222.0
+    }
+  },
+  "Everest International Reinsurance Ltd.": {
+    "2023": {
+      "Total Assets": 5089.5,
+      "Total Investments": 3794.5
+    },
+    "2024": {
+      "Total Assets": 5584.8,
+      "Total Investments": 4278.3
+    }
+  },
+  "Fortitude International Reinsurance Ltd.": {}
+}

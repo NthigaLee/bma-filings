@@ -1,0 +1,24 @@
+{
+  "2024": {
+    "Net Investment Income": 151.955,
+    "Investment Gains/Losses": -1.513,
+    "Gross Premiums Written": 2000.909,
+    "Net Premiums Earned": 942.851,
+    "Losses and LAE": 605.55,
+    "Net Income": 676.155,
+    "Total Assets": null,
+    "Total Investments": -1.5,
+    "Cash": 70.1
+  },
+  "2023": {
+    "Net Investment Income": 113.827,
+    "Investment Gains/Losses": 0.448,
+    "Gross Premiums Written": 1904.951,
+    "Net Premiums Earned": 1036.836,
+    "Losses and LAE": 615.366,
+    "Net Income": 845.948,
+    "Total Assets": null,
+    "Total Investments": 0.4,
+    "Cash": 140.1
+  }
+}
