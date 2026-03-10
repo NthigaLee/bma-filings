@@ -709,8 +709,18 @@
         function getIndustryAvg(metric, category, year) {
             const allValues = dashboardData.companies
                 .map(c => getValue(c, metric, category, year))
+                // Ignore nil / 0 values when computing industry average
                 .filter(v => v !== 0 && !isNaN(v));
             return allValues.length > 0 ? allValues.reduce((a, b) => a + b, 0) / allValues.length : 0;
+        }
+
+        function getSelectedAvg(metric, category, selectedCompanies, year) {
+            const y = year || currentYear;
+            const values = selectedCompanies
+                .map(c => getValue(c, metric, category, y))
+                // Ignore nil / 0 values when computing selected average
+                .filter(v => v !== 0 && !isNaN(v));
+            return values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0;
         }
 
         function updateBarChart(chartId, metric, category, selected) {
@@ -719,6 +729,7 @@
 
             const values = selected.map(c => getValue(c, metric, category));
             const industryAvg = getIndustryAvg(metric, category, currentYear);
+            const selectedAvg = getSelectedAvg(metric, category, selected, currentYear);
 
             if (charts[chartId]) {
                 charts[chartId].destroy();
@@ -737,6 +748,20 @@
                             borderWidth: 1,
                             borderRadius: 4,
                             order: 1
+                        },
+                        {
+                            label: 'Selected Avg',
+                            data: Array(selected.length).fill(selectedAvg),
+                            type: 'line',
+                            borderColor: '#8b1538',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [4, 3],
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            pointHoverBackgroundColor: '#8b1538',
+                            fill: false,
+                            order: 0
                         },
                         {
                             label: 'Industry Avg',
@@ -761,8 +786,7 @@
                         legend: {
                             display: true,
                             labels: {
-                                filter: (item) => item.text === 'Industry Avg',
-                                color: '#22c55e',
+                                filter: (item) => ['Industry Avg', 'Selected Avg'].includes(item.text),
                                 font: { size: 10, weight: '600' },
                                 usePointStyle: true,
                                 pointStyle: 'line'
