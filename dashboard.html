@@ -206,9 +206,45 @@
             font-size: 1em;
             font-weight: 600;
             color: #333;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
             border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .chart-toggles {
+            display: flex;
+            gap: 8px;
+            font-size: 0.7em;
+            color: #555;
+        }
+
+        .chart-toggle-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            background: #fafafa;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .chart-toggle-pill.active {
+            border-color: #8b1538;
+            background: #fdf2f7;
+            color: #8b1538;
+        }
+
+        .chart-toggle-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
         }
 
         .chart-container {
@@ -405,7 +441,19 @@
 
     <div class="chart-row">
         <div class="chart-card">
-            <div class="chart-title">Total Assets by Company</div>
+            <div class="chart-title">
+                <span>Total Assets by Company</span>
+                <div class="chart-toggles">
+                    <div class="chart-toggle-pill active" data-toggle="selected-avg">
+                        <span class="chart-toggle-dot" style="background:#8b1538"></span>
+                        Sel. Avg
+                    </div>
+                    <div class="chart-toggle-pill active" data-toggle="industry-avg">
+                        <span class="chart-toggle-dot" style="background:#22c55e"></span>
+                        Ind. Avg
+                    </div>
+                </div>
+            </div>
             <div class="chart-container">
                 <canvas id="assetsChart"></canvas>
             </div>
@@ -558,6 +606,8 @@
         let dashboardData = null;
         let charts = {};
         let currentYear = 2024;
+        let showIndustryAvg = true;
+        let showSelectedAvg = true;
 
         // Color palette
         const colors = {
@@ -631,6 +681,20 @@
             document.getElementById('year-filter').addEventListener('change', (e) => {
                 currentYear = parseInt(e.target.value);
                 updateAllCharts();
+            });
+
+            // Toggle lines: Selected Avg (maroon) & Industry Avg (green)
+            document.querySelectorAll('.chart-toggle-pill').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const type = pill.getAttribute('data-toggle');
+                    const isActive = pill.classList.toggle('active');
+                    if (type === 'industry-avg') {
+                        showIndustryAvg = isActive;
+                    } else if (type === 'selected-avg') {
+                        showSelectedAvg = isActive;
+                    }
+                    updateAllCharts();
+                });
             });
         }
 
@@ -735,49 +799,57 @@
                 charts[chartId].destroy();
             }
 
+            const datasets = [
+                {
+                    label: metric,
+                    data: values,
+                    backgroundColor: colors.chartColors.slice(0, selected.length),
+                    borderColor: colors.primary,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    order: 1
+                }
+            ];
+
+            if (showSelectedAvg) {
+                datasets.push({
+                    label: 'Selected Avg',
+                    data: Array(selected.length).fill(selectedAvg),
+                    type: 'line',
+                    borderColor: '#8b1538',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    borderDash: [4, 3],
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    pointHoverBackgroundColor: '#8b1538',
+                    fill: false,
+                    order: 0
+                });
+            }
+
+            if (showIndustryAvg) {
+                datasets.push({
+                    label: 'Industry Avg',
+                    data: Array(selected.length).fill(industryAvg),
+                    type: 'line',
+                    borderColor: '#22c55e',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    borderDash: [6, 3],
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    pointHoverBackgroundColor: '#22c55e',
+                    fill: false,
+                    order: 0
+                });
+            }
+
             charts[chartId] = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: selected,
-                    datasets: [
-                        {
-                            label: metric,
-                            data: values,
-                            backgroundColor: colors.chartColors.slice(0, selected.length),
-                            borderColor: colors.primary,
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            order: 1
-                        },
-                        {
-                            label: 'Selected Avg',
-                            data: Array(selected.length).fill(selectedAvg),
-                            type: 'line',
-                            borderColor: '#8b1538',
-                            backgroundColor: 'transparent',
-                            borderWidth: 2,
-                            borderDash: [4, 3],
-                            pointRadius: 0,
-                            pointHoverRadius: 4,
-                            pointHoverBackgroundColor: '#8b1538',
-                            fill: false,
-                            order: 0
-                        },
-                        {
-                            label: 'Industry Avg',
-                            data: Array(selected.length).fill(industryAvg),
-                            type: 'line',
-                            borderColor: '#22c55e',
-                            backgroundColor: 'transparent',
-                            borderWidth: 2,
-                            borderDash: [6, 3],
-                            pointRadius: 0,
-                            pointHoverRadius: 4,
-                            pointHoverBackgroundColor: '#22c55e',
-                            fill: false,
-                            order: 0
-                        }
-                    ]
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
