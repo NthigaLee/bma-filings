@@ -35,6 +35,17 @@ The BMA Filings dashboard captures three essential investment metrics for the 30
 
 ---
 
+## Important: Data Quality Note
+
+**Updated March 10, 2026:** This dashboard now includes complete investment income data for all 30 companies.
+
+- **10 companies** have **actual reported** Net Investment Income
+- **20 companies** have **estimated** Net Investment Income based on industry averages (4.05% yield for 2024)
+
+For complete accuracy on the 20 estimated companies, consult original company 10-K filings.
+
+---
+
 ## Investment Fundamentals
 
 ### Why Insurance Companies Invest

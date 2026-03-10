@@ -174,12 +174,35 @@ Results:
 
 ---
 
-### WARNINGS (27 Total)
+### WARNINGS (47 Total)
+
+#### Investment Income Estimation for 20 Companies
+**Severity:** Low
+**Affected Companies:** AXA XL Reinsurance, Endurance Specialty, XL Bermuda, Validus Reinsurance, Hiscox, Starr Insurance, Fortitude, SiriusPoint, Somers Re, MS Amlin, Lancashire, Conduit, Liberty Specialty, Canopius, Hamilton Re, Fidelis, Harrington Re, Group Ark, Premia Reinsurance, Vantage Risk
+
+**Issue:** 20 companies lacked reported Net Investment Income in source Excel files
+
+**Methodology:**
+- Calculated average investment yield from 10 companies with actual data
+- 2024: 4.05% average yield
+- 2023: 3.29% average yield
+- Applied to total investments of companies missing data
+- Formula: Estimated Income = Total Investments × Average Yield ÷ 100
+
+**Results:**
+- Total Investment Income (30 companies): $9,177M in 2024 (previously $3,981M)
+- All 30 companies now have complete investment income data
+
+**Root Cause:** Incomplete data extraction from original PDF financial statements
+
+**Impact:** Moderate - Improves completeness, but estimates are industry averages rather than actual reported values
+
+**Recommendation:** Review original PDF statements for actual investment income values; verify estimated values align with company disclosures
 
 #### Investment Composition Gaps
 **Severity:** Low-Medium
-**Affected Companies:** 20 newer companies + some original 10
-**Issue:** Sum of investment components doesn't match Total Investments exactly
+**Affected Companies:** All 30 companies (partial data)
+**Issue:** Sum of investment components (Fixed Maturities, Equity, Short-term, Other) doesn't match Total Investments exactly
 
 **Examples:**
 - Expected Total Investments: $15,000M
