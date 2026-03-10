@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Insurance/Reinsurance Company Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
     <script src="dashboard_data.js"></script>
     <style>
         * {
@@ -295,6 +297,47 @@
             vertical-align: middle;
         }
 
+        .export-bar {
+            display: flex;
+            gap: 12px;
+            background: white;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .export-bar span {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9em;
+            margin-right: 4px;
+        }
+
+        .btn-export {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 18px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+
+        .btn-export-pdf  { background: #dc2626; color: white; }
+        .btn-export-pdf:hover  { background: #b91c1c; }
+        .btn-export-xlsx { background: #16a34a; color: white; }
+        .btn-export-xlsx:hover { background: #15803d; }
+        .btn-export-pptx { background: #d97706; color: white; }
+        .btn-export-pptx:hover { background: #b45309; }
+
+        .btn-export svg { width: 14px; height: 14px; fill: currentColor; }
+
         @media (max-width: 1200px) {
             .chart-row {
                 grid-template-columns: 1fr;
@@ -306,15 +349,14 @@
         }
 
         @media print {
-            body {
-                background: white;
-            }
-
-            .header, .controls-row, .company-filter, .chart-card, .table-container {
+            body { background: white; }
+            .export-bar, .controls-row, .company-filter, .btn { display: none !important; }
+            .header, .chart-card, .table-container, .metrics-row .metric-card {
                 box-shadow: none;
                 border: 1px solid #ddd;
                 page-break-inside: avoid;
             }
+            .chart-row { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -322,6 +364,22 @@
     <div class="header">
         <h1>Insurance/Reinsurance Company Dashboard</h1>
         <p>Financial comparison of 10 major Bermuda-based insurance and reinsurance companies | All values in USD Millions</p>
+    </div>
+
+    <div class="export-bar">
+        <span>Export:</span>
+        <button class="btn-export btn-export-pdf" onclick="exportPDF()">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
+            PDF
+        </button>
+        <button class="btn-export btn-export-xlsx" onclick="exportExcel()">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 16l2-3-2-3h1.5l1.25 2 1.25-2H13.5l-2 3 2 3H12l-1.25-2L9.5 16H8z"/></svg>
+            Excel
+        </button>
+        <button class="btn-export btn-export-pptx" onclick="exportPPTX()">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13H9.5v3H8V6h4zm-1.5 5.5H12c1.1 0 2-.9 2-2s-.9-2-2-2h-1.5v4z"/></svg>
+            PowerPoint
+        </button>
     </div>
 
     <div class="controls-row">
@@ -595,11 +653,19 @@
             });
         }
 
+        function getIndustryAvg(metric, category, year) {
+            const allValues = dashboardData.companies
+                .map(c => getValue(c, metric, category, year))
+                .filter(v => v !== 0 && !isNaN(v));
+            return allValues.length > 0 ? allValues.reduce((a, b) => a + b, 0) / allValues.length : 0;
+        }
+
         function updateBarChart(chartId, metric, category, selected) {
             const ctx = document.getElementById(chartId)?.getContext('2d');
             if (!ctx) return;
 
             const values = selected.map(c => getValue(c, metric, category));
+            const industryAvg = getIndustryAvg(metric, category, currentYear);
 
             if (charts[chartId]) {
                 charts[chartId].destroy();
@@ -609,20 +675,46 @@
                 type: 'bar',
                 data: {
                     labels: selected,
-                    datasets: [{
-                        label: metric,
-                        data: values,
-                        backgroundColor: colors.chartColors.slice(0, selected.length),
-                        borderColor: colors.primary,
-                        borderWidth: 1,
-                        borderRadius: 4
-                    }]
+                    datasets: [
+                        {
+                            label: metric,
+                            data: values,
+                            backgroundColor: colors.chartColors.slice(0, selected.length),
+                            borderColor: colors.primary,
+                            borderWidth: 1,
+                            borderRadius: 4,
+                            order: 1
+                        },
+                        {
+                            label: 'Industry Avg',
+                            data: Array(selected.length).fill(industryAvg),
+                            type: 'line',
+                            borderColor: '#22c55e',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            pointHoverBackgroundColor: '#22c55e',
+                            fill: false,
+                            order: 0
+                        }
+                    ]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
                     plugins: {
-                        legend: { display: false },
+                        legend: {
+                            display: true,
+                            labels: {
+                                filter: (item) => item.text === 'Industry Avg',
+                                color: '#22c55e',
+                                font: { size: 10, weight: '600' },
+                                usePointStyle: true,
+                                pointStyle: 'line'
+                            }
+                        },
                         tooltip: {
                             backgroundColor: 'rgba(0, 0, 0, 0.8)',
                             padding: 12,
@@ -631,10 +723,10 @@
                             callbacks: {
                                 label: function(context) {
                                     let label = context.dataset.label || '';
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    label += formatNumber(context.parsed.y, context.parsed.y > 100 ? 0 : 1);
+                                    if (label) label += ': ';
+                                    const val = context.parsed.y;
+                                    label += formatNumber(val, val > 100 ? 0 : 1);
+                                    if (context.dataset.label === 'Industry Avg') label += ' (avg)';
                                     return label;
                                 }
                             }
@@ -673,6 +765,8 @@
 
             const data2023 = selected.map(c => getValue(c, metric, category, 2023));
             const data2024 = selected.map(c => getValue(c, metric, category, 2024));
+            const avg2023 = getIndustryAvg(metric, category, 2023);
+            const avg2024 = getIndustryAvg(metric, category, 2024);
 
             if (charts['trendChart']) {
                 charts['trendChart'].destroy();
@@ -694,7 +788,8 @@
                             pointRadius: 5,
                             pointBackgroundColor: '#b8434d',
                             pointBorderColor: 'white',
-                            pointBorderWidth: 2
+                            pointBorderWidth: 2,
+                            order: 1
                         },
                         {
                             label: '2024',
@@ -707,7 +802,34 @@
                             pointRadius: 5,
                             pointBackgroundColor: '#8b1538',
                             pointBorderColor: 'white',
-                            pointBorderWidth: 2
+                            pointBorderWidth: 2,
+                            order: 1
+                        },
+                        {
+                            label: 'Industry Avg 2023',
+                            data: Array(selected.length).fill(avg2023),
+                            borderColor: '#86efac',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            fill: false,
+                            tension: 0,
+                            order: 0
+                        },
+                        {
+                            label: 'Industry Avg 2024',
+                            data: Array(selected.length).fill(avg2024),
+                            borderColor: '#22c55e',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            fill: false,
+                            tension: 0,
+                            order: 0
                         }
                     ]
                 },
@@ -790,6 +912,182 @@
                 });
             });
         }
+        // ── EXPORT: PDF ──────────────────────────────────────────────
+        function exportPDF() {
+            window.print();
+        }
+
+        // ── EXPORT: EXCEL ────────────────────────────────────────────
+        function exportExcel() {
+            const selected = getSelectedCompanies();
+            const metrics = [
+                { label: 'Total Assets',        category: 'balance_sheet' },
+                { label: 'Total Equity',         category: 'balance_sheet' },
+                { label: 'Total Liabilities',    category: 'balance_sheet' },
+                { label: 'Net Premiums Earned',  category: 'income_statement' },
+                { label: 'Total Revenues',       category: 'income_statement' },
+                { label: 'Net Income',           category: 'income_statement' },
+                { label: 'ROE (%)',              category: 'ratios' },
+                { label: 'ROA (%)',              category: 'ratios' },
+                { label: 'Loss Ratio (%)',       category: 'ratios' },
+                { label: 'Expense Ratio (%)',    category: 'ratios' },
+                { label: 'Equity Ratio (%)',     category: 'ratios' },
+                { label: 'Combined Ratio (%)',   category: 'ratios' },
+            ];
+
+            const wb = XLSX.utils.book_new();
+
+            [2024, 2023].forEach(year => {
+                const rows = [['Metric', ...selected, 'Industry Avg']];
+                metrics.forEach(({ label, category }) => {
+                    const vals = selected.map(c => getValue(c, label, category, year));
+                    const avg  = getIndustryAvg(label, category, year);
+                    rows.push([label, ...vals.map(v => parseFloat(v.toFixed(2))), parseFloat(avg.toFixed(2))]);
+                });
+                const ws = XLSX.utils.aoa_to_sheet(rows);
+                // Column widths
+                ws['!cols'] = [{ wch: 22 }, ...selected.map(() => ({ wch: 16 })), { wch: 16 }];
+                XLSX.utils.book_append_sheet(wb, ws, `FY${year}`);
+            });
+
+            // Summary sheet: 2023 vs 2024 side by side
+            const summaryRows = [['Metric', ...selected.flatMap(c => [`${c} 2023`, `${c} 2024`]), 'Avg 2023', 'Avg 2024']];
+            metrics.forEach(({ label, category }) => {
+                const row = [label];
+                selected.forEach(c => {
+                    row.push(parseFloat(getValue(c, label, category, 2023).toFixed(2)));
+                    row.push(parseFloat(getValue(c, label, category, 2024).toFixed(2)));
+                });
+                row.push(parseFloat(getIndustryAvg(label, category, 2023).toFixed(2)));
+                row.push(parseFloat(getIndustryAvg(label, category, 2024).toFixed(2)));
+                summaryRows.push(row);
+            });
+            const wsSummary = XLSX.utils.aoa_to_sheet(summaryRows);
+            wsSummary['!cols'] = [{ wch: 22 }, ...Array(summaryRows[0].length - 1).fill({ wch: 14 })];
+            XLSX.utils.book_append_sheet(wb, wsSummary, 'YoY Comparison');
+
+            XLSX.writeFile(wb, `BMA_Filings_${currentYear}_Export.xlsx`);
+        }
+
+        // ── EXPORT: PPTX ─────────────────────────────────────────────
+        async function exportPPTX() {
+            const selected = getSelectedCompanies();
+            const pptx = new PptxGenJS();
+            pptx.layout = 'LAYOUT_WIDE';
+
+            const CRIMSON = '8b1538';
+            const GREEN   = '22c55e';
+            const GRAY    = 'f5f5f5';
+            const WHITE   = 'FFFFFF';
+            const DARK    = '333333';
+
+            // Slide 1 — Title
+            const s1 = pptx.addSlide();
+            s1.background = { color: CRIMSON };
+            s1.addText('BMA Class 4 Reinsurers', {
+                x: 0.5, y: 1.5, w: 12, h: 1.2,
+                fontSize: 40, bold: true, color: WHITE, align: 'center'
+            });
+            s1.addText('Financial Dashboard Export', {
+                x: 0.5, y: 2.8, w: 12, h: 0.6,
+                fontSize: 22, color: 'f0c0cc', align: 'center'
+            });
+            s1.addText(`Year: ${currentYear}  |  Companies: ${selected.length}  |  Generated: ${new Date().toLocaleDateString()}`, {
+                x: 0.5, y: 3.6, w: 12, h: 0.5,
+                fontSize: 13, color: 'e0a0b0', align: 'center'
+            });
+
+            // Helper — build a simple bar chart slide
+            function addBarSlide(title, metric, category) {
+                const sl = pptx.addSlide();
+                sl.addText(title, {
+                    x: 0.3, y: 0.15, w: 12.5, h: 0.5,
+                    fontSize: 18, bold: true, color: CRIMSON
+                });
+
+                const avg = getIndustryAvg(metric, category, currentYear);
+
+                // Chart data
+                const chartData = [{
+                    name: metric,
+                    labels: selected,
+                    values: selected.map(c => parseFloat(getValue(c, metric, category).toFixed(2)))
+                }];
+
+                sl.addChart(pptx.ChartType.bar, chartData, {
+                    x: 0.3, y: 0.75, w: 12.5, h: 4.8,
+                    barDir: 'col',
+                    chartColors: ['8b1538','a82844','c43b54','d46b7e','e09ba8','b8434d','7a1131','c41448','6b0f2b','a02040'],
+                    showLegend: false,
+                    dataLabelFontSize: 8,
+                    valAxisTitle: 'USD Millions',
+                    valAxisTitleFontSize: 10,
+                    catAxisLabelFontSize: 8,
+                });
+
+                // Industry avg annotation
+                sl.addText(`◆ Industry Avg: ${avg.toFixed(1)}`, {
+                    x: 0.3, y: 5.65, w: 12, h: 0.3,
+                    fontSize: 10, color: GREEN, bold: true
+                });
+            }
+
+            addBarSlide('Total Assets by Company',    'Total Assets',       'balance_sheet');
+            addBarSlide('Total Equity by Company',    'Total Equity',       'balance_sheet');
+            addBarSlide('Net Premiums Earned',        'Net Premiums Earned','income_statement');
+            addBarSlide('Net Income by Company',      'Net Income',         'income_statement');
+            addBarSlide('ROE (%)',                    'ROE (%)',            'ratios');
+            addBarSlide('ROA (%)',                    'ROA (%)',            'ratios');
+            addBarSlide('Loss Ratio (%)',             'Loss Ratio (%)',     'ratios');
+            addBarSlide('Combined Ratio (%)',         'Combined Ratio (%)','ratios');
+
+            // Slide — Summary Table
+            const tsl = pptx.addSlide();
+            tsl.addText('Financial Metrics Summary', {
+                x: 0.3, y: 0.15, w: 12.5, h: 0.5,
+                fontSize: 18, bold: true, color: CRIMSON
+            });
+
+            const tableMetrics = [
+                { label: 'Total Assets',       category: 'balance_sheet' },
+                { label: 'Total Equity',        category: 'balance_sheet' },
+                { label: 'Net Premiums Earned', category: 'income_statement' },
+                { label: 'Net Income',          category: 'income_statement' },
+                { label: 'ROE (%)',             category: 'ratios' },
+                { label: 'Combined Ratio (%)',  category: 'ratios' },
+            ];
+
+            const displayCos = selected.slice(0, 6); // cap at 6 for readability
+            const tableHeader = [
+                [{ text: 'Metric', options: { bold: true, color: WHITE, fill: CRIMSON } },
+                 ...displayCos.map(c => ({ text: c.split(' ')[0], options: { bold: true, color: WHITE, fill: CRIMSON } })),
+                 { text: 'Avg', options: { bold: true, color: WHITE, fill: '16a34a' } }]
+            ];
+            const tableRows = tableMetrics.map(({ label, category }) => {
+                const avg = getIndustryAvg(label, category, currentYear);
+                return [
+                    { text: label, options: { bold: true, fill: 'f9f9f9' } },
+                    ...displayCos.map(c => ({ text: getValue(c, label, category).toFixed(1), options: {} })),
+                    { text: avg.toFixed(1), options: { color: '16a34a', bold: true } }
+                ];
+            });
+
+            tsl.addTable([...tableHeader, ...tableRows], {
+                x: 0.3, y: 0.75, w: 12.5,
+                fontSize: 9,
+                border: { pt: 0.5, color: 'e0e0e0' },
+                autoPage: false,
+                rowH: 0.4
+            });
+
+            tsl.addText(`All values in USD Millions  |  ${currentYear}  |  Industry averages computed across all ${dashboardData.companies.length} companies`, {
+                x: 0.3, y: 6.8, w: 12.5, h: 0.3,
+                fontSize: 8, color: '999999', align: 'center'
+            });
+
+            await pptx.writeFile({ fileName: `BMA_Filings_${currentYear}_Dashboard.pptx` });
+        }
+
     </script>
 </body>
 </html>
