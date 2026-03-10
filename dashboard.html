@@ -25,10 +25,14 @@
         .header {
             background: white;
             border-left: 6px solid #8b1538;
-            padding: 25px 30px;
+            padding: 20px 24px;
             margin-bottom: 20px;
             border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
         }
 
         .header h1 {
@@ -206,9 +210,45 @@
             font-size: 1em;
             font-weight: 600;
             color: #333;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
             border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .chart-toggles {
+            display: flex;
+            gap: 8px;
+            font-size: 0.7em;
+            color: #555;
+        }
+
+        .chart-toggle-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            background: #fafafa;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .chart-toggle-pill.active {
+            border-color: #8b1538;
+            background: #fdf2f7;
+            color: #8b1538;
+        }
+
+        .chart-toggle-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
         }
 
         .chart-container {
@@ -299,28 +339,17 @@
 
         .export-bar {
             display: flex;
-            gap: 12px;
-            background: white;
-            padding: 16px 20px;
-            margin-bottom: 20px;
-            border-radius: 6px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            gap: 8px;
             align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .export-bar span {
-            font-weight: 600;
-            color: #333;
-            font-size: 0.9em;
-            margin-right: 4px;
         }
 
         .btn-export {
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 8px 18px;
+            justify-content: center;
+            padding: 8px;
+            width: 32px;
+            height: 32px;
             border: none;
             border-radius: 4px;
             cursor: pointer;
@@ -349,37 +378,43 @@
         }
 
         @media print {
-            body { background: white; }
+            @page {
+                size: A4 landscape;
+                margin: 10mm;
+            }
+            body {
+                background: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
             .export-bar, .controls-row, .company-filter, .btn { display: none !important; }
             .header, .chart-card, .table-container, .metrics-row .metric-card {
                 box-shadow: none;
                 border: 1px solid #ddd;
                 page-break-inside: avoid;
             }
+            .table-container { overflow: visible !important; }
             .chart-row { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <h1>Insurance/Reinsurance Company Dashboard</h1>
-        <p>Financial comparison of 10 major Bermuda-based insurance and reinsurance companies | All values in USD Millions</p>
-    </div>
-
-    <div class="export-bar">
-        <span>Export:</span>
-        <button class="btn-export btn-export-pdf" onclick="exportPDF()">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
-            PDF
-        </button>
-        <button class="btn-export btn-export-xlsx" onclick="exportExcel()">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 16l2-3-2-3h1.5l1.25 2 1.25-2H13.5l-2 3 2 3H12l-1.25-2L9.5 16H8z"/></svg>
-            Excel
-        </button>
-        <button class="btn-export btn-export-pptx" onclick="exportPPTX()">
-            <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13H9.5v3H8V6h4zm-1.5 5.5H12c1.1 0 2-.9 2-2s-.9-2-2-2h-1.5v4z"/></svg>
-            PowerPoint
-        </button>
+        <div>
+            <h1>Insurance/Reinsurance Company Dashboard</h1>
+            <p>Financial comparison of 10 major Bermuda-based insurance and reinsurance companies | All values in USD Millions</p>
+        </div>
+        <div class="export-bar">
+            <button class="btn-export btn-export-pdf" onclick="exportPDF()" title="Export PDF">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
+            </button>
+            <button class="btn-export btn-export-xlsx" onclick="exportExcel()" title="Export Excel">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 16l2-3-2-3h1.5l1.25 2 1.25-2H13.5l-2 3 2 3H12l-1.25-2L9.5 16H8z"/></svg>
+            </button>
+            <button class="btn-export btn-export-pptx" onclick="exportPPTX()" title="Export PowerPoint">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13H9.5v3H8V6h4zm-1.5 5.5H12c1.1 0 2-.9 2-2s-.9-2-2-2h-1.5v4z"/></svg>
+            </button>
+        </div>
     </div>
 
     <div class="controls-row">
@@ -405,7 +440,19 @@
 
     <div class="chart-row">
         <div class="chart-card">
-            <div class="chart-title">Total Assets by Company</div>
+            <div class="chart-title">
+                <span>Total Assets by Company</span>
+                <div class="chart-toggles">
+                    <div class="chart-toggle-pill active" data-toggle="selected-avg">
+                        <span class="chart-toggle-dot" style="background:#8b1538"></span>
+                        Sel. Avg
+                    </div>
+                    <div class="chart-toggle-pill active" data-toggle="industry-avg">
+                        <span class="chart-toggle-dot" style="background:#22c55e"></span>
+                        Ind. Avg
+                    </div>
+                </div>
+            </div>
             <div class="chart-container">
                 <canvas id="assetsChart"></canvas>
             </div>
@@ -558,6 +605,8 @@
         let dashboardData = null;
         let charts = {};
         let currentYear = 2024;
+        let showIndustryAvg = true;
+        let showSelectedAvg = true;
 
         // Color palette
         const colors = {
@@ -631,6 +680,20 @@
             document.getElementById('year-filter').addEventListener('change', (e) => {
                 currentYear = parseInt(e.target.value);
                 updateAllCharts();
+            });
+
+            // Toggle lines: Selected Avg (maroon) & Industry Avg (green)
+            document.querySelectorAll('.chart-toggle-pill').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const type = pill.getAttribute('data-toggle');
+                    const isActive = pill.classList.toggle('active');
+                    if (type === 'industry-avg') {
+                        showIndustryAvg = isActive;
+                    } else if (type === 'selected-avg') {
+                        showSelectedAvg = isActive;
+                    }
+                    updateAllCharts();
+                });
             });
         }
 
@@ -709,8 +772,18 @@
         function getIndustryAvg(metric, category, year) {
             const allValues = dashboardData.companies
                 .map(c => getValue(c, metric, category, year))
+                // Ignore nil / 0 values when computing industry average
                 .filter(v => v !== 0 && !isNaN(v));
             return allValues.length > 0 ? allValues.reduce((a, b) => a + b, 0) / allValues.length : 0;
+        }
+
+        function getSelectedAvg(metric, category, selectedCompanies, year) {
+            const y = year || currentYear;
+            const values = selectedCompanies
+                .map(c => getValue(c, metric, category, y))
+                // Ignore nil / 0 values when computing selected average
+                .filter(v => v !== 0 && !isNaN(v));
+            return values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0;
         }
 
         function updateBarChart(chartId, metric, category, selected) {
@@ -719,40 +792,63 @@
 
             const values = selected.map(c => getValue(c, metric, category));
             const industryAvg = getIndustryAvg(metric, category, currentYear);
+            const selectedAvg = getSelectedAvg(metric, category, selected, currentYear);
 
             if (charts[chartId]) {
                 charts[chartId].destroy();
+            }
+
+            const datasets = [
+                {
+                    label: metric,
+                    data: values,
+                    backgroundColor: colors.chartColors.slice(0, selected.length),
+                    borderColor: colors.primary,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    order: 1
+                }
+            ];
+
+            if (showSelectedAvg) {
+                datasets.push({
+                    label: 'Selected Avg',
+                    data: Array(selected.length).fill(selectedAvg),
+                    type: 'line',
+                    borderColor: '#8b1538',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    borderDash: [4, 3],
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    pointHoverBackgroundColor: '#8b1538',
+                    fill: false,
+                    order: 0
+                });
+            }
+
+            if (showIndustryAvg) {
+                datasets.push({
+                    label: 'Industry Avg',
+                    data: Array(selected.length).fill(industryAvg),
+                    type: 'line',
+                    borderColor: '#22c55e',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    borderDash: [6, 3],
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    pointHoverBackgroundColor: '#22c55e',
+                    fill: false,
+                    order: 0
+                });
             }
 
             charts[chartId] = new Chart(ctx, {
                 type: 'bar',
                 data: {
                     labels: selected,
-                    datasets: [
-                        {
-                            label: metric,
-                            data: values,
-                            backgroundColor: colors.chartColors.slice(0, selected.length),
-                            borderColor: colors.primary,
-                            borderWidth: 1,
-                            borderRadius: 4,
-                            order: 1
-                        },
-                        {
-                            label: 'Industry Avg',
-                            data: Array(selected.length).fill(industryAvg),
-                            type: 'line',
-                            borderColor: '#22c55e',
-                            backgroundColor: 'transparent',
-                            borderWidth: 2,
-                            borderDash: [6, 3],
-                            pointRadius: 0,
-                            pointHoverRadius: 4,
-                            pointHoverBackgroundColor: '#22c55e',
-                            fill: false,
-                            order: 0
-                        }
-                    ]
+                    datasets: datasets
                 },
                 options: {
                     responsive: true,
@@ -761,8 +857,7 @@
                         legend: {
                             display: true,
                             labels: {
-                                filter: (item) => item.text === 'Industry Avg',
-                                color: '#22c55e',
+                                filter: (item) => ['Industry Avg', 'Selected Avg'].includes(item.text),
                                 font: { size: 10, weight: '600' },
                                 usePointStyle: true,
                                 pointStyle: 'line'
@@ -999,6 +1094,31 @@
 
             const wb = XLSX.utils.book_new();
 
+            const applySheetStyling = (ws, headerRowIndex = 1) => {
+                const range = XLSX.utils.decode_range(ws['!ref']);
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                    const cellRef = XLSX.utils.encode_cell({ r: headerRowIndex - 1, c: C });
+                    const cell = ws[cellRef];
+                    if (cell) {
+                        cell.s = cell.s || {};
+                        cell.s.fill = { fgColor: { rgb: '8B1538' } };
+                        cell.s.font = { color: { rgb: 'FFFFFF' }, bold: true };
+                        cell.s.alignment = { horizontal: 'center' };
+                    }
+                }
+                for (let R = headerRowIndex; R <= range.e.r; ++R) {
+                    for (let C = 1; C <= range.e.c; ++C) {
+                        const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+                        const cell = ws[cellRef];
+                        if (cell && typeof cell.v === 'number') {
+                            cell.s = cell.s || {};
+                            cell.s.numFmt = '#,##0.0_);[Red](#,##0.0)';
+                            cell.s.alignment = { horizontal: 'right' };
+                        }
+                    }
+                }
+            };
+
             [2024, 2023].forEach(year => {
                 const rows = [['Metric', ...selected, 'Industry Avg']];
                 metrics.forEach(({ label, category }) => {
@@ -1007,12 +1127,11 @@
                     rows.push([label, ...vals.map(v => parseFloat(v.toFixed(2))), parseFloat(avg.toFixed(2))]);
                 });
                 const ws = XLSX.utils.aoa_to_sheet(rows);
-                // Column widths
-                ws['!cols'] = [{ wch: 22 }, ...selected.map(() => ({ wch: 16 })), { wch: 16 }];
+                ws['!cols'] = [{ wch: 24 }, ...selected.map(() => ({ wch: 16 })), { wch: 16 }];
+                applySheetStyling(ws, 1);
                 XLSX.utils.book_append_sheet(wb, ws, `FY${year}`);
             });
 
-            // Summary sheet: 2023 vs 2024 side by side
             const summaryRows = [['Metric', ...selected.flatMap(c => [`${c} 2023`, `${c} 2024`]), 'Avg 2023', 'Avg 2024']];
             metrics.forEach(({ label, category }) => {
                 const row = [label];
@@ -1025,7 +1144,8 @@
                 summaryRows.push(row);
             });
             const wsSummary = XLSX.utils.aoa_to_sheet(summaryRows);
-            wsSummary['!cols'] = [{ wch: 22 }, ...Array(summaryRows[0].length - 1).fill({ wch: 14 })];
+            wsSummary['!cols'] = [{ wch: 24 }, ...Array(summaryRows[0].length - 1).fill({ wch: 14 })];
+            applySheetStyling(wsSummary, 1);
             XLSX.utils.book_append_sheet(wb, wsSummary, 'YoY Comparison');
 
             XLSX.writeFile(wb, `BMA_Filings_${currentYear}_Export.xlsx`);
