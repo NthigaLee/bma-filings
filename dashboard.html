@@ -262,6 +262,12 @@
             border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             border-top: 4px solid #8b1538;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
         }
 
         .metric-label {
@@ -291,6 +297,13 @@
             padding: 20px;
             border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+            cursor: pointer;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
         }
 
         .chart-title {
@@ -372,6 +385,12 @@
             border-radius: 6px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
             overflow-x: auto;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .table-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
         }
 
         .table-title {
@@ -528,6 +547,64 @@
             }
         }
 
+        /* ── Chart modal overlay ──────────────────────────────────── */
+        .chart-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .chart-modal.open {
+            display: flex;
+        }
+        .chart-modal-content {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            padding: 18px 20px 20px;
+            width: min(1100px, 95vw);
+            height: min(72vh, 720px);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .chart-modal-title {
+            font-size: 1em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .chart-modal-body {
+            flex: 1;
+            position: relative;
+        }
+        #chart-modal-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        .chart-modal-close {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 2px 4px;
+            line-height: 1;
+        }
+        .chart-modal-close:hover {
+            color: #8b1538;
+        }
+
         @media print {
             @page {
                 size: A4 landscape;
@@ -674,7 +751,7 @@
     <div class="header">
         <div>
             <h1>Island Pulse Bermuda</h1>
-            <p>Dashboard for Bermuda Insurance &amp; Reinsurance Markets | All values in USD Millions</p>
+            <p>Dashboard for Bermuda Insurance &amp; Reinsurance Markets | All chart values in USD Millions</p>
         </div>
         <div class="export-bar">
             <button class="btn-theme-toggle" id="theme-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
@@ -700,6 +777,19 @@
                 <option value="2021">2021</option>
             </select>
         </div>
+        <div class="control-group">
+            <label>Average Lines</label>
+            <div class="chart-toggles">
+                <div class="chart-toggle-pill active" data-toggle="selected-avg">
+                    <span class="chart-toggle-dot" style="background:#8b1538"></span>
+                    Sel. Avg
+                </div>
+                <div class="chart-toggle-pill active" data-toggle="industry-avg">
+                    <span class="chart-toggle-dot" style="background:#f9a8d4"></span>
+                    Ind. Avg
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="company-filter" id="company-filter">
@@ -723,16 +813,6 @@
         <div class="chart-card">
             <div class="chart-title">
                 <span>Total Assets by Company</span>
-                <div class="chart-toggles">
-                    <div class="chart-toggle-pill active" data-toggle="selected-avg">
-                        <span class="chart-toggle-dot" style="background:#8b1538"></span>
-                        Sel. Avg
-                    </div>
-                    <div class="chart-toggle-pill active" data-toggle="industry-avg">
-                        <span class="chart-toggle-dot" style="background:#f9a8d4"></span>
-                        Ind. Avg
-                    </div>
-                </div>
             </div>
             <div class="chart-container">
                 <canvas id="assetsChart"></canvas>
@@ -882,6 +962,16 @@
         <table class="comparison-table" id="comparison-table"></table>
     </div>
 
+    <div id="chart-modal" class="chart-modal" onclick="onChartModalBackdropClick(event)">
+        <div class="chart-modal-content">
+            <button class="chart-modal-close" onclick="closeChartModal()" aria-label="Close chart">×</button>
+            <div class="chart-modal-title" id="chart-modal-title">Chart</div>
+            <div class="chart-modal-body">
+                <canvas id="chart-modal-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+
     <script>
         let dashboardData = null;
         let charts = {};
@@ -919,6 +1009,7 @@
             populateCompanyFilter();
             selectAllCompanies();
             setupEventListeners();
+            setupChartClickHandlers();
             updateAllCharts();
         }
 
@@ -1012,9 +1103,12 @@
             document.getElementById('year-filter').addEventListener('change', (e) => {
                 currentYear = parseInt(e.target.value);
                 updateAllCharts();
+                if (window.currentModalChartId) {
+                    reopenCurrentModalChart();
+                }
             });
 
-            // Toggle lines: Selected Avg (maroon) & Industry Avg (green)
+            // Toggle lines: Selected Avg (maroon) & Industry Avg (pink)
             document.querySelectorAll('.chart-toggle-pill').forEach(pill => {
                 pill.addEventListener('click', () => {
                     const type = pill.getAttribute('data-toggle');
@@ -1025,7 +1119,17 @@
                         showSelectedAvg = isActive;
                     }
                     updateAllCharts();
+                    if (window.currentModalChartId) {
+                        reopenCurrentModalChart();
+                    }
                 });
+            });
+
+            // Close modal on ESC
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeChartModal();
+                }
             });
         }
 
@@ -1105,6 +1209,14 @@
             });
         }
 
+        function setupChartClickHandlers() {
+            document.querySelectorAll('.chart-card canvas').forEach(canvas => {
+                canvas.addEventListener('click', () => {
+                    openChartModal(canvas.id);
+                });
+            });
+        }
+
         function getIndustryAvg(metric, category, year) {
             const allValues = dashboardData.companies
                 .map(c => getValue(c, metric, category, year))
@@ -1120,6 +1232,67 @@
                 // Ignore nil / 0 values when computing selected average
                 .filter(v => v !== 0 && !isNaN(v));
             return values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0;
+        }
+
+        function openChartModal(chartId) {
+            const modal = document.getElementById('chart-modal');
+            const titleEl = document.getElementById('chart-modal-title');
+            const canvas = document.getElementById('chart-modal-canvas');
+            if (!modal || !canvas) return;
+
+            const sourceChart = charts[chartId];
+            if (!sourceChart) return;
+
+            if (window.modalChart) {
+                window.modalChart.destroy();
+            }
+
+            // Try to clone the chart config safely
+            let config;
+            try {
+                config = structuredClone(sourceChart.config);
+            } catch {
+                config = JSON.parse(JSON.stringify(sourceChart.config));
+            }
+            if (!config.options) config.options = {};
+            config.options.responsive = true;
+            config.options.maintainAspectRatio = false;
+
+            window.modalChart = new Chart(canvas.getContext('2d'), config);
+            window.currentModalChartId = chartId;
+
+            // Derive a title from the card heading
+            try {
+                const card = document.querySelector(`canvas#${chartId}`)?.closest('.chart-card');
+                const titleText = card?.querySelector('.chart-title span, .chart-title')?.textContent?.trim() || 'Chart';
+                titleEl.textContent = titleText;
+            } catch {
+                titleEl.textContent = 'Chart';
+            }
+
+            modal.classList.add('open');
+        }
+
+        function closeChartModal() {
+            const modal = document.getElementById('chart-modal');
+            if (modal) modal.classList.remove('open');
+            if (window.modalChart) {
+                window.modalChart.destroy();
+                window.modalChart = null;
+            }
+            window.currentModalChartId = null;
+        }
+
+        function onChartModalBackdropClick(event) {
+            if (event.target && event.target.id === 'chart-modal') {
+                closeChartModal();
+            }
+        }
+
+        function reopenCurrentModalChart() {
+            if (window.currentModalChartId) {
+                openChartModal(window.currentModalChartId);
+            }
         }
 
         function updateBarChart(chartId, metric, category, selected) {
