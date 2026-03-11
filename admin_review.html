@@ -515,7 +515,9 @@
         <span class="pdf-header-year" id="pdf-header-year">--</span>
         <a class="pdf-open-link" id="pdf-open-link" href="#" target="_blank">Open in new tab &#8599;</a>
       </div>
-      <iframe id="pdf-frame" src="about:blank"></iframe>
+      <div id="pdf-container" style="flex: 1; display: flex; flex-direction: column; overflow: hidden;">
+        <embed id="pdf-frame" type="application/pdf" src="about:blank" style="flex: 1; border: none; background: #1a1a1a;">
+      </div>
       <div class="pdf-unavailable" id="pdf-unavailable" style="display:none;">
         <div class="pdf-unavailable-icon">&#128196;</div>
         <div class="pdf-unavailable-text">PDF not available for this company / year</div>
