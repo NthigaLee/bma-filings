@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Insurance/Reinsurance Company Dashboard</title>
+    <title>Island Pulse Bermuda — Dashboard for Bermuda Insurance & Reinsurance Markets</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
@@ -673,8 +673,8 @@
 <body>
     <div class="header">
         <div>
-            <h1>Insurance/Reinsurance Company Dashboard</h1>
-            <p>Comparative financial analysis of 40 Bermuda-based (re)insurance companies | All values in USD Millions</p>
+            <h1>Island Pulse Bermuda</h1>
+            <p>Dashboard for Bermuda Insurance &amp; Reinsurance Markets | All values in USD Millions</p>
         </div>
         <div class="export-bar">
             <button class="btn-theme-toggle" id="theme-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
@@ -727,7 +727,7 @@
                         Sel. Avg
                     </div>
                     <div class="chart-toggle-pill active" data-toggle="industry-avg">
-                        <span class="chart-toggle-dot" style="background:#22c55e"></span>
+                        <span class="chart-toggle-dot" style="background:#f9a8d4"></span>
                         Ind. Avg
                     </div>
                 </div>
@@ -1081,9 +1081,13 @@
             const totalInvestments = selected.reduce((sum, c) => sum + getValue(c, 'Total Investments', 'balance_sheet'), 0).toFixed(0);
             const avgInvReturn = (selected.reduce((sum, c) => sum + getValue(c, 'Investment Return (%)', 'ratios'), 0) / selected.length).toFixed(2);
 
+            // Convert to billions (assumes underlying values are in millions)
+            const largestAssetsBillions = largestAssets / 1000;
+            const totalInvestmentsBillions = parseFloat(totalInvestments) / 1000;
+
             const metrics = [
-                { label: 'Largest Company Assets', value: '$' + formatNumber(largestAssets, 0) + 'B' },
-                { label: 'Total Investments (Selected)', value: '$' + formatNumber(totalInvestments, 0) + 'M' },
+                { label: 'Largest Company Assets', value: '$' + formatNumber(largestAssetsBillions, 1) + 'B' },
+                { label: 'Total Investments (Selected)', value: '$' + formatNumber(totalInvestmentsBillions, 1) + 'B' },
                 { label: 'Average Investment Return', value: avgInvReturn + '%' },
                 { label: 'Average Combined Ratio', value: avgCombined + '%' }
             ];
@@ -1163,13 +1167,13 @@
                     label: 'Industry Avg',
                     data: Array(selected.length).fill(industryAvg),
                     type: 'line',
-                    borderColor: '#22c55e',
+                    borderColor: '#f9a8d4',
                     backgroundColor: 'transparent',
                     borderWidth: 2,
                     borderDash: [6, 3],
                     pointRadius: 0,
                     pointHoverRadius: 4,
-                    pointHoverBackgroundColor: '#22c55e',
+                    pointHoverBackgroundColor: '#f9a8d4',
                     fill: false,
                     order: 0
                 });
@@ -1288,7 +1292,7 @@
                         {
                             label: 'Industry Avg 2023',
                             data: Array(selected.length).fill(avg2023),
-                            borderColor: '#86efac',
+                            borderColor: '#f9a8d4',
                             backgroundColor: 'transparent',
                             borderWidth: 2,
                             borderDash: [6, 3],
@@ -1301,7 +1305,7 @@
                         {
                             label: 'Industry Avg 2024',
                             data: Array(selected.length).fill(avg2024),
-                            borderColor: '#22c55e',
+                            borderColor: '#f472b6',
                             backgroundColor: 'transparent',
                             borderWidth: 2,
                             borderDash: [6, 3],
