@@ -754,6 +754,7 @@
             <p>Dashboard for Bermuda Insurance &amp; Reinsurance Markets | All chart values in USD Millions</p>
         </div>
         <div class="export-bar">
+            <button class="btn-theme-toggle" onclick="openAdminPage()" title="Admin Review" style="font-size:13px;font-weight:700;width:auto;padding:0 10px;color:#8b1538;border-color:#8b1538;">🔐 Admin</button>
             <button class="btn-theme-toggle" id="theme-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
             <button class="btn-export btn-export-pdf" onclick="exportPDF()" title="Export PDF">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
@@ -1209,10 +1210,15 @@
             });
         }
 
+        // Registry: stores { metric, category } per chartId so modal can rebuild fresh
+        const chartRegistry = {};
+
         function setupChartClickHandlers() {
-            document.querySelectorAll('.chart-card canvas').forEach(canvas => {
-                canvas.addEventListener('click', () => {
-                    openChartModal(canvas.id);
+            document.querySelectorAll('.chart-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    const canvas = card.querySelector('canvas');
+                    if (canvas) openChartModal(canvas.id);
                 });
             });
         }
@@ -1240,37 +1246,89 @@
             const canvas = document.getElementById('chart-modal-canvas');
             if (!modal || !canvas) return;
 
-            const sourceChart = charts[chartId];
-            if (!sourceChart) return;
-
             if (window.modalChart) {
                 window.modalChart.destroy();
+                window.modalChart = null;
             }
 
-            // Try to clone the chart config safely
-            let config;
-            try {
-                config = structuredClone(sourceChart.config);
-            } catch {
-                config = JSON.parse(JSON.stringify(sourceChart.config));
-            }
-            if (!config.options) config.options = {};
-            config.options.responsive = true;
-            config.options.maintainAspectRatio = false;
-
-            window.modalChart = new Chart(canvas.getContext('2d'), config);
             window.currentModalChartId = chartId;
 
-            // Derive a title from the card heading
+            // Derive title
             try {
                 const card = document.querySelector(`canvas#${chartId}`)?.closest('.chart-card');
-                const titleText = card?.querySelector('.chart-title span, .chart-title')?.textContent?.trim() || 'Chart';
-                titleEl.textContent = titleText;
-            } catch {
-                titleEl.textContent = 'Chart';
+                const rawTitle = card?.querySelector('.chart-title')?.textContent?.trim() || 'Chart';
+                titleEl.textContent = rawTitle;
+            } catch { titleEl.textContent = 'Chart'; }
+
+            const selected = getSelectedCompanies();
+            const cc = getChartColors();
+
+            if (chartId === 'trendChart') {
+                // Rebuild trend chart in modal
+                const metric = document.getElementById('metric-select').value;
+                const category = getCategoryForMetric(metric);
+                const data2023 = selected.map(c => getValue(c, metric, category, 2023));
+                const data2024 = selected.map(c => getValue(c, metric, category, 2024));
+                const avg2023 = getIndustryAvg(metric, category, 2023);
+                const avg2024 = getIndustryAvg(metric, category, 2024);
+                window.modalChart = new Chart(canvas.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: selected,
+                        datasets: [
+                            { label: '2023', data: data2023, borderColor: '#b8434d', backgroundColor: 'rgba(184,67,77,0.05)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: '#b8434d', pointBorderColor: 'white', pointBorderWidth: 2, order: 1 },
+                            { label: '2024', data: data2024, borderColor: '#8b1538', backgroundColor: 'rgba(139,21,56,0.05)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: '#8b1538', pointBorderColor: 'white', pointBorderWidth: 2, order: 1 },
+                            { label: 'Industry Avg 2023', data: Array(selected.length).fill(avg2023), borderColor: '#f9a8d4', backgroundColor: 'transparent', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false, tension: 0, order: 0 },
+                            { label: 'Industry Avg 2024', data: Array(selected.length).fill(avg2024), borderColor: '#f472b6', backgroundColor: 'transparent', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false, tension: 0, order: 0 }
+                        ]
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: cc.legend, font: { size: 11 } } }, tooltip: { backgroundColor: 'rgba(0,0,0,0.8)' } }, scales: { y: { ticks: { color: cc.tick, font: { size: 11 }, callback: v => formatYTick(v) }, grid: { color: cc.grid } }, x: { ticks: { color: cc.tick, font: { size: 9 } }, grid: { display: false } } } }
+                });
+            } else {
+                // Rebuild bar chart using registry
+                const reg = chartRegistry[chartId];
+                if (!reg) { modal.classList.add('open'); return; }
+                const { metric, category } = reg;
+                const values = selected.map(c => getValue(c, metric, category));
+                const industryAvg = getIndustryAvg(metric, category, currentYear);
+                const selectedAvg = getSelectedAvg(metric, category, selected, currentYear);
+                const datasets = [{ label: metric, data: values, backgroundColor: colors.chartColors.slice(0, selected.length), borderColor: colors.primary, borderWidth: 1, borderRadius: 4, order: 1 }];
+                if (showSelectedAvg) datasets.push({ label: 'Selected Avg', data: Array(selected.length).fill(selectedAvg), type: 'line', borderColor: '#8b1538', backgroundColor: 'transparent', borderWidth: 2, borderDash: [4,3], pointRadius: 0, fill: false, order: 0 });
+                if (showIndustryAvg)  datasets.push({ label: 'Industry Avg', data: Array(selected.length).fill(industryAvg), type: 'line', borderColor: '#f9a8d4', backgroundColor: 'transparent', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false, order: 0 });
+                window.modalChart = new Chart(canvas.getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: selected, datasets },
+                    options: {
+                        responsive: true, maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: true, labels: { filter: i => ['Industry Avg','Selected Avg'].includes(i.text), font: { size: 11, weight: '600' }, usePointStyle: true, pointStyle: 'line', color: cc.legend } },
+                            tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', callbacks: { label: ctx => { let l = ctx.dataset.label || ''; if (l) l += ': '; const v = ctx.parsed.y; l += formatNumber(v, Math.abs(v) > 100 ? 0 : 1); if (ctx.dataset.label === 'Industry Avg') l += ' (avg)'; return l; } } }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, ticks: { color: cc.tick, font: { size: 11 }, callback: v => formatYTick(v) }, grid: { color: cc.grid } },
+                            x: { ticks: { color: cc.tick, font: { size: 9 }, maxRotation: 35 }, grid: { display: false } }
+                        }
+                    }
+                });
             }
 
             modal.classList.add('open');
+        }
+
+        function openAdminPage() {
+            const pw = window.prompt('Enter admin password:');
+            if (pw === null) return;
+            if (pw === 'Ntigz') {
+                window.open('admin_review.html', '_blank');
+            } else {
+                alert('Incorrect password.');
+            }
+        }
+
+        function formatYTick(v) {
+            if (Math.abs(v) >= 1000000) return (v / 1000000).toFixed(1) + 'M';
+            if (Math.abs(v) >= 1000)    return (v / 1000).toFixed(0) + 'K';
+            return v;
         }
 
         function closeChartModal() {
@@ -1284,18 +1342,16 @@
         }
 
         function onChartModalBackdropClick(event) {
-            if (event.target && event.target.id === 'chart-modal') {
-                closeChartModal();
-            }
+            if (event.target && event.target.id === 'chart-modal') closeChartModal();
         }
 
         function reopenCurrentModalChart() {
-            if (window.currentModalChartId) {
-                openChartModal(window.currentModalChartId);
-            }
+            if (window.currentModalChartId) openChartModal(window.currentModalChartId);
         }
 
         function updateBarChart(chartId, metric, category, selected) {
+            chartRegistry[chartId] = { metric, category };   // register for modal rebuilds
+
             const ctx = document.getElementById(chartId)?.getContext('2d');
             if (!ctx) return;
 
@@ -1393,11 +1449,11 @@
                     scales: {
                         y: {
                             beginAtZero: true,
-                            ticks: { color: cc.tick, font: { size: 10 } },
+                            ticks: { color: cc.tick, font: { size: 10 }, maxTicksLimit: 6, callback: v => formatYTick(v) },
                             grid: { color: cc.grid }
                         },
                         x: {
-                            ticks: { color: cc.tick, font: { size: 9 } },
+                            ticks: { color: cc.tick, font: { size: 9 }, maxRotation: 35 },
                             grid: { display: false }
                         }
                     }
