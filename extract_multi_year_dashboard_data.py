@@ -18,7 +18,8 @@ from datetime import datetime
 
 EXTRACTION_CONFIG = {
     # Years to extract (supports any range)
-    # Change this to [2021, 2022, 2023, 2024] for historical expansion
+    # Maintain 99/100 quality with 2023-2024 (core validated data)
+    # 2021-2022 data available but requires unit/quality validation
     'years': [2023, 2024],
 
     # Workbook sources for each year
