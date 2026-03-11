@@ -756,7 +756,7 @@
             <p>Dashboard for Bermuda Insurance &amp; Reinsurance Markets | All chart values in USD Millions</p>
         </div>
         <div class="export-bar">
-            <button class="btn-theme-toggle" onclick="openAdminPage()" title="Admin Review" style="font-size:13px;font-weight:700;width:auto;padding:0 10px;color:#8b1538;border-color:#8b1538;">🔐 Admin</button>
+            <button class="btn-theme-toggle" onclick="window.location.href='index.html'" title="Home" style="font-size:13px;font-weight:700;width:auto;padding:0 10px;color:#8b1538;border-color:#8b1538;">🏠 Home</button>
             <button class="btn-theme-toggle" id="theme-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
             <button class="btn-export btn-export-pdf" onclick="exportPDF()" title="Export PDF">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
@@ -1313,16 +1313,6 @@
             }
 
             modal.classList.add('open');
-        }
-
-        function openAdminPage() {
-            const pw = window.prompt('Enter admin password:');
-            if (pw === null) return;
-            if (pw === 'Ntigz') {
-                window.open('admin_review.html', '_blank');
-            } else {
-                alert('Incorrect password.');
-            }
         }
 
         function formatYTick(v) {
