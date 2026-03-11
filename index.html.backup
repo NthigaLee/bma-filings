@@ -711,7 +711,6 @@
         </div>
         <div class="nav-actions">
             <button class="btn btn-outline" onclick="openModal('login')">Log In</button>
-            <button class="btn btn-outline" onclick="promptAdminPassword(event)" title="Admin Console" style="color: #8b1538; border-color: #8b1538;">🔐 Admin</button>
             <button class="btn btn-primary" onclick="openModal('signup')">Get Access</button>
         </div>
     </nav>
@@ -854,7 +853,7 @@
                         <li class="muted"><span class="cross">✗</span> Year-over-year trend charts</li>
                         <li class="muted"><span class="cross">✗</span> Full company comparisons</li>
                     </ul>
-                    <button class="btn btn-outline pricing-cta" onclick="selectTier('free')">Get Started Free</button>
+                    <button class="btn btn-outline pricing-cta" onclick="openModal('signup')">Get Started Free</button>
                 </div>
 
                 <!-- PRO -->
@@ -877,7 +876,7 @@
                         <li><span class="check">✓</span> Industry benchmarking overlays</li>
                         <li><span class="check">✓</span> Email support</li>
                     </ul>
-                    <button class="btn btn-primary pricing-cta" onclick="selectTier('analyst')">Start 14-Day Free Trial</button>
+                    <button class="btn btn-primary pricing-cta" onclick="openModal('signup')">Start 14-Day Free Trial</button>
                 </div>
 
                 <!-- ENTERPRISE -->
@@ -899,7 +898,7 @@
                         <li><span class="check">✓</span> Raw PDF filing access</li>
                         <li><span class="check">✓</span> Priority support + onboarding</li>
                     </ul>
-                    <button class="btn btn-outline pricing-cta" onclick="window.location.href='mailto:sales@bmafilings.com?subject=Custom%20Tier%20Inquiry&body=I%20am%20interested%20in%20the%20Custom%20tier%20for%20BMA%20Filings'">Contact Sales</button>
+                    <button class="btn btn-outline pricing-cta" onclick="openModal('signup')">Contact Sales</button>
                 </div>
 
             </div>
@@ -1158,22 +1157,9 @@
             if (e.target === e.currentTarget) closeModal();
         });
 
-        // Tier selection tracking
-        let selectedTier = 'free';
-
-        function selectTier(tier) {
-            selectedTier = tier;
-            openModal('signup');
-        }
-
         function handleLogin() {
             const email = document.getElementById('login-email').value.trim();
             if (!email) { alert('Please enter your email.'); return; }
-
-            // Store free tier for returning users
-            sessionStorage.setItem('userTier', 'free');
-            sessionStorage.setItem('userEmail', email);
-
             closeModal();
             window.location.href = 'dashboard.html';
         }
@@ -1182,25 +1168,8 @@
             const name  = document.getElementById('signup-name').value.trim();
             const email = document.getElementById('signup-email').value.trim();
             if (!name || !email) { alert('Please fill in your name and email.'); return; }
-
-            // Store selected tier in sessionStorage
-            sessionStorage.setItem('userTier', selectedTier);
-            sessionStorage.setItem('userEmail', email);
-            sessionStorage.setItem('userName', name);
-
             closeModal();
             window.location.href = 'dashboard.html';
-        }
-
-        function promptAdminPassword(event) {
-            event.preventDefault();
-            const pw = window.prompt('Enter admin password:');
-            if (pw === null) return;
-            if (pw === 'Ntigz') {
-                window.location.href = 'admin_review.html';
-            } else {
-                alert('Incorrect password.');
-            }
         }
     </script>
 </body>
