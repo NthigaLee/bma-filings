@@ -978,6 +978,7 @@
     <script>
         // dashboardData is already loaded from dashboard_data.js (no need to redeclare)
         let charts = {};
+        const chartRegistry = {};   // stores { metric, category } per chartId for modal rebuilds
         let currentYear = 2024;
         let showIndustryAvg = true;
         let showSelectedAvg = true;
@@ -1211,9 +1212,6 @@
                 metricsDiv.appendChild(card);
             });
         }
-
-        // Registry: stores { metric, category } per chartId so modal can rebuild fresh
-        const chartRegistry = {};
 
         function setupChartClickHandlers() {
             document.querySelectorAll('.chart-card').forEach(card => {
