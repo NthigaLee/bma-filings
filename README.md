@@ -58,6 +58,9 @@ A comprehensive interactive dashboard for analyzing financial statements and key
 
 ## Quick Start
 
+### 🚀 View Dashboard Now
+**[→ Open Dashboard Landing Page](index.html)** - Choose between the interactive dashboard and admin console
+
 ### Requirements
 - Python 3.7+
 - Modern web browser (Chrome, Firefox, Safari, Edge)
@@ -77,6 +80,10 @@ A comprehensive interactive dashboard for analyzing financial statements and key
 
 3. **Access the dashboard**
    Open your browser and navigate to:
+   ```
+   http://localhost:8001/index.html
+   ```
+   Or directly to the dashboard:
    ```
    http://localhost:8001/dashboard.html
    ```
@@ -253,6 +260,7 @@ For questions or issues, please check the documentation files or contact the pro
 
 ---
 
-**Last Updated**: March 7, 2026
-**Version**: 2.0
-**Status**: Production Ready
+**Last Updated**: March 11, 2026
+**Version**: 2.1
+**Status**: Production Ready ✅
+**Features**: Dashboard + Admin Console with PDF Review
