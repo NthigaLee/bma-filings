@@ -883,7 +883,7 @@
     </div>
 
     <script>
-        let dashboardData = null;
+        // dashboardData is already loaded from dashboard_data.js (no need to redeclare)
         let charts = {};
         let currentYear = 2024;
         let showIndustryAvg = true;
@@ -901,9 +901,9 @@
             ]
         };
 
-        // Load data — prefer inline JS (works as static file), fallback to fetch
-        if (typeof window.BMA_DASHBOARD_DATA !== 'undefined') {
-            dashboardData = window.BMA_DASHBOARD_DATA;
+        // Load data — dashboardData is already loaded from dashboard_data.js
+        // If dashboardData is not available, fetch the JSON fallback
+        if (typeof dashboardData !== 'undefined' && dashboardData !== null) {
             initializeDashboard();
         } else {
             fetch('dashboard_data.json')
