@@ -1543,6 +1543,46 @@
             return values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0;
         }
 
+        /**
+         * Spring animation easing function - creates bouncy, natural motion
+         * Mimics React Spring physics with customizable tension and friction
+         * @param {number} t - normalized time (0 to 1)
+         * @param {number} tension - spring stiffness (default: 170)
+         * @param {number} friction - damping factor (default: 26)
+         */
+        function springEasing(t, tension = 170, friction = 26) {
+            // Spring physics simulation
+            const x = t;
+            const v = 1.0;
+
+            // Runge-Kutta 4 integration for accurate spring motion
+            const dt = 0.016; // 60fps time step
+            let pos = 0;
+            let vel = 0;
+
+            for (let i = 0; i < Math.round(t * 100); i++) {
+                const accel = -tension * (pos - 1) - friction * vel;
+                const k1v = accel;
+                const k1p = vel;
+
+                const k2v = -(tension * (pos + k1p * dt * 0.5 - 1) + friction * (vel + k1v * dt * 0.5));
+                const k2p = vel + k1v * dt * 0.5;
+
+                const k3v = -(tension * (pos + k2p * dt * 0.5 - 1) + friction * (vel + k2v * dt * 0.5));
+                const k3p = vel + k2v * dt * 0.5;
+
+                const k4v = -(tension * (pos + k3p * dt - 1) + friction * (vel + k3v * dt));
+                const k4p = vel + k3v * dt;
+
+                pos += (k1p + 2 * k2p + 2 * k3p + k4p) * dt / 6;
+                vel += (k1v + 2 * k2v + 2 * k3v + k4v) * dt / 6;
+
+                if (Math.abs(vel) < 0.001 && Math.abs(pos - 1) < 0.001) break;
+            }
+
+            return Math.min(1, Math.max(0, pos));
+        }
+
         function openChartModal(chartId) {
             const modal = document.getElementById('chart-modal');
             const titleEl = document.getElementById('chart-modal-title');
@@ -1589,8 +1629,8 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         animation: {
-                            duration: 800,
-                            easing: 'easeInOutQuart',
+                            duration: 900,
+                            easing: (ctx) => springEasing(ctx.animationObject.currentStep / ctx.animationObject.numSteps),
                             delay: (ctx) => ctx.dataIndex * 50
                         },
                         plugins: {
@@ -1621,8 +1661,8 @@
                         responsive: true,
                         maintainAspectRatio: false,
                         animation: {
-                            duration: 800,
-                            easing: 'easeInOutQuart',
+                            duration: 900,
+                            easing: (ctx) => springEasing(ctx.animationObject.currentStep / ctx.animationObject.numSteps),
                             delay: (ctx) => ctx.dataIndex * 40
                         },
                         plugins: {
