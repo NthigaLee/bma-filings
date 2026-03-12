@@ -552,6 +552,26 @@
         }
 
         /* ── Chart modal overlay ──────────────────────────────────── */
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: scale(0.92) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
         .chart-modal {
             position: fixed;
             inset: 0;
@@ -560,6 +580,7 @@
             align-items: center;
             justify-content: center;
             z-index: 1000;
+            animation: modalFadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
         }
         .chart-modal.open {
             display: flex;
@@ -574,6 +595,13 @@
             display: flex;
             flex-direction: column;
             position: relative;
+            animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        .chart-modal:not(.open) {
+            animation: modalFadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse forwards;
+        }
+        .chart-modal:not(.open) .chart-modal-content {
+            animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) reverse forwards;
         }
         .chart-modal-title {
             font-size: 1em;
@@ -1557,7 +1585,23 @@
                             { label: 'Industry Avg 2024', data: Array(selected.length).fill(avg2024), borderColor: '#f472b6', backgroundColor: 'transparent', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false, tension: 0, order: 0 }
                         ]
                     },
-                    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: cc.legend, font: { size: 11 } } }, tooltip: { backgroundColor: 'rgba(0,0,0,0.8)' } }, scales: { y: { ticks: { color: cc.tick, font: { size: 11 }, callback: v => formatYTick(v) }, grid: { color: cc.grid } }, x: { ticks: { color: cc.tick, font: { size: 9 } }, grid: { display: false } } } }
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 800,
+                            easing: 'easeInOutQuart',
+                            delay: (ctx) => ctx.dataIndex * 50
+                        },
+                        plugins: {
+                            legend: { labels: { color: cc.legend, font: { size: 11 } } },
+                            tooltip: { backgroundColor: 'rgba(0,0,0,0.8)' }
+                        },
+                        scales: {
+                            y: { ticks: { color: cc.tick, font: { size: 11 }, callback: v => formatYTick(v) }, grid: { color: cc.grid } },
+                            x: { ticks: { color: cc.tick, font: { size: 9 } }, grid: { display: false } }
+                        }
+                    }
                 });
             } else {
                 // Rebuild bar chart using registry
@@ -1574,7 +1618,13 @@
                     type: 'bar',
                     data: { labels: selected, datasets },
                     options: {
-                        responsive: true, maintainAspectRatio: false,
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 800,
+                            easing: 'easeInOutQuart',
+                            delay: (ctx) => ctx.dataIndex * 40
+                        },
                         plugins: {
                             legend: { display: true, labels: { filter: i => ['Industry Avg','Selected Avg'].includes(i.text), font: { size: 11, weight: '600' }, usePointStyle: true, pointStyle: 'line', color: cc.legend } },
                             tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', callbacks: { label: ctx => { let l = ctx.dataset.label || ''; if (l) l += ': '; const v = ctx.parsed.y; l += formatNumber(v, Math.abs(v) > 100 ? 0 : 1); if (ctx.dataset.label === 'Industry Avg') l += ' (avg)'; return l; } } }
