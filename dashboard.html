@@ -758,7 +758,12 @@
             <p>Dashboard for Bermuda Insurance &amp; Reinsurance Markets | All chart values in USD Millions</p>
         </div>
         <div class="export-bar">
+            <div id="tier-badge" style="display:flex; align-items:center; gap:10px; padding:8px 12px; background:#f0f0f0; border-radius:6px; font-size:0.9em; margin-right:auto;">
+                <span id="tier-name">Free Plan</span>
+                <a href="index.html#pricing" style="color:#8b1538; text-decoration:none; font-weight:600;">Upgrade →</a>
+            </div>
             <button class="btn-theme-toggle" onclick="window.location.href='index.html'" title="Home" style="font-size:13px;font-weight:700;width:auto;padding:0 10px;color:#8b1538;border-color:#8b1538;">🏠 Home</button>
+            <button id="review-console-btn" class="btn-theme-toggle" onclick="window.location.href='review_console.html'" title="Review Console (Custom tier)" style="font-size:13px;font-weight:700;width:auto;padding:0 10px;color:#8b1538;border-color:#8b1538;display:none;">📋 Review Console</button>
             <button class="btn-theme-toggle" id="theme-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
             <button class="btn-export btn-export-pdf" onclick="exportPDF()" title="Export PDF">
                 <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
@@ -1130,6 +1135,27 @@
                     cells.forEach((c, idx) => {
                         if ((idx + 1) % headers.length > 3) c.style.display = 'none';
                     });
+                }
+            }
+
+            // Show Review Console button for Custom tier users only
+            const reviewConsoleBtn = document.getElementById('review-console-btn');
+            if (reviewConsoleBtn) {
+                reviewConsoleBtn.style.display = tierAccess.canAccessReviewConsole() ? 'block' : 'none';
+            }
+
+            // Update tier badge
+            const tierName = document.getElementById('tier-name');
+            if (tierName) {
+                tierName.textContent = `${tierAccess.features.name} Plan`;
+                // Change badge color based on tier
+                const badge = document.getElementById('tier-badge');
+                if (badge) {
+                    if (tierAccess.userTier === 'analyst') {
+                        badge.style.background = '#e3f2fd';
+                    } else if (tierAccess.userTier === 'custom') {
+                        badge.style.background = '#f3e5f5';
+                    }
                 }
             }
         }
