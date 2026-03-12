@@ -469,6 +469,14 @@
     <div class="topbar-logo">BMA Admin Review</div>
     <div class="topbar-sep"></div>
     <button class="btn-save" onclick="window.location.href='dashboard.html'" title="Back to Dashboard" style="margin-right: 12px;">← Dashboard</button>
+
+    <!-- TIER REVIEW BUTTONS -->
+    <div style="display: flex; gap: 8px; margin: 0 12px;">
+      <button onclick="reviewDashboardAsTier('free')" title="Preview Free Tier Dashboard" style="padding: 6px 12px; font-size: 0.85em; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; cursor: pointer;">👁️ Free Tier</button>
+      <button onclick="reviewDashboardAsTier('analyst')" title="Preview Analyst Tier Dashboard" style="padding: 6px 12px; font-size: 0.85em; background: #e3f2fd; border: 1px solid #90caf9; border-radius: 4px; cursor: pointer;">👁️ Analyst Tier</button>
+      <button onclick="reviewDashboardAsTier('custom')" title="Preview Custom Tier Dashboard" style="padding: 6px 12px; font-size: 0.85em; background: #f3e5f5; border: 1px solid #ce93d8; border-radius: 4px; cursor: pointer;">👁️ Custom Tier</button>
+    </div>
+
     <div class="topbar-sep"></div>
 
     <div class="company-select-wrap">
@@ -692,6 +700,23 @@ let reviewedData = {};         // from /api/reviews
 const companyStatuses = {};    // company → { 2023: 'draft'|'approved'|null, 2024: ... }
 
 const COMPANIES = window.BMA_DASHBOARD_DATA ? window.BMA_DASHBOARD_DATA.companies : [];
+
+// ──────────────────────────────────────────────
+// ADMIN TIER REVIEW FUNCTION
+// ──────────────────────────────────────────────
+/**
+ * Allow admin to preview dashboard as different tier users
+ * Sets tier in sessionStorage and opens dashboard in new context
+ */
+function reviewDashboardAsTier(tier) {
+    // Store the tier for dashboard preview
+    sessionStorage.setItem('adminReviewTier', tier);
+    sessionStorage.setItem('userTier', tier);
+    sessionStorage.setItem('adminReviewMode', 'true');
+
+    // Open dashboard in same window (admin can use back button)
+    window.location.href = 'dashboard.html?admin-review=' + tier;
+}
 
 // ──────────────────────────────────────────────
 // Utility

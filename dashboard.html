@@ -757,6 +757,13 @@
             <h1>Island Pulse Bermuda</h1>
             <p>Dashboard for Bermuda Insurance &amp; Reinsurance Markets | All chart values in USD Millions</p>
         </div>
+
+        <!-- ADMIN REVIEW BANNER -->
+        <div id="admin-review-banner" style="display:none; background:#fff3cd; border-bottom:2px solid #ffc107; padding:12px 20px; font-size:0.95em; color:#333; text-align:center;">
+            <strong>🔍 Admin Review Mode:</strong> Viewing dashboard as <span id="admin-review-tier-name">Free</span> tier user
+            <button onclick="returnToAdminReview()" style="margin-left: 20px; padding: 6px 12px; background: #8b1538; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">← Return to Admin</button>
+        </div>
+
         <div class="export-bar">
             <div id="tier-badge" style="display:flex; align-items:center; gap:10px; padding:8px 12px; background:#f0f0f0; border-radius:6px; font-size:0.9em; margin-right:auto;">
                 <span id="tier-name">Free Plan</span>
@@ -1010,6 +1017,23 @@
         // Get tier info for logging/debugging
         console.log(`User tier: ${tierAccess.userTier}`, `Accessible years: ${filteredYears.join(', ')}, Max companies: ${tierAccess.features.maxCompanies}`);
 
+        // ==========================================
+        // ADMIN REVIEW MODE DETECTION
+        // ==========================================
+        // Check if admin is reviewing a specific tier
+        const adminReviewMode = sessionStorage.getItem('adminReviewMode') === 'true';
+        if (adminReviewMode) {
+            const banner = document.getElementById('admin-review-banner');
+            if (banner) {
+                banner.style.display = 'block';
+                const tierSpan = document.getElementById('admin-review-tier-name');
+                if (tierSpan) {
+                    tierSpan.textContent = tierAccess.features.name;
+                }
+            }
+            console.log(`Admin review mode: Showing ${tierAccess.userTier} tier view`);
+        }
+
         // Color palette
         const colors = {
             primary: '#8b1538',
@@ -1171,6 +1195,19 @@
             } else if (tier === 'analyst') {
                 alert('Contact sales for Custom tier with review console access.');
             }
+        }
+
+        /**
+         * Return to admin review console
+         * Used when admin is reviewing how a tier sees the dashboard
+         */
+        function returnToAdminReview() {
+            // Clear admin review mode flags
+            sessionStorage.removeItem('adminReviewMode');
+            sessionStorage.removeItem('adminReviewTier');
+
+            // Redirect back to admin review
+            window.location.href = 'admin_review.html';
         }
 
         /**
