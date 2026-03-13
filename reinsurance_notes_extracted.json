@@ -1,0 +1,917 @@
+{
+  "Arch Reinsurance": {
+    "2023": {
+      "assumed_premiums_written": 8751.0,
+      "ceded_premiums_written": -4935.0,
+      "net_premiums_written": 13468.0,
+      "assumed_premiums_earned": 7890.0,
+      "ceded_premiums_earned": -4581.0,
+      "net_premiums_earned": 12440.0,
+      "assumed_losses_paid": 3975.0,
+      "ceded_losses_recovered": -2468.0,
+      "net_losses_incurred": 6246.0,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-14-00-Arch-Reinsurance-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "millions",
+      "strategy": 1,
+      "raw_text_snippet": "2023\n2022\nPremiums Written\nDirect\n$ \n9,652 \n$ \n8,542 \nAssumed\n8,751 \n6,785 \nCeded\n(4,935)  \n(4,249) \nNet"
+    },
+    "2024": {
+      "assumed_premiums_written": 11455.0,
+      "ceded_premiums_written": -5779.0,
+      "net_premiums_written": 15732.0,
+      "assumed_premiums_earned": 10880.0,
+      "ceded_premiums_earned": -5501.0,
+      "net_premiums_earned": 15100.0,
+      "assumed_losses_paid": 6137.0,
+      "ceded_losses_recovered": -3471.0,
+      "net_losses_incurred": 8342.0,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-38-56-Arch-Reinsurance-Ltd.---2024-Financial-Statement---Class-4.pdf",
+      "denom": "millions",
+      "strategy": 1,
+      "raw_text_snippet": "2024\n2023\nPremiums Written\nDirect\n$ \n10,056 \n$ \n9,652 \nAssumed\n11,455 \n8,751 \nCeded\n(5,779)  \n(4,935) \nNet"
+    }
+  },
+  "Ascot Bermuda": {
+    "2023": {
+      "extraction_status": "no_pdf",
+      "source_pdf": null
+    },
+    "2024": {
+      "assumed_premiums_written": 1849.7,
+      "ceded_premiums_written": -1147.7,
+      "assumed_premiums_earned": 1614.8,
+      "ceded_premiums_earned": -1025.2,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 60.46,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-38-57-Ascot-Bermuda-Limited---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 4,
+      "raw_text_snippet": "(a) Effects of reinsurance on premiums written and earned\nThe effects of reinsurance on premiums written and earned and on losses and loss adjustment expenses is as \nfollows for the years ended December 31, 2024 and 2023:\n2024\n2023\nNet premiums written\nDirect     ......................................................................................................................... $ \n2,828,764 $ \n2,479,209 \nAssumed    ....................................................................................................................  \n1,849,696  \n1,364,734 \nCeded     .........................................................................................................................  \n(1,147,676)  \n(964,935) "
+    }
+  },
+  "Aspen Bermuda": {
+    "2023": {
+      "assumed_premiums_written": 1237.8,
+      "ceded_premiums_written": -422.1,
+      "assumed_premiums_earned": 1192.6,
+      "ceded_premiums_earned": -400.7,
+      "net_premiums_written": 906.8,
+      "net_premiums_earned": 883.1,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 6.86,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-14-00-Aspen-Bermuda-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "December 31,\n2022\nPremiums written:\nDirect\n$ \n91,025 $ \n114,608 \nAssumed\n1,237,845  \n1,316,542 \nCeded\n(422,096)  \n(401,512) \nNet Premiums written\n906,774  "
+    },
+    "2024": {
+      "assumed_premiums_written": 1419.1,
+      "ceded_premiums_written": -488.7,
+      "assumed_premiums_earned": 1373.0,
+      "ceded_premiums_earned": -470.2,
+      "net_premiums_written": 1002.2,
+      "net_premiums_earned": 990.3,
+      "cross_check_gpw_match": true,
+      "cross_check_delta_pct": 4.82,
+      "cross_check_result": "match",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-38-58-Aspen-Bermuda-Limited---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "December 31,\n2023\nPremiums written:\nDirect\n$ \n71,841 $ \n91,025 \nAssumed\n1,419,064  \n1,237,845 \nCeded\n(488,676)  \n(422,096) \nNet Premiums written\n1,002,229  "
+    }
+  },
+  "AXIS Specialty": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-49-AXIS-Specialty-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-38-58-Axis-Specialty-Limited---2024-Financial-Statement.pdf",
+      "denom": "thousands"
+    }
+  },
+  "Chubb Tempest Reinsurance": {
+    "2023": {
+      "assumed_premiums_written": 5381.8,
+      "ceded_premiums_written": -666.8,
+      "net_premiums_written": 4715.1,
+      "assumed_premiums_earned": 5280.0,
+      "ceded_premiums_earned": -660.5,
+      "net_premiums_earned": 4619.6,
+      "cross_check_gpw_match": true,
+      "cross_check_delta_pct": 0.0,
+      "cross_check_result": "match",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-50-Chubb-Tempest-Reinsurance-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2023\n2022\nPremiums written\nAssumed\n5,381,826  \n4,813,882 \nCeded\n(666,775)  \n(703,517) \nNet\n4,715,051  \n4,110,365 \nPremiums earned\nAssumed\n5,280,037  "
+    },
+    "2024": {
+      "assumed_premiums_written": 6639.4,
+      "ceded_premiums_written": -744.2,
+      "net_premiums_written": 5895.2,
+      "assumed_premiums_earned": 6482.4,
+      "ceded_premiums_earned": -705.8,
+      "net_premiums_earned": 5776.6,
+      "cross_check_gpw_match": true,
+      "cross_check_delta_pct": 0.0,
+      "cross_check_result": "match",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-01-Chubb-Tempest-Reinsurance-Ltd.----2024-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2024\n2023\nPremiums written\nAssumed\n6,639,399  \n5,381,826 \nCeded\n(744,170)  \n(666,775) \nNet\n5,895,229  \n4,715,051 \nPremiums earned\nAssumed\n6,482,371  "
+    }
+  },
+  "Everest Reinsurance Bermuda": {
+    "2023": {
+      "assumed_premiums_written": 4912.8,
+      "ceded_premiums_written": -1276.6,
+      "assumed_premiums_earned": 4125.7,
+      "ceded_premiums_earned": -1044.0,
+      "assumed_losses_paid": 2270.6,
+      "ceded_losses_recovered": -669.9,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "success",
+      "source_pdf": "2024-07-30-16-11-12-Everest-Reinsurance-Bermuda-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2023\n2022\nWritten premiums:\nDirect\n$ \n1,054 \n$ \n8,061 \nAssumed\n4,912,842 \n3,315,041 \nCeded\n(1,276,621)  \n(988,472) \nNet written premiums"
+    },
+    "2024": {
+      "assumed_premiums_written": 5703.4,
+      "ceded_premiums_written": -1272.6,
+      "assumed_premiums_earned": 5395.5,
+      "ceded_premiums_earned": -1319.0,
+      "assumed_losses_paid": 3267.1,
+      "ceded_losses_recovered": -854.9,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-03-Everest-Reinsurance-Bermuda-Ltd.---2024-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2024\n2023\nWritten premiums:\nDirect\n$ \n(64) \n$ \n1,054 \nAssumed\n5,703,422 \n4,912,842 \nCeded\n(1,272,632) \n(1,276,621) \nNet written premiums"
+    }
+  },
+  "Hannover Re Bermuda": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-53-Hannover-Re-Bermuda-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-05-Hannover-Re-Bermuda-Ltd.---2024-Financial-Statement---Class-4.pdf",
+      "denom": "thousands"
+    }
+  },
+  "Markel Bermuda": {
+    "2023": {
+      "net_premiums_written": 604.2,
+      "net_premiums_earned": 953.8,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "partial",
+      "source_pdf": "2024-06-28-13-13-55-Markel-Bermuda-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 5,
+      "raw_text_snippet": "Within its fronting operations, the Company generally enters into 100% quota share reinsurance agreements whereby the \nCompany cedes to the capacity providers (reinsurers) substantially all of its gross liability under all policies issued by and on \nbehalf of the Company. However, there are generally limits on the reinsurers' obligations to the Company that expose the \nCompany to underwriting risk, including aggregate reinsurance limits that the Company believes are unlikely to be exceeded. \nThe Company also remains exposed to the credit risk of the reinsurer, or the risk that one of its reinsurers becomes insolvent or \notherwise unable or unwilling to pay policyholder claims. This credit risk is generally mitigated by requiring that the capacity \nprovider post substantial collateral to secure the reinsured risks, which, in some instances, exceeds the related reinsurance \nrecoverable. \n25\nWithin the Company's fronting operations, at December 31, 2023, balances recoverable from the top three reinsurers, by group, \nrepresented 98% of the $464.7 million reinsurance recoverables before considering reinsurance allowances and collateral. As of \nDecember 31, 2022, balances recoverable from the top three reinsurers, by group, represented 99% of the $485.4 million \nreinsurance recoverables before considering reinsurance allowances and collateral. At December 31, 2023, the largest \nreinsurance balance was due from Poseidon Re Ltd. and represented 96% of reinsurance recoverables before considering \nreinsurance allowances and collateral. "
+    },
+    "2024": {
+      "net_premiums_written": 483.1,
+      "net_premiums_earned": 998.9,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "partial",
+      "source_pdf": "2025-09-30-15-59-45-Markel-Bermuda-Limited---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 5,
+      "raw_text_snippet": "Company to underwriting risk, including aggregate reinsurance limits that the Company believes are unlikely to be exceeded. \nThe Company also remains exposed to the credit risk of the reinsurer, or the risk that one of its reinsurers becomes insolvent or \notherwise unable or unwilling to pay policyholder claims. This credit risk is generally mitigated by requiring that the capacity \nprovider post substantial collateral to secure the reinsured risks, which, in some instances, exceeds the related reinsurance \nrecoverable. \n23\nWithin the Company's fronting operations, at December 31, 2024, balances recoverable from the top three reinsurers, by group, \nrepresented 92% of the $809.3 million reinsurance recoverables before considering reinsurance allowances and collateral. As of \nDecember 31, 2023, balances recoverable from the top three reinsurers, by group, represented 98% of the $464.7 million \nreinsurance recoverables before considering reinsurance allowances and collateral. At December 31, 2024, the largest \nreinsurance balance was due from Poseidon Re Ltd. and represented 87% of reinsurance recoverables before considering \nreinsurance allowances and collateral. \nFor the years ended December 31, 2024 and 2023, brokered transactions accounted for the majority of the Company\u2019s property \nand casualty gross premiums written. For the years ended December 31, 2024 and 2023, the top five independent producing \nintermediaries and brokerage firms accounted for 46% and 46%, respectively, of property and casualty gross premiums written. "
+    }
+  },
+  "Partner Reinsurance Company": {
+    "2023": {
+      "assumed_losses_paid": 4379.2,
+      "ceded_losses_recovered": -524.3,
+      "net_losses_incurred": 3854.9,
+      "assumed_premiums_written": 3653.8,
+      "assumed_premiums_earned": 3621.7,
+      "ceded_premiums_written": -459.1,
+      "ceded_premiums_earned": -461.1,
+      "net_premiums_written": 3194.6,
+      "net_premiums_earned": 3160.6,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 16.56,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-56-Partner-Reinsurance-Company-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "strategy": 2,
+      "raw_text_snippet": "2023\nPremiums\nWritten \nPremiums\nEarned \nLosses and Loss\nExpenses\nAssumed\n$ \n4,379,219 $ \n4,335,900 $ \n2,282,874 \nCeded\n524,313  \n517,777  "
+    },
+    "2024": {
+      "assumed_losses_paid": 4697.7,
+      "ceded_losses_recovered": -595.0,
+      "net_losses_incurred": 4102.7,
+      "assumed_premiums_written": 4379.2,
+      "assumed_premiums_earned": 4335.9,
+      "ceded_premiums_written": -524.3,
+      "ceded_premiums_earned": -517.8,
+      "net_premiums_written": 3854.9,
+      "net_premiums_earned": 3818.1,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 6.78,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-07-Partner-Reinsurance-Company-Ltd.---2024-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "strategy": 2,
+      "raw_text_snippet": "and 2023 were as follows (in thousands of U.S. dollars):\n2024\nPremiums\nWritten \nPremiums\nEarned \nLosses and Loss\nExpenses\nAssumed\n$ \n4,697,673 $ \n4,696,982 $ \n2,708,832 \nCeded\n594,990  "
+    }
+  },
+  "Renaissance Reinsurance": {
+    "2023": {
+      "assumed_premiums_written": 3301.0,
+      "ceded_premiums_written": -1275.3,
+      "assumed_premiums_earned": 3339.4,
+      "ceded_premiums_earned": -1262.5,
+      "cross_check_gpw_match": true,
+      "cross_check_delta_pct": 2.73,
+      "cross_check_result": "match",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-56-Renaissance-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2023\n2022\nPremiums written \nAssumed\n$ 3,301,017 $ 3,649,600 \nCeded\n (1,275,343)  (1,467,932) \nNet premiums written\n$ 2,025,674 $ 2,181,668 \nPremiums earned\nAssumed\n$ 3,339,374 $ 3,277,842 \nCeded\n (1,262,473)  (1,305,639) \nNet premiums earned"
+    },
+    "2024": {
+      "assumed_premiums_written": 3181.1,
+      "ceded_premiums_written": -1749.3,
+      "assumed_premiums_earned": 3343.9,
+      "ceded_premiums_earned": -1636.8,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 29.78,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-07-Renaissance-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2024\n2023\nPremiums Written \nDirect\n$ 1,348,912 $ \n994,156 \nAssumed\n 3,181,120  2,399,675 \nCeded\n (1,749,276)  (1,277,857) \nNet premiums written\n$ 2,780,756 $ 2,115,974 \nPremiums Earned\nDirect\n$ 1,234,297 $ 1,033,180 "
+    }
+  },
+  "Endurance Specialty Insurance": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-51-Endurance-Specialty-Insurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-03-Endurance-Specialty-Insurance-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands"
+    }
+  },
+  "XL Bermuda": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-59-XL-Bermuda-Ltd---2023-Financial-Statement---Class-4.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-09-XL-Bermuda-Ltd----2024-Financial-Statement---Class-4.pdf",
+      "denom": "thousands"
+    }
+  },
+  "AXA XL Reinsurance": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-14-01-AXA-XL-Reinsurance-Ltd---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-38-58-AXA-XL-Reinsurance-Ltd---2024-Financial-Statement.pdf",
+      "denom": "thousands"
+    }
+  },
+  "Validus Reinsurance": {
+    "2023": {
+      "assumed_premiums_written": 96.0,
+      "ceded_premiums_written": -3.3,
+      "assumed_premiums_earned": 251.5,
+      "ceded_premiums_earned": -68.4,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 97.52,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-58-Validus-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "December 31, \n2022\nPremiums written \nAssumed\n$ \n95,994 \n$ 1,512,524 $ 1,366,496 \nCeded\n(3,280)  \n(379,086)  \n(469,662) \nNet premiums written\n$ \n92,714 \n$ 1,133,438 $ "
+    },
+    "2024": {
+      "assumed_premiums_written": 96.0,
+      "ceded_premiums_written": -3.3,
+      "assumed_premiums_earned": 251.5,
+      "ceded_premiums_earned": -68.4,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 97.71,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-58-Validus-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "December 31, \n2022\nPremiums written \nAssumed\n$ \n95,994 \n$ 1,512,524 $ 1,366,496 \nCeded\n(3,280)  \n(379,086)  \n(469,662) \nNet premiums written\n$ \n92,714 \n$ 1,133,438 $ "
+    }
+  },
+  "Somers Re": {
+    "2023": {
+      "assumed_premiums_written": 1047.4,
+      "ceded_premiums_written": -583.3,
+      "assumed_premiums_earned": 932.3,
+      "ceded_premiums_earned": -508.4,
+      "assumed_losses_paid": 587.0,
+      "ceded_losses_recovered": -360.9,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 59.34,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-57-Somers-Re-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2022\n($ in thousands)\nPremiums written\nDirect      .................................................................................................................... $ \n850,799 $ \n602,092 \nAssumed     ...............................................................................................................  \n1,047,353  \n1,018,894 \nCeded     ....................................................................................................................  \n(583,290)  \n(445,481) \nNet     ......................................................................................................................... $ \n1,314,862 $ \n1,175,505 "
+    },
+    "2024": {
+      "assumed_premiums_written": 1302.5,
+      "ceded_premiums_written": -662.3,
+      "assumed_premiums_earned": 1197.9,
+      "ceded_premiums_earned": -596.6,
+      "assumed_losses_paid": 782.4,
+      "ceded_losses_recovered": -378.9,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 53.48,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-08-Somers-Re-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2023\n($ in thousands)\nPremiums written\nDirect      .................................................................................................................... $ \n1,060,511 $ \n850,799 \nAssumed     ...............................................................................................................  \n1,302,538  \n1,047,353 \nCeded     ....................................................................................................................  \n(662,335)  \n(583,290) \nNet     ......................................................................................................................... $ \n1,700,714 $ \n1,314,862 "
+    }
+  },
+  "Lancashire Insurance Company": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-54-Lancashire-Insurance-Company-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-06-Lancashire-Insurance-Company-Limited---2024-Financial-Statement.pdf",
+      "denom": "millions"
+    }
+  },
+  "Hiscox Insurance Company Bermuda": {
+    "2023": {
+      "extraction_status": "image_only",
+      "source_pdf": "2024-06-28-13-13-54-Hiscox-Insurance-Company-Bermuda-Limited---2023-Financial-Statement.pdf"
+    },
+    "2024": {
+      "extraction_status": "image_only",
+      "source_pdf": "2025-07-02-11-39-06-Hiscox-Insurance-Company-Bermuda-Limited---2024-Financial-Statement.pdf"
+    }
+  },
+  "Canopius Reinsurance": {
+    "2023": {
+      "assumed_premiums_written": 603.9,
+      "ceded_premiums_written": -5.3,
+      "assumed_premiums_earned": 504.7,
+      "ceded_premiums_earned": -4.3,
+      "net_premiums_written": 604.1,
+      "net_premiums_earned": 502.5,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 65.45,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-49-Canopius-Reinsurance-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 4,
+      "raw_text_snippet": "Effects of reinsurance on premiums written and earned \n2023 \n2022 \nNet premiums written \nAssumed \n603,875 \n482,378 \nDirect \n5,568 \n2,707 \nCeded \n(5,317) \n(924) \nNet premiums written \n604,126 "
+    },
+    "2024": {
+      "assumed_premiums_written": 925.0,
+      "ceded_premiums_written": -11.9,
+      "assumed_premiums_earned": 728.6,
+      "ceded_premiums_earned": -11.5,
+      "net_premiums_written": 921.4,
+      "net_premiums_earned": 723.8,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 51.32,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-38-59-Canopius-Reinsurance-Limited----2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 4,
+      "raw_text_snippet": "Effects of reinsurance on premiums written and earned \n2024 \n2023 \nNet premiums written \nAssumed \n924,987 \n603,875 \nDirect \n8,256 \n5,568 \nCeded \n(11,864) \n(5,317) \nNet premiums written \n921,379 "
+    }
+  },
+  "Conduit Reinsurance": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-50-Conduit-Reinsurance-Limited---2023-Financial-Statement.pdf",
+      "denom": "millions"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-02-Conduit-Reinsurance-Limited---2024-Financial-Statement.pdf",
+      "denom": "millions"
+    }
+  },
+  "Fidelis Insurance Bermuda": {
+    "2023": {
+      "assumed_premiums_written": 1389.8,
+      "ceded_premiums_written": -688.6,
+      "assumed_premiums_earned": 1276.1,
+      "ceded_premiums_earned": -604.4,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 5.58,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-52-Fidelis-Insurance-Bermuda-Limited---2023-Financial-Statement.pdf",
+      "denom": "millions",
+      "strategy": 1,
+      "raw_text_snippet": "2023\n2022\nWritten premiums\nDirect\n$ \n820.7 $ \n693.3 \nAssumed\n1,389.8  \n1,177.4 \nGross premiums written \n2,210.5  \n1,870.7 \nCeded\n(688.6)  "
+    },
+    "2024": {
+      "assumed_premiums_written": 1829.8,
+      "ceded_premiums_written": -1030.2,
+      "assumed_premiums_earned": 1641.9,
+      "ceded_premiums_earned": -831.4,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 17.22,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-03-Fidelis-Insurance-Bermuda-Limited---2024-Financial-Statement.pdf",
+      "denom": "millions",
+      "strategy": 1,
+      "raw_text_snippet": "2024\n2023\nWritten premiums\nDirect\n$ \n926.3 $ \n820.7 \nAssumed\n1,829.8  \n1,389.8 \nGross premiums written \n2,756.1  \n2,210.5 \nCeded\n(1,030.2)  "
+    }
+  },
+  "Fortitude Reinsurance Company": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-52-Fortitude-Reinsurance-Company-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "millions"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-04-Fortitude-Reinsurance-Company-Ltd.----2024-Financial-Statement---Class-4.pdf",
+      "denom": "millions"
+    }
+  },
+  "Group Ark Insurance": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-53-Group-Ark-Insurance-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-05-Group-Ark-Insurance-Limited---2024-Financial-Statement.pdf",
+      "denom": "thousands"
+    }
+  },
+  "Hamilton Re": {
+    "2023": {
+      "ceded_premiums_written": -135.5,
+      "ceded_premiums_earned": -131.8,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "partial",
+      "source_pdf": "2024-06-28-13-13-53-Hamilton-Re-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "The following tables set forth the effect of reinsurance and retrocessional activity on premiums written and earned and on losses \nand loss adjustment expenses incurred:\nPremiums written\nYears Ended\nMonth Ended\nYear Ended\nDecember 31,\nDecember 31,\nNovember 30,\n($ in thousands)\n2023\n2022\n2021\n2021\nAssumed    ............................................................................ $ "
+    },
+    "2024": {
+      "ceded_premiums_written": -162.6,
+      "ceded_premiums_earned": -157.9,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "partial",
+      "source_pdf": "2025-07-02-11-39-05-Hamilton-Re-Ltd.----2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "The following tables set forth the effect of reinsurance and retrocessional activity on premiums written and earned and on losses \nand loss adjustment expenses incurred:\nPremiums Written\nYears Ended December 31,\n($ in thousands)\n2024\n2023\n2022\nAssumed    ...................................................................................................... $ \n1,513,459 $ \n1,174,603 $ \n1,071,637 \nDirect ...........................................................................................................\n128,309\n120,705"
+    }
+  },
+  "Harrington Re": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-53-Harrington-Re-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-05-Harrington-Re-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands"
+    }
+  },
+  "Liberty Specialty Markets Bermuda": {
+    "2023": {
+      "assumed_premiums_written": 1455.1,
+      "ceded_premiums_written": -112.5,
+      "assumed_premiums_earned": 1413.8,
+      "ceded_premiums_earned": -103.8,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 24.68,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-55-Liberty-Specialty-Markets-Bermuda-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 4,
+      "raw_text_snippet": "a) Effects of reinsurance on premiums written and earned \nThe effects of reinsurance on premiums written and earned, and on losses and loss adjustment expenses is as follows:  \n2023 \n2022 \nNet premiums written \nDirect\n$152,888\n$146,066\nAssumed\n1,455,116\n1,699,244\nCeded\n(112,477)\n(92,957)\nNet premiums written"
+    },
+    "2024": {
+      "assumed_premiums_written": 1730.3,
+      "ceded_premiums_written": -94.2,
+      "assumed_premiums_earned": 1703.7,
+      "ceded_premiums_earned": -104.4,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 17.6,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-06-Liberty-Specialty-Markets-Bermuda-Limited----2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 4,
+      "raw_text_snippet": "a) Effects of reinsurance on premiums written and earned \nThe effects of reinsurance on premiums written and earned, and on losses and loss adjustment expenses is as follows:  \n2024 \n2023 \nNet premiums written \nDirect \n$153,264 \n$152,888 \nAssumed \n1,730,292 \n1,455,116 \nCeded \n(94,205) \n(112,477) \nNet premiums written "
+    }
+  },
+  "MS Amlin AG": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-55-MS-Amlin-AG---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-06-MS-Amlin-AG----2024-Financial-Statement.pdf",
+      "denom": "thousands"
+    }
+  },
+  "Premia Reinsurance": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-56-Premia-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-29-13-37-43-Premia-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands"
+    }
+  },
+  "Starr Insurance & Reinsurance": {
+    "2023": {
+      "assumed_premiums_written": 1753.3,
+      "ceded_premiums_written": -1901.4,
+      "net_premiums_written": 1172.6,
+      "assumed_premiums_earned": 1819.9,
+      "ceded_premiums_earned": -1917.3,
+      "net_premiums_earned": 1109.3,
+      "assumed_losses_paid": 1332.9,
+      "ceded_losses_recovered": -841.4,
+      "net_losses_incurred": 945.1,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 40.44,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-57-Starr-Insurance--Reinsurance-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2023 \n2022 \nPremiums written \nDirect \n$ \n1,320,680 \n$ \n1,149,307 \nAssumed \n1,753,349 \n1,671,756 \nCeded \n(1,901,423) \n(1,618,425) \nNet "
+    },
+    "2024": {
+      "assumed_premiums_written": 1987.7,
+      "ceded_premiums_written": -2194.3,
+      "net_premiums_written": 1365.2,
+      "assumed_premiums_earned": 1985.2,
+      "ceded_premiums_earned": -2222.8,
+      "net_premiums_earned": 1238.4,
+      "assumed_losses_paid": 1124.8,
+      "ceded_losses_recovered": -1182.6,
+      "net_losses_incurred": 833.2,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 37.88,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-09-Starr-Insurance--Reinsurance-Limited---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2024 \n2023 \nPremiums written \nDirect \n$ \n1,571,803 \n$ \n1,320,680 \nAssumed \n1,987,723 \n1,753,349 \nCeded \n(2,194,315) \n(1,901,423) \nNet "
+    }
+  },
+  "Vantage Risk": {
+    "2023": {
+      "assumed_premiums_written": 397.9,
+      "ceded_premiums_written": -74.9,
+      "assumed_premiums_earned": 372.2,
+      "ceded_premiums_earned": -76.9,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 54.47,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-58-Vantage-Risk-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "Year Ended \nDecember 31, 2022 \nPremiums written \nDirect \n$ \n112,131 \n$ \n 86,286  \nAssumed \n397,940 \n 527,275  \nCeded \n(74,860) \n (154,744) \nNet written premiums "
+    },
+    "2024": {
+      "assumed_premiums_written": 486.6,
+      "ceded_premiums_written": -66.0,
+      "assumed_premiums_earned": 444.0,
+      "ceded_premiums_earned": -71.5,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 48.78,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-09-Vantage-Risk-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "Year Ended \nDecember 31, 2023 \nPremiums written \nDirect \n$ \n100,106 \n$ \n112,131 \nAssumed \n486,605 \n397,940 \nCeded \n(66,028) \n(74,860) \nNet written premiums "
+    }
+  },
+  "SiriusPoint Bermuda Insurance": {
+    "2023": {
+      "assumed_premiums_written": 1748.7,
+      "ceded_premiums_written": -989.5,
+      "assumed_premiums_earned": 1826.0,
+      "ceded_premiums_earned": -897.8,
+      "net_premiums_earned": 294.5,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 36.64,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-57-SiriusPoint-Bermuda-Insurance-Company-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "millions",
+      "strategy": 1,
+      "raw_text_snippet": "2023\n2022\nPremiums written:\nDirect\n$ \n1,678.7 \n$ \n1,403.9 \nAssumed\n1,748.7 \n2,005.8 \nGross premiums written\n3,427.4 \n3,409.7 \nCeded"
+    },
+    "2024": {
+      "assumed_premiums_written": 1420.3,
+      "ceded_premiums_written": -892.5,
+      "assumed_premiums_earned": 1357.0,
+      "ceded_premiums_earned": -735.0,
+      "net_premiums_earned": 195.0,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 52.66,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-08-Siriuspoint-Bermuda-Insurance-Company-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "millions",
+      "strategy": 1,
+      "raw_text_snippet": "2024\n2023\nPremiums written:\nDirect\n$ \n1,824.3 \n$ \n1,678.7 \nAssumed\n1,420.3 \n1,748.7 \nGross premiums written\n3,244.6 \n3,427.4 \nCeded"
+    }
+  },
+  "ABR Reinsurance Ltd.": {
+    "2023": {
+      "assumed_premiums_written": 502.4,
+      "ceded_premiums_written": -3.9,
+      "net_premiums_written": 501.6,
+      "assumed_premiums_earned": 520.2,
+      "ceded_premiums_earned": -2.4,
+      "net_premiums_earned": 517.8,
+      "cross_check_gpw_match": true,
+      "cross_check_delta_pct": 0.0,
+      "cross_check_result": "match",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-59-ABR-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "Year ended\nDecember 31, 2022\nPremiums written\nAssumed\n$\n502,431\n555,144\nCeded\n(875)\n(3,875)\nNet\n$\n501,556\n551,269\nPremiums earned"
+    },
+    "2024": {
+      "assumed_premiums_written": 504.2,
+      "ceded_premiums_written": -2.9,
+      "net_premiums_written": 501.3,
+      "assumed_premiums_earned": 526.3,
+      "ceded_premiums_earned": -1.8,
+      "net_premiums_earned": 524.4,
+      "cross_check_gpw_match": true,
+      "cross_check_delta_pct": 0.0,
+      "cross_check_result": "match",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-38-56-ABR-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "942,228\nPremiums written\nAssumed\n$\n504,198\n502,431\nCeded\n(2,900)\n(875)\nNet\n$\n501,298\n501,556\nPremiums earned\nAssumed"
+    }
+  },
+  "Allied World Assurance Company Ltd": {
+    "2023": {
+      "assumed_premiums_earned": 1842.0,
+      "ceded_premiums_earned": -1962.7,
+      "assumed_premiums_written": 1493.1,
+      "ceded_premiums_written": -2007.6,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 76.96,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-59-Allied-World-Assurance-Company-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "millions",
+      "strategy": 2,
+      "raw_text_snippet": "212.9 \nDirect, assumed and ceded premiums written and earned and losses and loss expenses incurred are as follows:\nPremiums\nWritten\nPremiums\nEarned\nLosses and\nLoss\nExpenses\nYear Ended December 31, 2023\nDirect\n$ \n4,639.2 $ \n4,593.1 $ \n3,242.9 "
+    },
+    "2024": {
+      "assumed_premiums_earned": 2061.4,
+      "ceded_premiums_earned": -25.6,
+      "assumed_premiums_written": 1842.0,
+      "ceded_premiums_written": -1962.7,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 72.54,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-38-56-Allied-World-Assurance-Company-Ltd---2024-Financial-Statement.pdf",
+      "denom": "millions",
+      "strategy": 2,
+      "raw_text_snippet": "Direct, assumed and ceded premiums written and earned and losses and loss expenses incurred are as follows:\nPremiums\nWritten\nPremiums\nEarned\nLosses and\nLoss\nExpenses\nYear Ended December 31, 2024\nDirect\n$ \n4,647.1 $ \n4,652.6 $ \n3,086.9 \nAssumed"
+    }
+  },
+  "American International Reinsurance Company Ltd.": {
+    "2023": {
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "not_found",
+      "source_pdf": "2024-07-30-16-11-09-American-International-Reinsurance-Company-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "millions",
+      "strategy": 3,
+      "raw_text_snippet": "Reinsurance \n(in millions) \nLiability for unpaid losses and loss adjustment expenses \n$\n1,123 $\n581\nUnearned premiums \n387\n304\nFuture policy benefits for life and accident and health insurance contracts \n946\n133\nReinsurance assets \n1,449\n-"
+    },
+    "2024": {
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-29-13-37-43-American-International-Reinsurance-Company-Ltd.---2024-Financial-Statement---Class-4.pdf",
+      "denom": "millions",
+      "strategy": 3,
+      "raw_text_snippet": "6. Reinsurance \nIn the ordinary course of business, we may use both treaty and facultative reinsurance to minimize our net loss exposure to any single \ncatastrophic loss event or to an accumulation of losses from a number of smaller events or to provide greater diversification of our \nbusiness. In addition, we assume reinsurance from other insurance companies. We determine the portion of the incurred but not \nreported (IBNR) loss that will be recoverable under our reinsurance contracts by reference to the terms of the reinsurance protection \npurchased. This determination is necessarily based on the estimate of IBNR and accordingly, is subject to the same uncertainties as \nthe estimate of IBNR. Reinsurance assets include the balances due from reinsurance and insurance companies under the terms of \nour reinsurance agreements for paid and unpaid losses and loss adjustment expenses incurred, ceded unearned premiums and ceded \nfuture policy benefits for life and accident and health insurance contracts and benefits paid and unpaid. We remain liable to the extent \nthat our reinsurers do not meet their obligation under the reinsurance contracts, and as such, we regularly evaluate the financial \ncondition of our reinsurers and monitor concentration of our credit risk. The estimation of the allowance for credit losses and disputes \nrequires judgment for which key inputs typically include historical trends regarding uncollectible balances, disputes and credit events \nas well as specific reviews of balances in dispute or subject to credit impairment. The allowance for credit losses and disputes on \nreinsurance assets was zero at December 31, 2024 and 2023, respectively. Changes in the allowance for credit losses and disputes \non reinsurance assets are reflected in Policyholder benefits and losses incurred within the Consolidated Statements of Income. "
+    }
+  },
+  "Antares Reinsurance Company Limited": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-14-00-Antares-Reinsurance-Company-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-38-56-Antares-Reinsurance-Company-Limited----2024-Financial-Statement.pdf",
+      "denom": "thousands"
+    }
+  },
+  "Argo Re Ltd.": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-14-00-Argo-Re-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "millions"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-38-57-Argo-Re-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "millions"
+    }
+  },
+  "Brit Reinsurance Bermuda Limited": {
+    "2023": {
+      "extraction_status": "no_pdf",
+      "source_pdf": null
+    },
+    "2024": {
+      "extraction_status": "image_only",
+      "source_pdf": "2025-07-02-11-39-02-Brit-Reinsurance-Bermuda-Limited---2024-Financial-Statement.pdf"
+    }
+  },
+  "Convex Re Limited": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-51-Convex-Re-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "ceded_premiums_written": -1633.3,
+      "ceded_premiums_earned": -1471.2,
+      "net_premiums_written": 3070.4,
+      "net_premiums_earned": 2337.1,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-29-13-37-43-Convex-Re-Limited---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2024\n2023*\nPremiums written:\nDirect & Assumed\n5,166,388 \n4,217,602 \nCeded\n(1,633,307) \n(1,376,643) \nNet premiums written\n$\n3,533,081 $\n2,840,959 \nPremiums earned:\nDirect & Assumed"
+    }
+  },
+  "DaVinci Reinsurance Ltd.": {
+    "2023": {
+      "assumed_premiums_written": 1127.7,
+      "ceded_premiums_written": -75.8,
+      "assumed_premiums_earned": 1057.1,
+      "ceded_premiums_earned": -69.7,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 22454.0,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2024-06-28-13-13-51-DaVinci-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2023\n2022\nPremiums written \nAssumed\n$ 1,127,745 $ \n915,064 \nCeded\n(75,845)  \n(69,322) \nNet premiums written\n$ 1,051,900 $ \n845,742 \nPremiums earned\nAssumed\n$ 1,057,059 $ "
+    },
+    "2024": {
+      "assumed_premiums_written": 1350.6,
+      "ceded_premiums_written": -113.3,
+      "assumed_premiums_earned": 1327.1,
+      "ceded_premiums_earned": -105.1,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": 26912.0,
+      "cross_check_result": "mismatch",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-02-DaVinci-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2024\n2023\nPremiums written \nAssumed\n$ 1,350,633 $ 1,127,745 \nCeded\n(113,275)  \n(75,845) \nNet premiums written\n$ 1,237,358 $ 1,051,900 \nPremiums earned\nAssumed\n$ 1,327,107 $ 1,057,059 \nCeded\n(105,101)  "
+    }
+  },
+  "Everest International Reinsurance Ltd.": {
+    "2023": {
+      "assumed_premiums_written": 1262.4,
+      "ceded_premiums_written": -16.0,
+      "assumed_premiums_earned": 1250.2,
+      "ceded_premiums_earned": -9.7,
+      "assumed_losses_paid": 812.2,
+      "ceded_losses_recovered": -4.6,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "success",
+      "source_pdf": "2024-07-30-16-11-09-Everest-International-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2023\n2022\nWritten premiums:\nDirect\n$ \n15,468 \n$ \n3,428 \nAssumed\n1,262,353 \n1,464,564 \nCeded\n(16,009)  \n(5,953) \nNet written premiums"
+    },
+    "2024": {
+      "assumed_premiums_written": 1147.2,
+      "ceded_premiums_written": -56.4,
+      "assumed_premiums_earned": 1239.0,
+      "ceded_premiums_earned": -26.1,
+      "assumed_losses_paid": 767.4,
+      "ceded_losses_recovered": -9.9,
+      "cross_check_gpw_match": false,
+      "cross_check_delta_pct": null,
+      "cross_check_result": "no_prior_data",
+      "extraction_status": "success",
+      "source_pdf": "2025-07-02-11-39-03-Everest-International-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "strategy": 1,
+      "raw_text_snippet": "2024\n2023\nWritten premiums:\nDirect\n$ \n73,823 \n$ \n15,468 \nAssumed\n1,147,239 \n1,262,353 \nCeded\n(56,359)  \n(16,009) \nNet written premiums"
+    }
+  },
+  "Fortitude International Reinsurance Ltd.": {
+    "2023": {
+      "extraction_status": "not_found",
+      "source_pdf": "2024-06-28-13-13-52-Fortitude-International-Reinsurance-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "thousands"
+    },
+    "2024": {
+      "extraction_status": "not_found",
+      "source_pdf": "2025-07-02-11-39-04-Fortitude-International-Reinsurance-Ltd.---2024-Financial-Statement---Class-4.pdf",
+      "denom": "thousands"
+    }
+  }
+}
