@@ -1,0 +1,736 @@
+{
+  "Brit Reinsurance Bermuda Limited": {
+    "2023": {
+      "status": "no_pdf"
+    },
+    "2024": {
+      "status": "image_pdf",
+      "pdf": "2025-07-02-11-39-02-Brit-Reinsurance-Bermuda-Limited---2024-Financial-Statement.pdf"
+    }
+  },
+  "Fortitude International Reinsurance Ltd.": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-13-52-Fortitude-International-Reinsurance-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 4884.9,
+        "Total Liabilities": 4227.4,
+        "Total Investments": 3842.9,
+        "Cash and Cash Equivalents": 494.8
+      },
+      "income_statement": {
+        "Net Investment Income": 162.5,
+        "Total Revenues": 170.9,
+        "Net Income": 26.7
+      },
+      "ratios": {
+        "ROE (%)": 0,
+        "ROA (%)": 0.5,
+        "Equity Ratio (%)": 0.0,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 4.23,
+        "Investment Yield (%)": 4.23,
+        "Investments to Assets (%)": 78.7
+      },
+      "flags": []
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-02-11-39-04-Fortitude-International-Reinsurance-Ltd.---2024-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 5865.4,
+        "Total Equity": 657.5,
+        "Total Liabilities": 5207.9,
+        "Total Investments": 4938.5,
+        "Cash and Cash Equivalents": 408.5
+      },
+      "income_statement": {
+        "Net Investment Income": 301.0,
+        "Total Revenues": 215.9,
+        "Net Income": 4.9
+      },
+      "ratios": {
+        "ROE (%)": 0.7,
+        "ROA (%)": 0.1,
+        "Equity Ratio (%)": 11.2,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 6.09,
+        "Investment Yield (%)": 6.09,
+        "Investments to Assets (%)": 84.2
+      },
+      "flags": []
+    }
+  },
+  "Antares Reinsurance Company Limited": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-14-00-Antares-Reinsurance-Company-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Equity": 787.3
+      },
+      "income_statement": {},
+      "ratios": {
+        "ROE (%)": 0.0,
+        "ROA (%)": 0,
+        "Equity Ratio (%)": 0,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0,
+        "Investment Yield (%)": 0,
+        "Investments to Assets (%)": 0
+      },
+      "flags": []
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-02-11-38-56-Antares-Reinsurance-Company-Limited----2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 4332.9,
+        "Total Equity": 1114.3,
+        "Total Liabilities": 3218.6
+      },
+      "income_statement": {
+        "Net Investment Income": 61.6
+      },
+      "ratios": {
+        "ROE (%)": 0.0,
+        "ROA (%)": 0.0,
+        "Equity Ratio (%)": 25.7,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0,
+        "Investment Yield (%)": 0,
+        "Investments to Assets (%)": 0.0
+      },
+      "flags": []
+    }
+  },
+  "Everest International Reinsurance Ltd.": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-07-30-16-11-09-Everest-International-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 5089.5,
+        "Total Equity": 1429.6,
+        "Total Liabilities": 3660.0
+      },
+      "income_statement": {
+        "Net Premiums Earned": 1248.7,
+        "Net Investment Income": 105.1,
+        "Investment Gains/Losses": -17.0,
+        "Total Revenues": 1299.8,
+        "Losses and LAE": 2704.9,
+        "Net Income": 183.0
+      },
+      "ratios": {
+        "ROE (%)": 12.8,
+        "ROA (%)": 3.6,
+        "Equity Ratio (%)": 28.1,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0.0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0,
+        "Investment Yield (%)": 0,
+        "Investments to Assets (%)": 0.0
+      },
+      "flags": [
+        "Combined Ratio=216.6% outside [50,200] (zeroed)",
+        "Loss Ratio=216.6% > 150% (zeroed)"
+      ]
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-02-11-39-03-Everest-International-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 5584.8,
+        "Total Equity": 1702.1,
+        "Total Liabilities": 3882.7
+      },
+      "income_statement": {
+        "Net Premiums Earned": 1245.2,
+        "Net Investment Income": 210.7,
+        "Investment Gains/Losses": 27.8,
+        "Total Revenues": 1554.5,
+        "Losses and LAE": 2967.1,
+        "Net Income": 402.5
+      },
+      "ratios": {
+        "ROE (%)": 23.6,
+        "ROA (%)": 7.2,
+        "Equity Ratio (%)": 30.5,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0.0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0,
+        "Investment Yield (%)": 0,
+        "Investments to Assets (%)": 0.0
+      },
+      "flags": [
+        "Combined Ratio=238.3% outside [50,200] (zeroed)",
+        "Loss Ratio=238.3% > 150% (zeroed)"
+      ]
+    }
+  },
+  "Hannover Re Bermuda": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-13-53-Hannover-Re-Bermuda-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 5201.3,
+        "Total Equity": 2224.6,
+        "Total Liabilities": 2976.7,
+        "Total Investments": 4423.8,
+        "Cash and Cash Equivalents": 70.1
+      },
+      "income_statement": {
+        "Net Investment Income": 113.8,
+        "Net Income": 845.9
+      },
+      "ratios": {
+        "ROE (%)": 38.0,
+        "ROA (%)": 16.3,
+        "Equity Ratio (%)": 42.8,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 2.57,
+        "Investment Yield (%)": 2.57,
+        "Investments to Assets (%)": 85.1
+      },
+      "flags": []
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-02-11-39-05-Hannover-Re-Bermuda-Ltd.---2024-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Cash and Cash Equivalents": 100.9
+      },
+      "income_statement": {
+        "Gross Premiums Written": 2000.9,
+        "Net Investment Income": 152.0,
+        "Net Income": 676.2
+      },
+      "ratios": {
+        "ROE (%)": 0,
+        "ROA (%)": 0,
+        "Equity Ratio (%)": 0,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0,
+        "Investment Yield (%)": 0,
+        "Investments to Assets (%)": 0
+      },
+      "flags": []
+    }
+  },
+  "ABR Reinsurance Ltd.": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-13-59-ABR-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 2165.7,
+        "Total Equity": 892.2,
+        "Total Investments": 1798.2,
+        "Cash and Cash Equivalents": 67.4
+      },
+      "income_statement": {
+        "Gross Premiums Written": 502.4,
+        "Net Premiums Earned": 520.2,
+        "Net Investment Income": 116.9,
+        "Losses and LAE": 942.2,
+        "Net Income": 50.0
+      },
+      "ratios": {
+        "ROE (%)": 5.6,
+        "ROA (%)": 2.3,
+        "Equity Ratio (%)": 41.2,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0.0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 6.5,
+        "Investment Yield (%)": 6.5,
+        "Investments to Assets (%)": 83.0
+      },
+      "flags": [
+        "IS Total Expenses=-609.8 out of [0,80000]",
+        "Loss Ratio=181.1% > 150% (zeroed)"
+      ]
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-02-11-38-56-ABR-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 2281.7,
+        "Total Equity": 910.1,
+        "Total Investments": 1724.2,
+        "Cash and Cash Equivalents": 278.2
+      },
+      "income_statement": {
+        "Gross Premiums Written": 504.2,
+        "Net Premiums Earned": 526.3,
+        "Net Investment Income": 95.3,
+        "Losses and LAE": 1049.7,
+        "Net Income": 37.2
+      },
+      "ratios": {
+        "ROE (%)": 4.1,
+        "ROA (%)": 1.6,
+        "Equity Ratio (%)": 39.9,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0.0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 5.53,
+        "Investment Yield (%)": 5.53,
+        "Investments to Assets (%)": 75.6
+      },
+      "flags": [
+        "IS Total Expenses=-600.7 out of [0,80000]",
+        "Loss Ratio=199.4% > 150% (zeroed)"
+      ]
+    }
+  },
+  "Allied World Assurance Company Ltd": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-13-59-Allied-World-Assurance-Company-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "millions",
+      "balance_sheet": {
+        "Total Assets": 22163.7,
+        "Total Equity": 5162.1,
+        "Total Liabilities": 17001.6,
+        "Total Investments": 12195.5
+      },
+      "income_statement": {
+        "Gross Premiums Written": 6481.2,
+        "Net Premiums Earned": 4284.6,
+        "Total Revenues": 5142.5,
+        "Total Expenses": 3853.8,
+        "Net Income": 1261.9
+      },
+      "ratios": {
+        "ROE (%)": 24.4,
+        "ROA (%)": 5.7,
+        "Equity Ratio (%)": 23.3,
+        "Loss Ratio (%)": 0.0,
+        "Expense Ratio (%)": 89.9,
+        "Combined Ratio (%)": 89.9,
+        "Investment Return (%)": 0.0,
+        "Investment Yield (%)": 0.0,
+        "Investments to Assets (%)": 55.0
+      },
+      "flags": []
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-02-11-38-56-Allied-World-Assurance-Company-Ltd---2024-Financial-Statement.pdf",
+      "denom": "millions",
+      "balance_sheet": {
+        "Total Assets": 22482.3,
+        "Total Equity": 5613.4,
+        "Total Liabilities": 16868.9,
+        "Total Investments": 12308.1
+      },
+      "income_statement": {
+        "Gross Premiums Written": 6708.5,
+        "Net Premiums Earned": 4630.3,
+        "Total Revenues": 5186.3,
+        "Total Expenses": 4119.2
+      },
+      "ratios": {
+        "ROE (%)": 0.0,
+        "ROA (%)": 0.0,
+        "Equity Ratio (%)": 25.0,
+        "Loss Ratio (%)": 0.0,
+        "Expense Ratio (%)": 89.0,
+        "Combined Ratio (%)": 89.0,
+        "Investment Return (%)": 0.0,
+        "Investment Yield (%)": 0.0,
+        "Investments to Assets (%)": 54.7
+      },
+      "flags": []
+    }
+  },
+  "Convex Re Limited": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-13-51-Convex-Re-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 8588.1,
+        "Total Equity": 2618.8,
+        "Total Liabilities": 5969.3,
+        "Total Investments": 4350.0,
+        "Cash and Cash Equivalents": 297.0
+      },
+      "income_statement": {
+        "Gross Premiums Written": 4217.6,
+        "Net Premiums Earned": 2337.1,
+        "Net Investment Income": 123.0,
+        "Investment Gains/Losses": -22.9,
+        "Total Revenues": 2549.3,
+        "Losses and LAE": 1225.3,
+        "Total Expenses": 2040.1,
+        "Net Income": 560.9
+      },
+      "ratios": {
+        "ROE (%)": 21.4,
+        "ROA (%)": 6.5,
+        "Equity Ratio (%)": 30.5,
+        "Loss Ratio (%)": 52.4,
+        "Expense Ratio (%)": 87.3,
+        "Combined Ratio (%)": 139.7,
+        "Investment Return (%)": 2.83,
+        "Investment Yield (%)": 2.83,
+        "Investments to Assets (%)": 50.7
+      },
+      "flags": []
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-29-13-37-43-Convex-Re-Limited---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 11152.0,
+        "Total Equity": 3216.1,
+        "Total Liabilities": 7935.9,
+        "Total Investments": 5703.8,
+        "Cash and Cash Equivalents": 280.7
+      },
+      "income_statement": {
+        "Gross Premiums Written": 5166.4,
+        "Net Premiums Earned": 3070.4,
+        "Net Investment Income": 228.4,
+        "Investment Gains/Losses": -9.1,
+        "Total Revenues": 3277.3,
+        "Losses and LAE": 1624.0,
+        "Total Expenses": 2624.4,
+        "Net Income": 597.3
+      },
+      "ratios": {
+        "ROE (%)": 18.6,
+        "ROA (%)": 5.4,
+        "Equity Ratio (%)": 28.8,
+        "Loss Ratio (%)": 52.9,
+        "Expense Ratio (%)": 85.5,
+        "Combined Ratio (%)": 138.4,
+        "Investment Return (%)": 4.0,
+        "Investment Yield (%)": 4.0,
+        "Investments to Assets (%)": 51.1
+      },
+      "flags": []
+    }
+  },
+  "DaVinci Reinsurance Ltd.": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-13-51-DaVinci-Reinsurance-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 5592.8,
+        "Total Equity": 3666.3,
+        "Total Liabilities": 1926.4,
+        "Total Investments": 4758.7,
+        "Cash and Cash Equivalents": 76.2
+      },
+      "income_statement": {
+        "Net Premiums Earned": 987.4,
+        "Net Investment Income": 205.4,
+        "Total Revenues": 1226.6,
+        "Total Expenses": 466.7,
+        "Net Income": 753.7
+      },
+      "ratios": {
+        "ROE (%)": 20.6,
+        "ROA (%)": 13.5,
+        "Equity Ratio (%)": 65.6,
+        "Loss Ratio (%)": 0.0,
+        "Expense Ratio (%)": 47.3,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 4.32,
+        "Investment Yield (%)": 4.32,
+        "Investments to Assets (%)": 85.1
+      },
+      "flags": [
+        "IS Losses and LAE=-193.5 out of [0,50000]",
+        "Combined Ratio=47.3% outside [50,200] (zeroed)"
+      ]
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-02-11-39-02-DaVinci-Reinsurance-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 6083.3,
+        "Total Equity": 4250.7,
+        "Total Liabilities": 1832.6,
+        "Total Investments": 5278.5,
+        "Cash and Cash Equivalents": 85.4
+      },
+      "income_statement": {
+        "Net Premiums Earned": 1222.0,
+        "Net Investment Income": 245.8,
+        "Total Revenues": 1422.6,
+        "Total Expenses": 576.3,
+        "Net Income": 841.8
+      },
+      "ratios": {
+        "ROE (%)": 19.8,
+        "ROA (%)": 13.8,
+        "Equity Ratio (%)": 69.9,
+        "Loss Ratio (%)": 0.0,
+        "Expense Ratio (%)": 47.2,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 4.66,
+        "Investment Yield (%)": 4.66,
+        "Investments to Assets (%)": 86.8
+      },
+      "flags": [
+        "IS Losses and LAE=-151.7 out of [0,50000]",
+        "Combined Ratio=47.2% outside [50,200] (zeroed)"
+      ]
+    }
+  },
+  "American International Reinsurance Company Ltd.": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-07-30-16-11-09-American-International-Reinsurance-Company-Ltd.---2023-Financial-Statement---Class-4.pdf",
+      "denom": "millions",
+      "balance_sheet": {
+        "Total Assets": 4667.0,
+        "Total Liabilities": 3983.0,
+        "Total Investments": 2419.0
+      },
+      "income_statement": {
+        "Total Revenues": 1054.0,
+        "Losses and LAE": 1123.0
+      },
+      "ratios": {
+        "ROE (%)": 0,
+        "ROA (%)": 0.0,
+        "Equity Ratio (%)": 0.0,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0.0,
+        "Investment Yield (%)": 0.0,
+        "Investments to Assets (%)": 51.8
+      },
+      "flags": []
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-29-13-37-43-American-International-Reinsurance-Company-Ltd.---2024-Financial-Statement---Class-4.pdf",
+      "denom": "millions",
+      "balance_sheet": {
+        "Total Assets": 3961.0,
+        "Total Liabilities": 3196.0,
+        "Total Investments": 2221.0
+      },
+      "income_statement": {
+        "Losses and LAE": 1123.0
+      },
+      "ratios": {
+        "ROE (%)": 0,
+        "ROA (%)": 0.0,
+        "Equity Ratio (%)": 0.0,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0.0,
+        "Investment Yield (%)": 0.0,
+        "Investments to Assets (%)": 56.1
+      },
+      "flags": []
+    }
+  },
+  "Argo Re Ltd.": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-14-00-Argo-Re-Ltd.---2023-Financial-Statement.pdf",
+      "denom": "millions",
+      "balance_sheet": {
+        "Total Assets": 8552.4,
+        "Total Equity": 1376.0,
+        "Total Liabilities": 7176.4,
+        "Total Investments": 3481.2
+      },
+      "income_statement": {
+        "Losses and LAE": 5544.5
+      },
+      "ratios": {
+        "ROE (%)": 0.0,
+        "ROA (%)": 0.0,
+        "Equity Ratio (%)": 16.1,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0.0,
+        "Investment Yield (%)": 0.0,
+        "Investments to Assets (%)": 40.7
+      },
+      "flags": []
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-02-11-38-57-Argo-Re-Ltd.---2024-Financial-Statement.pdf",
+      "denom": "millions",
+      "balance_sheet": {
+        "Total Assets": 8898.6,
+        "Total Equity": 1654.0,
+        "Total Liabilities": 7244.6,
+        "Total Investments": 4094.8
+      },
+      "income_statement": {
+        "Total Revenues": 1359.6,
+        "Losses and LAE": 1018.3,
+        "Total Expenses": 1560.1
+      },
+      "ratios": {
+        "ROE (%)": 0.0,
+        "ROA (%)": 0.0,
+        "Equity Ratio (%)": 18.6,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0.0,
+        "Investment Yield (%)": 0.0,
+        "Investments to Assets (%)": 46.0
+      },
+      "flags": []
+    }
+  },
+  "Markel Bermuda": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-13-55-Markel-Bermuda-Limited---2023-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 8165.6,
+        "Total Equity": 2298.2,
+        "Total Liabilities": 5867.5,
+        "Total Investments": 4723.8,
+        "Cash and Cash Equivalents": 297.7
+      },
+      "income_statement": {
+        "Gross Premiums Written": 542.4,
+        "Net Investment Income": 99.2,
+        "Total Revenues": 1841.6,
+        "Losses and LAE": 803.6,
+        "Net Income": 429.5
+      },
+      "ratios": {
+        "ROE (%)": 18.7,
+        "ROA (%)": 5.3,
+        "Equity Ratio (%)": 28.1,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 2.1,
+        "Investment Yield (%)": 2.1,
+        "Investments to Assets (%)": 57.9
+      },
+      "flags": []
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-09-30-15-59-45-Markel-Bermuda-Limited---2024-Financial-Statement.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 8705.0,
+        "Total Equity": 2414.4,
+        "Total Liabilities": 6290.7,
+        "Total Investments": 4876.2,
+        "Cash and Cash Equivalents": 229.6
+      },
+      "income_statement": {
+        "Gross Premiums Written": 645.2,
+        "Net Investment Income": 109.9,
+        "Investment Gains/Losses": 467.2,
+        "Total Revenues": 1954.8,
+        "Losses and LAE": 735.0,
+        "Net Income": 614.1
+      },
+      "ratios": {
+        "ROE (%)": 25.4,
+        "ROA (%)": 7.1,
+        "Equity Ratio (%)": 27.7,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 2.25,
+        "Investment Yield (%)": 2.25,
+        "Investments to Assets (%)": 56.0
+      },
+      "flags": []
+    }
+  },
+  "XL Bermuda": {
+    "2023": {
+      "status": "extracted",
+      "pdf": "2024-06-28-13-13-59-XL-Bermuda-Ltd---2023-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 65867.1,
+        "Total Equity": 12651.2,
+        "Cash and Cash Equivalents": 1275.2
+      },
+      "income_statement": {
+        "Net Income": 2040.1
+      },
+      "ratios": {
+        "ROE (%)": 16.1,
+        "ROA (%)": 3.1,
+        "Equity Ratio (%)": 19.2,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0,
+        "Investment Yield (%)": 0,
+        "Investments to Assets (%)": 0.0
+      },
+      "flags": []
+    },
+    "2024": {
+      "status": "extracted",
+      "pdf": "2025-07-02-11-39-09-XL-Bermuda-Ltd----2024-Financial-Statement---Class-4.pdf",
+      "denom": "thousands",
+      "balance_sheet": {
+        "Total Assets": 65720.4,
+        "Total Equity": 12800.5,
+        "Cash and Cash Equivalents": 903.0
+      },
+      "income_statement": {
+        "Net Income": 2225.9
+      },
+      "ratios": {
+        "ROE (%)": 17.4,
+        "ROA (%)": 3.4,
+        "Equity Ratio (%)": 19.5,
+        "Loss Ratio (%)": 0,
+        "Expense Ratio (%)": 0,
+        "Combined Ratio (%)": 0,
+        "Investment Return (%)": 0,
+        "Investment Yield (%)": 0,
+        "Investments to Assets (%)": 0.0
+      },
+      "flags": []
+    }
+  }
+}
