@@ -1614,6 +1614,10 @@
                 window.modalChart = null;
             }
 
+            // Reset canvas to clear any residual chart data
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
             window.currentModalChartId = chartId;
 
             // Derive title
