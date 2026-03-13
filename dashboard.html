@@ -591,15 +591,19 @@
         .chart-modal {
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.75);
-            display: none;
+            background: rgba(0, 0, 0, 0);
+            display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1000;
-            animation: modalFadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.3s ease;
         }
         .chart-modal.open {
-            display: flex;
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.75);
+            pointer-events: auto;
         }
         .chart-modal-content {
             background: var(--card-bg);
@@ -611,13 +615,11 @@
             display: flex;
             flex-direction: column;
             position: relative;
-            animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform: scale(0.92) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .chart-modal:not(.open) {
-            animation: modalFadeIn 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse forwards;
-        }
-        .chart-modal:not(.open) .chart-modal-content {
-            animation: modalSlideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) reverse forwards;
+        .chart-modal.open .chart-modal-content {
+            transform: scale(1) translateY(0);
         }
         .chart-modal-title {
             font-size: 1em;
