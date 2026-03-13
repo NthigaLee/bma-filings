@@ -1654,7 +1654,7 @@
                         maintainAspectRatio: false,
                         animation: {
                             duration: 900,
-                            easing: (ctx) => springEasing(ctx.animationObject.currentStep / ctx.animationObject.numSteps),
+                            easing: 'easeInOutQuad',
                             delay: (ctx) => ctx.dataIndex * 50
                         },
                         plugins: {
@@ -1686,7 +1686,7 @@
                         maintainAspectRatio: false,
                         animation: {
                             duration: 900,
-                            easing: (ctx) => springEasing(ctx.animationObject.currentStep / ctx.animationObject.numSteps),
+                            easing: 'easeInOutQuad',
                             delay: (ctx) => ctx.dataIndex * 40
                         },
                         plugins: {
