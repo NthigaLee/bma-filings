@@ -10,10 +10,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
-            --crimson: #8b1538;
-            --crimson-dark: #6b0f2b;
-            --crimson-light: #c43b54;
-            --crimson-pale: #f5e0e5;
+            --crimson: #16a34a;
+            --crimson-dark: #15803d;
+            --crimson-light: #4ade80;
+            --crimson-pale: #dcfce7;
             --green: #22c55e;
             --gray-bg: #f5f5f5;
             --gray-mid: #e0e0e0;
@@ -105,7 +105,7 @@
 
         /* ── HERO ── */
         .hero {
-            background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-dark) 60%, #3d0618 100%);
+            background: linear-gradient(135deg, var(--crimson) 0%, var(--crimson-dark) 60%, #052e16 100%);
             color: white;
             padding: 100px 40px 80px;
             text-align: center;
@@ -316,7 +316,7 @@
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        .feature-card:hover { border-color: var(--crimson); box-shadow: 0 4px 16px rgba(139,21,56,0.08); }
+        .feature-card:hover { border-color: var(--crimson); box-shadow: 0 4px 16px rgba(22,163,74,0.08); }
 
         .feature-icon {
             width: 48px;
@@ -412,7 +412,7 @@
 
         .pricing-card.featured {
             border-color: var(--crimson);
-            box-shadow: 0 8px 30px rgba(139,21,56,0.15);
+            box-shadow: 0 8px 30px rgba(22,163,74,0.15);
         }
 
         .featured-badge {
@@ -571,7 +571,7 @@
             font-family: inherit;
         }
 
-        .form-group input:focus { border-color: var(--crimson); box-shadow: 0 0 0 3px rgba(139,21,56,0.08); }
+        .form-group input:focus { border-color: var(--crimson); box-shadow: 0 0 0 3px rgba(22,163,74,0.08); }
 
         .form-submit {
             width: 100%;
@@ -711,7 +711,7 @@
         </div>
         <div class="nav-actions">
             <button class="btn btn-outline" onclick="openModal('login')">Log In</button>
-            <button class="btn btn-outline" onclick="promptAdminPassword(event)" title="Admin Console" style="color: #8b1538; border-color: #8b1538;">🔐 Admin</button>
+            <button class="btn btn-outline" onclick="promptAdminPassword(event)" title="Admin Console" style="color: #16a34a; border-color: #16a34a;">🔐 Admin</button>
             <button class="btn btn-primary" onclick="openModal('signup')">Get Access</button>
         </div>
     </nav>
@@ -1143,7 +1143,7 @@
         });
 
         // ── PREVIEW CHARTS ──────────────────────────────────────
-        const chartColors = ['#8b1538','#a82844','#c43b54','#d46b7e','#e09ba8','#b8434d','#7a1131','#c41448','#6b0f2b','#a02040'];
+        const chartColors = ['#16a34a','#15803d','#166534','#22c55e','#4ade80','#86efac','#14532d','#059669','#0d9488','#4ade80'];
 
         // Top 10 ROE chart
         const roeData = companies.map(c => ({
