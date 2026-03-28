@@ -77,3 +77,13 @@ DELIVERABLES_SUMMARY.md
 FINAL_WORKBOOKS_SUMMARY.md
 README_FINAL.md
 WORKBOOK_VALIDATION_SUMMARY.md
+
+# Sensitive/large files
+.env
+extraction_results.json
+extraction_results.json.old
+data/extracted_pdf_data.json
+data/company_summaries/
+data/audit_log.json
+extraction.log
+extraction_enhanced.log

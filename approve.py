@@ -5,16 +5,52 @@ Run: python approve.py
 Serves at http://localhost:8080
 
 Endpoints:
-  GET  /api/reviews        -> returns data/reviewed_financials.json
-  POST /api/save           -> merge body into reviewed_financials.json (status=draft)
-  POST /api/approve        -> merge body (status=approved), regenerate dashboard, git push
-  GET  *                   -> serve static files from repo root
+  GET  /api/reviews              -> returns data/reviewed_financials.json
+  POST /api/save                 -> merge body into reviewed_financials.json (status=draft)
+  POST /api/approve              -> merge body (status=approved), regenerate dashboard, git push
+  POST /api/bot/query            -> ask bot question about company
+  POST /api/bot/analyze          -> deep company analysis
+  POST /api/bot/compare          -> compare companies
+  POST /api/auditor/validate     -> validate financial data
+  GET  /api/auditor/logs         -> fetch audit trail
+  POST /api/fcr/upload           -> upload FCR document
+  GET  *                         -> serve static files from repo root
 """
 import json
 import os
 import subprocess
+import uuid
 from http.server import HTTPServer, SimpleHTTPRequestHandler
 from datetime import datetime, timezone
+from urllib.parse import urlparse, parse_qs
+from pathlib import Path
+
+# Load .env file if it exists
+env_file = Path(__file__).parent / '.env'
+if env_file.exists():
+    with open(env_file) as f:
+        for line in f:
+            line = line.strip()
+            if line and not line.startswith('#') and '=' in line:
+                key, value = line.split('=', 1)
+                # Set the value (overwriting empty env vars)
+                os.environ[key] = value
+
+
+# Import new modules (with graceful degradation if anthropic not installed)
+try:
+    from omniscient_bot import get_bot
+    BOT_AVAILABLE = True
+except (ImportError, ValueError) as e:
+    BOT_AVAILABLE = False
+    get_bot = None
+
+try:
+    from auditor import get_auditor
+    AUDITOR_AVAILABLE = True
+except (ImportError, ValueError):
+    AUDITOR_AVAILABLE = False
+    get_auditor = None
 
 REPO_ROOT = os.path.dirname(os.path.abspath(__file__))
 REVIEWED_PATH = os.path.join(REPO_ROOT, 'data', 'reviewed_financials.json')
@@ -114,8 +150,11 @@ class BMAHandler(SimpleHTTPRequestHandler):
                 self.wfile.write(data.encode())
             except Exception as e:
                 self.send_response(500)
+                self.send_header('Content-Type', 'application/json')
                 self.end_headers()
                 self.wfile.write(json.dumps({'error': str(e)}).encode())
+        elif self.path == '/api/auditor/logs':
+            self._handle_auditor_logs()
         else:
             super().do_GET()
 
@@ -130,14 +169,27 @@ class BMAHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({'error': f'Bad request: {e}'}).encode())
             return
 
+        # Route to appropriate handler
         if self.path == '/api/save':
             self._handle_save(body, approve=False)
         elif self.path == '/api/approve':
             self._handle_save(body, approve=True)
+        elif self.path == '/api/bot/query':
+            self._handle_bot_query(body)
+        elif self.path == '/api/bot/analyze':
+            self._handle_bot_analyze(body)
+        elif self.path == '/api/bot/compare':
+            self._handle_bot_compare(body)
+        elif self.path == '/api/auditor/validate':
+            self._handle_auditor_validate(body)
+        elif self.path == '/api/fcr/upload':
+            self._handle_fcr_upload(body)
         else:
             self.send_response(404)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
             self.end_headers()
-            self.wfile.write(b'Not found')
+            self.wfile.write(json.dumps({'error': 'Not found'}).encode())
 
     def _handle_save(self, body, approve=False):
         key = body.get('key', '')
@@ -170,6 +222,205 @@ class BMAHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps(result).encode())
 
+    def _handle_bot_query(self, body):
+        """Handle bot query request."""
+        if not BOT_AVAILABLE:
+            self.send_response(503)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            result = {'error': 'Bot not available. Install: pip install anthropic'}
+            self.wfile.write(json.dumps(result).encode())
+            return
+
+        company = body.get('company', '')
+        question = body.get('question', '')
+        year = body.get('year')
+
+        if not company or not question:
+            self.send_response(400)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Missing company or question'}).encode())
+            return
+
+        try:
+            bot = get_bot()
+            result = bot.query(company, question, year)
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps(result).encode())
+            print(f"  Bot query: {company} - audit_id={result.get('audit_id')}")
+        except Exception as e:
+            self.send_response(500)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': str(e)}).encode())
+
+    def _handle_bot_analyze(self, body):
+        """Handle bot analyze request."""
+        if not BOT_AVAILABLE:
+            self.send_response(503)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Bot not available'}).encode())
+            return
+
+        company = body.get('company', '')
+        year = body.get('year')
+        metrics = body.get('metrics', ['financial', 'risk'])
+
+        if not company:
+            self.send_response(400)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Missing company'}).encode())
+            return
+
+        try:
+            bot = get_bot()
+            result = bot.analyze_company(company, year, metrics)
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps(result).encode())
+            print(f"  Bot analysis: {company} - audit_id={result.get('audit_id')}")
+        except Exception as e:
+            self.send_response(500)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': str(e)}).encode())
+
+    def _handle_bot_compare(self, body):
+        """Handle bot compare request."""
+        if not BOT_AVAILABLE:
+            self.send_response(503)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Bot not available'}).encode())
+            return
+
+        companies = body.get('companies', [])
+        year = body.get('year')
+
+        if not companies or len(companies) < 2:
+            self.send_response(400)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Need at least 2 companies'}).encode())
+            return
+
+        try:
+            bot = get_bot()
+            result = bot.compare_companies(companies, year)
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps(result).encode())
+            print(f"  Bot comparison: {len(companies)} companies - audit_id={result.get('audit_id')}")
+        except Exception as e:
+            self.send_response(500)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': str(e)}).encode())
+
+    def _handle_auditor_validate(self, body):
+        """Handle auditor validation request."""
+        if not AUDITOR_AVAILABLE:
+            self.send_response(503)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Auditor not available'}).encode())
+            return
+
+        company = body.get('company', '')
+        year = body.get('year')
+        data = body.get('data', {})
+
+        if not company or not year or not data:
+            self.send_response(400)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Missing company, year, or data'}).encode())
+            return
+
+        try:
+            auditor = get_auditor()
+            result = auditor.validate(company, year, data)
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps(result).encode())
+            print(f"  Auditor validation: {company} {year} - audit_id={result.get('audit_id')}")
+        except Exception as e:
+            self.send_response(500)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': str(e)}).encode())
+
+    def _handle_auditor_logs(self):
+        """Handle fetch audit logs request."""
+        if not AUDITOR_AVAILABLE:
+            self.send_response(503)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': 'Auditor not available'}).encode())
+            return
+
+        try:
+            auditor = get_auditor()
+            logs = auditor.get_audit_log()
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps(logs).encode())
+        except Exception as e:
+            self.send_response(500)
+            self.send_header('Content-Type', 'application/json')
+            self._cors_headers()
+            self.end_headers()
+            self.wfile.write(json.dumps({'error': str(e)}).encode())
+
+    def _handle_fcr_upload(self, body):
+        """Handle FCR document upload."""
+        # Placeholder for FCR upload - would implement file handling
+        audit_id = str(uuid.uuid4())[:12]
+
+        company = body.get('company', '')
+        year = body.get('year')
+
+        result = {
+            'status': 'success',
+            'file_id': audit_id,
+            'company': company,
+            'year': year,
+            'message': 'FCR upload endpoint ready (file handling not yet implemented)'
+        }
+
+        self.send_response(200)
+        self.send_header('Content-Type', 'application/json')
+        self._cors_headers()
+        self.end_headers()
+        self.wfile.write(json.dumps(result).encode())
+
     def _cors_headers(self):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
@@ -181,12 +432,12 @@ class BMAHandler(SimpleHTTPRequestHandler):
 
 if __name__ == '__main__':
     os.chdir(REPO_ROOT)
-    port = 8080
+    port = int(os.getenv('SERVER_PORT', '5000'))
     server = HTTPServer(('localhost', port), BMAHandler)
     print(f"BMA Review Server running at http://localhost:{port}")
     print(f"  Dashboard:    http://localhost:{port}/dashboard.html")
     print(f"  Admin Review: http://localhost:{port}/admin_review.html")
-    print("Press Ctrl+C to stop.")
+    print("Press Ctrl+C to stop.", flush=True)
     try:
         server.serve_forever()
     except KeyboardInterrupt:
