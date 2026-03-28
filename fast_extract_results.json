@@ -1,0 +1,558 @@
+{
+  "Lancashire Insurance Company": {
+    "2024": {
+      "bs": {
+        "Total Assets": 2674.5,
+        "Total Equity": null,
+        "Total Liabilities": 1151.7,
+        "Total Investments": 233.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": null,
+        "Net Income": 339.6,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 2979.8,
+        "Total Equity": null,
+        "Total Liabilities": 1593.6,
+        "Total Investments": 195.1
+      },
+      "is": {
+        "Gross Premiums Written": 2.0,
+        "Net Premiums Earned": 579.2,
+        "Net Investment Income": 3.0,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": 538.0
+      }
+    }
+  },
+  "XL Bermuda": {
+    "2024": {
+      "bs": {
+        "Total Assets": 65.9,
+        "Total Equity": null,
+        "Total Liabilities": null,
+        "Total Investments": 42.3
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": null,
+        "Net Income": 2.0,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 88.2,
+        "Total Equity": null,
+        "Total Liabilities": null,
+        "Total Investments": 55.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": null,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    }
+  },
+  "AXA XL Reinsurance": {
+    "2024": {
+      "bs": {
+        "Total Assets": 10.0,
+        "Total Equity": 3.0,
+        "Total Liabilities": null,
+        "Total Investments": 60.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": null,
+        "Net Income": 397540.0,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 12.8,
+        "Total Equity": null,
+        "Total Liabilities": null,
+        "Total Investments": 54.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": null,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    }
+  },
+  "Endurance Specialty Insurance": {
+    "2024": {
+      "bs": {
+        "Total Assets": 31.2,
+        "Total Equity": null,
+        "Total Liabilities": null,
+        "Total Investments": 6.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": 933825.0,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 33.9,
+        "Total Equity": null,
+        "Total Liabilities": null,
+        "Total Investments": 6.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": 8.4,
+        "Net Investment Income": 6.0,
+        "Net Income": null,
+        "Losses and LAE": 12.0,
+        "Total Expenses": 7.9
+      }
+    }
+  },
+  "Validus Reinsurance": {
+    "2024": {
+      "bs": {
+        "Total Assets": 6.1,
+        "Total Equity": null,
+        "Total Liabilities": 3.5,
+        "Total Investments": 2.6
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": 328805.0,
+        "Net Investment Income": 17870.0,
+        "Net Income": null,
+        "Losses and LAE": 207463.0,
+        "Total Expenses": 109032.0
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": null,
+        "Total Equity": null,
+        "Total Liabilities": null,
+        "Total Investments": 100379.0
+      },
+      "is": {
+        "Gross Premiums Written": 3.1,
+        "Net Premiums Earned": 2.2,
+        "Net Investment Income": 128063.0,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": 2.1
+      }
+    }
+  },
+  "Somers Re": {
+    "2024": "no_match",
+    "2023": "no_match"
+  },
+  "Canopius Reinsurance": {
+    "2024": {
+      "bs": {
+        "Total Assets": 1.8,
+        "Total Equity": null,
+        "Total Liabilities": 1.2,
+        "Total Investments": 3413.0
+      },
+      "is": {
+        "Gross Premiums Written": 609443.0,
+        "Net Premiums Earned": 8.0,
+        "Net Investment Income": 3.0,
+        "Net Income": 144036.0,
+        "Losses and LAE": 362122.0,
+        "Total Expenses": 392593.0
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 1.4,
+        "Total Equity": null,
+        "Total Liabilities": 932845.0,
+        "Total Investments": 3412.0
+      },
+      "is": {
+        "Gross Premiums Written": 485085.0,
+        "Net Premiums Earned": 7.0,
+        "Net Investment Income": 3.0,
+        "Net Income": null,
+        "Losses and LAE": 323616.0,
+        "Total Expenses": 332455.0
+      }
+    }
+  },
+  "Fidelis Insurance Bermuda": {
+    "2024": {
+      "bs": {
+        "Total Assets": 6332.0,
+        "Total Equity": 1916.2,
+        "Total Liabilities": 4415.8,
+        "Total Investments": 2566.9
+      },
+      "is": {
+        "Gross Premiums Written": 2210.5,
+        "Net Premiums Earned": 1306.5,
+        "Net Investment Income": 87.6,
+        "Net Income": 448.3,
+        "Losses and LAE": null,
+        "Total Expenses": 1044.0
+      }
+    },
+    "2023": "no_match"
+  },
+  "Argo Re Ltd.": {
+    "2024": {
+      "bs": {
+        "Total Assets": 8552.4,
+        "Total Equity": null,
+        "Total Liabilities": 7176.4,
+        "Total Investments": 3481.2
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": 28.7,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": 186.5
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 10031.2,
+        "Total Equity": null,
+        "Total Liabilities": 8808.5,
+        "Total Investments": 3650.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": 135.2,
+        "Net Income": 31.8,
+        "Losses and LAE": null,
+        "Total Expenses": 1911.5
+      }
+    }
+  },
+  "Hiscox Insurance Company Bermuda": {
+    "2024": "image",
+    "2023": {
+      "bs": {
+        "Total Assets": 5.2,
+        "Total Equity": null,
+        "Total Liabilities": 4.0,
+        "Total Investments": 1.6
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": null,
+        "Net Income": 56357.0,
+        "Losses and LAE": null,
+        "Total Expenses": 1.1
+      }
+    }
+  },
+  "Starr Insurance & Reinsurance": {
+    "2024": {
+      "bs": {
+        "Total Assets": 9.3,
+        "Total Equity": null,
+        "Total Liabilities": 6.7,
+        "Total Investments": 469915.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": 1.1,
+        "Net Investment Income": 2274.0,
+        "Net Income": 242153.0,
+        "Losses and LAE": null,
+        "Total Expenses": 77374.0
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 7.8,
+        "Total Equity": null,
+        "Total Liabilities": 5.6,
+        "Total Investments": 507893.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": 1.1,
+        "Net Investment Income": null,
+        "Net Income": 9093.0,
+        "Losses and LAE": null,
+        "Total Expenses": 101055.0
+      }
+    }
+  },
+  "Fortitude Reinsurance Company": {
+    "2024": {
+      "bs": {
+        "Total Assets": 73814.0,
+        "Total Equity": null,
+        "Total Liabilities": 74406.0,
+        "Total Investments": 65948.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": 1981.0,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 43006.0,
+        "Total Equity": null,
+        "Total Liabilities": 47584.0,
+        "Total Investments": 39560.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": 1821.0,
+        "Net Income": null,
+        "Losses and LAE": 898.0,
+        "Total Expenses": null
+      }
+    }
+  },
+  "SiriusPoint Bermuda Insurance": {
+    "2024": {
+      "bs": {
+        "Total Assets": 12804.6,
+        "Total Equity": null,
+        "Total Liabilities": 9493.5,
+        "Total Investments": 6076.1
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": 2426.2,
+        "Net Investment Income": 283.7,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": 2341.9
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 10998.7,
+        "Total Equity": null,
+        "Total Liabilities": 8114.9,
+        "Total Investments": 5634.3
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": 2318.1,
+        "Net Investment Income": 113.3,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": 2462.8
+      }
+    }
+  },
+  "Conduit Reinsurance": {
+    "2024": {
+      "bs": {
+        "Total Assets": 1504.2,
+        "Total Equity": null,
+        "Total Liabilities": 495.5,
+        "Total Investments": 5.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": 5.0,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 1578.0,
+        "Total Equity": null,
+        "Total Liabilities": 746.8,
+        "Total Investments": 5.0
+      },
+      "is": {
+        "Gross Premiums Written": 4.0,
+        "Net Premiums Earned": 482.3,
+        "Net Investment Income": 5.0,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": 483.6
+      }
+    }
+  },
+  "Liberty Specialty Markets Bermuda": {
+    "2024": {
+      "bs": {
+        "Total Assets": 3.7,
+        "Total Equity": null,
+        "Total Liabilities": 2.0,
+        "Total Investments": 2.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": 1.5,
+        "Net Investment Income": 69323.0,
+        "Net Income": 3855.0,
+        "Losses and LAE": null,
+        "Total Expenses": 1.3
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 3.5,
+        "Total Equity": null,
+        "Total Liabilities": 2.0,
+        "Total Investments": 1.8
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": 1.8,
+        "Net Investment Income": 51056.0,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": 1.8
+      }
+    }
+  },
+  "Hamilton Re": {
+    "2024": {
+      "bs": {
+        "Total Assets": null,
+        "Total Equity": null,
+        "Total Liabilities": null,
+        "Total Investments": 427316.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": null,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": null,
+        "Total Equity": null,
+        "Total Liabilities": null,
+        "Total Investments": 212086.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": null,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    }
+  },
+  "American International Reinsurance Company Ltd.": {
+    "2024": {
+      "bs": {
+        "Total Assets": 6454.0,
+        "Total Equity": null,
+        "Total Liabilities": 5672.0,
+        "Total Investments": 2419.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": 85.0,
+        "Net Income": null,
+        "Losses and LAE": 479.0,
+        "Total Expenses": null
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 4779.0,
+        "Total Equity": null,
+        "Total Liabilities": null,
+        "Total Investments": 2294.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": 25.0,
+        "Net Income": null,
+        "Losses and LAE": 440.0,
+        "Total Expenses": null
+      }
+    }
+  },
+  "Brit Reinsurance Bermuda Limited": {
+    "2024": "image",
+    "2023": "no_pdf"
+  },
+  "Fortitude International Reinsurance Ltd.": {
+    "2024": {
+      "bs": {
+        "Total Assets": 4.9,
+        "Total Equity": null,
+        "Total Liabilities": 4.2,
+        "Total Investments": 3.8
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": 162494.0,
+        "Net Income": null,
+        "Losses and LAE": 47320.0,
+        "Total Expenses": null
+      }
+    },
+    "2023": {
+      "bs": {
+        "Total Assets": 834337.0,
+        "Total Equity": 252698.0,
+        "Total Liabilities": 581639.0,
+        "Total Investments": 423340.0
+      },
+      "is": {
+        "Gross Premiums Written": null,
+        "Net Premiums Earned": null,
+        "Net Investment Income": null,
+        "Net Income": null,
+        "Losses and LAE": null,
+        "Total Expenses": null
+      }
+    }
+  }
+}
