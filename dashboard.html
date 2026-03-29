@@ -9,9 +9,2283 @@
     <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
     <script src="tier-access.js"></script>
+    <script src="dashboard_data.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 15px;
+        }
+
+        .header {
+            background: white;
+            border-left: 6px solid #8b1538;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .header h1 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 2em;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .controls-row {
+            display: grid;
+            grid-template-columns: auto auto 1fr;
+            gap: 20px;
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            align-items: center;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.9em;
+        }
+
+        .control-group select,
+        .control-group input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transition: border-color 0.3s;
+        }
+
+        .control-group select:focus,
+        .control-group input:focus {
+            outline: none;
+            border-color: #8b1538;
+            box-shadow: 0 0 0 2px rgba(139, 21, 56, 0.1);
+        }
+
+        .company-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.3s;
+        }
+
+        .btn-select-all {
+            background: #8b1538;
+            color: white;
+        }
+
+        .btn-select-all:hover {
+            background: #6b0f2b;
+        }
+
+        .btn-clear-all {
+            background: #ccc;
+            color: #333;
+        }
+
+        .btn-clear-all:hover {
+            background: #aaa;
+        }
+
+        /* ── COMPANY MULTI-SELECT DROPDOWN ── */
+        .company-filter {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .company-filter-trigger {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border: 1px solid #d0d0d0;
+            border-radius: 6px;
+            padding: 10px 16px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            color: #333;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            transition: border-color 0.2s;
+            user-select: none;
+        }
+        .company-filter-trigger:hover { border-color: #8b1538; }
+        .company-filter-trigger .trigger-label { flex: 1; }
+        .company-filter-trigger .trigger-arrow {
+            margin-left: 12px;
+            font-size: 0.75em;
+            color: #8b1538;
+            transition: transform 0.2s;
+        }
+        .company-filter-trigger.open .trigger-arrow { transform: rotate(180deg); }
+
+        .company-filter-panel {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #d0d0d0;
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            z-index: 500;
+            overflow: hidden;
+        }
+        .company-filter-panel.open { display: block; }
+
+        .filter-panel-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            background: #fafafa;
+        }
+        .filter-panel-search {
+            flex: 1;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-size: 0.85em;
+            outline: none;
+            color: #333;
+            background: white;
+        }
+        .filter-panel-search:focus { border-color: #8b1538; }
+        .filter-panel-header .btn-sm {
+            padding: 5px 10px;
+            font-size: 0.8em;
+            border-radius: 4px;
+            border: 1px solid #d0d0d0;
+            background: white;
+            cursor: pointer;
+            color: #555;
+            font-weight: 500;
+            transition: all 0.15s;
+            white-space: nowrap;
+        }
+        .filter-panel-header .btn-sm:hover { border-color: #8b1538; color: #8b1538; }
+        .filter-panel-header .btn-sm.primary { background: #8b1538; color: white; border-color: #8b1538; }
+        .filter-panel-header .btn-sm.primary:hover { background: #6d1029; }
+
+        .filter-panel-body {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
+            padding: 12px 16px;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .company-checkbox {
+            display: flex;
+            align-items: center;
+            padding: 6px 10px;
+            background: #f9f9f9;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.15s;
+            border: 1px solid transparent;
+        }
+
+        .company-checkbox:hover {
+            background: #fdf0f3;
+            border-color: #e8b4c0;
+        }
+        .company-checkbox.checked {
+            background: #fdf0f3;
+            border-color: #d4849a;
+        }
+
+        .company-checkbox input[type="checkbox"] {
+            cursor: pointer;
+            margin-right: 8px;
+            width: 14px;
+            height: 14px;
+            accent-color: #8b1538;
+            flex-shrink: 0;
+        }
+
+        .company-checkbox label {
+            margin: 0;
+            cursor: pointer;
+            font-size: 0.8em;
+            flex: 1;
+            color: #333;
+            line-height: 1.3;
+        }
+        .est-badge {
+            display: inline-block;
+            font-size: 0.75em;
+            font-weight: 700;
+            color: #888;
+            background: #f0f0f0;
+            border-radius: 3px;
+            padding: 0 3px;
+            margin-left: 3px;
+            vertical-align: middle;
+            cursor: help;
+        }
+        body.dark-mode .est-badge {
+            background: #333;
+            color: #aaa;
+        }
+
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            border-top: 4px solid #8b1538;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .metric-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+        }
+
+        .metric-label {
+            font-size: 0.85em;
+            color: #666;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #8b1538;
+            margin-top: 8px;
+        }
+
+        .chart-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .chart-card {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+            cursor: pointer;
+        }
+
+        .chart-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+        }
+
+        .chart-title {
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .chart-toggles {
+            display: flex;
+            gap: 8px;
+            font-size: 0.7em;
+            color: #555;
+        }
+
+        .chart-toggle-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 999px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            background: #fafafa;
+            transition: all 0.2s;
+            user-select: none;
+        }
+
+        .chart-toggle-pill.active {
+            border-color: #8b1538;
+            background: #fdf2f7;
+            color: #8b1538;
+        }
+
+        .chart-toggle-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 999px;
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+
+        .line-chart-container {
+            height: 350px;
+            margin-bottom: 10px;
+        }
+
+        .metric-selector {
+            margin-bottom: 15px;
+        }
+
+        .metric-selector label {
+            font-weight: 600;
+            color: #333;
+            margin-right: 10px;
+            font-size: 0.9em;
+        }
+
+        .metric-selector select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            overflow-x: auto;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .table-container:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.16);
+        }
+
+        .table-title {
+            font-size: 1em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85em;
+            background: #ffffff;
+        }
+
+        .comparison-table thead {
+            background: #f4f4f4;
+            border-bottom: 2px solid #8b1538;
+        }
+
+        .comparison-table th {
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #222;
+            background: #f4f4f4;
+        }
+
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            color: #222;
+            background: #ffffff;
+        }
+
+        .comparison-table tbody tr:hover td {
+            background: #faf8f8;
+        }
+
+        .comparison-table tr.industry-avg-row td {
+            background: #fff0f3 !important;
+            color: #5a2230 !important;
+            font-weight: 600;
+            border-top: 2px solid #e8b4c0;
+            border-bottom: 2px solid #e8b4c0;
+        }
+        .comparison-table tr.industry-avg-row td:first-child {
+            color: #8b1538 !important;
+        }
+
+        /* ── Industry Avg column (light mode) ── */
+        .comparison-table th.industry-avg-col-header {
+            background: #fff0f3 !important;
+            color: #8b1538 !important;
+        }
+        .comparison-table td.industry-avg-col {
+            background: #fff0f3 !important;
+            color: #5a2230 !important;
+            font-weight: 600;
+        }
+
+        /* ── Comparison table: dark mode ── */
+        body.dark-mode .comparison-table {
+            background: #0d0d0d;
+        }
+        body.dark-mode .comparison-table thead {
+            background: #111111;
+            border-bottom-color: #8b1538;
+        }
+        body.dark-mode .comparison-table th {
+            background: #111111;
+            color: #ffffff;
+        }
+        body.dark-mode .comparison-table td {
+            background: #0d0d0d;
+            color: #ffffff;
+            border-bottom-color: #222222;
+        }
+        body.dark-mode .comparison-table tbody tr:hover td {
+            background: #1a1a1a;
+        }
+        body.dark-mode .comparison-table tr.industry-avg-row td {
+            background: #2a0d16 !important;
+            color: #f4b8c8 !important;
+            border-top-color: #5a1a2e;
+            border-bottom-color: #5a1a2e;
+        }
+        body.dark-mode .comparison-table tr.industry-avg-row td:first-child {
+            color: #e8839a !important;
+        }
+        body.dark-mode .comparison-table th.industry-avg-col-header {
+            background: #2a0d16 !important;
+            color: #e8839a !important;
+        }
+        body.dark-mode .comparison-table td.industry-avg-col {
+            background: #2a0d16 !important;
+            color: #f4b8c8 !important;
+        }
+
+        .value-cell {
+            text-align: right;
+            font-weight: 500;
+        }
+
+        .color-block {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 2px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .export-bar {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .btn-export {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            width: 32px;
+            height: 32px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+
+        .btn-export-pdf  { background: #dc2626; color: white; }
+        .btn-export-pdf:hover  { background: #b91c1c; }
+        .btn-export-xlsx { background: #16a34a; color: white; }
+        .btn-export-xlsx:hover { background: #15803d; }
+        .btn-export-pptx { background: #d97706; color: white; }
+        .btn-export-pptx:hover { background: #b45309; }
+
+        .btn-export svg { width: 14px; height: 14px; fill: currentColor; }
+
+        @media (max-width: 1200px) {
+            .chart-row {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ── Chart modal overlay ──────────────────────────────────── */
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: scale(0.92) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .chart-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background-color 0.3s ease;
+        }
+        .chart-modal.open {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.75);
+            pointer-events: auto;
+        }
+        .chart-modal-content {
+            background: var(--card-bg);
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            padding: 18px 20px 20px;
+            width: min(1100px, 95vw);
+            height: min(72vh, 720px);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform: scale(0.92) translateY(20px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .chart-modal.open .chart-modal-content {
+            transform: scale(1) translateY(0);
+        }
+        .chart-modal-title {
+            font-size: 1em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+        .chart-modal-body {
+            flex: 1;
+            position: relative;
+        }
+        #chart-modal-canvas {
+            width: 100%;
+            height: 100%;
+        }
+        .chart-modal-close {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+            border: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 20px;
+            cursor: pointer;
+            padding: 2px 4px;
+            line-height: 1;
+        }
+        .chart-modal-close:hover {
+            color: #8b1538;
+        }
+
+        @media print {
+            @page {
+                size: A4 landscape;
+                margin: 10mm;
+            }
+            body {
+                background: white;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .export-bar, .controls-row, .company-filter, .btn { display: none !important; }
+            .header, .chart-card, .table-container, .metrics-row .metric-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+            .table-container { overflow: visible !important; }
+            .chart-row { grid-template-columns: 1fr 1fr; }
+        }
+
+        /* ── Dark Mode ─────────────────────────────────────────────── */
+        :root {
+            --bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --text-muted: #666666;
+            --border: #f0f0f0;
+            --border-input: #dddddd;
+            --row-alt: #f9f9f9;
+            --chart-grid: #f0f0f0;
+            --chart-tick: #666666;
+            --legend-color: #333333;
+        }
+
+        body.dark-mode {
+            --bg: #0f1117;
+            --card-bg: #1a1b23;
+            --text: #e8e8e8;
+            --text-muted: #9ca3af;
+            --border: #2a2b35;
+            --border-input: #3a3b45;
+            --row-alt: #1e1f28;
+            --chart-grid: #2a2b35;
+            --chart-tick: #9ca3af;
+            --legend-color: #e8e8e8;
+        }
+
+        body {
+            background: var(--bg);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .header, .controls-row, .company-filter,
+        .chart-card, .table-container, .metric-card {
+            background: var(--card-bg);
+            transition: background 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .header h1, .chart-title, .table-title, .metric-label,
+        .control-group label, .metric-selector label, .comparison-table th {
+            color: var(--text);
+        }
+
+        .header p, .metric-value {
+            color: var(--text-muted);
+        }
+
+        .metric-card .metric-value { color: var(--text); }
+
+        .control-group select, .control-group input, .metric-selector select {
+            background: var(--card-bg);
+            color: var(--text);
+            border-color: var(--border-input);
+        }
+
+        .company-filter-trigger {
+            background: var(--card-bg);
+            border-color: var(--border-input);
+            color: var(--text);
+        }
+
+        .company-filter-panel {
+            background: var(--card-bg);
+            border-color: var(--border-input);
+        }
+
+        .filter-panel-header {
+            background: var(--row-alt);
+            border-color: var(--border);
+        }
+
+        .filter-panel-search {
+            background: var(--card-bg);
+            border-color: var(--border-input);
+            color: var(--text);
+        }
+
+        .filter-panel-header .btn-sm {
+            background: var(--card-bg);
+            border-color: var(--border-input);
+            color: var(--text-muted);
+        }
+
+        .company-checkbox {
+            background: var(--row-alt);
+            border-color: transparent;
+        }
+
+        .company-checkbox:hover {
+            background: rgba(139, 21, 56, 0.12);
+            border-color: rgba(139, 21, 56, 0.3);
+        }
+        .company-checkbox.checked {
+            background: rgba(139, 21, 56, 0.15);
+            border-color: rgba(139, 21, 56, 0.4);
+        }
+
+        .company-checkbox label { color: var(--text); }
+
+        .chart-toggle-pill { background: var(--row-alt); border-color: var(--border-input); color: var(--text-muted); }
+
+        .btn-theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border: 1px solid var(--border-input);
+            border-radius: 4px;
+            background: var(--card-bg);
+            color: var(--text);
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+        .btn-theme-toggle:hover {
+            border-color: #8b1538;
+            color: #8b1538;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h1>Island Pulse Bermuda</h1>
+            <p>Dashboard for Bermuda Insurance &amp; Reinsurance Markets | All chart values in USD Millions</p>
+        </div>
+
+        <!-- ADMIN REVIEW BANNER -->
+        <div id="admin-review-banner" style="display:none; background:#fff3cd; border-bottom:2px solid #ffc107; padding:12px 20px; font-size:0.95em; color:#333; text-align:center;">
+            <strong>🔍 Admin Review Mode:</strong> Viewing dashboard as <span id="admin-review-tier-name">Free</span> tier user
+            <button onclick="returnToAdminReview()" style="margin-left: 20px; padding: 6px 12px; background: #8b1538; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: 600;">← Return to Admin</button>
+        </div>
+
+        <div class="export-bar">
+            <div id="tier-badge" style="display:flex; align-items:center; gap:10px; padding:8px 12px; background:#f0f0f0; border-radius:6px; font-size:0.9em; margin-right:auto;">
+                <span id="tier-name">Free Plan</span>
+                <a href="index.html#pricing" style="color:#8b1538; text-decoration:none; font-weight:600;">Upgrade →</a>
+            </div>
+            <button class="btn-theme-toggle" onclick="window.location.href='index.html'" title="Home" style="font-size:13px;font-weight:700;width:auto;padding:0 10px;color:#8b1538;border-color:#8b1538;">🏠 Home</button>
+            <button id="review-console-btn" class="btn-theme-toggle" onclick="window.location.href='review_console.html'" title="Review Console (Custom tier)" style="font-size:13px;font-weight:700;width:auto;padding:0 10px;color:#8b1538;border-color:#8b1538;display:none;">📋 Review Console</button>
+            <button class="btn-theme-toggle" id="theme-toggle" onclick="toggleDarkMode()" title="Toggle dark mode">🌙</button>
+            <button id="export-pdf-btn" class="btn-export btn-export-pdf" onclick="exportPDF()" title="Export PDF">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/></svg>
+            </button>
+            <button id="export-excel-btn" class="btn-export btn-export-xlsx" onclick="exportExcel()" title="Export Excel">
+                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM8 16l2-3-2-3h1.5l1.25 2 1.25-2H13.5l-2 3 2 3H12l-1.25-2L9.5 16H8z"/></svg>
+            </button>
+            <button id="export-pptx-btn" class="btn-export btn-export-pptx" onclick="exportPPTX()" title="Export PowerPoint">
+                <svg viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13H9.5v3H8V6h4zm-1.5 5.5H12c1.1 0 2-.9 2-2s-.9-2-2-2h-1.5v4z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <div class="controls-row">
+        <div class="control-group">
+            <label for="year-filter">Select Year</label>
+            <select id="year-filter">
+                <option value="2024">2024</option>
+                <option value="2023">2023</option>
+                <option value="2022">2022</option>
+                <option value="2021">2021</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Average Lines</label>
+            <div class="chart-toggles">
+                <div class="chart-toggle-pill active" data-toggle="selected-avg">
+                    <span class="chart-toggle-dot" style="background:#8b1538"></span>
+                    Sel. Avg
+                </div>
+                <div class="chart-toggle-pill active" data-toggle="industry-avg">
+                    <span class="chart-toggle-dot" style="background:#f9a8d4"></span>
+                    Ind. Avg
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="company-filter" id="company-filter">
+        <div class="company-filter-trigger" id="company-filter-trigger" onclick="toggleFilterPanel()">
+            <span class="trigger-label" id="filter-trigger-label">All 40 companies selected</span>
+            <span class="trigger-arrow">▼</span>
+        </div>
+        <div class="company-filter-panel" id="company-filter-panel">
+            <div class="filter-panel-header">
+                <input class="filter-panel-search" id="company-search" type="text" placeholder="Search companies…" oninput="filterCompanyList()" />
+                <button class="btn-sm primary" onclick="selectAllCompanies()">All</button>
+                <button class="btn-sm" onclick="clearAllCompanies()">Clear</button>
+            </div>
+            <div class="filter-panel-body" id="filter-panel-body"></div>
+        </div>
+    </div>
+
+    <div class="metrics-row" id="metrics-row"></div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">
+                <span>Total Assets by Company</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="assetsChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Total Equity by Company</div>
+            <div class="chart-container">
+                <canvas id="equityChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Net Premiums Earned</div>
+            <div class="chart-container">
+                <canvas id="premiumsChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Net Income by Company</div>
+            <div class="chart-container">
+                <canvas id="incomeChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">ROE (Return on Equity) %</div>
+            <div class="chart-container">
+                <canvas id="roeChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">ROA (Return on Assets) %</div>
+            <div class="chart-container">
+                <canvas id="roaChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Loss Ratio %</div>
+            <div class="chart-container">
+                <canvas id="lossRatioChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Expense Ratio %</div>
+            <div class="chart-container">
+                <canvas id="expenseRatioChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Equity Ratio %</div>
+            <div class="chart-container">
+                <canvas id="equityRatioChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Combined Ratio %</div>
+            <div class="chart-container">
+                <canvas id="combinedRatioChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Total Investments</div>
+            <div class="chart-container">
+                <canvas id="investmentsChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Investment Return %</div>
+            <div class="chart-container">
+                <canvas id="investmentReturnChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card">
+            <div class="chart-title">Investment Yield %</div>
+            <div class="chart-container">
+                <canvas id="investmentYieldChart"></canvas>
+            </div>
+        </div>
+        <div class="chart-card">
+            <div class="chart-title">Investments to Assets %</div>
+            <div class="chart-container">
+                <canvas id="investmentRatioChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-row">
+        <div class="chart-card" style="grid-column: 1 / -1;">
+            <div class="chart-title">Year-over-Year Comparison</div>
+            <div class="metric-selector">
+                <label for="metric-select">Select Metric:</label>
+                <select id="metric-select" onchange="updateTrendChart()">
+                    <optgroup label="Balance Sheet">
+                        <option value="Total Assets">Total Assets</option>
+                        <option value="Total Equity">Total Equity</option>
+                        <option value="Total Investments">Total Investments</option>
+                        <option value="Cash and Cash Equivalents">Cash and Cash Equivalents</option>
+                    </optgroup>
+                    <optgroup label="Income Statement">
+                        <option value="Gross Premiums Written">Gross Premiums Written</option>
+                        <option value="Net Premiums Earned">Net Premiums Earned</option>
+                        <option value="Total Revenues">Total Revenues</option>
+                        <option value="Net Income">Net Income</option>
+                        <option value="Net Investment Income">Net Investment Income</option>
+                        <option value="Investment Gains/Losses">Investment Gains/Losses</option>
+                    </optgroup>
+                    <optgroup label="Profitability & Underwriting">
+                        <option value="ROE (%)">ROE (%)</option>
+                        <option value="ROA (%)">ROA (%)</option>
+                        <option value="Loss Ratio (%)">Loss Ratio (%)</option>
+                        <option value="Expense Ratio (%)">Expense Ratio (%)</option>
+                        <option value="Combined Ratio (%)">Combined Ratio (%)</option>
+                        <option value="Equity Ratio (%)">Equity Ratio (%)</option>
+                    </optgroup>
+                    <optgroup label="Investment Metrics">
+                        <option value="Investment Return (%)">Investment Return (%)</option>
+                        <option value="Investment Yield (%)">Investment Yield (%)</option>
+                        <option value="Investments to Assets (%)">Investments to Assets (%)</option>
+                    </optgroup>
+                </select>
+            </div>
+            <div class="line-chart-container">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="table-title">Financial Metrics Comparison Table</div>
+        <table class="comparison-table" id="comparison-table"></table>
+    </div>
+
+    <div id="chart-modal" class="chart-modal" onclick="onChartModalBackdropClick(event)">
+        <div class="chart-modal-content">
+            <button class="chart-modal-close" onclick="closeChartModal()" aria-label="Close chart">×</button>
+            <div class="chart-modal-title" id="chart-modal-title">Chart</div>
+            <div class="chart-modal-body">
+                <canvas id="chart-modal-canvas"></canvas>
+            </div>
+        </div>
+    </div>
+
     <script>
-    var dashboardData = {"companies":["Arch Reinsurance","Ascot Bermuda","Aspen Bermuda","AXIS Specialty","Chubb Tempest Reinsurance","Everest Reinsurance Bermuda","Hannover Re Bermuda","Markel Bermuda","Partner Reinsurance Company","Renaissance Reinsurance","Endurance Specialty Insurance","XL Bermuda","AXA XL Reinsurance","Validus Reinsurance","Somers Re","Lancashire Insurance Company","Hiscox Insurance Company Bermuda","Canopius Reinsurance","Conduit Reinsurance","Fidelis Insurance Bermuda","Fortitude Reinsurance Company","Group Ark Insurance","Hamilton Re","Harrington Re","Liberty Specialty Markets Bermuda","MS Amlin AG","Premia Reinsurance","Starr Insurance & Reinsurance","Vantage Risk","SiriusPoint Bermuda Insurance","ABR Reinsurance Ltd.","Allied World Assurance Company Ltd","American International Reinsurance Company Ltd.","Antares Reinsurance Company Limited","Argo Re Ltd.","Brit Reinsurance Bermuda Limited","Convex Re Limited","DaVinci Reinsurance Ltd.","Everest International Reinsurance Ltd.","Fortitude International Reinsurance Ltd."],"years":[2023,2024],"data":{"2024":{"balance_sheet":{"Fixed Maturities - AFS":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Fixed Maturities - Trading":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Equity Securities":{"Arch Reinsurance":1675.0,"Ascot Bermuda":0,"Aspen Bermuda":2.1,"AXIS Specialty":40.4,"Chubb Tempest Reinsurance":3671.9,"Everest Reinsurance Bermuda":8.1,"Hannover Re Bermuda":0,"Markel Bermuda":62.8,"Partner Reinsurance Company":918.5,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Short-term Investments":{"Arch Reinsurance":0,"Ascot Bermuda":150.4,"Aspen Bermuda":0,"AXIS Specialty":109.7,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":35.3,"Renaissance Reinsurance":330.5,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Other Investments":{"Arch Reinsurance":3066.0,"Ascot Bermuda":402.6,"Aspen Bermuda":124.1,"AXIS Specialty":421.1,"Chubb Tempest Reinsurance":-76.7,"Everest Reinsurance Bermuda":1299.6,"Hannover Re Bermuda":0,"Markel Bermuda":-8.4,"Partner Reinsurance Company":1685.0,"Renaissance Reinsurance":8.8,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Investments":{"Arch Reinsurance":40476.0,"Ascot Bermuda":6631.2,"Aspen Bermuda":1929.0,"AXIS Specialty":3987.5,"Chubb Tempest Reinsurance":20982.1,"Everest Reinsurance Bermuda":9271.8,"Hannover Re Bermuda":-1.5,"Markel Bermuda":4876.2,"Partner Reinsurance Company":8703.3,"Renaissance Reinsurance":7296.8,"Endurance Specialty Insurance":12450.0,"XL Bermuda":24800.0,"AXA XL Reinsurance":60.0,"Validus Reinsurance":8950.0,"Somers Re":6200.0,"Lancashire Insurance Company":233.0,"Hiscox Insurance Company Bermuda":7800.0,"Canopius Reinsurance":3413.0,"Conduit Reinsurance":5100.0,"Fidelis Insurance Bermuda":2566.9,"Fortitude Reinsurance Company":65948.0,"Group Ark Insurance":2800.0,"Hamilton Re":3900.0,"Harrington Re":3200.0,"Liberty Specialty Markets Bermuda":4500.0,"MS Amlin AG":4519.6,"Premia Reinsurance":2400.0,"Starr Insurance & Reinsurance":7100.0,"Vantage Risk":2100.0,"SiriusPoint Bermuda Insurance":6076.1,"ABR Reinsurance Ltd.":1724.2,"Allied World Assurance Company Ltd":12.3,"American International Reinsurance Company Ltd.":2419.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":3481.2,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":5736.3,"DaVinci Reinsurance Ltd.":5278.5,"Everest International Reinsurance Ltd.":4278.3,"Fortitude International Reinsurance Ltd.":0},"Cash and Cash Equivalents":{"Arch Reinsurance":936.0,"Ascot Bermuda":533.3,"Aspen Bermuda":186.9,"AXIS Specialty":389.5,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":413.9,"Hannover Re Bermuda":70.1,"Markel Bermuda":229.6,"Partner Reinsurance Company":333.6,"Renaissance Reinsurance":512.2,"Endurance Specialty Insurance":1050.0,"XL Bermuda":2100.0,"AXA XL Reinsurance":1600.0,"Validus Reinsurance":850.0,"Somers Re":520.0,"Lancashire Insurance Company":450.0,"Hiscox Insurance Company Bermuda":650.0,"Canopius Reinsurance":350.0,"Conduit Reinsurance":420.0,"Fidelis Insurance Bermuda":300.0,"Fortitude Reinsurance Company":560.0,"Group Ark Insurance":230.0,"Hamilton Re":320.0,"Harrington Re":260.0,"Liberty Specialty Markets Bermuda":370.0,"MS Amlin AG":461.2,"Premia Reinsurance":200.0,"Starr Insurance & Reinsurance":590.0,"Vantage Risk":180.0,"SiriusPoint Bermuda Insurance":530.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Assets":{"Arch Reinsurance":70734.0,"Ascot Bermuda":11825.1,"Aspen Bermuda":5052.9,"AXIS Specialty":8835.8,"Chubb Tempest Reinsurance":28607.3,"Everest Reinsurance Bermuda":17315.0,"Hannover Re Bermuda":0,"Markel Bermuda":8705.0,"Partner Reinsurance Company":14090.6,"Renaissance Reinsurance":17352.8,"Endurance Specialty Insurance":18200.0,"XL Bermuda":36500.0,"AXA XL Reinsurance":27600.0,"Validus Reinsurance":13200.0,"Somers Re":9100.0,"Lancashire Insurance Company":2674.5,"Hiscox Insurance Company Bermuda":11200.0,"Canopius Reinsurance":6100.0,"Conduit Reinsurance":1504.2,"Fidelis Insurance Bermuda":6332.0,"Fortitude Reinsurance Company":73814.0,"Group Ark Insurance":4100.0,"Hamilton Re":5700.0,"Harrington Re":4700.0,"Liberty Specialty Markets Bermuda":6600.0,"MS Amlin AG":8446.8,"Premia Reinsurance":3500.0,"Starr Insurance & Reinsurance":10400.0,"Vantage Risk":3100.0,"SiriusPoint Bermuda Insurance":12804.6,"ABR Reinsurance Ltd.":2281.7,"Allied World Assurance Company Ltd":22.5,"American International Reinsurance Company Ltd.":6454.0,"Antares Reinsurance Company Limited":4332.9,"Argo Re Ltd.":8552.4,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":11152.0,"DaVinci Reinsurance Ltd.":6083.3,"Everest International Reinsurance Ltd.":5584.8,"Fortitude International Reinsurance Ltd.":0},"Loss Reserves":{"Arch Reinsurance":29369.0,"Ascot Bermuda":5906.3,"Aspen Bermuda":2862.4,"AXIS Specialty":4356.1,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":9371.1,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":5275.4,"Renaissance Reinsurance":8181.8,"Endurance Specialty Insurance":4500.0,"XL Bermuda":9200.0,"AXA XL Reinsurance":6800.0,"Validus Reinsurance":3200.0,"Somers Re":2100.0,"Lancashire Insurance Company":1800.0,"Hiscox Insurance Company Bermuda":2600.0,"Canopius Reinsurance":1400.0,"Conduit Reinsurance":1700.0,"Fidelis Insurance Bermuda":1200.0,"Fortitude Reinsurance Company":2300.0,"Group Ark Insurance":950.0,"Hamilton Re":1300.0,"Harrington Re":1100.0,"Liberty Specialty Markets Bermuda":1500.0,"MS Amlin AG":1950.0,"Premia Reinsurance":800.0,"Starr Insurance & Reinsurance":2400.0,"Vantage Risk":700.0,"SiriusPoint Bermuda Insurance":2200.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Unearned Premiums":{"Arch Reinsurance":10218.0,"Ascot Bermuda":2426.3,"Aspen Bermuda":582.7,"AXIS Specialty":979.0,"Chubb Tempest Reinsurance":1481.8,"Everest Reinsurance Bermuda":2431.2,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":999.1,"Renaissance Reinsurance":2836.8,"Endurance Specialty Insurance":2800.0,"XL Bermuda":5600.0,"AXA XL Reinsurance":4200.0,"Validus Reinsurance":2100.0,"Somers Re":1400.0,"Lancashire Insurance Company":1200.0,"Hiscox Insurance Company Bermuda":1700.0,"Canopius Reinsurance":900.0,"Conduit Reinsurance":1100.0,"Fidelis Insurance Bermuda":800.0,"Fortitude Reinsurance Company":1500.0,"Group Ark Insurance":620.0,"Hamilton Re":850.0,"Harrington Re":700.0,"Liberty Specialty Markets Bermuda":1000.0,"MS Amlin AG":1300.0,"Premia Reinsurance":520.0,"Starr Insurance & Reinsurance":1600.0,"Vantage Risk":460.0,"SiriusPoint Bermuda Insurance":1450.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Liabilities":{"Arch Reinsurance":48735.0,"Ascot Bermuda":9153.5,"Aspen Bermuda":3930.1,"AXIS Specialty":5668.1,"Chubb Tempest Reinsurance":15333.5,"Everest Reinsurance Bermuda":12991.8,"Hannover Re Bermuda":0,"Markel Bermuda":6290.7,"Partner Reinsurance Company":8490.4,"Renaissance Reinsurance":13227.9,"Endurance Specialty Insurance":8950.0,"XL Bermuda":17800.0,"AXA XL Reinsurance":13400.0,"Validus Reinsurance":6400.0,"Somers Re":4400.0,"Lancashire Insurance Company":1151.7,"Hiscox Insurance Company Bermuda":5400.0,"Canopius Reinsurance":2950.0,"Conduit Reinsurance":495.5,"Fidelis Insurance Bermuda":4415.8,"Fortitude Reinsurance Company":74406.0,"Group Ark Insurance":1950.0,"Hamilton Re":2750.0,"Harrington Re":2250.0,"Liberty Specialty Markets Bermuda":3200.0,"MS Amlin AG":6747.2,"Premia Reinsurance":1700.0,"Starr Insurance & Reinsurance":5000.0,"Vantage Risk":1500.0,"SiriusPoint Bermuda Insurance":9493.5,"ABR Reinsurance Ltd.":1597.2,"Allied World Assurance Company Ltd":15.7,"American International Reinsurance Company Ltd.":5672.0,"Antares Reinsurance Company Limited":3218.6,"Argo Re Ltd.":7176.4,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":7806.4,"DaVinci Reinsurance Ltd.":4258.3,"Everest International Reinsurance Ltd.":3909.4,"Fortitude International Reinsurance Ltd.":0},"Total Equity":{"Arch Reinsurance":21888.0,"Ascot Bermuda":2671.7,"Aspen Bermuda":1122.9,"AXIS Specialty":3167.7,"Chubb Tempest Reinsurance":13273.7,"Everest Reinsurance Bermuda":4323.2,"Hannover Re Bermuda":0,"Markel Bermuda":2414.4,"Partner Reinsurance Company":5594.3,"Renaissance Reinsurance":4124.9,"Endurance Specialty Insurance":9250.0,"XL Bermuda":18700.0,"AXA XL Reinsurance":14200.0,"Validus Reinsurance":6800.0,"Somers Re":4700.0,"Lancashire Insurance Company":4050.0,"Hiscox Insurance Company Bermuda":5800.0,"Canopius Reinsurance":3150.0,"Conduit Reinsurance":3800.0,"Fidelis Insurance Bermuda":1916.2,"Fortitude Reinsurance Company":5100.0,"Group Ark Insurance":2150.0,"Hamilton Re":2950.0,"Harrington Re":2450.0,"Liberty Specialty Markets Bermuda":3400.0,"MS Amlin AG":1699.6,"Premia Reinsurance":1800.0,"Starr Insurance & Reinsurance":5400.0,"Vantage Risk":1600.0,"SiriusPoint Bermuda Insurance":4850.0,"ABR Reinsurance Ltd.":684.5,"Allied World Assurance Company Ltd":6.8,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":1114.3,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":3345.6,"DaVinci Reinsurance Ltd.":1825.0,"Everest International Reinsurance Ltd.":1675.4,"Fortitude International Reinsurance Ltd.":0}},"income_statement":{"Gross Premiums Written":{"Arch Reinsurance":0,"Ascot Bermuda":4678.5,"Aspen Bermuda":1490.9,"AXIS Specialty":1684.5,"Chubb Tempest Reinsurance":6639.4,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":2000.9,"Markel Bermuda":0,"Partner Reinsurance Company":4697.7,"Renaissance Reinsurance":4530.0,"Endurance Specialty Insurance":5200.0,"XL Bermuda":10500.0,"AXA XL Reinsurance":7800.0,"Validus Reinsurance":4200.0,"Somers Re":2800.0,"Lancashire Insurance Company":2400.0,"Hiscox Insurance Company Bermuda":3400.0,"Canopius Reinsurance":1900.0,"Conduit Reinsurance":2300.0,"Fidelis Insurance Bermuda":2210.5,"Fortitude Reinsurance Company":3100.0,"Group Ark Insurance":1300.0,"Hamilton Re":1800.0,"Harrington Re":1500.0,"Liberty Specialty Markets Bermuda":2100.0,"MS Amlin AG":3084.7,"Premia Reinsurance":1100.0,"Starr Insurance & Reinsurance":3200.0,"Vantage Risk":950.0,"SiriusPoint Bermuda Insurance":3000.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":6.7,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":2.0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":5166.4,"DaVinci Reinsurance Ltd.":5.0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Net Premiums Earned":{"Arch Reinsurance":15100.0,"Ascot Bermuda":3215.5,"Aspen Bermuda":990.3,"AXIS Specialty":1277.8,"Chubb Tempest Reinsurance":5776.6,"Everest Reinsurance Bermuda":4079.1,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":4109.1,"Renaissance Reinsurance":2941.3,"Endurance Specialty Insurance":4800.0,"XL Bermuda":9800.0,"AXA XL Reinsurance":7200.0,"Validus Reinsurance":3900.0,"Somers Re":2600.0,"Lancashire Insurance Company":2200.0,"Hiscox Insurance Company Bermuda":3100.0,"Canopius Reinsurance":1750.0,"Conduit Reinsurance":2100.0,"Fidelis Insurance Bermuda":1306.5,"Fortitude Reinsurance Company":2850.0,"Group Ark Insurance":1200.0,"Hamilton Re":1650.0,"Harrington Re":1380.0,"Liberty Specialty Markets Bermuda":1950.0,"MS Amlin AG":2469.0,"Premia Reinsurance":1000.0,"Starr Insurance & Reinsurance":2950.0,"Vantage Risk":870.0,"SiriusPoint Bermuda Insurance":2426.2,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":4.6,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":3070.4,"DaVinci Reinsurance Ltd.":1222.0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Net Investment Income":{"Arch Reinsurance":1489.0,"Ascot Bermuda":292.5,"Aspen Bermuda":94.6,"AXIS Specialty":246.2,"Chubb Tempest Reinsurance":543.3,"Everest Reinsurance Bermuda":425.8,"Hannover Re Bermuda":152.0,"Markel Bermuda":109.9,"Partner Reinsurance Company":321.5,"Renaissance Reinsurance":305.9,"Endurance Specialty Insurance":454.3,"XL Bermuda":904.9,"AXA XL Reinsurance":689.7,"Validus Reinsurance":326.6,"Somers Re":226.2,"Lancashire Insurance Company":197.0,"Hiscox Insurance Company Bermuda":284.6,"Canopius Reinsurance":3.0,"Conduit Reinsurance":5.0,"Fidelis Insurance Bermuda":87.6,"Fortitude Reinsurance Company":1981.0,"Group Ark Insurance":102.2,"Hamilton Re":142.3,"Harrington Re":116.8,"Liberty Specialty Markets Bermuda":164.2,"MS Amlin AG":227.5,"Premia Reinsurance":87.6,"Starr Insurance & Reinsurance":2274.0,"Vantage Risk":76.6,"SiriusPoint Bermuda Insurance":283.7,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":85.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":28.7,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Investment Gains/Losses":{"Arch Reinsurance":0.0,"Ascot Bermuda":0.0,"Aspen Bermuda":0.0,"AXIS Specialty":0.0,"Chubb Tempest Reinsurance":0.0,"Everest Reinsurance Bermuda":0.0,"Hannover Re Bermuda":0.0,"Markel Bermuda":0.0,"Partner Reinsurance Company":0.0,"Renaissance Reinsurance":0.0,"Endurance Specialty Insurance":0.0,"XL Bermuda":0.0,"AXA XL Reinsurance":0.0,"Validus Reinsurance":0.0,"Somers Re":0.0,"Lancashire Insurance Company":0.0,"Hiscox Insurance Company Bermuda":0.0,"Canopius Reinsurance":0.0,"Conduit Reinsurance":0.0,"Fidelis Insurance Bermuda":0.0,"Fortitude Reinsurance Company":0.0,"Group Ark Insurance":0.0,"Hamilton Re":0.0,"Harrington Re":0.0,"Liberty Specialty Markets Bermuda":0.0,"MS Amlin AG":0.0,"Premia Reinsurance":0.0,"Starr Insurance & Reinsurance":0.0,"Vantage Risk":0.0,"SiriusPoint Bermuda Insurance":0.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Revenues":{"Arch Reinsurance":17438.0,"Ascot Bermuda":3632.5,"Aspen Bermuda":1121.4,"AXIS Specialty":1477.4,"Chubb Tempest Reinsurance":7177.7,"Everest Reinsurance Bermuda":4428.6,"Hannover Re Bermuda":0,"Markel Bermuda":33.8,"Partner Reinsurance Company":4577.2,"Renaissance Reinsurance":3250.0,"Endurance Specialty Insurance":5100.0,"XL Bermuda":10400.0,"AXA XL Reinsurance":7600.0,"Validus Reinsurance":4100.0,"Somers Re":2750.0,"Lancashire Insurance Company":2350.0,"Hiscox Insurance Company Bermuda":3300.0,"Canopius Reinsurance":1850.0,"Conduit Reinsurance":2250.0,"Fidelis Insurance Bermuda":1550.0,"Fortitude Reinsurance Company":3050.0,"Group Ark Insurance":1280.0,"Hamilton Re":1750.0,"Harrington Re":1450.0,"Liberty Specialty Markets Bermuda":2050.0,"MS Amlin AG":2471.3,"Premia Reinsurance":1050.0,"Starr Insurance & Reinsurance":3100.0,"Vantage Risk":900.0,"SiriusPoint Bermuda Insurance":2950.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Losses and LAE":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":-1614.8,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":479.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Expenses":{"Arch Reinsurance":12793.0,"Ascot Bermuda":3095.0,"Aspen Bermuda":898.2,"AXIS Specialty":1134.8,"Chubb Tempest Reinsurance":8518.6,"Everest Reinsurance Bermuda":3520.5,"Hannover Re Bermuda":0,"Markel Bermuda":1180.8,"Partner Reinsurance Company":3154.5,"Renaissance Reinsurance":2302.9,"Endurance Specialty Insurance":3200.0,"XL Bermuda":6500.0,"AXA XL Reinsurance":4800.0,"Validus Reinsurance":2400.0,"Somers Re":1600.0,"Lancashire Insurance Company":1350.0,"Hiscox Insurance Company Bermuda":1900.0,"Canopius Reinsurance":1050.0,"Conduit Reinsurance":1300.0,"Fidelis Insurance Bermuda":1044.0,"Fortitude Reinsurance Company":1700.0,"Group Ark Insurance":700.0,"Hamilton Re":950.0,"Harrington Re":800.0,"Liberty Specialty Markets Bermuda":1150.0,"MS Amlin AG":1400.0,"Premia Reinsurance":580.0,"Starr Insurance & Reinsurance":1750.0,"Vantage Risk":500.0,"SiriusPoint Bermuda Insurance":2341.9,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":186.5,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Net Income":{"Arch Reinsurance":580.0,"Ascot Bermuda":463.8,"Aspen Bermuda":233.5,"AXIS Specialty":509.7,"Chubb Tempest Reinsurance":3342.3,"Everest Reinsurance Bermuda":889.8,"Hannover Re Bermuda":676.2,"Markel Bermuda":614.1,"Partner Reinsurance Company":1395.2,"Renaissance Reinsurance":948.8,"Endurance Specialty Insurance":1900.0,"XL Bermuda":2.0,"AXA XL Reinsurance":2800.0,"Validus Reinsurance":1700.0,"Somers Re":1150.0,"Lancashire Insurance Company":339.6,"Hiscox Insurance Company Bermuda":1400.0,"Canopius Reinsurance":800.0,"Conduit Reinsurance":950.0,"Fidelis Insurance Bermuda":448.3,"Fortitude Reinsurance Company":1350.0,"Group Ark Insurance":580.0,"Hamilton Re":800.0,"Harrington Re":650.0,"Liberty Specialty Markets Bermuda":3855.0,"MS Amlin AG":310.8,"Premia Reinsurance":470.0,"Starr Insurance & Reinsurance":1350.0,"Vantage Risk":400.0,"SiriusPoint Bermuda Insurance":1300.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":31.0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0}},"cash_flows":{"Investing Cash Flow":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Financing Cash Flow":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0}},"ratios":{"Loss Ratio (%)":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0.0,"AXA XL Reinsurance":0.0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0.0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0.0,"Conduit Reinsurance":0.0,"Fidelis Insurance Bermuda":0.0,"Fortitude Reinsurance Company":0.0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0.0,"MS Amlin AG":65.4,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0.0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Expense Ratio (%)":{"Arch Reinsurance":84.7,"Ascot Bermuda":96.3,"Aspen Bermuda":90.7,"AXIS Specialty":88.8,"Chubb Tempest Reinsurance":147.5,"Everest Reinsurance Bermuda":86.3,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":76.8,"Renaissance Reinsurance":78.3,"Endurance Specialty Insurance":66.7,"XL Bermuda":66.3,"AXA XL Reinsurance":66.7,"Validus Reinsurance":61.5,"Somers Re":61.5,"Lancashire Insurance Company":61.4,"Hiscox Insurance Company Bermuda":61.3,"Canopius Reinsurance":60.0,"Conduit Reinsurance":61.9,"Fidelis Insurance Bermuda":79.9,"Fortitude Reinsurance Company":59.6,"Group Ark Insurance":58.3,"Hamilton Re":57.6,"Harrington Re":58.0,"Liberty Specialty Markets Bermuda":59.0,"MS Amlin AG":56.7,"Premia Reinsurance":58.0,"Starr Insurance & Reinsurance":59.3,"Vantage Risk":57.5,"SiriusPoint Bermuda Insurance":96.5,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Combined Ratio (%)":{"Arch Reinsurance":84.7,"Ascot Bermuda":96.3,"Aspen Bermuda":90.7,"AXIS Specialty":88.8,"Chubb Tempest Reinsurance":147.5,"Everest Reinsurance Bermuda":86.3,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":76.8,"Renaissance Reinsurance":78.3,"Endurance Specialty Insurance":66.7,"XL Bermuda":66.3,"AXA XL Reinsurance":66.7,"Validus Reinsurance":61.5,"Somers Re":61.5,"Lancashire Insurance Company":61.4,"Hiscox Insurance Company Bermuda":61.3,"Canopius Reinsurance":60.0,"Conduit Reinsurance":61.9,"Fidelis Insurance Bermuda":79.9,"Fortitude Reinsurance Company":59.6,"Group Ark Insurance":58.3,"Hamilton Re":57.6,"Harrington Re":58.0,"Liberty Specialty Markets Bermuda":59.0,"MS Amlin AG":122.1,"Premia Reinsurance":58.0,"Starr Insurance & Reinsurance":59.3,"Vantage Risk":57.5,"SiriusPoint Bermuda Insurance":96.5,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"ROE (%)":{"Arch Reinsurance":2.6,"Ascot Bermuda":17.4,"Aspen Bermuda":20.8,"AXIS Specialty":16.1,"Chubb Tempest Reinsurance":25.2,"Everest Reinsurance Bermuda":20.6,"Hannover Re Bermuda":0,"Markel Bermuda":25.4,"Partner Reinsurance Company":24.9,"Renaissance Reinsurance":23.0,"Endurance Specialty Insurance":20.5,"XL Bermuda":0.0,"AXA XL Reinsurance":19.7,"Validus Reinsurance":25.0,"Somers Re":24.5,"Lancashire Insurance Company":8.4,"Hiscox Insurance Company Bermuda":24.1,"Canopius Reinsurance":25.4,"Conduit Reinsurance":25.0,"Fidelis Insurance Bermuda":23.4,"Fortitude Reinsurance Company":26.5,"Group Ark Insurance":27.0,"Hamilton Re":27.1,"Harrington Re":26.5,"Liberty Specialty Markets Bermuda":113.4,"MS Amlin AG":18.3,"Premia Reinsurance":26.1,"Starr Insurance & Reinsurance":25.0,"Vantage Risk":25.0,"SiriusPoint Bermuda Insurance":26.8,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":2.8,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0.0,"Fortitude International Reinsurance Ltd.":0},"ROA (%)":{"Arch Reinsurance":0.8,"Ascot Bermuda":3.9,"Aspen Bermuda":4.6,"AXIS Specialty":5.8,"Chubb Tempest Reinsurance":11.7,"Everest Reinsurance Bermuda":5.1,"Hannover Re Bermuda":0,"Markel Bermuda":7.1,"Partner Reinsurance Company":9.9,"Renaissance Reinsurance":5.5,"Endurance Specialty Insurance":10.4,"XL Bermuda":0.0,"AXA XL Reinsurance":10.1,"Validus Reinsurance":12.9,"Somers Re":12.6,"Lancashire Insurance Company":12.7,"Hiscox Insurance Company Bermuda":12.5,"Canopius Reinsurance":13.1,"Conduit Reinsurance":63.2,"Fidelis Insurance Bermuda":7.1,"Fortitude Reinsurance Company":1.8,"Group Ark Insurance":14.1,"Hamilton Re":14.0,"Harrington Re":13.8,"Liberty Specialty Markets Bermuda":58.4,"MS Amlin AG":3.7,"Premia Reinsurance":13.4,"Starr Insurance & Reinsurance":13.0,"Vantage Risk":12.9,"SiriusPoint Bermuda Insurance":10.2,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":0.0,"Antares Reinsurance Company Limited":0.7,"Argo Re Ltd.":0.0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0.0,"Fortitude International Reinsurance Ltd.":0},"Equity Ratio (%)":{"Arch Reinsurance":30.9,"Ascot Bermuda":22.6,"Aspen Bermuda":22.2,"AXIS Specialty":35.9,"Chubb Tempest Reinsurance":46.4,"Everest Reinsurance Bermuda":25.0,"Hannover Re Bermuda":0,"Markel Bermuda":27.7,"Partner Reinsurance Company":39.7,"Renaissance Reinsurance":23.8,"Endurance Specialty Insurance":50.8,"XL Bermuda":51.2,"AXA XL Reinsurance":51.4,"Validus Reinsurance":51.5,"Somers Re":51.6,"Lancashire Insurance Company":151.4,"Hiscox Insurance Company Bermuda":51.8,"Canopius Reinsurance":51.6,"Conduit Reinsurance":252.6,"Fidelis Insurance Bermuda":30.3,"Fortitude Reinsurance Company":6.9,"Group Ark Insurance":52.4,"Hamilton Re":51.8,"Harrington Re":52.1,"Liberty Specialty Markets Bermuda":51.5,"MS Amlin AG":20.1,"Premia Reinsurance":51.4,"Starr Insurance & Reinsurance":51.9,"Vantage Risk":51.6,"SiriusPoint Bermuda Insurance":37.9,"ABR Reinsurance Ltd.":30.0,"Allied World Assurance Company Ltd":30.2,"American International Reinsurance Company Ltd.":0.0,"Antares Reinsurance Company Limited":25.7,"Argo Re Ltd.":0.0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":30.0,"DaVinci Reinsurance Ltd.":30.0,"Everest International Reinsurance Ltd.":30.0,"Fortitude International Reinsurance Ltd.":0},"Investment Return (%)":{"Arch Reinsurance":3.68,"Ascot Bermuda":4.41,"Aspen Bermuda":4.9,"AXIS Specialty":6.17,"Chubb Tempest Reinsurance":2.59,"Everest Reinsurance Bermuda":4.59,"Hannover Re Bermuda":-10133.33,"Markel Bermuda":2.25,"Partner Reinsurance Company":3.69,"Renaissance Reinsurance":4.19,"Endurance Specialty Insurance":3.65,"XL Bermuda":3.65,"AXA XL Reinsurance":1149.5,"Validus Reinsurance":3.65,"Somers Re":3.65,"Lancashire Insurance Company":84.55,"Hiscox Insurance Company Bermuda":3.65,"Canopius Reinsurance":0.09,"Conduit Reinsurance":0.1,"Fidelis Insurance Bermuda":3.41,"Fortitude Reinsurance Company":3.0,"Group Ark Insurance":3.65,"Hamilton Re":3.65,"Harrington Re":3.65,"Liberty Specialty Markets Bermuda":3.65,"MS Amlin AG":5.03,"Premia Reinsurance":3.65,"Starr Insurance & Reinsurance":32.03,"Vantage Risk":3.65,"SiriusPoint Bermuda Insurance":4.67,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":3.51,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0.82,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0.0,"Fortitude International Reinsurance Ltd.":0},"Investment Yield (%)":{"Arch Reinsurance":3.68,"Ascot Bermuda":4.41,"Aspen Bermuda":4.9,"AXIS Specialty":6.17,"Chubb Tempest Reinsurance":2.59,"Everest Reinsurance Bermuda":4.59,"Hannover Re Bermuda":-10133.33,"Markel Bermuda":2.25,"Partner Reinsurance Company":3.69,"Renaissance Reinsurance":4.19,"Endurance Specialty Insurance":3.65,"XL Bermuda":3.65,"AXA XL Reinsurance":1149.5,"Validus Reinsurance":3.65,"Somers Re":3.65,"Lancashire Insurance Company":84.55,"Hiscox Insurance Company Bermuda":3.65,"Canopius Reinsurance":0.09,"Conduit Reinsurance":0.1,"Fidelis Insurance Bermuda":3.41,"Fortitude Reinsurance Company":3.0,"Group Ark Insurance":3.65,"Hamilton Re":3.65,"Harrington Re":3.65,"Liberty Specialty Markets Bermuda":3.65,"MS Amlin AG":5.03,"Premia Reinsurance":3.65,"Starr Insurance & Reinsurance":32.03,"Vantage Risk":3.65,"SiriusPoint Bermuda Insurance":4.67,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":3.51,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0.82,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0.0,"Fortitude International Reinsurance Ltd.":0},"Investments to Assets (%)":{"Arch Reinsurance":57.2,"Ascot Bermuda":56.1,"Aspen Bermuda":38.2,"AXIS Specialty":45.1,"Chubb Tempest Reinsurance":73.3,"Everest Reinsurance Bermuda":53.5,"Hannover Re Bermuda":0,"Markel Bermuda":56.0,"Partner Reinsurance Company":61.8,"Renaissance Reinsurance":42.0,"Endurance Specialty Insurance":68.4,"XL Bermuda":67.9,"AXA XL Reinsurance":0.2,"Validus Reinsurance":67.8,"Somers Re":68.1,"Lancashire Insurance Company":8.7,"Hiscox Insurance Company Bermuda":69.6,"Canopius Reinsurance":56.0,"Conduit Reinsurance":339.1,"Fidelis Insurance Bermuda":40.5,"Fortitude Reinsurance Company":89.3,"Group Ark Insurance":68.3,"Hamilton Re":68.4,"Harrington Re":68.1,"Liberty Specialty Markets Bermuda":68.2,"MS Amlin AG":53.5,"Premia Reinsurance":68.6,"Starr Insurance & Reinsurance":68.3,"Vantage Risk":67.7,"SiriusPoint Bermuda Insurance":47.5,"ABR Reinsurance Ltd.":75.6,"Allied World Assurance Company Ltd":54.7,"American International Reinsurance Company Ltd.":37.5,"Antares Reinsurance Company Limited":0.0,"Argo Re Ltd.":40.7,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":51.4,"DaVinci Reinsurance Ltd.":86.8,"Everest International Reinsurance Ltd.":76.6,"Fortitude International Reinsurance Ltd.":0}}},"2023":{"balance_sheet":{"Fixed Maturities - AFS":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Fixed Maturities - Trading":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Equity Securities":{"Arch Reinsurance":1186.0,"Ascot Bermuda":0,"Aspen Bermuda":16.4,"AXIS Specialty":103.0,"Chubb Tempest Reinsurance":41.2,"Everest Reinsurance Bermuda":8.7,"Hannover Re Bermuda":0,"Markel Bermuda":68.0,"Partner Reinsurance Company":868.5,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Short-term Investments":{"Arch Reinsurance":0,"Ascot Bermuda":115.1,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":306.5,"Renaissance Reinsurance":0.0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Other Investments":{"Arch Reinsurance":2488.0,"Ascot Bermuda":260.5,"Aspen Bermuda":117.3,"AXIS Specialty":455.1,"Chubb Tempest Reinsurance":-115.8,"Everest Reinsurance Bermuda":1230.8,"Hannover Re Bermuda":0,"Markel Bermuda":0.3,"Partner Reinsurance Company":1843.7,"Renaissance Reinsurance":26.5,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Investments":{"Arch Reinsurance":33820.0,"Ascot Bermuda":5097.7,"Aspen Bermuda":2106.7,"AXIS Specialty":4755.4,"Chubb Tempest Reinsurance":17285.2,"Everest Reinsurance Bermuda":8962.5,"Hannover Re Bermuda":0.4,"Markel Bermuda":4723.8,"Partner Reinsurance Company":7660.6,"Renaissance Reinsurance":8375.6,"Endurance Specialty Insurance":11827.0,"XL Bermuda":55.0,"AXA XL Reinsurance":54.0,"Validus Reinsurance":100379.0,"Somers Re":5890.0,"Lancashire Insurance Company":195.1,"Hiscox Insurance Company Bermuda":7410.0,"Canopius Reinsurance":3412.0,"Conduit Reinsurance":4845.0,"Fidelis Insurance Bermuda":3420.0,"Fortitude Reinsurance Company":39560.0,"Group Ark Insurance":2660.0,"Hamilton Re":3705.0,"Harrington Re":3040.0,"Liberty Specialty Markets Bermuda":4275.0,"MS Amlin AG":3795.6,"Premia Reinsurance":2280.0,"Starr Insurance & Reinsurance":6745.0,"Vantage Risk":1995.0,"SiriusPoint Bermuda Insurance":5634.3,"ABR Reinsurance Ltd.":1798.2,"Allied World Assurance Company Ltd":12.2,"American International Reinsurance Company Ltd.":2294.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":3650.0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":4364.5,"DaVinci Reinsurance Ltd.":4758.7,"Everest International Reinsurance Ltd.":3794.5,"Fortitude International Reinsurance Ltd.":0},"Cash and Cash Equivalents":{"Arch Reinsurance":883.0,"Ascot Bermuda":442.0,"Aspen Bermuda":301.6,"AXIS Specialty":152.0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":379.7,"Hannover Re Bermuda":140.1,"Markel Bermuda":297.7,"Partner Reinsurance Company":335.4,"Renaissance Reinsurance":704.4,"Endurance Specialty Insurance":997.0,"XL Bermuda":1995.0,"AXA XL Reinsurance":1520.0,"Validus Reinsurance":807.0,"Somers Re":494.0,"Lancashire Insurance Company":427.0,"Hiscox Insurance Company Bermuda":617.0,"Canopius Reinsurance":332.0,"Conduit Reinsurance":399.0,"Fidelis Insurance Bermuda":285.0,"Fortitude Reinsurance Company":532.0,"Group Ark Insurance":218.0,"Hamilton Re":304.0,"Harrington Re":247.0,"Liberty Specialty Markets Bermuda":351.0,"MS Amlin AG":367.0,"Premia Reinsurance":190.0,"Starr Insurance & Reinsurance":560.0,"Vantage Risk":171.0,"SiriusPoint Bermuda Insurance":503.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Assets":{"Arch Reinsurance":58762.0,"Ascot Bermuda":9557.2,"Aspen Bermuda":5552.3,"AXIS Specialty":8570.5,"Chubb Tempest Reinsurance":25586.1,"Everest Reinsurance Bermuda":15524.1,"Hannover Re Bermuda":0,"Markel Bermuda":8165.6,"Partner Reinsurance Company":13527.7,"Renaissance Reinsurance":19412.1,"Endurance Specialty Insurance":17290.0,"XL Bermuda":34675.0,"AXA XL Reinsurance":26220.0,"Validus Reinsurance":12540.0,"Somers Re":8645.0,"Lancashire Insurance Company":2979.8,"Hiscox Insurance Company Bermuda":10640.0,"Canopius Reinsurance":5795.0,"Conduit Reinsurance":1578.0,"Fidelis Insurance Bermuda":4940.0,"Fortitude Reinsurance Company":43006.0,"Group Ark Insurance":3895.0,"Hamilton Re":5415.0,"Harrington Re":4465.0,"Liberty Specialty Markets Bermuda":6270.0,"MS Amlin AG":6994.5,"Premia Reinsurance":3325.0,"Starr Insurance & Reinsurance":9880.0,"Vantage Risk":2945.0,"SiriusPoint Bermuda Insurance":10998.7,"ABR Reinsurance Ltd.":2165.7,"Allied World Assurance Company Ltd":22.2,"American International Reinsurance Company Ltd.":4779.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":10031.2,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":8588.1,"DaVinci Reinsurance Ltd.":5592.8,"Everest International Reinsurance Ltd.":5089.5,"Fortitude International Reinsurance Ltd.":0},"Loss Reserves":{"Arch Reinsurance":22752.0,"Ascot Bermuda":4665.7,"Aspen Bermuda":2922.4,"AXIS Specialty":4383.8,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":8199.3,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":5242.9,"Renaissance Reinsurance":8680.5,"Endurance Specialty Insurance":4275.0,"XL Bermuda":8740.0,"AXA XL Reinsurance":6460.0,"Validus Reinsurance":3040.0,"Somers Re":1995.0,"Lancashire Insurance Company":1710.0,"Hiscox Insurance Company Bermuda":2470.0,"Canopius Reinsurance":1330.0,"Conduit Reinsurance":1615.0,"Fidelis Insurance Bermuda":1140.0,"Fortitude Reinsurance Company":2185.0,"Group Ark Insurance":902.0,"Hamilton Re":1235.0,"Harrington Re":1045.0,"Liberty Specialty Markets Bermuda":1425.0,"MS Amlin AG":1852.0,"Premia Reinsurance":760.0,"Starr Insurance & Reinsurance":2280.0,"Vantage Risk":665.0,"SiriusPoint Bermuda Insurance":2090.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Unearned Premiums":{"Arch Reinsurance":8808.0,"Ascot Bermuda":1988.6,"Aspen Bermuda":553.9,"AXIS Specialty":887.7,"Chubb Tempest Reinsurance":1429.5,"Everest Reinsurance Bermuda":2142.0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":1017.5,"Renaissance Reinsurance":2885.9,"Endurance Specialty Insurance":2660.0,"XL Bermuda":5320.0,"AXA XL Reinsurance":3990.0,"Validus Reinsurance":1995.0,"Somers Re":1330.0,"Lancashire Insurance Company":1140.0,"Hiscox Insurance Company Bermuda":1615.0,"Canopius Reinsurance":855.0,"Conduit Reinsurance":1045.0,"Fidelis Insurance Bermuda":760.0,"Fortitude Reinsurance Company":1425.0,"Group Ark Insurance":589.0,"Hamilton Re":807.0,"Harrington Re":665.0,"Liberty Specialty Markets Bermuda":950.0,"MS Amlin AG":1235.0,"Premia Reinsurance":494.0,"Starr Insurance & Reinsurance":1520.0,"Vantage Risk":437.0,"SiriusPoint Bermuda Insurance":1377.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Liabilities":{"Arch Reinsurance":39201.0,"Ascot Bermuda":7328.9,"Aspen Bermuda":4370.2,"AXIS Specialty":5627.8,"Chubb Tempest Reinsurance":13910.3,"Everest Reinsurance Bermuda":11328.8,"Hannover Re Bermuda":0,"Markel Bermuda":5867.5,"Partner Reinsurance Company":8454.2,"Renaissance Reinsurance":13732.6,"Endurance Specialty Insurance":8502.0,"XL Bermuda":16910.0,"AXA XL Reinsurance":12730.0,"Validus Reinsurance":6080.0,"Somers Re":4180.0,"Lancashire Insurance Company":1593.6,"Hiscox Insurance Company Bermuda":5130.0,"Canopius Reinsurance":2802.0,"Conduit Reinsurance":746.8,"Fidelis Insurance Bermuda":2375.0,"Fortitude Reinsurance Company":47584.0,"Group Ark Insurance":1852.0,"Hamilton Re":2612.0,"Harrington Re":2137.0,"Liberty Specialty Markets Bermuda":3040.0,"MS Amlin AG":5603.6,"Premia Reinsurance":1615.0,"Starr Insurance & Reinsurance":4750.0,"Vantage Risk":1425.0,"SiriusPoint Bermuda Insurance":8114.9,"ABR Reinsurance Ltd.":1516.0,"Allied World Assurance Company Ltd":15.5,"American International Reinsurance Company Ltd.":4.5,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":8808.5,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":6011.7,"DaVinci Reinsurance Ltd.":3915.0,"Everest International Reinsurance Ltd.":3562.6,"Fortitude International Reinsurance Ltd.":0},"Total Equity":{"Arch Reinsurance":19448.0,"Ascot Bermuda":2228.3,"Aspen Bermuda":1182.1,"AXIS Specialty":2942.7,"Chubb Tempest Reinsurance":11675.8,"Everest Reinsurance Bermuda":4195.3,"Hannover Re Bermuda":0,"Markel Bermuda":2298.2,"Partner Reinsurance Company":5073.6,"Renaissance Reinsurance":5679.5,"Endurance Specialty Insurance":8787.0,"XL Bermuda":17765.0,"AXA XL Reinsurance":13490.0,"Validus Reinsurance":6460.0,"Somers Re":4465.0,"Lancashire Insurance Company":3847.0,"Hiscox Insurance Company Bermuda":5510.0,"Canopius Reinsurance":2992.0,"Conduit Reinsurance":3610.0,"Fidelis Insurance Bermuda":2565.0,"Fortitude Reinsurance Company":4845.0,"Group Ark Insurance":2042.0,"Hamilton Re":2802.0,"Harrington Re":2327.0,"Liberty Specialty Markets Bermuda":3230.0,"MS Amlin AG":1390.9,"Premia Reinsurance":1710.0,"Starr Insurance & Reinsurance":5130.0,"Vantage Risk":1520.0,"SiriusPoint Bermuda Insurance":4607.0,"ABR Reinsurance Ltd.":649.7,"Allied World Assurance Company Ltd":6.7,"American International Reinsurance Company Ltd.":2.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":2576.4,"DaVinci Reinsurance Ltd.":1677.8,"Everest International Reinsurance Ltd.":1526.9,"Fortitude International Reinsurance Ltd.":0}},"income_statement":{"Gross Premiums Written":{"Arch Reinsurance":0,"Ascot Bermuda":3843.9,"Aspen Bermuda":1328.9,"AXIS Specialty":1588.2,"Chubb Tempest Reinsurance":5381.8,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":1905.0,"Markel Bermuda":0,"Partner Reinsurance Company":4379.2,"Renaissance Reinsurance":3393.8,"Endurance Specialty Insurance":4784.0,"XL Bermuda":9660.0,"AXA XL Reinsurance":7176.0,"Validus Reinsurance":3864.0,"Somers Re":2576.0,"Lancashire Insurance Company":2208.0,"Hiscox Insurance Company Bermuda":3128.0,"Canopius Reinsurance":1748.0,"Conduit Reinsurance":2116.0,"Fidelis Insurance Bermuda":1472.0,"Fortitude Reinsurance Company":2852.0,"Group Ark Insurance":1196.0,"Hamilton Re":1656.0,"Harrington Re":1380.0,"Liberty Specialty Markets Bermuda":1932.0,"MS Amlin AG":2292.7,"Premia Reinsurance":1012.0,"Starr Insurance & Reinsurance":2944.0,"Vantage Risk":874.0,"SiriusPoint Bermuda Insurance":2760.0,"ABR Reinsurance Ltd.":5.0,"Allied World Assurance Company Ltd":6.5,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":4217.6,"DaVinci Reinsurance Ltd.":5.0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Net Premiums Earned":{"Arch Reinsurance":12440.0,"Ascot Bermuda":2713.3,"Aspen Bermuda":883.1,"AXIS Specialty":1358.4,"Chubb Tempest Reinsurance":4619.6,"Everest Reinsurance Bermuda":3084.6,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":3818.1,"Renaissance Reinsurance":2257.5,"Endurance Specialty Insurance":4416.0,"XL Bermuda":9016.0,"AXA XL Reinsurance":6624.0,"Validus Reinsurance":3588.0,"Somers Re":2392.0,"Lancashire Insurance Company":579.2,"Hiscox Insurance Company Bermuda":2852.0,"Canopius Reinsurance":1610.0,"Conduit Reinsurance":482.3,"Fidelis Insurance Bermuda":1334.0,"Fortitude Reinsurance Company":2622.0,"Group Ark Insurance":1104.0,"Hamilton Re":1518.0,"Harrington Re":1269.0,"Liberty Specialty Markets Bermuda":1794.0,"MS Amlin AG":1716.5,"Premia Reinsurance":920.0,"Starr Insurance & Reinsurance":2714.0,"Vantage Risk":800.0,"SiriusPoint Bermuda Insurance":2318.1,"ABR Reinsurance Ltd.":517.8,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":2337.1,"DaVinci Reinsurance Ltd.":5.0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Net Investment Income":{"Arch Reinsurance":1023.0,"Ascot Bermuda":176.8,"Aspen Bermuda":88.2,"AXIS Specialty":236.5,"Chubb Tempest Reinsurance":401.7,"Everest Reinsurance Bermuda":317.4,"Hannover Re Bermuda":113.8,"Markel Bermuda":99.2,"Partner Reinsurance Company":280.4,"Renaissance Reinsurance":197.9,"Endurance Specialty Insurance":6.0,"XL Bermuda":670980.4,"AXA XL Reinsurance":511352.0,"Validus Reinsurance":242133.9,"Somers Re":167745.1,"Lancashire Insurance Company":3.0,"Hiscox Insurance Company Bermuda":211034.1,"Canopius Reinsurance":3.0,"Conduit Reinsurance":5.0,"Fidelis Insurance Bermuda":97400.4,"Fortitude Reinsurance Company":1821.0,"Group Ark Insurance":75755.8,"Hamilton Re":105517.1,"Harrington Re":86578.1,"Liberty Specialty Markets Bermuda":121750.5,"MS Amlin AG":156922.8,"Premia Reinsurance":64933.6,"Starr Insurance & Reinsurance":192095.2,"Vantage Risk":56816.9,"SiriusPoint Bermuda Insurance":113.3,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":25.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":135.2,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Investment Gains/Losses":{"Arch Reinsurance":0.0,"Ascot Bermuda":0.0,"Aspen Bermuda":0.0,"AXIS Specialty":0.0,"Chubb Tempest Reinsurance":0.0,"Everest Reinsurance Bermuda":0.0,"Hannover Re Bermuda":0.0,"Markel Bermuda":0.0,"Partner Reinsurance Company":0.0,"Renaissance Reinsurance":0.0,"Endurance Specialty Insurance":0.0,"XL Bermuda":0.0,"AXA XL Reinsurance":0.0,"Validus Reinsurance":0.0,"Somers Re":0.0,"Lancashire Insurance Company":0.0,"Hiscox Insurance Company Bermuda":0.0,"Canopius Reinsurance":0.0,"Conduit Reinsurance":0.0,"Fidelis Insurance Bermuda":0.0,"Fortitude Reinsurance Company":0.0,"Group Ark Insurance":0.0,"Hamilton Re":0.0,"Harrington Re":0.0,"Liberty Specialty Markets Bermuda":0.0,"MS Amlin AG":0.0,"Premia Reinsurance":0.0,"Starr Insurance & Reinsurance":0.0,"Vantage Risk":0.0,"SiriusPoint Bermuda Insurance":0.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Revenues":{"Arch Reinsurance":13638.0,"Ascot Bermuda":3035.2,"Aspen Bermuda":1054.8,"AXIS Specialty":1558.8,"Chubb Tempest Reinsurance":5823.2,"Everest Reinsurance Bermuda":3409.1,"Hannover Re Bermuda":0,"Markel Bermuda":21.3,"Partner Reinsurance Company":4374.0,"Renaissance Reinsurance":2695.3,"Endurance Specialty Insurance":4692.0,"XL Bermuda":9568.0,"AXA XL Reinsurance":6992.0,"Validus Reinsurance":3772.0,"Somers Re":2530.0,"Lancashire Insurance Company":2162.0,"Hiscox Insurance Company Bermuda":3036.0,"Canopius Reinsurance":1702.0,"Conduit Reinsurance":2070.0,"Fidelis Insurance Bermuda":1426.0,"Fortitude Reinsurance Company":2806.0,"Group Ark Insurance":1177.0,"Hamilton Re":1610.0,"Harrington Re":1334.0,"Liberty Specialty Markets Bermuda":1886.0,"MS Amlin AG":1716.9,"Premia Reinsurance":966.0,"Starr Insurance & Reinsurance":2852.0,"Vantage Risk":828.0,"SiriusPoint Bermuda Insurance":2714.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Losses and LAE":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":12.0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":898.0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":-1233.1,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":440.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Total Expenses":{"Arch Reinsurance":10100.0,"Ascot Bermuda":2558.2,"Aspen Bermuda":792.2,"AXIS Specialty":1285.1,"Chubb Tempest Reinsurance":7741.9,"Everest Reinsurance Bermuda":2396.1,"Hannover Re Bermuda":0,"Markel Bermuda":1300.4,"Partner Reinsurance Company":3181.2,"Renaissance Reinsurance":1468.1,"Endurance Specialty Insurance":2944.0,"XL Bermuda":5980.0,"AXA XL Reinsurance":4416.0,"Validus Reinsurance":2208.0,"Somers Re":1472.0,"Lancashire Insurance Company":538.0,"Hiscox Insurance Company Bermuda":1748.0,"Canopius Reinsurance":966.0,"Conduit Reinsurance":483.6,"Fidelis Insurance Bermuda":782.0,"Fortitude Reinsurance Company":1564.0,"Group Ark Insurance":644.0,"Hamilton Re":874.0,"Harrington Re":736.0,"Liberty Specialty Markets Bermuda":1058.0,"MS Amlin AG":1288.0,"Premia Reinsurance":533.0,"Starr Insurance & Reinsurance":1610.0,"Vantage Risk":460.0,"SiriusPoint Bermuda Insurance":2462.8,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":1911.5,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Net Income":{"Arch Reinsurance":278.0,"Ascot Bermuda":497.5,"Aspen Bermuda":410.8,"AXIS Specialty":287.0,"Chubb Tempest Reinsurance":3207.9,"Everest Reinsurance Bermuda":1481.1,"Hannover Re Bermuda":845.9,"Markel Bermuda":429.5,"Partner Reinsurance Company":1619.8,"Renaissance Reinsurance":1756.9,"Endurance Specialty Insurance":1748.0,"XL Bermuda":3588.0,"AXA XL Reinsurance":2576.0,"Validus Reinsurance":1564.0,"Somers Re":1058.0,"Lancashire Insurance Company":920.0,"Hiscox Insurance Company Bermuda":1288.0,"Canopius Reinsurance":736.0,"Conduit Reinsurance":874.0,"Fidelis Insurance Bermuda":644.0,"Fortitude Reinsurance Company":1242.0,"Group Ark Insurance":533.0,"Hamilton Re":736.0,"Harrington Re":598.0,"Liberty Specialty Markets Bermuda":828.0,"MS Amlin AG":-173.1,"Premia Reinsurance":432.0,"Starr Insurance & Reinsurance":9093.0,"Vantage Risk":368.0,"SiriusPoint Bermuda Insurance":1196.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":31.8,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0}},"cash_flows":{"Investing Cash Flow":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Financing Cash Flow":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0,"XL Bermuda":0,"AXA XL Reinsurance":0,"Validus Reinsurance":0,"Somers Re":0,"Lancashire Insurance Company":0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0,"Conduit Reinsurance":0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":0,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":0,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0}},"ratios":{"Loss Ratio (%)":{"Arch Reinsurance":0,"Ascot Bermuda":0,"Aspen Bermuda":0,"AXIS Specialty":0,"Chubb Tempest Reinsurance":0,"Everest Reinsurance Bermuda":0,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":0,"Renaissance Reinsurance":0,"Endurance Specialty Insurance":0.3,"XL Bermuda":0.0,"AXA XL Reinsurance":0.0,"Validus Reinsurance":0.0,"Somers Re":0,"Lancashire Insurance Company":0.0,"Hiscox Insurance Company Bermuda":0,"Canopius Reinsurance":0.0,"Conduit Reinsurance":0.0,"Fidelis Insurance Bermuda":0,"Fortitude Reinsurance Company":34.2,"Group Ark Insurance":0,"Hamilton Re":0,"Harrington Re":0,"Liberty Specialty Markets Bermuda":0,"MS Amlin AG":71.8,"Premia Reinsurance":0,"Starr Insurance & Reinsurance":0.0,"Vantage Risk":0,"SiriusPoint Bermuda Insurance":0.0,"ABR Reinsurance Ltd.":0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0,"DaVinci Reinsurance Ltd.":0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Expense Ratio (%)":{"Arch Reinsurance":81.2,"Ascot Bermuda":94.3,"Aspen Bermuda":89.7,"AXIS Specialty":94.6,"Chubb Tempest Reinsurance":167.6,"Everest Reinsurance Bermuda":77.7,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":83.3,"Renaissance Reinsurance":65.0,"Endurance Specialty Insurance":66.7,"XL Bermuda":66.3,"AXA XL Reinsurance":66.7,"Validus Reinsurance":61.5,"Somers Re":61.5,"Lancashire Insurance Company":92.9,"Hiscox Insurance Company Bermuda":61.3,"Canopius Reinsurance":60.0,"Conduit Reinsurance":100.3,"Fidelis Insurance Bermuda":58.6,"Fortitude Reinsurance Company":59.6,"Group Ark Insurance":58.3,"Hamilton Re":57.6,"Harrington Re":58.0,"Liberty Specialty Markets Bermuda":59.0,"MS Amlin AG":75.0,"Premia Reinsurance":57.9,"Starr Insurance & Reinsurance":59.3,"Vantage Risk":57.5,"SiriusPoint Bermuda Insurance":106.2,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"Combined Ratio (%)":{"Arch Reinsurance":81.2,"Ascot Bermuda":94.3,"Aspen Bermuda":89.7,"AXIS Specialty":94.6,"Chubb Tempest Reinsurance":167.6,"Everest Reinsurance Bermuda":77.7,"Hannover Re Bermuda":0,"Markel Bermuda":0,"Partner Reinsurance Company":83.3,"Renaissance Reinsurance":65.0,"Endurance Specialty Insurance":66.9,"XL Bermuda":66.3,"AXA XL Reinsurance":66.7,"Validus Reinsurance":61.5,"Somers Re":61.5,"Lancashire Insurance Company":92.9,"Hiscox Insurance Company Bermuda":61.3,"Canopius Reinsurance":60.0,"Conduit Reinsurance":100.3,"Fidelis Insurance Bermuda":58.6,"Fortitude Reinsurance Company":93.9,"Group Ark Insurance":58.3,"Hamilton Re":57.6,"Harrington Re":58.0,"Liberty Specialty Markets Bermuda":59.0,"MS Amlin AG":146.9,"Premia Reinsurance":57.9,"Starr Insurance & Reinsurance":59.3,"Vantage Risk":57.5,"SiriusPoint Bermuda Insurance":106.2,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0,"American International Reinsurance Company Ltd.":0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0,"Fortitude International Reinsurance Ltd.":0},"ROE (%)":{"Arch Reinsurance":1.4,"Ascot Bermuda":22.3,"Aspen Bermuda":34.8,"AXIS Specialty":9.8,"Chubb Tempest Reinsurance":27.5,"Everest Reinsurance Bermuda":35.3,"Hannover Re Bermuda":0,"Markel Bermuda":18.7,"Partner Reinsurance Company":31.9,"Renaissance Reinsurance":30.9,"Endurance Specialty Insurance":19.9,"XL Bermuda":20.2,"AXA XL Reinsurance":19.1,"Validus Reinsurance":24.2,"Somers Re":23.7,"Lancashire Insurance Company":23.9,"Hiscox Insurance Company Bermuda":23.4,"Canopius Reinsurance":24.6,"Conduit Reinsurance":24.2,"Fidelis Insurance Bermuda":25.1,"Fortitude Reinsurance Company":25.6,"Group Ark Insurance":26.1,"Hamilton Re":26.3,"Harrington Re":25.7,"Liberty Specialty Markets Bermuda":25.6,"MS Amlin AG":-12.4,"Premia Reinsurance":25.3,"Starr Insurance & Reinsurance":177.3,"Vantage Risk":24.2,"SiriusPoint Bermuda Insurance":26.0,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":0.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0.0,"Fortitude International Reinsurance Ltd.":0},"ROA (%)":{"Arch Reinsurance":0.5,"Ascot Bermuda":5.2,"Aspen Bermuda":7.4,"AXIS Specialty":3.3,"Chubb Tempest Reinsurance":12.5,"Everest Reinsurance Bermuda":9.5,"Hannover Re Bermuda":0,"Markel Bermuda":5.3,"Partner Reinsurance Company":12.0,"Renaissance Reinsurance":9.1,"Endurance Specialty Insurance":10.1,"XL Bermuda":10.3,"AXA XL Reinsurance":9.8,"Validus Reinsurance":12.5,"Somers Re":12.2,"Lancashire Insurance Company":30.9,"Hiscox Insurance Company Bermuda":12.1,"Canopius Reinsurance":12.7,"Conduit Reinsurance":55.4,"Fidelis Insurance Bermuda":13.0,"Fortitude Reinsurance Company":2.9,"Group Ark Insurance":13.7,"Hamilton Re":13.6,"Harrington Re":13.4,"Liberty Specialty Markets Bermuda":13.2,"MS Amlin AG":-2.5,"Premia Reinsurance":13.0,"Starr Insurance & Reinsurance":92.0,"Vantage Risk":12.5,"SiriusPoint Bermuda Insurance":10.9,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":0.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0.3,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0.0,"Fortitude International Reinsurance Ltd.":0},"Equity Ratio (%)":{"Arch Reinsurance":33.1,"Ascot Bermuda":23.3,"Aspen Bermuda":21.3,"AXIS Specialty":34.3,"Chubb Tempest Reinsurance":45.6,"Everest Reinsurance Bermuda":27.0,"Hannover Re Bermuda":0,"Markel Bermuda":28.1,"Partner Reinsurance Company":37.5,"Renaissance Reinsurance":29.3,"Endurance Specialty Insurance":50.8,"XL Bermuda":51.2,"AXA XL Reinsurance":51.4,"Validus Reinsurance":51.5,"Somers Re":51.6,"Lancashire Insurance Company":129.1,"Hiscox Insurance Company Bermuda":51.8,"Canopius Reinsurance":51.6,"Conduit Reinsurance":228.8,"Fidelis Insurance Bermuda":51.9,"Fortitude Reinsurance Company":11.3,"Group Ark Insurance":52.4,"Hamilton Re":51.7,"Harrington Re":52.1,"Liberty Specialty Markets Bermuda":51.5,"MS Amlin AG":19.9,"Premia Reinsurance":51.4,"Starr Insurance & Reinsurance":51.9,"Vantage Risk":51.6,"SiriusPoint Bermuda Insurance":41.9,"ABR Reinsurance Ltd.":30.0,"Allied World Assurance Company Ltd":30.2,"American International Reinsurance Company Ltd.":0.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":0.0,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":30.0,"DaVinci Reinsurance Ltd.":30.0,"Everest International Reinsurance Ltd.":30.0,"Fortitude International Reinsurance Ltd.":0},"Investment Return (%)":{"Arch Reinsurance":3.02,"Ascot Bermuda":3.47,"Aspen Bermuda":4.19,"AXIS Specialty":4.97,"Chubb Tempest Reinsurance":2.32,"Everest Reinsurance Bermuda":3.54,"Hannover Re Bermuda":28450.0,"Markel Bermuda":2.1,"Partner Reinsurance Company":3.66,"Renaissance Reinsurance":2.36,"Endurance Specialty Insurance":0.05,"XL Bermuda":1219964.36,"AXA XL Reinsurance":946948.15,"Validus Reinsurance":241.22,"Somers Re":2847.96,"Lancashire Insurance Company":1.54,"Hiscox Insurance Company Bermuda":2847.96,"Canopius Reinsurance":0.09,"Conduit Reinsurance":0.1,"Fidelis Insurance Bermuda":2847.96,"Fortitude Reinsurance Company":4.6,"Group Ark Insurance":2847.96,"Hamilton Re":2847.96,"Harrington Re":2847.96,"Liberty Specialty Markets Bermuda":2847.96,"MS Amlin AG":4134.33,"Premia Reinsurance":2847.96,"Starr Insurance & Reinsurance":2847.96,"Vantage Risk":2847.96,"SiriusPoint Bermuda Insurance":2.01,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":1.09,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":3.7,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0.0,"Fortitude International Reinsurance Ltd.":0},"Investment Yield (%)":{"Arch Reinsurance":3.02,"Ascot Bermuda":3.47,"Aspen Bermuda":4.19,"AXIS Specialty":4.97,"Chubb Tempest Reinsurance":2.32,"Everest Reinsurance Bermuda":3.54,"Hannover Re Bermuda":28450.0,"Markel Bermuda":2.1,"Partner Reinsurance Company":3.66,"Renaissance Reinsurance":2.36,"Endurance Specialty Insurance":0.05,"XL Bermuda":1219964.36,"AXA XL Reinsurance":946948.15,"Validus Reinsurance":241.22,"Somers Re":2847.96,"Lancashire Insurance Company":1.54,"Hiscox Insurance Company Bermuda":2847.96,"Canopius Reinsurance":0.09,"Conduit Reinsurance":0.1,"Fidelis Insurance Bermuda":2847.96,"Fortitude Reinsurance Company":4.6,"Group Ark Insurance":2847.96,"Hamilton Re":2847.96,"Harrington Re":2847.96,"Liberty Specialty Markets Bermuda":2847.96,"MS Amlin AG":4134.33,"Premia Reinsurance":2847.96,"Starr Insurance & Reinsurance":2847.96,"Vantage Risk":2847.96,"SiriusPoint Bermuda Insurance":2.01,"ABR Reinsurance Ltd.":0.0,"Allied World Assurance Company Ltd":0.0,"American International Reinsurance Company Ltd.":1.09,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":3.7,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":0.0,"DaVinci Reinsurance Ltd.":0.0,"Everest International Reinsurance Ltd.":0.0,"Fortitude International Reinsurance Ltd.":0},"Investments to Assets (%)":{"Arch Reinsurance":57.6,"Ascot Bermuda":53.3,"Aspen Bermuda":37.9,"AXIS Specialty":55.5,"Chubb Tempest Reinsurance":67.6,"Everest Reinsurance Bermuda":57.7,"Hannover Re Bermuda":0,"Markel Bermuda":57.9,"Partner Reinsurance Company":56.6,"Renaissance Reinsurance":43.1,"Endurance Specialty Insurance":68.4,"XL Bermuda":0.2,"AXA XL Reinsurance":0.2,"Validus Reinsurance":800.5,"Somers Re":68.1,"Lancashire Insurance Company":6.5,"Hiscox Insurance Company Bermuda":69.6,"Canopius Reinsurance":58.9,"Conduit Reinsurance":307.0,"Fidelis Insurance Bermuda":69.2,"Fortitude Reinsurance Company":92.0,"Group Ark Insurance":68.3,"Hamilton Re":68.4,"Harrington Re":68.1,"Liberty Specialty Markets Bermuda":68.2,"MS Amlin AG":54.3,"Premia Reinsurance":68.6,"Starr Insurance & Reinsurance":68.3,"Vantage Risk":67.7,"SiriusPoint Bermuda Insurance":51.2,"ABR Reinsurance Ltd.":83.0,"Allied World Assurance Company Ltd":55.0,"American International Reinsurance Company Ltd.":48.0,"Antares Reinsurance Company Limited":0,"Argo Re Ltd.":36.4,"Brit Reinsurance Bermuda Limited":0,"Convex Re Limited":50.8,"DaVinci Reinsurance Ltd.":85.1,"Everest International Reinsurance Ltd.":74.6,"Fortitude International Reinsurance Ltd.":0}}}},"data_pending":["Brit Reinsurance Bermuda Limited","Fortitude International Reinsurance Ltd.","Hamilton Re","Hiscox Insurance Company Bermuda","Somers Re"],"data_sourced":["AXA XL Reinsurance","American International Reinsurance Company Ltd.","Argo Re Ltd.","Canopius Reinsurance","Conduit Reinsurance","Endurance Specialty Insurance","Fidelis Insurance Bermuda","Fortitude Reinsurance Company","Lancashire Insurance Company","Liberty Specialty Markets Bermuda","SiriusPoint Bermuda Insurance","Starr Insurance & Reinsurance","Validus Reinsurance","XL Bermuda"]};
+        // dashboardData is already loaded from dashboard_data.js (no need to redeclare)
+        let charts = {};
+        const chartRegistry = {};   // stores { metric, category } per chartId for modal rebuilds
+        let currentYear = 2024;
+        let showIndustryAvg = true;
+        let showSelectedAvg = true;
+
+        // ==========================================
+        // TIER-BASED ACCESS CONTROL INITIALIZATION
+        // ==========================================
+        // Initialize tier access FIRST (tierAccess is global from tier-access.js)
+        tierAccess = initializeTierAccess();
+
+        // Filter available years based on tier
+        let accessibleYears = [2023, 2024];  // Default all years
+        let filteredYears = tierAccess ? tierAccess.getAccessibleYears([2023, 2024]) : accessibleYears;
+
+        // Set initial year to first accessible year
+        if (filteredYears.length > 0) {
+            currentYear = filteredYears[filteredYears.length - 1];  // Use latest accessible year
+        }
+
+        // Get tier info for logging/debugging
+        console.log(`User tier: ${tierAccess.userTier}`, `Accessible years: ${filteredYears.join(', ')}, Max companies: ${tierAccess.features.maxCompanies}`);
+
+        // ==========================================
+        // ADMIN REVIEW MODE DETECTION
+        // ==========================================
+        // Check if admin is reviewing a specific tier
+        const adminReviewMode = sessionStorage.getItem('adminReviewMode') === 'true';
+        if (adminReviewMode) {
+            const banner = document.getElementById('admin-review-banner');
+            if (banner) {
+                banner.style.display = 'block';
+                const tierSpan = document.getElementById('admin-review-tier-name');
+                if (tierSpan) {
+                    tierSpan.textContent = tierAccess.features.name;
+                }
+            }
+            console.log(`Admin review mode: Showing ${tierAccess.userTier} tier view`);
+        }
+
+        // Color palette
+        const colors = {
+            primary: '#8b1538',
+            lightGray: '#f0f0f0',
+            darkGray: '#333',
+            chartColors: [
+                '#8b1538', '#a82844', '#c43b54', '#d46b7e',
+                '#e09ba8', '#f0e0e6', '#b8434d', '#7a1131',
+                '#c41448', '#6b0f2b'
+            ]
+        };
+
+        // Load data — dashboardData is already loaded from dashboard_data.js
+        // If dashboardData is not available, fetch the JSON fallback
+        if (typeof dashboardData !== 'undefined' && dashboardData !== null) {
+            initializeDashboard();
+        } else {
+            fetch('dashboard_data.json')
+                .then(response => response.json())
+                .then(data => {
+                    dashboardData = data;
+                    initializeDashboard();
+                })
+                .catch(err => console.error('Error loading data:', err));
+        }
+
+        function initializeDashboard() {
+            // Setup tier gating FIRST
+            setupYearSelector();
+            setupCompanyFilter();
+
+            // Continue with standard initialization
+            populateCompanyFilter();
+            selectAllCompanies();
+            setupEventListeners();
+            setupChartClickHandlers();
+            applyTierFeatureGating();
+            updateAllCharts();
+        }
+
+        // ==========================================
+        // TIER-BASED ACCESS CONTROL FUNCTIONS
+        // ==========================================
+
+        /**
+         * Filter year selector based on tier
+         * Hide inaccessible years for free tier
+         */
+        function setupYearSelector() {
+            const yearButtons = document.querySelectorAll('[name="year"]');
+            const accessible = tierAccess.getAccessibleYears([2023, 2024]);
+
+            yearButtons.forEach(btn => {
+                const year = parseInt(btn.value);
+                if (!accessible.includes(year)) {
+                    // Hide and disable inaccessible years for free tier
+                    btn.parentElement.style.display = 'none';
+                    btn.disabled = true;
+                }
+            });
+        }
+
+        /**
+         * Filter company list based on tier
+         * Hide inaccessible companies for free tier
+         */
+        function setupCompanyFilter() {
+            const accessible = tierAccess.getAccessibleCompanies(dashboardData.companies);
+
+            // Update the max companies limit in the UI if needed
+            if (tierAccess.userTier === 'free') {
+                const companyList = document.querySelector('.filter-panel');
+                if (companyList && !companyList.querySelector('.tier-banner')) {
+                    const banner = document.createElement('div');
+                    banner.className = 'tier-banner';
+                    banner.style.cssText = 'background: #fff3cd; border: 1px solid #ffc107; padding: 10px; margin-bottom: 15px; border-radius: 4px;';
+                    banner.innerHTML = `<strong>Free Plan:</strong> Limited to top 10 companies. <a href="#" onclick="promptUpgrade(event)">Upgrade for all 40 →</a>`;
+                    companyList.insertBefore(banner, companyList.firstChild);
+                }
+            }
+        }
+
+        /**
+         * Hide or disable features based on tier
+         * Free: No exports, no YoY, limited comparison table
+         * Analyst: Full features
+         * Custom: Full features + review console
+         */
+        function applyTierFeatureGating() {
+            // Hide export buttons for free tier
+            const exportButtons = document.querySelectorAll('[id*="export-"]');
+            exportButtons.forEach(btn => {
+                if (btn && btn.style) {
+                    btn.style.display = tierAccess.canExport() ? 'flex' : 'none';
+                }
+            });
+
+            // Hide/disable year-over-year chart for free tier
+            const yoyChart = document.getElementById('trendChart');
+            if (yoyChart) {
+                const container = yoyChart.closest('.chart-card');
+                if (!tierAccess.canViewYoY()) {
+                    container.style.opacity = '0.5';
+                    container.style.pointerEvents = 'none';
+                    const overlay = document.createElement('div');
+                    overlay.className = 'tier-locked-overlay';
+                    overlay.style.cssText = 'position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.7); color: white; padding: 10px 15px; border-radius: 4px; font-size: 0.9em; cursor: pointer;';
+                    overlay.innerHTML = 'Available in Analyst tier →';
+                    overlay.onclick = () => promptUpgrade(event);
+                    container.appendChild(overlay);
+                }
+            }
+
+            // Hide comparison table columns for free tier with reduced view
+            if (!tierAccess.canViewFullComparison()) {
+                const compTable = document.querySelector('.comparison-table');
+                if (compTable) {
+                    const headers = compTable.querySelectorAll('th');
+                    const cells = compTable.querySelectorAll('td');
+                    headers.forEach((h, idx) => {
+                        if (idx > 3) h.style.display = 'none';  // Keep: Company, Assets, Equity, Premiums
+                    });
+                    cells.forEach((c, idx) => {
+                        if ((idx + 1) % headers.length > 3) c.style.display = 'none';
+                    });
+                }
+            }
+
+            // Show Review Console button for Custom tier users only
+            const reviewConsoleBtn = document.getElementById('review-console-btn');
+            if (reviewConsoleBtn) {
+                reviewConsoleBtn.style.display = tierAccess.canAccessReviewConsole() ? 'block' : 'none';
+            }
+
+            // Update tier badge
+            const tierName = document.getElementById('tier-name');
+            if (tierName) {
+                tierName.textContent = `${tierAccess.features.name} Plan`;
+                // Change badge color based on tier
+                const badge = document.getElementById('tier-badge');
+                if (badge) {
+                    if (tierAccess.userTier === 'analyst') {
+                        badge.style.background = '#e3f2fd';
+                    } else if (tierAccess.userTier === 'custom') {
+                        badge.style.background = '#f3e5f5';
+                    }
+                }
+            }
+        }
+
+        /**
+         * Prompt user to upgrade tier
+         */
+        function promptUpgrade(event) {
+            if (event) event.preventDefault();
+            const tier = tierAccess.userTier;
+            if (tier === 'free') {
+                alert('Upgrade to Analyst tier for Excel exports, full data, and year-over-year analysis!');
+            } else if (tier === 'analyst') {
+                alert('Contact sales for Custom tier with review console access.');
+            }
+        }
+
+        /**
+         * Return to admin review console
+         * Used when admin is reviewing how a tier sees the dashboard
+         */
+        function returnToAdminReview() {
+            // Clear admin review mode flags
+            sessionStorage.removeItem('adminReviewMode');
+            sessionStorage.removeItem('adminReviewTier');
+
+            // Redirect back to admin review
+            window.location.href = 'admin_review.html';
+        }
+
+        /**
+         * Export selected companies data to Excel
+         * Only available for Analyst and Custom tiers
+         */
+        async function exportToExcel() {
+            // Check tier permission
+            if (!tierAccess.canExport()) {
+                promptUpgrade();
+                return;
+            }
+
+            const selected = getSelectedCompanies();
+            if (selected.length === 0) {
+                alert('Please select at least one company to export.');
+                return;
+            }
+
+            try {
+                const workbook = new ExcelJS.Workbook();
+                const worksheet = workbook.addWorksheet('BMA Financial Data');
+
+                // Add headers
+                const headers = ['Company', 'Year', 'Total Assets ($M)', 'Total Equity ($M)', 'Total Investments ($M)', 'Net Premiums Earned ($M)', 'Net Income ($M)', 'ROE (%)', 'ROA (%)', 'Combined Ratio (%)'];
+                worksheet.addRow(headers);
+
+                // Add data for selected companies
+                const accessibleYears = tierAccess.getAccessibleYears(dashboardData.years);
+                selected.forEach(company => {
+                    accessibleYears.forEach(year => {
+                        const row = [
+                            company,
+                            year,
+                            getValue(company, 'Total Assets', 'balance_sheet', year) || '',
+                            getValue(company, 'Total Equity', 'balance_sheet', year) || '',
+                            getValue(company, 'Total Investments', 'balance_sheet', year) || '',
+                            getValue(company, 'Net Premiums Earned', 'income_statement', year) || '',
+                            getValue(company, 'Net Income', 'income_statement', year) || '',
+                            getValue(company, 'ROE (%)', 'ratios', year) || '',
+                            getValue(company, 'ROA (%)', 'ratios', year) || '',
+                            getValue(company, 'Combined Ratio (%)', 'ratios', year) || ''
+                        ];
+                        worksheet.addRow(row);
+                    });
+                });
+
+                // Format header row
+                worksheet.getRow(1).font = { bold: true, color: { argb: 'FFFFFFFF' } };
+                worksheet.getRow(1).fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF8B1538' } };
+
+                // Auto-size columns
+                worksheet.columns.forEach(col => col.width = 18);
+
+                // Generate and download file
+                const buffer = await workbook.xlsx.writeBuffer();
+                const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `BMA_Financial_Data_${new Date().toISOString().split('T')[0]}.xlsx`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+            } catch (err) {
+                console.error('Excel export error:', err);
+                alert('Error exporting to Excel. Please try again.');
+            }
+        }
+
+        function populateCompanyFilter() {
+            const body = document.getElementById('filter-panel-body');
+            body.innerHTML = '';
+
+            const estimated = new Set(dashboardData.data_pending || []);
+            const sorted = [...dashboardData.companies].sort((a, b) => a.localeCompare(b));
+            sorted.forEach(company => {
+                const isEst = estimated.has(company);
+                const label = document.createElement('label');
+                label.className = 'company-checkbox checked' + (isEst ? ' estimated' : '');
+                label.dataset.company = company;
+                label.innerHTML = `
+                    <input type="checkbox" class="company-checkbox-input" value="${company}" checked>
+                    <label>${company}${isEst ? ' <span class="est-badge" title="Data estimated — pending real extraction">~</span>' : ''}</label>
+                `;
+                label.querySelector('input').addEventListener('change', (e) => {
+                    label.classList.toggle('checked', e.target.checked);
+                    updateFilterTriggerLabel();
+                    updateAllCharts();
+                });
+                body.appendChild(label);
+            });
+            updateFilterTriggerLabel();
+        }
+
+        function updateFilterTriggerLabel() {
+            const all = document.querySelectorAll('.company-checkbox-input').length;
+            const checked = document.querySelectorAll('.company-checkbox-input:checked').length;
+            const label = document.getElementById('filter-trigger-label');
+            if (checked === all) {
+                label.textContent = `All ${all} companies selected`;
+            } else if (checked === 0) {
+                label.textContent = 'No companies selected';
+            } else {
+                label.textContent = `${checked} of ${all} companies selected`;
+            }
+        }
+
+        function toggleFilterPanel() {
+            const trigger = document.getElementById('company-filter-trigger');
+            const panel = document.getElementById('company-filter-panel');
+            const isOpen = panel.classList.toggle('open');
+            trigger.classList.toggle('open', isOpen);
+            if (isOpen) {
+                document.getElementById('company-search').focus();
+            }
+        }
+
+        function filterCompanyList() {
+            const q = document.getElementById('company-search').value.toLowerCase();
+            document.querySelectorAll('#filter-panel-body .company-checkbox').forEach(label => {
+                const name = label.dataset.company.toLowerCase();
+                label.style.display = name.includes(q) ? '' : 'none';
+            });
+        }
+
+        // Close panel when clicking outside
+        document.addEventListener('click', (e) => {
+            const filter = document.getElementById('company-filter');
+            if (filter && !filter.contains(e.target)) {
+                document.getElementById('company-filter-panel')?.classList.remove('open');
+                document.getElementById('company-filter-trigger')?.classList.remove('open');
+            }
+        });
+
+        function getSelectedCompanies() {
+            let selected = Array.from(document.querySelectorAll('.company-checkbox-input:checked'))
+                .map(cb => cb.value);
+
+            // Enforce max companies for free tier
+            if (tierAccess && tierAccess.userTier === 'free' && selected.length > tierAccess.features.maxCompanies) {
+                // Uncheck excess companies
+                document.querySelectorAll('.company-checkbox-input:checked').forEach(cb => {
+                    if (selected.indexOf(cb.value) >= tierAccess.features.maxCompanies) {
+                        cb.checked = false;
+                        cb.closest('.company-checkbox')?.classList.remove('checked');
+                    }
+                });
+                selected = selected.slice(0, tierAccess.features.maxCompanies);
+                alert(`Free plan limited to ${tierAccess.features.maxCompanies} companies. Showing first ${tierAccess.features.maxCompanies} selected.`);
+            }
+
+            return selected;
+        }
+
+        function selectAllCompanies() {
+            document.querySelectorAll('.company-checkbox-input').forEach(cb => {
+                cb.checked = true;
+                cb.closest('.company-checkbox')?.classList.add('checked');
+            });
+            updateFilterTriggerLabel();
+            updateAllCharts();
+        }
+
+        function clearAllCompanies() {
+            document.querySelectorAll('.company-checkbox-input').forEach(cb => {
+                cb.checked = false;
+                cb.closest('.company-checkbox')?.classList.remove('checked');
+            });
+            updateFilterTriggerLabel();
+            updateAllCharts();
+        }
+
+        function setupEventListeners() {
+            document.getElementById('year-filter').addEventListener('change', (e) => {
+                currentYear = parseInt(e.target.value);
+                updateAllCharts();
+                if (window.currentModalChartId) {
+                    reopenCurrentModalChart();
+                }
+            });
+
+            // Toggle lines: Selected Avg (maroon) & Industry Avg (pink)
+            document.querySelectorAll('.chart-toggle-pill').forEach(pill => {
+                pill.addEventListener('click', () => {
+                    const type = pill.getAttribute('data-toggle');
+                    const isActive = pill.classList.toggle('active');
+                    if (type === 'industry-avg') {
+                        showIndustryAvg = isActive;
+                    } else if (type === 'selected-avg') {
+                        showSelectedAvg = isActive;
+                    }
+                    updateAllCharts();
+                    if (window.currentModalChartId) {
+                        reopenCurrentModalChart();
+                    }
+                });
+            });
+
+            // Close modal on ESC
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    closeChartModal();
+                }
+            });
+        }
+
+        // Format number with commas for accounting format
+        function formatNumber(num, decimals = 0) {
+            if (typeof num !== 'number') {
+                num = parseFloat(num) || 0;
+            }
+            return num.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        }
+
+        function getValue(company, metric, category, year = null) {
+            const y = String(year || currentYear);  // Convert to string for JSON keys
+            try {
+                return dashboardData.data[y][category][metric][company] || 0;
+            } catch {
+                return 0;
+            }
+        }
+
+        function updateAllCharts() {
+            const selected = getSelectedCompanies();
+            updateMetrics(selected);
+            updateBarChart('assetsChart', 'Total Assets', 'balance_sheet', selected);
+            updateBarChart('equityChart', 'Total Equity', 'balance_sheet', selected);
+            updateBarChart('premiumsChart', 'Net Premiums Earned', 'income_statement', selected);
+            updateBarChart('incomeChart', 'Net Income', 'income_statement', selected);
+            updateBarChart('roeChart', 'ROE (%)', 'ratios', selected);
+            updateBarChart('roaChart', 'ROA (%)', 'ratios', selected);
+            updateBarChart('lossRatioChart', 'Loss Ratio (%)', 'ratios', selected);
+            updateBarChart('expenseRatioChart', 'Expense Ratio (%)', 'ratios', selected);
+            updateBarChart('equityRatioChart', 'Equity Ratio (%)', 'ratios', selected);
+            updateBarChart('combinedRatioChart', 'Combined Ratio (%)', 'ratios', selected);
+            updateBarChart('investmentsChart', 'Total Investments', 'balance_sheet', selected);
+            updateBarChart('investmentReturnChart', 'Investment Return (%)', 'ratios', selected);
+            updateBarChart('investmentYieldChart', 'Investment Yield (%)', 'ratios', selected);
+            updateBarChart('investmentRatioChart', 'Investments to Assets (%)', 'ratios', selected);
+            updateTrendChart();
+            updateComparisonTable(selected);
+        }
+
+        function updateMetrics(selected) {
+            const metricsDiv = document.getElementById('metrics-row');
+            metricsDiv.innerHTML = '';
+
+            if (selected.length === 0) {
+                metricsDiv.innerHTML = '<p style="color: #999;">Select companies to view metrics</p>';
+                return;
+            }
+
+            const largestAssets = Math.max(...selected.map(c => getValue(c, 'Total Assets', 'balance_sheet')));
+            const avgROE = (selected.reduce((sum, c) => sum + getValue(c, 'ROE (%)', 'ratios'), 0) / selected.length).toFixed(1);
+            const avgCombined = (selected.reduce((sum, c) => sum + getValue(c, 'Combined Ratio (%)', 'ratios'), 0) / selected.length).toFixed(1);
+            const totalEquity = selected.reduce((sum, c) => sum + getValue(c, 'Total Equity', 'balance_sheet'), 0).toFixed(0);
+            const totalInvestments = selected.reduce((sum, c) => sum + getValue(c, 'Total Investments', 'balance_sheet'), 0).toFixed(0);
+            const avgInvReturn = (selected.reduce((sum, c) => sum + getValue(c, 'Investment Return (%)', 'ratios'), 0) / selected.length).toFixed(2);
+
+            // Convert to billions (assumes underlying values are in millions)
+            const largestAssetsBillions = largestAssets / 1000;
+            const totalInvestmentsBillions = parseFloat(totalInvestments) / 1000;
+
+            const metrics = [
+                { label: 'Largest Company Assets', value: '$' + formatNumber(largestAssetsBillions, 1) + 'B' },
+                { label: 'Total Investments (Selected)', value: '$' + formatNumber(totalInvestmentsBillions, 1) + 'B' },
+                { label: 'Average Investment Return', value: avgInvReturn + '%' },
+                { label: 'Average Combined Ratio', value: avgCombined + '%' }
+            ];
+
+            metrics.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'metric-card';
+                card.innerHTML = `
+                    <div class="metric-label">${m.label}</div>
+                    <div class="metric-value">${m.value}</div>
+                `;
+                metricsDiv.appendChild(card);
+            });
+        }
+
+        function setupChartClickHandlers() {
+            document.querySelectorAll('.chart-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', () => {
+                    const canvas = card.querySelector('canvas');
+                    if (canvas) openChartModal(canvas.id);
+                });
+            });
+        }
+
+        function getIndustryAvg(metric, category, year) {
+            const allValues = dashboardData.companies
+                .map(c => getValue(c, metric, category, year))
+                // Ignore nil / 0 values when computing industry average
+                .filter(v => v !== 0 && !isNaN(v));
+            return allValues.length > 0 ? allValues.reduce((a, b) => a + b, 0) / allValues.length : 0;
+        }
+
+        function getSelectedAvg(metric, category, selectedCompanies, year) {
+            const y = year || currentYear;
+            const values = selectedCompanies
+                .map(c => getValue(c, metric, category, y))
+                // Ignore nil / 0 values when computing selected average
+                .filter(v => v !== 0 && !isNaN(v));
+            return values.length > 0 ? values.reduce((a, b) => a + b, 0) / values.length : 0;
+        }
+
+        /**
+         * Spring animation easing function - creates bouncy, natural motion
+         * Mimics React Spring physics with customizable tension and friction
+         * @param {number} t - normalized time (0 to 1)
+         * @param {number} tension - spring stiffness (default: 170)
+         * @param {number} friction - damping factor (default: 26)
+         */
+        function springEasing(t, tension = 170, friction = 26) {
+            // Spring physics simulation
+            const x = t;
+            const v = 1.0;
+
+            // Runge-Kutta 4 integration for accurate spring motion
+            const dt = 0.016; // 60fps time step
+            let pos = 0;
+            let vel = 0;
+
+            for (let i = 0; i < Math.round(t * 100); i++) {
+                const accel = -tension * (pos - 1) - friction * vel;
+                const k1v = accel;
+                const k1p = vel;
+
+                const k2v = -(tension * (pos + k1p * dt * 0.5 - 1) + friction * (vel + k1v * dt * 0.5));
+                const k2p = vel + k1v * dt * 0.5;
+
+                const k3v = -(tension * (pos + k2p * dt * 0.5 - 1) + friction * (vel + k2v * dt * 0.5));
+                const k3p = vel + k2v * dt * 0.5;
+
+                const k4v = -(tension * (pos + k3p * dt - 1) + friction * (vel + k3v * dt));
+                const k4p = vel + k3v * dt;
+
+                pos += (k1p + 2 * k2p + 2 * k3p + k4p) * dt / 6;
+                vel += (k1v + 2 * k2v + 2 * k3v + k4v) * dt / 6;
+
+                if (Math.abs(vel) < 0.001 && Math.abs(pos - 1) < 0.001) break;
+            }
+
+            return Math.min(1, Math.max(0, pos));
+        }
+
+        function openChartModal(chartId) {
+            const modal = document.getElementById('chart-modal');
+            const titleEl = document.getElementById('chart-modal-title');
+            const canvas = document.getElementById('chart-modal-canvas');
+            if (!modal || !canvas) return;
+
+            if (window.modalChart) {
+                window.modalChart.destroy();
+                window.modalChart = null;
+            }
+
+            // Reset canvas to clear any residual chart data
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+
+            window.currentModalChartId = chartId;
+
+            // Derive title
+            try {
+                const card = document.querySelector(`canvas#${chartId}`)?.closest('.chart-card');
+                const rawTitle = card?.querySelector('.chart-title')?.textContent?.trim() || 'Chart';
+                titleEl.textContent = rawTitle;
+            } catch { titleEl.textContent = 'Chart'; }
+
+            const selected = getSelectedCompanies();
+            const cc = getChartColors();
+
+            if (chartId === 'trendChart') {
+                // Rebuild trend chart in modal
+                const metric = document.getElementById('metric-select').value;
+                const category = getCategoryForMetric(metric);
+                const data2023 = selected.map(c => getValue(c, metric, category, 2023));
+                const data2024 = selected.map(c => getValue(c, metric, category, 2024));
+                const avg2023 = getIndustryAvg(metric, category, 2023);
+                const avg2024 = getIndustryAvg(metric, category, 2024);
+                window.modalChart = new Chart(canvas.getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: selected,
+                        datasets: [
+                            { label: '2023', data: data2023, borderColor: '#b8434d', backgroundColor: 'rgba(184,67,77,0.05)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: '#b8434d', pointBorderColor: 'white', pointBorderWidth: 2, order: 1 },
+                            { label: '2024', data: data2024, borderColor: '#8b1538', backgroundColor: 'rgba(139,21,56,0.05)', borderWidth: 2, fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: '#8b1538', pointBorderColor: 'white', pointBorderWidth: 2, order: 1 },
+                            { label: 'Industry Avg 2023', data: Array(selected.length).fill(avg2023), borderColor: '#f9a8d4', backgroundColor: 'transparent', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false, tension: 0, order: 0 },
+                            { label: 'Industry Avg 2024', data: Array(selected.length).fill(avg2024), borderColor: '#f472b6', backgroundColor: 'transparent', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false, tension: 0, order: 0 }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 900,
+                            easing: 'easeInOutQuad',
+                            delay: (ctx) => ctx.dataIndex * 50
+                        },
+                        plugins: {
+                            legend: { labels: { color: cc.legend, font: { size: 11 } } },
+                            tooltip: { backgroundColor: 'rgba(0,0,0,0.8)' }
+                        },
+                        scales: {
+                            y: { ticks: { color: cc.tick, font: { size: 11 }, callback: v => formatYTick(v) }, grid: { color: cc.grid } },
+                            x: { ticks: { color: cc.tick, font: { size: 9 } }, grid: { display: false } }
+                        }
+                    }
+                });
+            } else {
+                // Rebuild bar chart using registry
+                const reg = chartRegistry[chartId];
+                if (!reg) { modal.classList.add('open'); return; }
+                const { metric, category } = reg;
+                const values = selected.map(c => getValue(c, metric, category));
+                const industryAvg = getIndustryAvg(metric, category, currentYear);
+                const selectedAvg = getSelectedAvg(metric, category, selected, currentYear);
+                const datasets = [{ label: metric, data: values, backgroundColor: colors.chartColors.slice(0, selected.length), borderColor: colors.primary, borderWidth: 1, borderRadius: 4, order: 1 }];
+                if (showSelectedAvg) datasets.push({ label: 'Selected Avg', data: Array(selected.length).fill(selectedAvg), type: 'line', borderColor: '#8b1538', backgroundColor: 'transparent', borderWidth: 2, borderDash: [4,3], pointRadius: 0, fill: false, order: 0 });
+                if (showIndustryAvg)  datasets.push({ label: 'Industry Avg', data: Array(selected.length).fill(industryAvg), type: 'line', borderColor: '#f9a8d4', backgroundColor: 'transparent', borderWidth: 2, borderDash: [6,3], pointRadius: 0, fill: false, order: 0 });
+                window.modalChart = new Chart(canvas.getContext('2d'), {
+                    type: 'bar',
+                    data: { labels: selected, datasets },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        animation: {
+                            duration: 900,
+                            easing: 'easeInOutQuad',
+                            delay: (ctx) => ctx.dataIndex * 40
+                        },
+                        plugins: {
+                            legend: { display: true, labels: { filter: i => ['Industry Avg','Selected Avg'].includes(i.text), font: { size: 11, weight: '600' }, usePointStyle: true, pointStyle: 'line', color: cc.legend } },
+                            tooltip: { backgroundColor: 'rgba(0,0,0,0.8)', callbacks: { label: ctx => { let l = ctx.dataset.label || ''; if (l) l += ': '; const v = ctx.parsed.y; l += formatNumber(v, Math.abs(v) > 100 ? 0 : 1); if (ctx.dataset.label === 'Industry Avg') l += ' (avg)'; return l; } } }
+                        },
+                        scales: {
+                            y: { beginAtZero: true, ticks: { color: cc.tick, font: { size: 11 }, callback: v => formatYTick(v) }, grid: { color: cc.grid } },
+                            x: { ticks: { color: cc.tick, font: { size: 9 }, maxRotation: 35 }, grid: { display: false } }
+                        }
+                    }
+                });
+            }
+
+            modal.classList.add('open');
+        }
+
+        function formatYTick(v) {
+            if (Math.abs(v) >= 1000000) return (v / 1000000).toFixed(1) + 'M';
+            if (Math.abs(v) >= 1000)    return (v / 1000).toFixed(0) + 'K';
+            return v;
+        }
+
+        function closeChartModal() {
+            const modal = document.getElementById('chart-modal');
+            if (modal) modal.classList.remove('open');
+            if (window.modalChart) {
+                window.modalChart.destroy();
+                window.modalChart = null;
+            }
+            window.currentModalChartId = null;
+        }
+
+        function onChartModalBackdropClick(event) {
+            if (event.target && event.target.id === 'chart-modal') closeChartModal();
+        }
+
+        function reopenCurrentModalChart() {
+            if (window.currentModalChartId) openChartModal(window.currentModalChartId);
+        }
+
+        function updateBarChart(chartId, metric, category, selected) {
+            chartRegistry[chartId] = { metric, category };   // register for modal rebuilds
+
+            const ctx = document.getElementById(chartId)?.getContext('2d');
+            if (!ctx) return;
+
+            const cc = getChartColors();
+            const values = selected.map(c => getValue(c, metric, category));
+            const industryAvg = getIndustryAvg(metric, category, currentYear);
+            const selectedAvg = getSelectedAvg(metric, category, selected, currentYear);
+
+            if (charts[chartId]) {
+                charts[chartId].destroy();
+            }
+
+            const datasets = [
+                {
+                    label: metric,
+                    data: values,
+                    backgroundColor: colors.chartColors.slice(0, selected.length),
+                    borderColor: colors.primary,
+                    borderWidth: 1,
+                    borderRadius: 4,
+                    order: 1
+                }
+            ];
+
+            if (showSelectedAvg) {
+                datasets.push({
+                    label: 'Selected Avg',
+                    data: Array(selected.length).fill(selectedAvg),
+                    type: 'line',
+                    borderColor: '#8b1538',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    borderDash: [4, 3],
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    pointHoverBackgroundColor: '#8b1538',
+                    fill: false,
+                    order: 0
+                });
+            }
+
+            if (showIndustryAvg) {
+                datasets.push({
+                    label: 'Industry Avg',
+                    data: Array(selected.length).fill(industryAvg),
+                    type: 'line',
+                    borderColor: '#f9a8d4',
+                    backgroundColor: 'transparent',
+                    borderWidth: 2,
+                    borderDash: [6, 3],
+                    pointRadius: 0,
+                    pointHoverRadius: 4,
+                    pointHoverBackgroundColor: '#f9a8d4',
+                    fill: false,
+                    order: 0
+                });
+            }
+
+            charts[chartId] = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: selected,
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            labels: {
+                                filter: (item) => ['Industry Avg', 'Selected Avg'].includes(item.text),
+                                font: { size: 10, weight: '600' },
+                                usePointStyle: true,
+                                pointStyle: 'line'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 },
+                            callbacks: {
+                                label: function(context) {
+                                    let label = context.dataset.label || '';
+                                    if (label) label += ': ';
+                                    const val = context.parsed.y;
+                                    label += formatNumber(val, val > 100 ? 0 : 1);
+                                    if (context.dataset.label === 'Industry Avg') label += ' (avg)';
+                                    return label;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: cc.tick, font: { size: 10 }, maxTicksLimit: 6, callback: v => formatYTick(v) },
+                            grid: { color: cc.grid }
+                        },
+                        x: {
+                            ticks: { color: cc.tick, font: { size: 9 }, maxRotation: 35 },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateTrendChart() {
+            const ctx = document.getElementById('trendChart')?.getContext('2d');
+            if (!ctx) return;
+
+            const cc = getChartColors();
+            const selected = getSelectedCompanies();
+            const metric = document.getElementById('metric-select').value;
+            const category = getCategoryForMetric(metric);
+
+            // Determine which category the metric belongs to
+            function getCategoryForMetric(m) {
+                if (dashboardData.data[2024].balance_sheet[m]) return 'balance_sheet';
+                if (dashboardData.data[2024].income_statement[m]) return 'income_statement';
+                if (dashboardData.data[2024].ratios[m]) return 'ratios';
+                return 'balance_sheet';
+            }
+
+            const data2023 = selected.map(c => getValue(c, metric, category, 2023));
+            const data2024 = selected.map(c => getValue(c, metric, category, 2024));
+            const avg2023 = getIndustryAvg(metric, category, 2023);
+            const avg2024 = getIndustryAvg(metric, category, 2024);
+
+            if (charts['trendChart']) {
+                charts['trendChart'].destroy();
+            }
+
+            charts['trendChart'] = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: selected,
+                    datasets: [
+                        {
+                            label: '2023',
+                            data: data2023,
+                            borderColor: '#b8434d',
+                            backgroundColor: 'rgba(184, 67, 77, 0.05)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#b8434d',
+                            pointBorderColor: 'white',
+                            pointBorderWidth: 2,
+                            order: 1
+                        },
+                        {
+                            label: '2024',
+                            data: data2024,
+                            borderColor: '#8b1538',
+                            backgroundColor: 'rgba(139, 21, 56, 0.05)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4,
+                            pointRadius: 5,
+                            pointBackgroundColor: '#8b1538',
+                            pointBorderColor: 'white',
+                            pointBorderWidth: 2,
+                            order: 1
+                        },
+                        {
+                            label: 'Industry Avg 2023',
+                            data: Array(selected.length).fill(avg2023),
+                            borderColor: '#f9a8d4',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            fill: false,
+                            tension: 0,
+                            order: 0
+                        },
+                        {
+                            label: 'Industry Avg 2024',
+                            data: Array(selected.length).fill(avg2024),
+                            borderColor: '#f472b6',
+                            backgroundColor: 'transparent',
+                            borderWidth: 2,
+                            borderDash: [6, 3],
+                            pointRadius: 0,
+                            pointHoverRadius: 4,
+                            fill: false,
+                            tension: 0,
+                            order: 0
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                color: cc.legend,
+                                font: { size: 11, weight: '600' },
+                                padding: 15,
+                                usePointStyle: true
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            titleFont: { size: 12 },
+                            bodyFont: { size: 11 }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { color: cc.tick, font: { size: 10 } },
+                            grid: { color: cc.grid }
+                        },
+                        x: {
+                            ticks: { color: cc.tick, font: { size: 10 } },
+                            grid: { display: false }
+                        }
+                    }
+                }
+            });
+        }
+
+        function getCategoryForMetric(m) {
+            const y = String(currentYear);
+            if (dashboardData.data[y]?.balance_sheet?.[m]) return 'balance_sheet';
+            if (dashboardData.data[y]?.income_statement?.[m]) return 'income_statement';
+            if (dashboardData.data[y]?.ratios?.[m]) return 'ratios';
+            return 'balance_sheet';
+        }
+
+        function updateComparisonTable(selected) {
+            const table = document.getElementById('comparison-table');
+            table.innerHTML = '';
+
+            const headers = ['Metric', ...selected, 'Industry Avg'];
+            const headerRow = table.createTHead().insertRow();
+            headers.forEach((h, i) => {
+                const th = document.createElement('th');
+                th.textContent = h;
+                if (i === headers.length - 1) {
+                    th.className = 'industry-avg-col-header';
+                }
+                headerRow.appendChild(th);
+            });
+
+            const metrics = [
+                'Total Assets', 'Total Equity', 'Total Liabilities', 'Total Investments',
+                'Net Premiums Earned', 'Total Revenues', 'Net Income',
+                'Net Investment Income', 'Investment Gains/Losses',
+                'ROE (%)', 'ROA (%)', 'Equity Ratio (%)',
+                'Loss Ratio (%)', 'Expense Ratio (%)', 'Combined Ratio (%)',
+                'Investment Return (%)', 'Investment Yield (%)', 'Investments to Assets (%)'
+            ];
+
+            const tbody = table.createTBody();
+            metrics.forEach(metric => {
+                const row = tbody.insertRow();
+                const category = getCategoryForMetric(metric);
+
+                const metricCell = row.insertCell();
+                metricCell.textContent = metric;
+                metricCell.style.fontWeight = '600';
+
+                selected.forEach(company => {
+                    const cell = row.insertCell();
+                    const value = getValue(company, metric, category);
+                    const decimals = Math.abs(value) > 100 ? 0 : 1;
+                    cell.textContent = formatNumber(value, decimals);
+                    cell.className = 'value-cell';
+                });
+
+                // Industry Avg column
+                const avgCell = row.insertCell();
+                const avgVal = getIndustryAvg(metric, category, currentYear);
+                const avgDecimals = Math.abs(avgVal) > 100 ? 0 : 1;
+                avgCell.textContent = formatNumber(avgVal, avgDecimals);
+                avgCell.className = 'value-cell industry-avg-col';
+            });
+
+            // Industry Avg summary row at bottom
+            const avgRow = tbody.insertRow();
+            avgRow.className = 'industry-avg-row';
+            const labelCell = avgRow.insertCell();
+            labelCell.textContent = '⌀ Industry Average';
+            labelCell.colSpan = 1;
+
+            selected.forEach(company => {
+                const cell = avgRow.insertCell();
+                cell.className = 'value-cell';
+                cell.textContent = '—';
+            });
+
+            const totalAvgCell = avgRow.insertCell();
+            totalAvgCell.className = 'value-cell';
+            totalAvgCell.textContent = '(all 40 co.)';
+            totalAvgCell.style.fontSize = '0.8em';
+        }
+        // ── EXPORT: PDF ──────────────────────────────────────────────
+        function exportPDF() {
+            window.print();
+        }
+
+        // ── EXPORT: EXCEL ────────────────────────────────────────────
+        function exportExcel() {
+            const selected = getSelectedCompanies();
+            const metrics = [
+                { label: 'Total Assets',              category: 'balance_sheet' },
+                { label: 'Total Equity',              category: 'balance_sheet' },
+                { label: 'Total Liabilities',         category: 'balance_sheet' },
+                { label: 'Total Investments',         category: 'balance_sheet' },
+                { label: 'Net Premiums Earned',       category: 'income_statement' },
+                { label: 'Total Revenues',            category: 'income_statement' },
+                { label: 'Net Income',                category: 'income_statement' },
+                { label: 'Net Investment Income',     category: 'income_statement' },
+                { label: 'Investment Gains/Losses',   category: 'income_statement' },
+                { label: 'ROE (%)',                   category: 'ratios' },
+                { label: 'ROA (%)',                   category: 'ratios' },
+                { label: 'Equity Ratio (%)',          category: 'ratios' },
+                { label: 'Loss Ratio (%)',            category: 'ratios' },
+                { label: 'Expense Ratio (%)',         category: 'ratios' },
+                { label: 'Combined Ratio (%)',        category: 'ratios' },
+                { label: 'Investment Return (%)',     category: 'ratios' },
+                { label: 'Investment Yield (%)',      category: 'ratios' },
+                { label: 'Investments to Assets (%)', category: 'ratios' },
+            ];
+
+            const wb = XLSX.utils.book_new();
+
+            const applySheetStyling = (ws, headerRowIndex = 1) => {
+                const range = XLSX.utils.decode_range(ws['!ref']);
+                for (let C = range.s.c; C <= range.e.c; ++C) {
+                    const cellRef = XLSX.utils.encode_cell({ r: headerRowIndex - 1, c: C });
+                    const cell = ws[cellRef];
+                    if (cell) {
+                        cell.s = cell.s || {};
+                        cell.s.fill = { fgColor: { rgb: '8B1538' } };
+                        cell.s.font = { color: { rgb: 'FFFFFF' }, bold: true };
+                        cell.s.alignment = { horizontal: 'center' };
+                    }
+                }
+                for (let R = headerRowIndex; R <= range.e.r; ++R) {
+                    for (let C = 1; C <= range.e.c; ++C) {
+                        const cellRef = XLSX.utils.encode_cell({ r: R, c: C });
+                        const cell = ws[cellRef];
+                        if (cell && typeof cell.v === 'number') {
+                            cell.s = cell.s || {};
+                            cell.s.numFmt = '#,##0.0_);[Red](#,##0.0)';
+                            cell.s.alignment = { horizontal: 'right' };
+                        }
+                    }
+                }
+            };
+
+            [2024, 2023].forEach(year => {
+                const rows = [['Metric', ...selected, 'Industry Avg']];
+                metrics.forEach(({ label, category }) => {
+                    const vals = selected.map(c => getValue(c, label, category, year));
+                    const avg  = getIndustryAvg(label, category, year);
+                    rows.push([label, ...vals.map(v => parseFloat(v.toFixed(2))), parseFloat(avg.toFixed(2))]);
+                });
+                const ws = XLSX.utils.aoa_to_sheet(rows);
+                ws['!cols'] = [{ wch: 24 }, ...selected.map(() => ({ wch: 16 })), { wch: 16 }];
+                applySheetStyling(ws, 1);
+                XLSX.utils.book_append_sheet(wb, ws, `FY${year}`);
+            });
+
+            const summaryRows = [['Metric', ...selected.flatMap(c => [`${c} 2023`, `${c} 2024`]), 'Avg 2023', 'Avg 2024']];
+            metrics.forEach(({ label, category }) => {
+                const row = [label];
+                selected.forEach(c => {
+                    row.push(parseFloat(getValue(c, label, category, 2023).toFixed(2)));
+                    row.push(parseFloat(getValue(c, label, category, 2024).toFixed(2)));
+                });
+                row.push(parseFloat(getIndustryAvg(label, category, 2023).toFixed(2)));
+                row.push(parseFloat(getIndustryAvg(label, category, 2024).toFixed(2)));
+                summaryRows.push(row);
+            });
+            const wsSummary = XLSX.utils.aoa_to_sheet(summaryRows);
+            wsSummary['!cols'] = [{ wch: 24 }, ...Array(summaryRows[0].length - 1).fill({ wch: 14 })];
+            applySheetStyling(wsSummary, 1);
+            XLSX.utils.book_append_sheet(wb, wsSummary, 'YoY Comparison');
+
+            XLSX.writeFile(wb, `BMA_Filings_${currentYear}_Export.xlsx`);
+        }
+
+        // ── EXPORT: PPTX ─────────────────────────────────────────────
+        async function exportPPTX() {
+            const selected = getSelectedCompanies();
+            const pptx = new PptxGenJS();
+            pptx.layout = 'LAYOUT_WIDE';
+
+            const CRIMSON = '8b1538';
+            const GREEN   = '22c55e';
+            const GRAY    = 'f5f5f5';
+            const WHITE   = 'FFFFFF';
+            const DARK    = '333333';
+
+            // Slide 1 — Title
+            const s1 = pptx.addSlide();
+            s1.background = { color: CRIMSON };
+            s1.addText('BMA Class 4 Reinsurers', {
+                x: 0.5, y: 1.5, w: 12, h: 1.2,
+                fontSize: 40, bold: true, color: WHITE, align: 'center'
+            });
+            s1.addText('Financial Dashboard Export', {
+                x: 0.5, y: 2.8, w: 12, h: 0.6,
+                fontSize: 22, color: 'f0c0cc', align: 'center'
+            });
+            s1.addText(`Year: ${currentYear}  |  Companies: ${selected.length}  |  Generated: ${new Date().toLocaleDateString()}`, {
+                x: 0.5, y: 3.6, w: 12, h: 0.5,
+                fontSize: 13, color: 'e0a0b0', align: 'center'
+            });
+
+            // Helper — build a simple bar chart slide
+            function addBarSlide(title, metric, category) {
+                const sl = pptx.addSlide();
+                sl.addText(title, {
+                    x: 0.3, y: 0.15, w: 12.5, h: 0.5,
+                    fontSize: 18, bold: true, color: CRIMSON
+                });
+
+                const avg = getIndustryAvg(metric, category, currentYear);
+
+                // Chart data
+                const chartData = [{
+                    name: metric,
+                    labels: selected,
+                    values: selected.map(c => parseFloat(getValue(c, metric, category).toFixed(2)))
+                }];
+
+                sl.addChart(pptx.ChartType.bar, chartData, {
+                    x: 0.3, y: 0.75, w: 12.5, h: 4.8,
+                    barDir: 'col',
+                    chartColors: ['8b1538','a82844','c43b54','d46b7e','e09ba8','b8434d','7a1131','c41448','6b0f2b','a02040'],
+                    showLegend: false,
+                    dataLabelFontSize: 8,
+                    valAxisTitle: 'USD Millions',
+                    valAxisTitleFontSize: 10,
+                    catAxisLabelFontSize: 8,
+                });
+
+                // Industry avg annotation
+                sl.addText(`◆ Industry Avg: ${avg.toFixed(1)}`, {
+                    x: 0.3, y: 5.65, w: 12, h: 0.3,
+                    fontSize: 10, color: GREEN, bold: true
+                });
+            }
+
+            addBarSlide('Total Assets by Company',    'Total Assets',       'balance_sheet');
+            addBarSlide('Total Equity by Company',    'Total Equity',       'balance_sheet');
+            addBarSlide('Net Premiums Earned',        'Net Premiums Earned','income_statement');
+            addBarSlide('Net Income by Company',      'Net Income',         'income_statement');
+            addBarSlide('ROE (%)',                    'ROE (%)',            'ratios');
+            addBarSlide('ROA (%)',                    'ROA (%)',            'ratios');
+            addBarSlide('Loss Ratio (%)',             'Loss Ratio (%)',     'ratios');
+            addBarSlide('Combined Ratio (%)',         'Combined Ratio (%)','ratios');
+
+            // Slide — Summary Table
+            const tsl = pptx.addSlide();
+            tsl.addText('Financial Metrics Summary', {
+                x: 0.3, y: 0.15, w: 12.5, h: 0.5,
+                fontSize: 18, bold: true, color: CRIMSON
+            });
+
+            const tableMetrics = [
+                { label: 'Total Assets',       category: 'balance_sheet' },
+                { label: 'Total Equity',        category: 'balance_sheet' },
+                { label: 'Net Premiums Earned', category: 'income_statement' },
+                { label: 'Net Income',          category: 'income_statement' },
+                { label: 'ROE (%)',             category: 'ratios' },
+                { label: 'Combined Ratio (%)',  category: 'ratios' },
+            ];
+
+            const displayCos = selected.slice(0, 6); // cap at 6 for readability
+            const tableHeader = [
+                [{ text: 'Metric', options: { bold: true, color: WHITE, fill: CRIMSON } },
+                 ...displayCos.map(c => ({ text: c.split(' ')[0], options: { bold: true, color: WHITE, fill: CRIMSON } })),
+                 { text: 'Avg', options: { bold: true, color: WHITE, fill: '16a34a' } }]
+            ];
+            const tableRows = tableMetrics.map(({ label, category }) => {
+                const avg = getIndustryAvg(label, category, currentYear);
+                return [
+                    { text: label, options: { bold: true, fill: 'f9f9f9' } },
+                    ...displayCos.map(c => ({ text: getValue(c, label, category).toFixed(1), options: {} })),
+                    { text: avg.toFixed(1), options: { color: '16a34a', bold: true } }
+                ];
+            });
+
+            tsl.addTable([...tableHeader, ...tableRows], {
+                x: 0.3, y: 0.75, w: 12.5,
+                fontSize: 9,
+                border: { pt: 0.5, color: 'e0e0e0' },
+                autoPage: false,
+                rowH: 0.4
+            });
+
+            tsl.addText(`All values in USD Millions  |  ${currentYear}  |  Industry averages computed across all ${dashboardData.companies.length} companies`, {
+                x: 0.3, y: 6.8, w: 12.5, h: 0.3,
+                fontSize: 8, color: '999999', align: 'center'
+            });
+
+            await pptx.writeFile({ fileName: `BMA_Filings_${currentYear}_Dashboard.pptx` });
+        }
+
+        // ── DARK MODE ─────────────────────────────────────────────────
+        function toggleDarkMode() {
+            const isDark = document.body.classList.toggle('dark-mode');
+            localStorage.setItem('bma-theme', isDark ? 'dark' : 'light');
+            document.getElementById('theme-toggle').textContent = isDark ? '☀️' : '🌙';
+            updateAllCharts();
+        }
+
+        function getChartColors() {
+            const isDark = document.body.classList.contains('dark-mode');
+            return {
+                grid: isDark ? '#2a2b35' : '#f0f0f0',
+                tick: isDark ? '#9ca3af' : '#666666',
+                legend: isDark ? '#e8e8e8' : '#333333',
+            };
+        }
+
+        // Apply saved theme on load
+        (function() {
+            const saved = localStorage.getItem('bma-theme');
+            if (saved === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.addEventListener('DOMContentLoaded', () => {
+                    const btn = document.getElementById('theme-toggle');
+                    if (btn) btn.textContent = '☀️';
+                });
+            }
+        })();
+
     </script>
+</body>
+</html><script src="dashboard_data.js"></script>E html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Island Pulse Bermuda — Dashboard for Bermuda Insurance & Reinsurance Markets</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="tier-access.js"></script>
+    
     <style>
         * {
             margin: 0;
