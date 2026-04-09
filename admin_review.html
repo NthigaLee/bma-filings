@@ -541,11 +541,74 @@
         <button class="tab-btn active" data-tab="income" onclick="switchTab('income')">Income Statement</button>
         <button class="tab-btn" data-tab="balance" onclick="switchTab('balance')">Balance Sheet</button>
         <button class="tab-btn" data-tab="ratios" onclick="switchTab('ratios')">Ratios</button>
+        <button class="tab-btn" data-tab="bot-queries" onclick="switchTab('bot-queries')">Bot Queries</button>
+        <button class="tab-btn" data-tab="audit-status" onclick="switchTab('audit-status')">Audit Status</button>
+        <button class="tab-btn" data-tab="fcr-upload" onclick="switchTab('fcr-upload')">FCR Upload</button>
       </div>
       <div class="tab-content">
         <div class="tab-pane active" id="tab-income"></div>
         <div class="tab-pane" id="tab-balance"></div>
         <div class="tab-pane" id="tab-ratios"></div>
+        <div class="tab-pane" id="tab-bot-queries">
+          <div class="section-title">Omniscient Bot Queries</div>
+          <div class="field-group">
+            <textarea class="field-input" id="bot-question" placeholder="Ask the bot anything about this company..." style="height: 60px; resize: vertical;"></textarea>
+            <div style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap;">
+              <button class="btn-save" onclick="submitBotQuery('query')" style="flex: 1; min-width: 100px;">Ask Bot</button>
+              <button class="btn-save" onclick="submitBotQuery('risks')" style="flex: 1; min-width: 100px;">Risks?</button>
+              <button class="btn-save" onclick="submitBotQuery('opportunities')" style="flex: 1; min-width: 100px;">Opportunities?</button>
+            </div>
+          </div>
+          <div id="bot-response" style="margin-top: 12px; padding: 10px; background: #1a1a1a; border-radius: 4px; min-height: 100px; display: none;">
+            <div style="font-size: 11px; color: #888; margin-bottom: 6px;">Response:</div>
+            <div id="bot-response-text" style="color: #ddd; font-size: 12px; line-height: 1.5;"></div>
+            <div style="margin-top: 8px; font-size: 10px; color: #666;">
+              Confidence: <span id="bot-confidence" style="color: #8b1538; font-weight: bold;">--</span>% |
+              Audit ID: <span id="bot-audit-id" style="color: #8b1538; font-weight: bold; cursor: pointer;">--</span>
+            </div>
+          </div>
+        </div>
+        <div class="tab-pane" id="tab-audit-status">
+          <div class="section-title">Financial Audit Status</div>
+          <button class="btn-save" onclick="runAuditValidation()" style="width: 100%; margin-bottom: 10px;">Run Validation</button>
+          <div id="audit-results" style="display: none;">
+            <div id="audit-checks-container" style="margin-top: 10px;"></div>
+            <div style="margin-top: 12px; padding: 8px; background: #1a2a1a; border-left: 3px solid #40c060; border-radius: 2px;">
+              <div style="font-size: 11px; color: #888; margin-bottom: 4px;">Summary:</div>
+              <div id="audit-summary" style="color: #40c060; font-size: 12px;"></div>
+            </div>
+            <div style="margin-top: 8px; font-size: 10px; color: #666;">
+              Confidence: <span id="audit-confidence" style="color: #8b1538; font-weight: bold;">--</span>% |
+              Audit ID: <span id="audit-audit-id" style="color: #8b1538; font-weight: bold;">--</span>
+            </div>
+          </div>
+          <div id="audit-message" style="margin-top: 12px; padding: 8px; background: #1e1e1e; border-radius: 4px; color: #aaa; font-size: 12px; text-align: center; display: none;"></div>
+        </div>
+        <div class="tab-pane" id="tab-fcr-upload">
+          <div class="section-title">FCR Document Upload</div>
+          <div class="field-group">
+            <label class="field-label">Document Type</label>
+            <select id="fcr-doc-type" class="field-input" style="height: 32px;">
+              <option value="">-- Select Type --</option>
+              <option value="regulatory">Regulatory Filing</option>
+              <option value="audit">Audit Report</option>
+              <option value="annual">Annual Report</option>
+              <option value="supplementary">Supplementary Data</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="field-group">
+            <label class="field-label">File Upload</label>
+            <input type="file" id="fcr-file-input" class="field-input" accept=".pdf,.docx,.xlsx" />
+          </div>
+          <button class="btn-save" onclick="uploadFCRDocument()" style="width: 100%; margin-bottom: 10px;">Upload Document</button>
+          <div id="fcr-response" style="display: none; margin-top: 12px; padding: 10px; background: #1a1a1a; border-radius: 4px;">
+            <div id="fcr-response-text" style="color: #40c060; font-size: 12px;"></div>
+            <div style="margin-top: 6px; font-size: 10px; color: #666;">
+              File ID: <span id="fcr-file-id" style="color: #aaa;"></span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -699,7 +762,7 @@ let currentFilter = 'all';
 let reviewedData = {};         // from /api/reviews
 const companyStatuses = {};    // company → { 2023: 'draft'|'approved'|null, 2024: ... }
 
-const COMPANIES = window.BMA_DASHBOARD_DATA ? window.BMA_DASHBOARD_DATA.companies : [];
+const COMPANIES = dashboardData ? dashboardData.companies : [];
 
 // ──────────────────────────────────────────────
 // ADMIN TIER REVIEW FUNCTION
@@ -730,7 +793,7 @@ function fmtNum(v) {
 
 function getDashboardValue(year, section, field, company) {
   try {
-    return window.BMA_DASHBOARD_DATA.data[String(year)][section][field][company];
+    return dashboardData.data[String(year)][section][field][company];
   } catch(e) { return null; }
 }
 
@@ -1077,6 +1140,202 @@ async function loadReviewedData() {
     }
   } catch(e) {
     // server not running — skip silently
+  }
+}
+
+// ──────────────────────────────────────────────
+// Bot Queries
+// ──────────────────────────────────────────────
+async function submitBotQuery(queryType) {
+  if (!selectedCompany) {
+    showToast('Select a company first', 'error');
+    return;
+  }
+
+  let question = document.getElementById('bot-question').value.trim();
+
+  // Handle quick query buttons
+  if (queryType === 'risks') {
+    question = 'What are the key financial and operational risks for this company?';
+  } else if (queryType === 'opportunities') {
+    question = 'What are the main opportunities for improvement and growth?';
+  } else if (!question) {
+    showToast('Enter a question', 'error');
+    return;
+  }
+
+  const msgEl = document.getElementById('bot-response');
+  msgEl.style.display = 'block';
+  document.getElementById('bot-response-text').textContent = 'Thinking...';
+
+  try {
+    const r = await fetch('/api/bot/query', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company: selectedCompany,
+        question: question,
+        year: selectedYear
+      })
+    });
+
+    if (!r.ok) throw new Error('Server error');
+    const data = await r.json();
+
+    if (data.status === 'success') {
+      document.getElementById('bot-response-text').textContent = data.analysis || '';
+      document.getElementById('bot-confidence').textContent = data.confidence || '--';
+      document.getElementById('bot-audit-id').textContent = (data.audit_id || '--').substring(0, 8);
+      showToast('Bot analysis complete', 'success');
+    } else {
+      document.getElementById('bot-response-text').textContent = 'Error: ' + data.analysis;
+      showToast('Bot analysis failed', 'error');
+    }
+  } catch(e) {
+    document.getElementById('bot-response-text').textContent = 'Error: ' + e.message;
+    showToast('Query failed: ' + e.message, 'error');
+  }
+}
+
+// ──────────────────────────────────────────────
+// Auditor Validation
+// ──────────────────────────────────────────────
+async function runAuditValidation() {
+  if (!selectedCompany) {
+    showToast('Select a company first', 'error');
+    return;
+  }
+
+  const msgEl = document.getElementById('audit-message');
+  msgEl.style.display = 'block';
+  msgEl.textContent = 'Running validation...';
+  msgEl.style.background = '#1e1e1e';
+
+  try {
+    // Collect current data from form
+    const data = {
+      income_statement: collectSection('income_statement'),
+      balance_sheet: collectSection('balance_sheet'),
+      ratios: collectSection('ratios')
+    };
+
+    const r = await fetch('/api/auditor/validate', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company: selectedCompany,
+        year: selectedYear,
+        data: data
+      })
+    });
+
+    if (!r.ok) throw new Error('Server error');
+    const result = await r.json();
+
+    if (result.status === 'success') {
+      displayAuditResults(result);
+      msgEl.style.display = 'none';
+      showToast('Audit validation complete', 'success');
+    } else {
+      msgEl.textContent = 'Validation error: ' + result.error;
+      msgEl.style.background = '#5a1020';
+      msgEl.style.color = '#e05070';
+    }
+  } catch(e) {
+    msgEl.textContent = 'Error: ' + e.message;
+    msgEl.style.background = '#5a1020';
+    msgEl.style.color = '#e05070';
+    showToast('Validation failed', 'error');
+  }
+}
+
+function displayAuditResults(results) {
+  const container = document.getElementById('audit-checks-container');
+  container.innerHTML = '';
+
+  for (const check of results.checks) {
+    const statusColor = check.passed ? '#40c060' : '#e05070';
+    const statusText = check.passed ? '✓ PASS' : '✗ FAIL';
+
+    let html = `
+      <div style="margin-bottom: 8px; padding: 8px; background: #1a1a1a; border-left: 3px solid ${statusColor}; border-radius: 2px;">
+        <div style="color: ${statusColor}; font-weight: bold; font-size: 11px;">${statusText} - ${check.name}</div>`;
+
+    if (check.findings && check.findings.length > 0) {
+      html += `<div style="margin-top: 4px; color: #aaa; font-size: 11px;">`;
+      for (const finding of check.findings) {
+        html += `<div style="margin-bottom: 2px;">• ${finding}</div>`;
+      }
+      html += `</div>`;
+    }
+
+    html += `</div>`;
+    container.innerHTML += html;
+  }
+
+  document.getElementById('audit-results').style.display = 'block';
+  document.getElementById('audit-summary').textContent = results.summary;
+  document.getElementById('audit-confidence').textContent = results.confidence;
+  document.getElementById('audit-audit-id').textContent = (results.audit_id || '--').substring(0, 8);
+}
+
+// ──────────────────────────────────────────────
+// FCR Upload
+// ──────────────────────────────────────────────
+async function uploadFCRDocument() {
+  if (!selectedCompany) {
+    showToast('Select a company first', 'error');
+    return;
+  }
+
+  const fileInput = document.getElementById('fcr-file-input');
+  const docType = document.getElementById('fcr-doc-type').value;
+
+  if (!fileInput.files.length) {
+    showToast('Select a file first', 'error');
+    return;
+  }
+
+  if (!docType) {
+    showToast('Select a document type', 'error');
+    return;
+  }
+
+  const respEl = document.getElementById('fcr-response');
+  respEl.style.display = 'block';
+  document.getElementById('fcr-response-text').textContent = 'Uploading...';
+
+  try {
+    // For now, send metadata (file handling would require multipart form data)
+    const r = await fetch('/api/fcr/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        company: selectedCompany,
+        year: selectedYear,
+        document_type: docType,
+        file_name: fileInput.files[0].name,
+        file_size: fileInput.files[0].size
+      })
+    });
+
+    if (!r.ok) throw new Error('Server error');
+    const result = await r.json();
+
+    if (result.status === 'success') {
+      document.getElementById('fcr-response-text').textContent =
+        `✓ Document uploaded successfully`;
+      document.getElementById('fcr-file-id').textContent = result.file_id || '--';
+      fileInput.value = '';
+      document.getElementById('fcr-doc-type').value = '';
+      showToast('FCR document uploaded', 'success');
+    } else {
+      document.getElementById('fcr-response-text').textContent = 'Error: ' + result.error;
+      showToast('Upload failed', 'error');
+    }
+  } catch(e) {
+    document.getElementById('fcr-response-text').textContent = 'Error: ' + e.message;
+    showToast('Upload failed: ' + e.message, 'error');
   }
 }
 
