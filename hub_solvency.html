@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solvency / FCR — Bermuda Re Hub</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="dashboard_data.js"></script>
+<script src="fcr_data.js"></script>
+<style>
+:root{--bg:#0a0e1a;--surface:#111827;--surface2:#1a2236;--border:#1e2d4a;--accent:#3b82f6;--accent2:#06b6d4;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--green:#10b981;--red:#ef4444;--gold:#f59e0b;--purple:#8b5cf6;--card-radius:12px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;}
+nav{background:rgba(17,24,39,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:0;padding:0 24px;height:60px;}
+.nav-brand{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-.3px;margin-right:32px;}
+.nav-brand span{color:var(--accent2);}
+.nav-links{display:flex;gap:2px;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13.5px;font-weight:500;padding:6px 14px;border-radius:8px;transition:all .15s;}
+.nav-links a:hover{color:var(--text);background:var(--surface2);}
+.nav-links a.active{color:var(--accent);background:rgba(59,130,246,.12);}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#0d1528,#0a1a2e);border-bottom:1px solid var(--border);padding:32px 24px;text-align:center;}
+.hero h1{font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;}
+.hero h1 span{color:var(--accent2);}
+.hero p{color:var(--text2);font-size:14px;max-width:600px;margin:0 auto;line-height:1.6;}
+
+.content{max-width:1300px;margin:0 auto;padding:28px 24px;}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--card-radius);padding:20px 22px;}
+.card canvas{display:block;}
+.section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.section-hdr h2{font-size:15px;font-weight:700;color:var(--text);}
+.section-line{flex:1;height:1px;background:var(--border);}
+
+/* ECR gauge row */
+.ecr-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:24px;}
+.ecr-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--card-radius);padding:18px 20px;position:relative;overflow:hidden;}
+.ecr-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.ecr-card.strong::before{background:var(--green);}
+.ecr-card.moderate::before{background:var(--gold);}
+.ecr-card.low::before{background:var(--red);}
+.ecr-company{font-size:12px;color:var(--text3);margin-bottom:4px;font-weight:500;}
+.ecr-entity{font-size:11px;color:var(--text3);margin-bottom:10px;opacity:.7;}
+.ecr-ratio{font-size:30px;font-weight:800;letter-spacing:-.5px;margin-bottom:6px;}
+.ecr-ratio.strong{color:var(--green);}
+.ecr-ratio.moderate{color:var(--gold);}
+.ecr-ratio.low{color:var(--red);}
+.ecr-bar-track{height:6px;background:var(--surface2);border-radius:3px;overflow:hidden;margin-bottom:8px;}
+.ecr-bar-fill{height:100%;border-radius:3px;transition:width .5s;}
+.ecr-meta{font-size:11.5px;color:var(--text3);}
+
+/* FCR Table */
+.fcr-table{width:100%;border-collapse:collapse;font-size:13px;}
+.fcr-table th{text-align:left;padding:10px 14px;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.6px;border-bottom:1px solid var(--border);font-weight:600;}
+.fcr-table td{padding:10px 14px;border-bottom:1px solid rgba(30,45,74,.5);color:var(--text);}
+.fcr-table tr:hover td{background:rgba(59,130,246,.04);}
+.ratio-strong{color:var(--green);font-weight:700;}
+.ratio-moderate{color:var(--gold);font-weight:600;}
+.ratio-low{color:var(--red);}
+
+/* Info box */
+.info-box{background:rgba(59,130,246,.07);border:1px solid rgba(59,130,246,.2);border-radius:var(--card-radius);padding:18px 22px;margin-bottom:24px;}
+.info-box h3{font-size:13.5px;font-weight:600;color:var(--accent2);margin-bottom:8px;}
+.info-box p{font-size:13px;color:var(--text2);line-height:1.6;}
+
+@media(max-width:900px){.ecr-row{grid-template-columns:repeat(2,1fr);}.grid-2{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">Bermuda <span>Re</span> Hub</div>
+  <div class="nav-links">
+    <a href="hub_index.html">Market Overview</a>
+    <a href="hub_company.html">Company Profiles</a>
+    <a href="hub_compare.html">Compare</a>
+    <a href="hub_solvency.html" class="active">Solvency / FCR</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <h1>Solvency & <span>Financial Condition Reports</span></h1>
+  <p>ECR (Enhanced Capital Requirement) ratios and eligible capital data from BMA-required Financial Condition Reports (FCRs) published under Insurance (Public Disclosure) Rules 2015.</p>
+</div>
+
+<div class="content">
+
+<div class="info-box">
+  <h3>📋 About Bermuda FCRs & ECR Ratios</h3>
+  <p>The <strong>Enhanced Capital Requirement (ECR)</strong> ratio measures a company's eligible capital relative to the capital requirement determined by the BMA's BSCR (Bermuda Solvency Capital Requirement) model. A ratio above 100% means the company holds more capital than required. The market average was approximately <strong>224%</strong> in 2024 (down from 263% in 2023). FCRs are published annually by each insurer and cover business performance, governance, risk profile, solvency valuation, and capital management.</p>
+</div>
+
+<!-- ECR ratio cards -->
+<div class="section-hdr"><h2>ECR Ratios — Available Data (2024)</h2><div class="section-line"></div></div>
+<div class="ecr-row" id="ecrCards"></div>
+
+<!-- Charts -->
+<div class="grid-2">
+  <div>
+    <div class="section-hdr"><h2>ECR Ratio Comparison</h2><div class="section-line"></div></div>
+    <div class="card" style="height:300px"><canvas id="ecrBarChart"></canvas></div>
+  </div>
+  <div>
+    <div class="section-hdr"><h2>Eligible Capital vs ECR</h2><div class="section-line"></div></div>
+    <div class="card" style="height:300px"><canvas id="capitalChart"></canvas></div>
+  </div>
+</div>
+
+<!-- Capital adequacy proxy -->
+<div class="section-hdr"><h2>Capital Strength Proxy — Equity / Total Assets (All Companies, 2024)</h2><div class="section-line"></div></div>
+<div class="card" style="margin-bottom:20px;height:680px;">
+  <p style="font-size:12px;color:var(--text3);margin-bottom:14px">Equity-to-Assets ratio as a proxy for capital strength where ECR data is not yet available. Higher = more capital buffer.</p>
+  <canvas id="equityRatioChart"></canvas>
+</div>
+
+<!-- FCR Data Table -->
+<div class="section-hdr"><h2>FCR Data Summary</h2><div class="section-line"></div></div>
+<div class="card" style="padding:0;overflow:hidden;margin-bottom:24px;">
+  <table class="fcr-table">
+    <thead><tr>
+      <th>Company</th>
+      <th>ECR Ratio 2024</th>
+      <th>ECR Ratio 2023</th>
+      <th>ECR ($M) 2024</th>
+      <th>Eligible Capital ($M) 2024</th>
+      <th>MSM Ratio 2024</th>
+      <th>Data Source</th>
+    </tr></thead>
+    <tbody id="fcrTableBody"></tbody>
+  </table>
+</div>
+
+<!-- Solvency proxy for all companies -->
+<div class="section-hdr"><h2>Solvency Metrics — All Companies (2024)</h2><div class="section-line"></div></div>
+<div class="card" style="padding:0;overflow:hidden;">
+  <table class="fcr-table" id="solventTable">
+    <thead><tr>
+      <th>#</th><th>Company</th><th>Total Equity</th><th>Total Assets</th><th>Equity Ratio</th><th>Loss Reserves</th><th>Reserves/Equity</th><th>Net Income 2024</th>
+    </tr></thead>
+    <tbody id="solventBody"></tbody>
+  </table>
+</div>
+
+</div>
+
+<script>
+const D = dashboardData;
+const FCR = typeof fcrData !== 'undefined' ? fcrData : {};
+const COMPANIES = D.companies;
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = '#1e2d4a';
+
+const fmtB = v=>(!v||v===0)?'—':Math.abs(v)>=1000?'$'+(v/1000).toFixed(1)+'B':'$'+Math.round(v)+'M';
+const fmtPct = v=>v!=null?v.toFixed(1)+'%':'—';
+function getV(y,s,f,c){return(D.data[y]?.[s]?.[f]||{})[c]||0;}
+
+// ECR Cards
+const fcrEntries = Object.entries(FCR).filter(([,v])=>v['2024']?.ecr_ratio!=null);
+const ecrCardsEl = document.getElementById('ecrCards');
+fcrEntries.sort((a,b)=>b[1]['2024'].ecr_ratio-a[1]['2024'].ecr_ratio).forEach(([company,data])=>{
+  const y24 = data['2024'];
+  const r = y24.ecr_ratio;
+  const cls = r>=250?'strong':r>=150?'moderate':'low';
+  const barPct = Math.min(r/400*100,100);
+  const barColor = cls==='strong'?'var(--green)':cls==='moderate'?'var(--gold)':'var(--red)';
+  ecrCardsEl.innerHTML += `
+    <div class="ecr-card ${cls}">
+      <div class="ecr-company">${company}</div>
+      <div class="ecr-entity">${data.entity_label||''}</div>
+      <div class="ecr-ratio ${cls}">${r}%</div>
+      <div class="ecr-bar-track"><div class="ecr-bar-fill" style="width:${barPct}%;background:${barColor}"></div></div>
+      <div class="ecr-meta">${y24.ecr_amount?'ECR: '+fmtB(y24.ecr_amount):''}${y24.ecr_amount&&y24.eligible_capital?' · ':''} ${y24.eligible_capital?'Capital: '+fmtB(y24.eligible_capital):''}</div>
+    </div>`;
+});
+
+// ECR Bar Chart
+const ecrChartData = fcrEntries.map(([c,d])=>({c:c.replace(' Reinsurance','').replace(' Insurance',''),r24:d['2024']?.ecr_ratio,r23:d['2023']?.ecr_ratio}));
+new Chart(document.getElementById('ecrBarChart'),{
+  type:'bar',
+  data:{
+    labels:ecrChartData.map(x=>x.c),
+    datasets:[
+      {label:'ECR Ratio 2024',data:ecrChartData.map(x=>x.r24),backgroundColor:'rgba(59,130,246,.8)',borderRadius:5,borderWidth:0},
+      {label:'ECR Ratio 2023',data:ecrChartData.map(x=>x.r23),backgroundColor:'rgba(6,182,212,.5)',borderRadius:5,borderWidth:0},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}},
+    },
+    scales:{
+      x:{grid:{display:false},ticks:{font:{size:11}}},
+      y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>v+'%'},suggestedMin:0,suggestedMax:400}
+    }
+  }
+});
+
+// Capital chart
+new Chart(document.getElementById('capitalChart'),{
+  type:'bar',
+  data:{
+    labels:ecrChartData.map(x=>x.c),
+    datasets:[
+      {label:'Eligible Capital ($B)',data:fcrEntries.map(([c,d])=>(d['2024']?.eligible_capital||0)/1000),backgroundColor:'rgba(16,185,129,.7)',borderRadius:5,borderWidth:0},
+      {label:'ECR ($B)',data:fcrEntries.map(([c,d])=>(d['2024']?.ecr_amount||0)/1000),backgroundColor:'rgba(239,68,68,.5)',borderRadius:5,borderWidth:0},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+    scales:{x:{grid:{display:false},ticks:{font:{size:11}}},y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>'$'+v+'B'}}}
+  }
+});
+
+// Equity ratio chart for all companies
+const eqData = COMPANIES.map(c=>{
+  const ta=getV('2024','balance_sheet','Total Assets',c);
+  const eq=getV('2024','balance_sheet','Total Equity',c);
+  return {c,r:ta>0&&eq>0?eq/ta*100:null};
+}).filter(x=>x.r!=null).sort((a,b)=>b.r-a.r);
+
+new Chart(document.getElementById('equityRatioChart'),{
+  type:'bar',
+  data:{
+    labels:eqData.map(x=>x.c.replace(' Reinsurance','').replace(' Insurance','').slice(0,20)),
+    datasets:[{
+      data:eqData.map(x=>x.r.toFixed(1)),
+      backgroundColor:eqData.map(x=>x.r>=30?'rgba(16,185,129,.7)':x.r>=15?'rgba(59,130,246,.7)':'rgba(245,158,11,.7)'),
+      borderWidth:0,borderRadius:4
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,indexAxis:'y',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x.toFixed(1)+'%'}}},
+    scales:{x:{grid:{color:'#1e2d4a'},ticks:{callback:v=>v+'%'},suggestedMax:60},y:{grid:{display:false},ticks:{font:{size:10}}}}
+  }
+});
+
+// FCR table
+const fcrBody = document.getElementById('fcrTableBody');
+Object.entries(FCR).filter(([,d])=>d['2024']?.ecr_ratio!=null||d['2024']?.ecr_amount!=null||d['2023']?.ecr_ratio!=null).forEach(([company,data])=>{
+  const y24=data['2024']||{};const y23=data['2023']||{};
+  const rCls = r=>(r>=250?'ratio-strong':r>=150?'ratio-moderate':'ratio-low');
+  fcrBody.innerHTML += `<tr>
+    <td style="font-weight:500">${company}</td>
+    <td class="${y24.ecr_ratio?rCls(y24.ecr_ratio):''}">${y24.ecr_ratio!=null?y24.ecr_ratio+'%':'—'}</td>
+    <td>${y23.ecr_ratio!=null?y23.ecr_ratio+'%':'—'}</td>
+    <td>${y24.ecr_amount!=null?fmtB(y24.ecr_amount):'—'}</td>
+    <td>${y24.eligible_capital!=null?fmtB(y24.eligible_capital):'—'}</td>
+    <td>${y24.msm_ratio!=null?y24.msm_ratio+'%':'—'}</td>
+    <td style="font-size:11.5px;color:var(--text3)">Company FCR (2024)</td>
+  </tr>`;
+});
+
+// Solvency proxy table
+const solBody = document.getElementById('solventBody');
+COMPANIES.map(c=>({
+  c,
+  eq:getV('2024','balance_sheet','Total Equity',c),
+  ta:getV('2024','balance_sheet','Total Assets',c),
+  lr:getV('2024','balance_sheet','Loss Reserves',c),
+  ni:getV('2024','income_statement','Net Income',c),
+})).filter(x=>x.ta>0).sort((a,b)=>b.ta-a.ta).forEach((row,i)=>{
+  const eqRatio=row.ta>0&&row.eq>0?row.eq/row.ta*100:null;
+  const resRatio=row.eq>0&&row.lr>0?row.lr/row.eq:null;
+  solBody.innerHTML += `<tr>
+    <td style="color:var(--text3)">${i+1}</td>
+    <td style="font-weight:500">${row.c}</td>
+    <td>${fmtB(row.eq)}</td>
+    <td>${fmtB(row.ta)}</td>
+    <td class="${eqRatio>=30?'ratio-strong':eqRatio>=15?'ratio-moderate':'ratio-low'}">${eqRatio?eqRatio.toFixed(1)+'%':'—'}</td>
+    <td>${fmtB(row.lr)}</td>
+    <td>${resRatio?resRatio.toFixed(2)+'x':'—'}</td>
+    <td style="color:${row.ni>=0?'var(--green)':'var(--red)'}">${fmtB(row.ni)}</td>
+  </tr>`;
+});
+</script>
+</body>
+</html>

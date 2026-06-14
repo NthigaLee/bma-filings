@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compare — Bermuda Re Hub</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="dashboard_data.js"></script>
+<style>
+:root{--bg:#0a0e1a;--surface:#111827;--surface2:#1a2236;--border:#1e2d4a;--accent:#3b82f6;--accent2:#06b6d4;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--green:#10b981;--red:#ef4444;--gold:#f59e0b;--card-radius:12px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;}
+nav{background:rgba(17,24,39,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:0;padding:0 24px;height:60px;}
+.nav-brand{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-.3px;margin-right:32px;}
+.nav-brand span{color:var(--accent2);}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13.5px;font-weight:500;padding:6px 14px;border-radius:8px;transition:all .15s;}
+.nav-links a:hover{color:var(--text);background:var(--surface2);}
+.nav-links a.active{color:var(--accent);background:rgba(59,130,246,.12);}
+.nav-links{display:flex;gap:2px;}
+.content{max-width:1400px;margin:0 auto;padding:28px 24px;}
+
+/* Selector bar */
+.selector-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--card-radius);padding:20px 24px;margin-bottom:24px;}
+.selector-bar h2{font-size:14px;font-weight:600;margin-bottom:14px;color:var(--text);}
+.selectors-row{display:flex;gap:12px;flex-wrap:wrap;align-items:flex-end;}
+.sel-group{display:flex;flex-direction:column;gap:5px;flex:1;min-width:200px;}
+.sel-group label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;}
+.sel-group select{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;padding:8px 10px;outline:none;width:100%;}
+.sel-group select:focus{border-color:var(--accent);}
+.color-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:4px;}
+.btn-compare{background:var(--accent);border:none;border-radius:8px;color:#fff;font-size:13.5px;font-weight:600;padding:10px 22px;cursor:pointer;transition:all .15s;align-self:flex-end;}
+.btn-compare:hover{background:#2563eb;}
+
+/* Year tabs */
+.year-tabs{display:flex;gap:4px;margin-bottom:20px;}
+.yr-tab{background:none;border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;color:var(--text3);cursor:pointer;}
+.yr-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* Card grid */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:20px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--card-radius);padding:20px 22px;}
+.card canvas{display:block;}
+
+/* Compare table */
+.compare-header{display:grid;gap:1px;background:var(--border);}
+.compare-table{width:100%;border-collapse:collapse;font-size:13px;}
+.compare-table th{text-align:left;padding:10px 14px;font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;border-bottom:2px solid var(--border);background:var(--surface2);font-weight:600;}
+.compare-table td{padding:10px 14px;border-bottom:1px solid rgba(30,45,74,.5);color:var(--text);vertical-align:middle;}
+.compare-table tr:hover td{background:rgba(59,130,246,.04);}
+.compare-table .field-name{color:var(--text2);font-size:12.5px;}
+.compare-table .best{color:var(--green);font-weight:700;}
+.compare-table .worst{color:var(--red);}
+.group-header td{background:var(--surface2)!important;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.7px;padding:6px 14px!important;font-weight:700;}
+
+/* Section header */
+.section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.section-hdr h2{font-size:15px;font-weight:700;color:var(--text);}
+.section-line{flex:1;height:1px;background:var(--border);}
+
+@media(max-width:800px){.grid-2,.grid-3{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">Bermuda <span>Re</span> Hub</div>
+  <div class="nav-links">
+    <a href="hub_index.html">Market Overview</a>
+    <a href="hub_company.html">Company Profiles</a>
+    <a href="hub_compare.html" class="active">Compare</a>
+    <a href="hub_solvency.html">Solvency / FCR</a>
+  </div>
+</nav>
+
+<div class="content">
+
+<div class="selector-bar">
+  <h2>Select companies to compare (up to 4)</h2>
+  <div class="selectors-row" id="selectorRow"></div>
+</div>
+
+<div style="display:flex;gap:12px;align-items:center;margin-bottom:20px;">
+  <span style="font-size:12.5px;color:var(--text3);">Year:</span>
+  <div class="year-tabs" id="yearTabs"></div>
+</div>
+
+<div class="grid-2">
+  <div>
+    <div class="section-hdr"><h2>Total Assets</h2><div class="section-line"></div></div>
+    <div class="card" style="height:280px"><canvas id="assetChart"></canvas></div>
+  </div>
+  <div>
+    <div class="section-hdr"><h2>Gross Premiums Written</h2><div class="section-line"></div></div>
+    <div class="card" style="height:280px"><canvas id="gpwChart"></canvas></div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div>
+    <div class="section-hdr"><h2>Net Income Trend</h2><div class="section-line"></div></div>
+    <div class="card" style="height:280px"><canvas id="niTrendChart"></canvas></div>
+  </div>
+  <div>
+    <div class="section-hdr"><h2>Loss Ratio Trend</h2><div class="section-line"></div></div>
+    <div class="card" style="height:280px"><canvas id="lrTrendChart"></canvas></div>
+  </div>
+</div>
+
+<div class="section-hdr"><h2>Full Metrics Comparison</h2><div class="section-line"></div></div>
+<div class="card" style="padding:0;overflow:hidden;">
+  <table class="compare-table" id="compareTable"></table>
+</div>
+
+</div>
+
+<script>
+const D = dashboardData;
+const YEARS = ['2019','2020','2021','2022','2023','2024'];
+const COMPANIES = D.companies;
+const COLORS = ['#3b82f6','#10b981','#f59e0b','#ef4444'];
+const NAMES = ['Company 1','Company 2','Company 3','Company 4'];
+
+const fmtB = v=>(!v||v===0)?'—':Math.abs(v)>=1000?'$'+(v/1000).toFixed(1)+'B':'$'+Math.round(v)+'M';
+const fmtPct = v=>v!=null?v.toFixed(1)+'%':'—';
+function getV(y,s,f,c){return(D.data[y]?.[s]?.[f]||{})[c]||0;}
+
+// Default companies - top 4 by assets
+const top4 = COMPANIES.map(c=>({c,v:getV('2024','balance_sheet','Total Assets',c)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v).slice(0,4).map(x=>x.c);
+
+// Build selectors
+const sr = document.getElementById('selectorRow');
+const selects = [];
+top4.forEach((def,i)=>{
+  const g = document.createElement('div');
+  g.className = 'sel-group';
+  g.innerHTML = `<label><span class="color-dot" style="background:${COLORS[i]}"></span>Company ${i+1}</label>`;
+  const s = document.createElement('select');
+  s.innerHTML = '<option value="">— None —</option>' + COMPANIES.map(c=>`<option value="${c}" ${c===def?'selected':''}>${c}</option>`).join('');
+  s.addEventListener('change', renderAll);
+  g.appendChild(s);
+  sr.appendChild(g);
+  selects.push(s);
+});
+
+// Year tabs
+let selYear = '2024';
+const ytEl = document.getElementById('yearTabs');
+YEARS.forEach(yr=>{
+  const b = document.createElement('button');
+  b.className='yr-tab'+(yr==='2024'?' active':'');
+  b.textContent=yr;
+  b.onclick=()=>{selYear=yr;ytEl.querySelectorAll('.yr-tab').forEach(x=>x.classList.remove('active'));b.classList.add('active');renderAll();};
+  ytEl.appendChild(b);
+});
+
+let charts = {};
+function destroyCharts(){Object.values(charts).forEach(c=>{if(c)c.destroy();});charts={};}
+
+function getSelected(){return selects.map(s=>s.value).filter(v=>v);}
+
+function renderAll(){
+  const companies = getSelected();
+  if(companies.length<2){return;}
+  destroyCharts();
+
+  // Asset trend (bar grouped)
+  charts.asset = new Chart(document.getElementById('assetChart'),{
+    type:'bar',
+    data:{
+      labels:YEARS,
+      datasets:companies.map((c,i)=>({
+        label:c.replace(' Reinsurance','').replace(' Insurance',''),
+        data:YEARS.map(y=>getV(y,'balance_sheet','Total Assets',c)),
+        backgroundColor:COLORS[i]+'cc',borderRadius:4,borderWidth:0
+      }))
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>v>=1000?'$'+(v/1000).toFixed(0)+'B':'$'+v+'M'}}}}
+  });
+
+  // GPW bar
+  charts.gpw = new Chart(document.getElementById('gpwChart'),{
+    type:'bar',
+    data:{
+      labels:YEARS,
+      datasets:companies.map((c,i)=>({
+        label:c.replace(' Reinsurance','').replace(' Insurance',''),
+        data:YEARS.map(y=>getV(y,'income_statement','Gross Premiums Written',c)||getV(y,'income_statement','Net Premiums Written',c)),
+        backgroundColor:COLORS[i]+'cc',borderRadius:4,borderWidth:0
+      }))
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>v>=1000?'$'+(v/1000).toFixed(0)+'B':'$'+v+'M'}}}}
+  });
+
+  // NI trend line
+  charts.ni = new Chart(document.getElementById('niTrendChart'),{
+    type:'line',
+    data:{
+      labels:YEARS,
+      datasets:companies.map((c,i)=>({
+        label:c.replace(' Reinsurance','').replace(' Insurance',''),
+        data:YEARS.map(y=>getV(y,'income_statement','Net Income',c)),
+        borderColor:COLORS[i],backgroundColor:COLORS[i]+'20',fill:false,tension:.4,borderWidth:2,pointRadius:4
+      }))
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>'$'+v+'M'}}}}
+  });
+
+  // Loss ratio trend
+  charts.lr = new Chart(document.getElementById('lrTrendChart'),{
+    type:'line',
+    data:{
+      labels:YEARS,
+      datasets:companies.map((c,i)=>{
+        const lrPts = YEARS.map(y=>{
+          const lae=getV(y,'income_statement','Losses and LAE',c);
+          const npe=getV(y,'income_statement','Net Premiums Earned',c);
+          return npe>0&&lae>0?lae/npe*100:null;
+        });
+        return {label:c.replace(' Reinsurance','').replace(' Insurance',''),data:lrPts,borderColor:COLORS[i],backgroundColor:COLORS[i]+'20',fill:false,tension:.4,borderWidth:2,pointRadius:4,spanGaps:true};
+      })
+    },
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},scales:{x:{grid:{display:false}},y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>v+'%'},suggestedMin:30,suggestedMax:110}}}
+  });
+
+  // Full metrics table
+  const year = selYear;
+  const metrics = [
+    {group:'Balance Sheet'},
+    {label:'Total Assets',fn:c=>getV(year,'balance_sheet','Total Assets',c),fmt:fmtB,higher:true},
+    {label:'Total Equity',fn:c=>getV(year,'balance_sheet','Total Equity',c),fmt:fmtB,higher:true},
+    {label:'Total Investments',fn:c=>getV(year,'balance_sheet','Total Investments',c),fmt:fmtB,higher:false},
+    {label:'Loss Reserves',fn:c=>getV(year,'balance_sheet','Loss Reserves',c),fmt:fmtB,higher:false},
+    {label:'Total Liabilities',fn:c=>getV(year,'balance_sheet','Total Liabilities',c),fmt:fmtB,higher:false},
+    {group:'Income Statement'},
+    {label:'Gross Premiums Written',fn:c=>getV(year,'income_statement','Gross Premiums Written',c),fmt:fmtB,higher:true},
+    {label:'Net Premiums Written',fn:c=>getV(year,'income_statement','Net Premiums Written',c),fmt:fmtB,higher:true},
+    {label:'Net Premiums Earned',fn:c=>getV(year,'income_statement','Net Premiums Earned',c),fmt:fmtB,higher:true},
+    {label:'Net Investment Income',fn:c=>getV(year,'income_statement','Net Investment Income',c),fmt:fmtB,higher:true},
+    {label:'Total Revenues',fn:c=>getV(year,'income_statement','Total Revenues',c),fmt:fmtB,higher:true},
+    {label:'Losses and LAE',fn:c=>getV(year,'income_statement','Losses and LAE',c),fmt:fmtB,higher:false},
+    {label:'Total Expenses',fn:c=>getV(year,'income_statement','Total Expenses',c),fmt:fmtB,higher:false},
+    {label:'Net Income',fn:c=>getV(year,'income_statement','Net Income',c),fmt:fmtB,higher:true},
+    {group:'Derived Ratios'},
+    {label:'Loss Ratio',fn:c=>{const lae=getV(year,'income_statement','Losses and LAE',c);const npe=getV(year,'income_statement','Net Premiums Earned',c);return npe>0&&lae>0?lae/npe*100:null;},fmt:v=>v!=null?v.toFixed(1)+'%':'—',higher:false},
+    {label:'Combined Ratio (est.)',fn:c=>{const tx=getV(year,'income_statement','Total Expenses',c);const npe=getV(year,'income_statement','Net Premiums Earned',c);return npe>0&&tx>0?tx/npe*100:null;},fmt:v=>v!=null?v.toFixed(1)+'%':'—',higher:false},
+    {label:'Return on Equity (est.)',fn:c=>{const ni=getV(year,'income_statement','Net Income',c);const eq=getV(year,'balance_sheet','Total Equity',c);return eq>0&&ni?ni/eq*100:null;},fmt:v=>v!=null?v.toFixed(1)+'%':'—',higher:true},
+    {label:'Leverage (Liab/Equity)',fn:c=>{const tl=getV(year,'balance_sheet','Total Liabilities',c);const eq=getV(year,'balance_sheet','Total Equity',c);return eq>0&&tl>0?tl/eq:null;},fmt:v=>v!=null?v.toFixed(2)+'x':'—',higher:false},
+  ];
+
+  const shortNames = companies.map(c=>c.replace(' Reinsurance','').replace(' Insurance',''));
+  let html = `<thead><tr><th style="width:220px">Metric</th>${shortNames.map((n,i)=>`<th><span class="color-dot" style="background:${COLORS[i]}"></span>${n}</th>`).join('')}</tr></thead><tbody>`;
+
+  metrics.forEach(m=>{
+    if(m.group){html+=`<tr class="group-header"><td colspan="${companies.length+1}">${m.group}</td></tr>`;return;}
+    const vals = companies.map(c=>m.fn(c));
+    const numericVals = vals.filter(v=>v!=null&&v!==0);
+    const bestVal = numericVals.length ? (m.higher?Math.max(...numericVals):Math.min(...numericVals)) : null;
+    const worstVal = numericVals.length ? (m.higher?Math.min(...numericVals):Math.max(...numericVals)) : null;
+    html += `<tr><td class="field-name">${m.label}</td>${vals.map(v=>{
+      const cls = v===bestVal&&numericVals.length>1?'best':v===worstVal&&numericVals.length>1?'worst':'';
+      return `<td class="${cls}">${m.fmt(v)}</td>`;
+    }).join('')}</tr>`;
+  });
+  html += '</tbody>';
+  document.getElementById('compareTable').innerHTML = html;
+}
+
+renderAll();
+</script>
+</body>
+</html>

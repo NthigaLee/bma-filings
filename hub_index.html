@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bermuda Re Hub — Market Overview</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="dashboard_data.js"></script>
+<script src="fcr_data.js"></script>
+<style>
+:root {
+  --bg: #0a0e1a;
+  --surface: #111827;
+  --surface2: #1a2236;
+  --border: #1e2d4a;
+  --accent: #3b82f6;
+  --accent2: #06b6d4;
+  --accent3: #8b5cf6;
+  --gold: #f59e0b;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --text3: #64748b;
+  --green: #10b981;
+  --red: #ef4444;
+  --card-radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: 'Inter', 'Segoe UI', system-ui, sans-serif; min-height: 100vh; }
+
+/* NAV */
+nav {
+  background: rgba(17,24,39,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 0; padding: 0 24px; height: 60px;
+}
+.nav-brand { font-size: 17px; font-weight: 700; color: var(--text); letter-spacing: -0.3px; margin-right: 32px; white-space: nowrap; }
+.nav-brand span { color: var(--accent2); }
+.nav-links { display: flex; gap: 2px; }
+.nav-links a {
+  color: var(--text2); text-decoration: none; font-size: 13.5px; font-weight: 500;
+  padding: 6px 14px; border-radius: 8px; transition: all .15s;
+  white-space: nowrap;
+}
+.nav-links a:hover { color: var(--text); background: var(--surface2); }
+.nav-links a.active { color: var(--accent); background: rgba(59,130,246,.12); }
+.nav-right { margin-left: auto; color: var(--text3); font-size: 12px; }
+
+/* HERO */
+.hero {
+  background: linear-gradient(135deg, #0d1528 0%, #0a1420 40%, #0d1a2e 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 40px 24px 32px;
+  text-align: center;
+}
+.hero h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.8px; color: var(--text); margin-bottom: 10px; }
+.hero h1 span { background: linear-gradient(90deg, var(--accent), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { color: var(--text2); font-size: 15px; max-width: 520px; margin: 0 auto 20px; line-height: 1.6; }
+.hero-pills { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.pill { background: var(--surface2); border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; font-size: 12.5px; color: var(--text2); }
+.pill strong { color: var(--text); }
+
+/* CONTENT */
+.content { max-width: 1400px; margin: 0 auto; padding: 28px 24px; }
+
+/* KPI ROW */
+.kpi-row { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 28px; }
+.kpi { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-radius); padding: 18px 20px; }
+.kpi-label { font-size: 11.5px; color: var(--text3); text-transform: uppercase; letter-spacing: .7px; margin-bottom: 8px; }
+.kpi-value { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
+.kpi-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
+.kpi-delta { font-size: 12px; font-weight: 600; margin-top: 4px; }
+.kpi-delta.up { color: var(--green); }
+.kpi-delta.down { color: var(--red); }
+
+/* GRID */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 18px; margin-bottom: 20px; }
+.grid-full { margin-bottom: 20px; }
+
+/* CARD */
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-radius);
+  padding: 20px 22px; overflow: hidden;
+}
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.card-title { font-size: 13.5px; font-weight: 600; color: var(--text); }
+.card-sub { font-size: 11.5px; color: var(--text3); }
+.card canvas { display: block; }
+
+/* TABLE */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th { text-align: left; padding: 9px 12px; color: var(--text3); font-size: 11px; text-transform: uppercase; letter-spacing: .6px; border-bottom: 1px solid var(--border); font-weight: 600; }
+.data-table td { padding: 10px 12px; border-bottom: 1px solid rgba(30,45,74,.5); color: var(--text); vertical-align: middle; }
+.data-table tr:hover td { background: rgba(59,130,246,.04); }
+.data-table tr:last-child td { border-bottom: none; }
+.rank { color: var(--text3); font-weight: 500; width: 30px; }
+.company-link { color: var(--text); text-decoration: none; font-weight: 500; }
+.company-link:hover { color: var(--accent); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+.badge-p { background: rgba(59,130,246,.15); color: var(--accent); }
+.badge-n { background: rgba(239,68,68,.12); color: var(--red); }
+.val-positive { color: var(--green); }
+.val-negative { color: var(--red); }
+
+/* QUICK NAV */
+.quick-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 8px; }
+.qn-card {
+  background: var(--surface2); border: 1px solid var(--border); border-radius: var(--card-radius);
+  padding: 20px 22px; text-decoration: none; color: var(--text);
+  transition: all .2s; display: block;
+}
+.qn-card:hover { border-color: var(--accent); background: rgba(59,130,246,.08); transform: translateY(-1px); }
+.qn-icon { font-size: 26px; margin-bottom: 10px; }
+.qn-title { font-size: 15px; font-weight: 600; margin-bottom: 5px; }
+.qn-desc { font-size: 12.5px; color: var(--text2); line-height: 1.5; }
+
+/* SEARCH BOX */
+.search-wrap { position: relative; margin-bottom: 14px; }
+.search-wrap input {
+  width: 100%; background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 9px 14px 9px 36px; color: var(--text); font-size: 13px; outline: none;
+}
+.search-wrap input:focus { border-color: var(--accent); }
+.search-wrap::before { content: '🔍'; position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 12px; }
+
+/* BAR SPARK */
+.spark-bar { display: flex; align-items: center; gap: 8px; }
+.spark-bar-track { flex: 1; height: 4px; background: var(--surface2); border-radius: 2px; overflow: hidden; }
+.spark-bar-fill { height: 100%; border-radius: 2px; background: var(--accent); }
+
+/* SECTION HEADER */
+.section-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.section-hdr h2 { font-size: 16px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; }
+.section-line { flex: 1; height: 1px; background: var(--border); }
+
+/* YEAR SELECTOR */
+.year-tabs { display: flex; gap: 4px; }
+.year-tab { background: none; border: 1px solid var(--border); border-radius: 6px; padding: 4px 10px; font-size: 12px; color: var(--text3); cursor: pointer; }
+.year-tab.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+@media (max-width: 1000px) { .kpi-row { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 700px) { .grid-2,.grid-3 { grid-template-columns: 1fr; } .kpi-row { grid-template-columns: repeat(2,1fr); } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Bermuda <span>Re</span> Hub</div>
+  <div class="nav-links">
+    <a href="hub_index.html" class="active">Market Overview</a>
+    <a href="hub_company.html">Company Profiles</a>
+    <a href="hub_compare.html">Compare</a>
+    <a href="hub_solvency.html">Solvency / FCR</a>
+  </div>
+  <div class="nav-right">Class 4 Re/Insurance · 2019–2024</div>
+</nav>
+
+<div class="hero">
+  <h1>Bermuda <span>Class 4</span> Insurance Hub</h1>
+  <p>Market intelligence for Bermuda's largest reinsurers — balance sheets, income statements, premium trends, and solvency data across 40 entities and six years.</p>
+  <div class="hero-pills" id="heroPills"></div>
+</div>
+
+<div class="content">
+
+  <!-- KPIs -->
+  <div class="kpi-row" id="kpiRow"></div>
+
+  <!-- Charts row 1 -->
+  <div class="section-hdr">
+    <h2>Total Assets by Company (2024)</h2>
+    <div class="section-line"></div>
+    <div class="year-tabs" id="assetYearTabs"></div>
+  </div>
+  <div class="grid-full">
+    <div class="card" style="height:420px">
+      <canvas id="assetBarChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Charts row 2 -->
+  <div class="grid-2">
+    <div>
+      <div class="section-hdr"><h2>Market Premium Trends</h2><div class="section-line"></div></div>
+      <div class="card" style="height:300px">
+        <canvas id="premiumTrendChart"></canvas>
+      </div>
+    </div>
+    <div>
+      <div class="section-hdr"><h2>Market Asset Growth</h2><div class="section-line"></div></div>
+      <div class="card" style="height:300px">
+        <canvas id="assetTrendChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts row 3 -->
+  <div class="grid-3">
+    <div>
+      <div class="section-hdr"><h2>Premium Market Share 2024</h2><div class="section-line"></div></div>
+      <div class="card" style="height:280px">
+        <canvas id="premiumShareChart"></canvas>
+      </div>
+    </div>
+    <div>
+      <div class="section-hdr"><h2>Net Income Distribution 2024</h2><div class="section-line"></div></div>
+      <div class="card" style="height:280px">
+        <canvas id="incomeChart"></canvas>
+      </div>
+    </div>
+    <div>
+      <div class="section-hdr"><h2>Loss Ratio Benchmarks 2024</h2><div class="section-line"></div></div>
+      <div class="card" style="height:280px">
+        <canvas id="lossRatioChart"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Company Table -->
+  <div class="section-hdr">
+    <h2>All Companies</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="card">
+    <div class="search-wrap"><input type="text" id="tableSearch" placeholder="Filter companies…"></div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Company</th>
+          <th>Total Assets 2024</th>
+          <th>Gross Premiums 2024</th>
+          <th>Net Income 2024</th>
+          <th>Total Equity 2024</th>
+          <th>Asset Growth '23→'24</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="companyTableBody"></tbody>
+    </table>
+  </div>
+
+  <!-- Quick Nav -->
+  <div class="section-hdr" style="margin-top:28px">
+    <h2>Explore the Hub</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="quick-nav">
+    <a href="hub_company.html" class="qn-card">
+      <div class="qn-icon">🏢</div>
+      <div class="qn-title">Company Profiles</div>
+      <div class="qn-desc">Deep-dive financials for each entity — 6 years of balance sheet, income, and ratio data with interactive charts.</div>
+    </a>
+    <a href="hub_compare.html" class="qn-card">
+      <div class="qn-icon">⚡</div>
+      <div class="qn-title">Head-to-Head Compare</div>
+      <div class="qn-desc">Select up to 4 companies and compare across all metrics — assets, premiums, profitability, and more.</div>
+    </a>
+    <a href="hub_solvency.html" class="qn-card">
+      <div class="qn-icon">🛡️</div>
+      <div class="qn-title">Solvency / FCR</div>
+      <div class="qn-desc">ECR ratios, eligible capital, and Financial Condition Report data from BMA public filings.</div>
+    </a>
+  </div>
+
+</div>
+
+<script>
+const D = dashboardData;
+const YEARS = ['2019','2020','2021','2022','2023','2024'];
+const COMPANIES = D.companies;
+const CURR = '2024';
+
+// Helpers
+const fmt = (v, dec=1) => v==null||v===0 ? '—' : (Math.abs(v)>=1000 ? (v/1000).toFixed(1)+'T' : v.toFixed(dec)+'B').replace('BB','B');
+const fmtM = (v) => v==null||v===0 ? '—' : '$'+Math.round(v).toLocaleString()+'M';
+const fmtB = (v) => v==null||v===0 ? '—' : v>=1000 ? '$'+(v/1000).toFixed(1)+'B' : '$'+Math.round(v)+'M';
+const pct = (v) => v==null ? '—' : v.toFixed(1)+'%';
+
+function getMetric(year, section, field) {
+  return D.data[year]?.[section]?.[field] || {};
+}
+function getVal(year, section, field, company) {
+  return (D.data[year]?.[section]?.[field] || {})[company] || 0;
+}
+function marketTotal(year, section, field) {
+  const m = getMetric(year, section, field);
+  return Object.values(m).reduce((a,b)=>a+(b||0),0);
+}
+
+// Hero pills
+const totalAssets2024 = marketTotal('2024','balance_sheet','Total Assets');
+const totalAssets2023 = marketTotal('2023','balance_sheet','Total Assets');
+const totalGPW2024 = marketTotal('2024','income_statement','Gross Premiums Written');
+const totalNI2024 = marketTotal('2024','income_statement','Net Income');
+document.getElementById('heroPills').innerHTML = `
+  <span class="pill">📊 <strong>40</strong> Companies</span>
+  <span class="pill">📅 <strong>2019–2024</strong> Data</span>
+  <span class="pill">💰 <strong>${fmtB(totalAssets2024)}</strong> Total Assets</span>
+  <span class="pill">📋 <strong>${fmtB(totalGPW2024)}</strong> Gross Premiums</span>
+`;
+
+// KPIs
+const assetGrowth = totalAssets2023>0 ? (totalAssets2024-totalAssets2023)/totalAssets2023*100 : 0;
+const totalNPW = marketTotal('2024','income_statement','Net Premiums Written');
+const totalEquity = marketTotal('2024','balance_sheet','Total Equity');
+const activeComp = COMPANIES.filter(c=>getVal('2024','balance_sheet','Total Assets',c)>0).length;
+document.getElementById('kpiRow').innerHTML = `
+  <div class="kpi"><div class="kpi-label">Total Market Assets</div><div class="kpi-value">${fmtB(totalAssets2024)}</div><div class="kpi-delta ${assetGrowth>=0?'up':'down'}">${assetGrowth>=0?'▲':'▼'} ${Math.abs(assetGrowth).toFixed(1)}% vs 2023</div></div>
+  <div class="kpi"><div class="kpi-label">Gross Premiums Written</div><div class="kpi-value">${fmtB(totalGPW2024)}</div><div class="kpi-sub">2024 Full Year</div></div>
+  <div class="kpi"><div class="kpi-label">Net Premiums Written</div><div class="kpi-value">${fmtB(totalNPW)}</div><div class="kpi-sub">2024 Full Year</div></div>
+  <div class="kpi"><div class="kpi-label">Aggregate Net Income</div><div class="kpi-value" style="color:${totalNI2024>=0?'var(--green)':'var(--red)'};">${fmtB(totalNI2024)}</div><div class="kpi-sub">2024 Full Year</div></div>
+  <div class="kpi"><div class="kpi-label">Total Equity</div><div class="kpi-value">${fmtB(totalEquity)}</div><div class="kpi-sub">${activeComp} Active Entities</div></div>
+`;
+
+// Chart defaults
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = '#1e2d4a';
+const PALETTE = [
+  '#3b82f6','#06b6d4','#8b5cf6','#f59e0b','#10b981','#ef4444',
+  '#ec4899','#f97316','#84cc16','#14b8a6','#a855f7','#6366f1',
+  '#0ea5e9','#d946ef','#fb923c','#22d3ee','#4ade80','#facc15',
+  '#e879f9','#38bdf8'
+];
+
+// Asset Bar Chart
+let assetChartInst;
+function renderAssetChart(year) {
+  const data = COMPANIES.map(c=>({c, v:getVal(year,'balance_sheet','Total Assets',c)}))
+    .filter(x=>x.v>0).sort((a,b)=>b.v-a.v).slice(0,25);
+  if(assetChartInst) assetChartInst.destroy();
+  assetChartInst = new Chart(document.getElementById('assetBarChart'), {
+    type:'bar',
+    data: {
+      labels: data.map(x=>x.c.replace(' Reinsurance','').replace(' Insurance','')),
+      datasets:[{
+        data: data.map(x=>x.v/1000),
+        backgroundColor: data.map((_,i)=>PALETTE[i%20]),
+        borderWidth:0, borderRadius:5
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:false,
+      indexAxis:'y',
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.x.toFixed(1)+'B'}}},
+      scales:{
+        x:{title:{display:true,text:'Total Assets ($B)',color:'#64748b'},grid:{color:'#1e2d4a'},ticks:{callback:v=>'$'+v+'B'}},
+        y:{grid:{display:false},ticks:{font:{size:11}}}
+      }
+    }
+  });
+}
+renderAssetChart('2024');
+
+// Year tabs for asset chart
+const assetYearTabs = document.getElementById('assetYearTabs');
+['2019','2020','2021','2022','2023','2024'].forEach(yr=>{
+  const b = document.createElement('button');
+  b.className = 'year-tab'+(yr==='2024'?' active':'');
+  b.textContent = yr;
+  b.onclick = ()=>{
+    assetYearTabs.querySelectorAll('.year-tab').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    renderAssetChart(yr);
+  };
+  assetYearTabs.appendChild(b);
+});
+
+// Premium Trend Chart
+new Chart(document.getElementById('premiumTrendChart'),{
+  type:'line',
+  data:{
+    labels: YEARS,
+    datasets:[
+      {label:'Gross Premiums Written',data:YEARS.map(y=>marketTotal(y,'income_statement','Gross Premiums Written')/1000),borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.1)',fill:true,tension:.4,borderWidth:2,pointRadius:4},
+      {label:'Net Premiums Written',data:YEARS.map(y=>marketTotal(y,'income_statement','Net Premiums Written')/1000),borderColor:'#06b6d4',backgroundColor:'rgba(6,182,212,.05)',fill:true,tension:.4,borderWidth:2,pointRadius:4},
+      {label:'Net Premiums Earned',data:YEARS.map(y=>marketTotal(y,'income_statement','Net Premiums Earned')/1000),borderColor:'#8b5cf6',backgroundColor:'rgba(139,92,246,.05)',fill:false,tension:.4,borderWidth:2,pointRadius:4},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+    scales:{y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>'$'+v+'B'}},x:{grid:{display:false}}}
+  }
+});
+
+// Asset Trend Chart
+new Chart(document.getElementById('assetTrendChart'),{
+  type:'line',
+  data:{
+    labels: YEARS,
+    datasets:[
+      {label:'Total Market Assets',data:YEARS.map(y=>marketTotal(y,'balance_sheet','Total Assets')/1000),borderColor:'#f59e0b',backgroundColor:'rgba(245,158,11,.1)',fill:true,tension:.4,borderWidth:2,pointRadius:4},
+      {label:'Total Equity',data:YEARS.map(y=>marketTotal(y,'balance_sheet','Total Equity')/1000),borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.4,borderWidth:2,pointRadius:4},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+    scales:{y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>'$'+v+'B'}},x:{grid:{display:false}}}
+  }
+});
+
+// Premium Share Donut
+const topByGPW = COMPANIES.map(c=>({c,v:getVal('2024','income_statement','Gross Premiums Written',c)}))
+  .filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+const top8 = topByGPW.slice(0,8);
+const othersGPW = topByGPW.slice(8).reduce((a,x)=>a+x.v,0);
+new Chart(document.getElementById('premiumShareChart'),{
+  type:'doughnut',
+  data:{
+    labels:[...top8.map(x=>x.c.replace(' Reinsurance','').replace(' Insurance','')),'Others'],
+    datasets:[{data:[...top8.map(x=>x.v),othersGPW],backgroundColor:[...PALETTE.slice(0,8),'#334155'],borderWidth:2,borderColor:'#111827'}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,cutout:'62%',
+    plugins:{legend:{position:'right',labels:{boxWidth:10,font:{size:10},padding:8}},
+    tooltip:{callbacks:{label:c=>{const t=c.dataset.data.reduce((a,b)=>a+b,0);return `${c.label}: ${(c.parsed/t*100).toFixed(1)}%`;}}}}}
+});
+
+// Net Income Distribution
+const byNI = COMPANIES.map(c=>({c,v:getVal('2024','income_statement','Net Income',c)}))
+  .filter(x=>x.v!==0).sort((a,b)=>b.v-a.v).slice(0,15);
+new Chart(document.getElementById('incomeChart'),{
+  type:'bar',
+  data:{
+    labels:byNI.map(x=>x.c.replace(' Reinsurance','').replace(' Insurance','').slice(0,16)),
+    datasets:[{data:byNI.map(x=>x.v),backgroundColor:byNI.map(x=>x.v>=0?'rgba(16,185,129,.7)':'rgba(239,68,68,.7)'),borderWidth:0,borderRadius:4}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>'$'+c.parsed.x.toFixed(0)+'M'}}},
+    scales:{x:{grid:{color:'#1e2d4a'},ticks:{callback:v=>'$'+v+'M'}},y:{grid:{display:false},ticks:{font:{size:10}}}}
+  }
+});
+
+// Loss Ratio Chart
+const lrData = COMPANIES.map(c=>{
+  const lae = getVal('2024','income_statement','Losses and LAE',c);
+  const npe = getVal('2024','income_statement','Net Premiums Earned',c);
+  return {c, lr: (npe>0&&lae>0) ? lae/npe*100 : null};
+}).filter(x=>x.lr!=null&&x.lr>0&&x.lr<200).sort((a,b)=>a.lr-b.lr).slice(0,15);
+new Chart(document.getElementById('lossRatioChart'),{
+  type:'bar',
+  data:{
+    labels:lrData.map(x=>x.c.replace(' Reinsurance','').replace(' Insurance','').slice(0,16)),
+    datasets:[{data:lrData.map(x=>x.lr.toFixed(1)),backgroundColor:lrData.map(x=>x.lr<60?'rgba(16,185,129,.7)':x.lr<80?'rgba(245,158,11,.7)':'rgba(239,68,68,.7)'),borderWidth:0,borderRadius:4}]
+  },
+  options:{responsive:true,maintainAspectRatio:false,indexAxis:'y',
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.parsed.x.toFixed(1)+'%'}}},
+    scales:{x:{grid:{color:'#1e2d4a'},ticks:{callback:v=>v+'%'},suggestedMin:30,suggestedMax:110},y:{grid:{display:false},ticks:{font:{size:10}}}}
+  }
+});
+
+// Company Table
+function renderTable(filter='') {
+  const sorted = COMPANIES.map(c=>({
+    c,
+    ta: getVal('2024','balance_sheet','Total Assets',c),
+    gpw: getVal('2024','income_statement','Gross Premiums Written',c),
+    ni: getVal('2024','income_statement','Net Income',c),
+    eq: getVal('2024','balance_sheet','Total Equity',c),
+    ta23: getVal('2023','balance_sheet','Total Assets',c),
+  })).filter(x=>x.ta>0 && (filter===''||x.c.toLowerCase().includes(filter.toLowerCase())))
+    .sort((a,b)=>b.ta-a.ta);
+
+  const maxTA = sorted[0]?.ta || 1;
+  document.getElementById('companyTableBody').innerHTML = sorted.map((row,i)=>{
+    const growth = row.ta23>0 ? (row.ta-row.ta23)/row.ta23*100 : null;
+    const niColor = row.ni>0 ? 'val-positive' : row.ni<0 ? 'val-negative' : '';
+    return `<tr>
+      <td class="rank">${i+1}</td>
+      <td><a class="company-link" href="hub_company.html?company=${encodeURIComponent(row.c)}">${row.c}</a></td>
+      <td>
+        <div class="spark-bar">
+          <span>${fmtB(row.ta)}</span>
+          <div class="spark-bar-track"><div class="spark-bar-fill" style="width:${row.ta/maxTA*100}%"></div></div>
+        </div>
+      </td>
+      <td>${fmtB(row.gpw)}</td>
+      <td class="${niColor}">${fmtB(row.ni)}</td>
+      <td>${fmtB(row.eq)}</td>
+      <td class="${growth!=null&&growth>=0?'val-positive':growth!=null?'val-negative':''}">${growth!=null?(growth>=0?'▲':'▼')+Math.abs(growth).toFixed(1)+'%':'—'}</td>
+      <td><a href="hub_company.html?company=${encodeURIComponent(row.c)}" style="color:var(--accent);font-size:12px;text-decoration:none;">View →</a></td>
+    </tr>`;
+  }).join('');
+}
+renderTable();
+document.getElementById('tableSearch').addEventListener('input', e=>renderTable(e.target.value));
+</script>
+</body>
+</html>

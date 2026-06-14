@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Company Profile — Bermuda Re Hub</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="dashboard_data.js"></script>
+<script src="fcr_data.js"></script>
+<style>
+:root{--bg:#0a0e1a;--surface:#111827;--surface2:#1a2236;--border:#1e2d4a;--accent:#3b82f6;--accent2:#06b6d4;--accent3:#8b5cf6;--gold:#f59e0b;--text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;--green:#10b981;--red:#ef4444;--card-radius:12px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--text);font-family:'Inter','Segoe UI',system-ui,sans-serif;}
+nav{background:rgba(17,24,39,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:0;padding:0 24px;height:60px;}
+.nav-brand{font-size:17px;font-weight:700;color:var(--text);letter-spacing:-.3px;margin-right:32px;}
+.nav-brand span{color:var(--accent2);}
+.nav-links{display:flex;gap:2px;}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:13.5px;font-weight:500;padding:6px 14px;border-radius:8px;transition:all .15s;}
+.nav-links a:hover{color:var(--text);background:var(--surface2);}
+.nav-links a.active{color:var(--accent);background:rgba(59,130,246,.12);}
+.content{max-width:1300px;margin:0 auto;padding:28px 24px;}
+
+/* Company Header */
+.company-header{background:linear-gradient(135deg,#0d1528,#0a1420);border:1px solid var(--border);border-radius:var(--card-radius);padding:28px 32px;margin-bottom:24px;}
+.company-selector-row{display:flex;align-items:center;gap:16px;margin-bottom:20px;}
+.company-selector-row label{font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;}
+select{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;padding:8px 12px;outline:none;cursor:pointer;min-width:280px;}
+select:focus{border-color:var(--accent);}
+.company-name{font-size:26px;font-weight:800;letter-spacing:-.5px;color:var(--text);margin-bottom:6px;}
+.company-meta{font-size:13px;color:var(--text2);}
+
+/* Metric row */
+.metric-row{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:24px;}
+.metric-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--card-radius);padding:16px 18px;}
+.metric-label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px;}
+.metric-value{font-size:22px;font-weight:700;color:var(--text);letter-spacing:-.4px;}
+.metric-delta{font-size:11.5px;margin-top:4px;}
+.metric-delta.up{color:var(--green);}
+.metric-delta.down{color:var(--red);}
+
+/* Year toggle */
+.year-toggle{display:flex;gap:4px;margin-bottom:16px;}
+.yr-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:5px 12px;font-size:12px;color:var(--text3);cursor:pointer;transition:all .15s;}
+.yr-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+/* Grid */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:20px;}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px;margin-bottom:20px;}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--card-radius);padding:20px 22px;}
+.card-title{font-size:13px;font-weight:600;color:var(--text);margin-bottom:14px;}
+.card canvas{display:block;}
+
+/* Data grid  */
+.data-rows{display:flex;flex-direction:column;gap:10px;}
+.data-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(30,45,74,.5);}
+.data-row:last-child{border-bottom:none;}
+.data-row-label{font-size:13px;color:var(--text2);}
+.data-row-value{font-size:13.5px;font-weight:600;color:var(--text);}
+.data-row-bar{width:60px;height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;margin-left:8px;}
+.data-row-bar-fill{height:100%;background:var(--accent);border-radius:2px;}
+
+/* Peer comparison */
+.peer-table{width:100%;border-collapse:collapse;font-size:12.5px;}
+.peer-table th{text-align:left;padding:7px 10px;color:var(--text3);font-size:11px;text-transform:uppercase;letter-spacing:.5px;border-bottom:1px solid var(--border);}
+.peer-table td{padding:8px 10px;border-bottom:1px solid rgba(30,45,74,.4);color:var(--text);}
+.peer-table tr.highlight td{background:rgba(59,130,246,.08);font-weight:600;}
+.peer-table tr:hover td{background:rgba(59,130,246,.04);}
+
+/* Section hdr */
+.section-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.section-hdr h2{font-size:15px;font-weight:700;color:var(--text);}
+.section-line{flex:1;height:1px;background:var(--border);}
+
+/* FCR box */
+.fcr-box{background:linear-gradient(135deg,rgba(59,130,246,.08),rgba(6,182,212,.06));border:1px solid rgba(59,130,246,.25);border-radius:var(--card-radius);padding:20px 22px;}
+.fcr-title{font-size:13px;font-weight:600;color:var(--accent2);margin-bottom:12px;}
+.fcr-metrics{display:flex;gap:28px;}
+.fcr-metric label{font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;display:block;margin-bottom:4px;}
+.fcr-metric span{font-size:22px;font-weight:700;color:var(--text);}
+
+@media(max-width:800px){.grid-2,.grid-3{grid-template-columns:1fr;}.metric-row{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-brand">Bermuda <span>Re</span> Hub</div>
+  <div class="nav-links">
+    <a href="hub_index.html">Market Overview</a>
+    <a href="hub_company.html" class="active">Company Profiles</a>
+    <a href="hub_compare.html">Compare</a>
+    <a href="hub_solvency.html">Solvency / FCR</a>
+  </div>
+</nav>
+
+<div class="content">
+
+<div class="company-header">
+  <div class="company-selector-row">
+    <label>Select Company</label>
+    <select id="companySelect"></select>
+  </div>
+  <div class="company-name" id="companyName">Loading…</div>
+  <div class="company-meta" id="companyMeta"></div>
+</div>
+
+<div class="metric-row" id="metricRow"></div>
+
+<!-- Year toggle -->
+<div class="year-toggle" id="yearToggle"></div>
+
+<div class="grid-2">
+  <div>
+    <div class="section-hdr"><h2>Balance Sheet Trends</h2><div class="section-line"></div></div>
+    <div class="card" style="height:290px"><canvas id="bsChart"></canvas></div>
+  </div>
+  <div>
+    <div class="section-hdr"><h2>Premium & Income Trends</h2><div class="section-line"></div></div>
+    <div class="card" style="height:290px"><canvas id="isChart"></canvas></div>
+  </div>
+</div>
+
+<div class="grid-3">
+  <div>
+    <div class="section-hdr"><h2>Selected Year Detail</h2><div class="section-line"></div></div>
+    <div class="card" id="yearDetailCard"></div>
+  </div>
+  <div>
+    <div class="section-hdr"><h2>Income Statement Detail</h2><div class="section-line"></div></div>
+    <div class="card" id="isDetailCard"></div>
+  </div>
+  <div>
+    <div class="section-hdr"><h2>Profitability Over Time</h2><div class="section-line"></div></div>
+    <div class="card" style="height:280px"><canvas id="profitChart"></canvas></div>
+  </div>
+</div>
+
+<div class="grid-2">
+  <div>
+    <div class="section-hdr"><h2>Peer Comparison (2024 Assets)</h2><div class="section-line"></div></div>
+    <div class="card" id="peerCard"></div>
+  </div>
+  <div>
+    <div class="section-hdr"><h2>Solvency / FCR</h2><div class="section-line"></div></div>
+    <div class="fcr-box" id="fcrCard"><div class="fcr-title">🛡️ Financial Condition Report Data</div><p style="color:var(--text3);font-size:13px;">Loading…</p></div>
+  </div>
+</div>
+
+</div>
+
+<script>
+const D = dashboardData;
+const FCR = typeof fcrData !== 'undefined' ? fcrData : {};
+const YEARS = ['2019','2020','2021','2022','2023','2024'];
+const COMPANIES = D.companies;
+
+const fmtB = v=>(!v||v===0)?'—':Math.abs(v)>=1000?'$'+(v/1000).toFixed(1)+'B':'$'+Math.round(v)+'M';
+const fmtPct = v=>(!v&&v!==0)?'—':v.toFixed(1)+'%';
+const delta = (a,b)=>b>0&&a>0?(a-b)/b*100:null;
+
+function getV(y,s,f,c){return(D.data[y]?.[s]?.[f]||{})[c]||0;}
+
+// Populate selector
+const sel = document.getElementById('companySelect');
+COMPANIES.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o);});
+
+// Get company from URL
+const urlC = new URLSearchParams(location.search).get('company');
+if(urlC && COMPANIES.includes(urlC)) sel.value = urlC;
+
+let bsChart, isChart, profitChart;
+let selectedYear = '2024';
+
+function renderAll() {
+  const company = sel.value;
+  window.history.replaceState({},'',' hub_company.html?company='+encodeURIComponent(company));
+
+  document.getElementById('companyName').textContent = company;
+
+  const ta24 = getV('2024','balance_sheet','Total Assets',company);
+  const ta23 = getV('2023','balance_sheet','Total Assets',company);
+  const ni24 = getV('2024','income_statement','Net Income',company);
+  const gpw24 = getV('2024','income_statement','Gross Premiums Written',company);
+  const npw24 = getV('2024','income_statement','Net Premiums Written',company);
+  const eq24 = getV('2024','balance_sheet','Total Equity',company);
+  const eq23 = getV('2023','balance_sheet','Total Equity',company);
+  const npe24 = getV('2024','income_statement','Net Premiums Earned',company);
+  const lae24 = getV('2024','income_statement','Losses and LAE',company);
+  const lr = npe24>0&&lae24>0 ? lae24/npe24*100 : null;
+
+  const mktRank = COMPANIES.map(c=>({c,v:getV('2024','balance_sheet','Total Assets',c)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v).findIndex(x=>x.c===company)+1;
+  document.getElementById('companyMeta').textContent = ta24>0 ? `Rank #${mktRank} by Total Assets · BMA Class 4 (Re)insurer` : 'BMA Class 4 (Re)insurer';
+
+  document.getElementById('metricRow').innerHTML = `
+    <div class="metric-card"><div class="metric-label">Total Assets 2024</div><div class="metric-value">${fmtB(ta24)}</div><div class="metric-delta ${delta(ta24,ta23)>=0?'up':'down'}">${delta(ta24,ta23)!=null?(delta(ta24,ta23)>=0?'▲':'▼')+Math.abs(delta(ta24,ta23)).toFixed(1)+'% vs 2023':'—'}</div></div>
+    <div class="metric-card"><div class="metric-label">Total Equity 2024</div><div class="metric-value">${fmtB(eq24)}</div><div class="metric-delta ${delta(eq24,eq23)>=0?'up':'down'}">${delta(eq24,eq23)!=null?(delta(eq24,eq23)>=0?'▲':'▼')+Math.abs(delta(eq24,eq23)).toFixed(1)+'% vs 2023':'—'}</div></div>
+    <div class="metric-card"><div class="metric-label">Gross Premiums Written</div><div class="metric-value">${fmtB(gpw24||npw24)}</div><div class="metric-sub" style="font-size:11px;color:var(--text3);margin-top:4px;">2024</div></div>
+    <div class="metric-card"><div class="metric-label">Net Income 2024</div><div class="metric-value" style="color:${ni24>=0?'var(--green)':'var(--red)'};">${fmtB(ni24)}</div><div class="metric-sub" style="font-size:11px;color:var(--text3);margin-top:4px;">Full Year</div></div>
+    <div class="metric-card"><div class="metric-label">Loss Ratio 2024</div><div class="metric-value" style="color:${lr?lr<70?'var(--green)':lr<90?'var(--gold)':'var(--red)':'var(--text)'};">${lr?lr.toFixed(1)+'%':'—'}</div><div class="metric-sub" style="font-size:11px;color:var(--text3);margin-top:4px;">Losses & LAE / NPE</div></div>
+  `;
+
+  // Year toggle
+  const yt = document.getElementById('yearToggle');
+  yt.innerHTML = '';
+  YEARS.forEach(yr=>{
+    const b = document.createElement('button');
+    b.className = 'yr-btn'+(yr===selectedYear?' active':'');
+    b.textContent = yr;
+    b.onclick = ()=>{selectedYear=yr;renderYearDetail(company,yr);yt.querySelectorAll('.yr-btn').forEach(x=>x.classList.remove('active'));b.classList.add('active');};
+    yt.appendChild(b);
+  });
+
+  // Balance Sheet Chart
+  if(bsChart) bsChart.destroy();
+  bsChart = new Chart(document.getElementById('bsChart'),{
+    type:'bar',
+    data:{
+      labels:YEARS,
+      datasets:[
+        {label:'Total Assets',data:YEARS.map(y=>getV(y,'balance_sheet','Total Assets',company)),backgroundColor:'rgba(59,130,246,.7)',borderRadius:4,type:'bar'},
+        {label:'Total Equity',data:YEARS.map(y=>getV(y,'balance_sheet','Total Equity',company)),backgroundColor:'rgba(16,185,129,.6)',borderRadius:4,type:'bar'},
+        {label:'Loss Reserves',data:YEARS.map(y=>getV(y,'balance_sheet','Loss Reserves',company)),backgroundColor:'rgba(239,68,68,.5)',borderRadius:4,type:'bar'},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+      scales:{
+        x:{stacked:false,grid:{display:false}},
+        y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>v>=1000?'$'+(v/1000).toFixed(0)+'B':'$'+v+'M'}}
+      }
+    }
+  });
+
+  // Income Statement Chart
+  if(isChart) isChart.destroy();
+  isChart = new Chart(document.getElementById('isChart'),{
+    type:'line',
+    data:{
+      labels:YEARS,
+      datasets:[
+        {label:'Gross Premiums Written',data:YEARS.map(y=>getV(y,'income_statement','Gross Premiums Written',company)||getV(y,'income_statement','Net Premiums Written',company)),borderColor:'#3b82f6',tension:.4,borderWidth:2,pointRadius:4},
+        {label:'Net Premiums Earned',data:YEARS.map(y=>getV(y,'income_statement','Net Premiums Earned',company)),borderColor:'#06b6d4',tension:.4,borderWidth:2,pointRadius:4},
+        {label:'Total Revenues',data:YEARS.map(y=>getV(y,'income_statement','Total Revenues',company)),borderColor:'#8b5cf6',tension:.4,borderWidth:2,pointRadius:4,borderDash:[5,3]},
+        {label:'Net Income',data:YEARS.map(y=>getV(y,'income_statement','Net Income',company)),borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.4,borderWidth:2,pointRadius:4},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+      scales:{
+        x:{grid:{display:false}},
+        y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>v>=1000?'$'+(v/1000).toFixed(0)+'B':'$'+v+'M'}}
+      }
+    }
+  });
+
+  renderYearDetail(company, selectedYear);
+  renderPeerTable(company);
+  renderFCR(company);
+}
+
+function renderYearDetail(company, year) {
+  const fields_bs = [
+    ['Total Assets','balance_sheet'],
+    ['Total Investments','balance_sheet'],
+    ['Cash and Cash Equivalents','balance_sheet'],
+    ['Total Equity','balance_sheet'],
+    ['Loss Reserves','balance_sheet'],
+    ['Total Liabilities','balance_sheet'],
+  ];
+  const maxTA = Math.max(...COMPANIES.map(c=>getV(year,'balance_sheet','Total Assets',c)));
+  document.getElementById('yearDetailCard').innerHTML = `<div class="card-title">Balance Sheet — ${year}</div><div class="data-rows">${
+    fields_bs.map(([f,s])=>{
+      const v = getV(year,s,f,company);
+      return `<div class="data-row"><span class="data-row-label">${f}</span><div style="display:flex;align-items:center;gap:6px"><span class="data-row-value">${fmtB(v)}</span><div class="data-row-bar"><div class="data-row-bar-fill" style="width:${v>0?Math.min(v/maxTA*100,100):0}%"></div></div></div></div>`;
+    }).join('')
+  }</div>`;
+
+  const fields_is = [
+    ['Gross Premiums Written','income_statement'],
+    ['Net Premiums Written','income_statement'],
+    ['Net Premiums Earned','income_statement'],
+    ['Net Investment Income','income_statement'],
+    ['Total Revenues','income_statement'],
+    ['Losses and LAE','income_statement'],
+    ['Total Expenses','income_statement'],
+    ['Net Income','income_statement'],
+  ];
+  document.getElementById('isDetailCard').innerHTML = `<div class="card-title">Income Statement — ${year}</div><div class="data-rows">${
+    fields_is.map(([f,s])=>{
+      const v = getV(year,s,f,company);
+      const neg = f==='Losses and LAE'||f==='Total Expenses';
+      return `<div class="data-row"><span class="data-row-label">${f}</span><span class="data-row-value" style="color:${v<0?'var(--red)':neg?'var(--gold)':'var(--text)'}">${fmtB(v)}</span></div>`;
+    }).join('')
+  }</div>`;
+
+  // Profitability chart
+  const niData = YEARS.map(y=>getV(y,'income_statement','Net Income',company));
+  const lrDataPts = YEARS.map(y=>{
+    const lae=getV(y,'income_statement','Losses and LAE',company);
+    const npe=getV(y,'income_statement','Net Premiums Earned',company);
+    return npe>0&&lae>0?lae/npe*100:null;
+  });
+  if(profitChart) profitChart.destroy();
+  profitChart = new Chart(document.getElementById('profitChart'),{
+    type:'bar',
+    data:{
+      labels:YEARS,
+      datasets:[
+        {label:'Net Income ($M)',data:niData,backgroundColor:niData.map(v=>v>=0?'rgba(16,185,129,.7)':'rgba(239,68,68,.7)'),borderRadius:4,yAxisID:'y'},
+        {label:'Loss Ratio (%)',data:lrDataPts,borderColor:'#f59e0b',type:'line',tension:.4,borderWidth:2,pointRadius:4,yAxisID:'y2'},
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,
+      plugins:{legend:{position:'bottom',labels:{boxWidth:12,font:{size:11}}}},
+      scales:{
+        x:{grid:{display:false}},
+        y:{grid:{color:'#1e2d4a'},ticks:{callback:v=>'$'+v+'M'},position:'left'},
+        y2:{grid:{display:false},ticks:{callback:v=>v+'%'},position:'right',suggestedMin:40,suggestedMax:120}
+      }
+    }
+  });
+}
+
+function renderPeerTable(company) {
+  const allTA = COMPANIES.map(c=>({c,v:getV('2024','balance_sheet','Total Assets',c)})).filter(x=>x.v>0).sort((a,b)=>b.v-a.v);
+  const myRank = allTA.findIndex(x=>x.c===company);
+  const start = Math.max(0, myRank-2);
+  const peers = allTA.slice(start, start+7);
+  document.getElementById('peerCard').innerHTML = `<div class="card-title">Peer Comparison — Total Assets 2024</div>
+  <table class="peer-table"><thead><tr><th>#</th><th>Company</th><th>Total Assets</th><th>Net Income</th><th>Loss Ratio</th></tr></thead><tbody>
+  ${peers.map((p,i)=>{
+    const ni=getV('2024','income_statement','Net Income',p.c);
+    const lae=getV('2024','income_statement','Losses and LAE',p.c);
+    const npe=getV('2024','income_statement','Net Premiums Earned',p.c);
+    const lr=npe>0&&lae>0?lae/npe*100:null;
+    return `<tr class="${p.c===company?'highlight':''}"><td style="color:var(--text3)">${start+i+1}</td><td><a href="hub_company.html?company=${encodeURIComponent(p.c)}" style="color:${p.c===company?'var(--accent)':'var(--text)'};text-decoration:none;font-weight:${p.c===company?700:400}">${p.c}</a></td><td>${fmtB(p.v)}</td><td style="color:${ni>=0?'var(--green)':'var(--red)'}">${fmtB(ni)}</td><td>${lr?lr.toFixed(1)+'%':'—'}</td></tr>`;
+  }).join('')}
+  </tbody></table>`;
+}
+
+function renderFCR(company) {
+  const f = FCR[company];
+  if(!f) {
+    document.getElementById('fcrCard').innerHTML = `<div class="fcr-title">🛡️ Financial Condition Report</div><p style="color:var(--text3);font-size:13px;line-height:1.6">ECR/BSCR data not available in this dataset for ${company}. FCRs are published by each company on their website in accordance with BMA Insurance (Public Disclosure) Rules 2015.</p>`;
+    return;
+  }
+  const y24 = f['2024']||{};
+  const y23 = f['2023']||{};
+  document.getElementById('fcrCard').innerHTML = `
+    <div class="fcr-title">🛡️ Financial Condition Report — ${f.entity_label||company}</div>
+    <div class="fcr-metrics">
+      ${y24.ecr_ratio!=null?`<div class="fcr-metric"><label>ECR Ratio 2024</label><span style="color:${y24.ecr_ratio>=200?'var(--green)':y24.ecr_ratio>=150?'var(--gold)':'var(--red)'};">${y24.ecr_ratio}%</span></div>`:''}
+      ${y23.ecr_ratio!=null?`<div class="fcr-metric"><label>ECR Ratio 2023</label><span>${y23.ecr_ratio}%</span></div>`:''}
+      ${y24.ecr_amount!=null?`<div class="fcr-metric"><label>ECR 2024</label><span style="font-size:16px">${fmtB(y24.ecr_amount)}</span></div>`:''}
+      ${y24.eligible_capital!=null?`<div class="fcr-metric"><label>Eligible Capital 2024</label><span style="font-size:16px">${fmtB(y24.eligible_capital)}</span></div>`:''}
+      ${y24.msm_ratio!=null?`<div class="fcr-metric"><label>MSM Ratio 2024</label><span style="font-size:16px">${y24.msm_ratio}%</span></div>`:''}
+    </div>
+    <p style="font-size:11.5px;color:var(--text3);margin-top:12px">ECR = Enhanced Capital Requirement (BSCR model) · BMA Insurance (Public Disclosure) Rules 2015</p>
+  `;
+}
+
+sel.addEventListener('change', renderAll);
+renderAll();
+</script>
+</body>
+</html>
